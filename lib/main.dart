@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         designSize: const Size(392.72, 783.27),
         splitScreenMode: true,
         child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
