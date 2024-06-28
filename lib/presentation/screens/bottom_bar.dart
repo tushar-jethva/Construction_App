@@ -1,7 +1,7 @@
 import 'package:construction_mate/logic/controllers/bloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/presentation/screens/bills_screen.dart';
-import 'package:construction_mate/presentation/screens/home_screen.dart';
-import 'package:construction_mate/presentation/screens/projects_screen.dart';
+import 'package:construction_mate/presentation/screens/project_screen.dart';
+import 'package:construction_mate/presentation/screens/parties_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +14,7 @@ class MyBottomBar extends StatefulWidget {
 
 class _MyBottomBarState extends State<MyBottomBar> {
   final screens = [
-    const MyHomeScreen(),
+    const MyPartiesScreen(),
     const MyProjectScreen(),
     const MyBillScreen()
   ];
@@ -27,6 +27,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
         return Scaffold(
           body: screens[state.tabIndex],
           bottomNavigationBar: BottomNavigationBar(
+              elevation: 0,
               currentIndex: state.tabIndex,
               onTap: (value) {
                 context
@@ -34,7 +35,8 @@ class _MyBottomBarState extends State<MyBottomBar> {
                     .add(TabChangeEvent(tabIndex: value));
               },
               items: const [
-                BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.home), label: 'Parties'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.analytics), label: "Projects"),
                 BottomNavigationBarItem(

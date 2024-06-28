@@ -1,8 +1,8 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/presentation/screens/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
-import 'package:construction_mate/presentation/screens/home_screen.dart';
-import 'package:construction_mate/presentation/screens/projects_screen.dart';
+import 'package:construction_mate/presentation/screens/project_screen.dart';
+import 'package:construction_mate/presentation/screens/parties_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -14,9 +14,9 @@ class Routes {
       builder: (contex, state) => const MyBottomBar(),
     ),
     GoRoute(
-      path: RoutesName.homeScreen,
-      name: RoutesName.homeScreen,
-      builder: (contex, state) => const MyHomeScreen(),
+      path: RoutesName.partiesScreen,
+      name: RoutesName.partiesScreen,
+      builder: (contex, state) => const MyPartiesScreen(),
     ),
     GoRoute(
       path: RoutesName.projectScreen,

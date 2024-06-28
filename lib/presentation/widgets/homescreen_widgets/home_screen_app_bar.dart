@@ -9,7 +9,7 @@ class MyHomeScreenAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          EdgeInsets.only(left: 10.w, top: 30.w, right: 10.w, bottom: 10.w),
+          EdgeInsets.only(left: 10.w, top: 35.w, right: 10.w, bottom: 10.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
