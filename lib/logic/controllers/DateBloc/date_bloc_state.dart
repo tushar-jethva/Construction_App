@@ -9,3 +9,15 @@ class DateBlocChangedDateState extends DateBlocState {
 
   DateBlocChangedDateState({required this.selectedDate});
 }
+
+class DateBlocDetailsStartState extends DateBlocState {
+  final DateTime startDate;
+
+  DateBlocDetailsStartState(this.startDate);
+}
+
+class DateBlocDetailsEndState extends DateBlocState {
+  final DateTime endDate;
+
+  DateBlocDetailsEndState(this.endDate);
+}

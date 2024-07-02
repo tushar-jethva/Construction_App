@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 class TransactionStatusWidget extends StatelessWidget {
   final String upperText;
   final String belowText;
-  final Color belowTextColor;
-  final Color upperTextColor;
-  const TransactionStatusWidget(
-      {super.key,
-      required this.upperText,
-      required this.belowText,
-      required this.belowTextColor,
-      required this.upperTextColor});
+  final TextStyle belowTextStyle;
+  final TextStyle upperTextStyle;
+  const TransactionStatusWidget({
+    super.key,
+    required this.upperText,
+    required this.belowText,
+    required this.belowTextStyle,
+    required this.upperTextStyle,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,11 @@ class TransactionStatusWidget extends StatelessWidget {
       children: [
         Text(
           upperText,
-          style: TextStyle(color: upperTextColor),
+          style: upperTextStyle,
         ),
         Text(
           belowText,
-          style: TextStyle(color: belowTextColor),
+          style: belowTextStyle,
         )
       ],
     );

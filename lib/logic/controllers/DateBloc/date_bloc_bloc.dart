@@ -7,5 +7,13 @@ class DateBlocBloc extends Bloc<DateBlocEvent, DateBlocState> {
     on<DateChanged>((event, emit) {
       emit(DateBlocChangedDateState(selectedDate: event.dateTime));
     });
+
+    on<DateDetailsStartChanged>((event, emit) {
+      emit(DateBlocDetailsStartState(event.startDate));
+    });
+
+     on<DateDetailsEndChanged>((event, emit) {
+      emit(DateBlocDetailsEndState(event.endDate));
+    });
   }
 }
