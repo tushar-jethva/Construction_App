@@ -1,7 +1,7 @@
-import 'package:construction_mate/logic/controllers/bloc/bottom_bar_bloc.dart';
-import 'package:construction_mate/presentation/screens/bills_screen.dart';
-import 'package:construction_mate/presentation/screens/project_screen.dart';
-import 'package:construction_mate/presentation/screens/parties_screen.dart';
+import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
+import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
+import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
+import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

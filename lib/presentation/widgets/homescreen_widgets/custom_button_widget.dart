@@ -6,21 +6,26 @@ class MyCustomButton extends StatelessWidget {
   final String buttonName;
   final Color color;
   final TextStyle style;
+  final Function() onPressed;
   const MyCustomButton(
       {super.key,
       required this.buttonName,
       required this.color,
-      required this.style});
+      required this.style,
+      required this.onPressed });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 8.h),
-      decoration: BoxDecoration(
-          color: color, borderRadius: BorderRadius.circular(12.r)),
-      child: Text(
-        buttonName,
-        style: style,
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 8.h),
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(12.r)),
+        child: Text(
+          buttonName,
+          style: style,
+        ),
       ),
     );
   }
