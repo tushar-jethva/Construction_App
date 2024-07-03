@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_projects_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
@@ -18,6 +19,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
           CustomScrollView(
@@ -29,6 +31,25 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                 flexibleSpace: const MyHomeScreenAppBar(),
               ),
               const TransactionTopWidget(),
+              SliverAppBar(
+                toolbarHeight: 10,
+                surfaceTintColor: Colors.transparent,
+                pinned: true,
+                flexibleSpace: Padding(
+                  padding: EdgeInsets.only(left: 8.w, top: 12.h),
+                  child: const Row(
+                    children: [
+                      Text(
+                        "All Projects",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: black),
+                      )
+                    ],
+                  ),
+                ),
+              ),
               const AllProjectsWidget(),
               SliverToBoxAdapter(
                 child: SizedBox(height: 50.h), // Spacer for bottom bar

@@ -1,12 +1,7 @@
 part of 'date_bloc_bloc.dart';
 
-sealed class DateBlocState {}
-
-final class DateBlocInitial extends DateBlocState {}
-
-class DateBlocChangedDateState extends DateBlocState {
+class DateBlocState {
   final DateTime selectedDate;
 
-  DateBlocChangedDateState({required this.selectedDate});
+  DateBlocState({required this.selectedDate});
 }
-

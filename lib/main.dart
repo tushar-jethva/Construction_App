@@ -1,5 +1,7 @@
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
+import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +24,14 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => StartAndEndDateBloc(),
-        )
+        ),
+        BlocProvider(
+          create: (_) => ProjectBloc(),
+        ),
+        BlocProvider(
+          create: (_) => BuildingsBloc(),
+        ),
+
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),
