@@ -9,7 +9,7 @@ import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 
 class MyBuildingAddBottomSheetWidget extends StatefulWidget {
-  MyBuildingAddBottomSheetWidget({super.key});
+  const MyBuildingAddBottomSheetWidget({super.key});
 
   @override
   State<MyBuildingAddBottomSheetWidget> createState() =>
@@ -156,6 +156,6 @@ class _MyBuildingAddBottomSheetWidgetState
         ],
       ),
     );
-    ;
+    
   }
 }
