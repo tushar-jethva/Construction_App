@@ -1,3 +1,5 @@
+import 'dart:js_interop';
+
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
@@ -93,7 +95,6 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                           if (state is DateBlocChangedDateState) {
                             final String formattedDate =
                                 DateFormat.yMMMd().format(state.selectedDate);
-
                             return Text(
                               formattedDate,
                             );
@@ -117,26 +118,22 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                 ),
                 Gap(20.h),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    MyCustomButton(
-                      buttonName: 'Add Building',
-                      color: green,
-                      style: const TextStyle(
-                          color: white, fontWeight: FontWeight.w500),
-                      onPressed: () {},
-                    ),
-                    MyCustomButton(
-                      buttonName: 'Next',
-                      color: green,
-                      style: const TextStyle(
-                          color: white, fontWeight: FontWeight.w500),
-                      onPressed: () {
-                        context.goNamed(RoutesName.detailsScreen);
-                      },
+                    Expanded(
+                      child: MyCustomButton(
+                        buttonName: 'Add Project',
+                        color: green,
+                        style: const TextStyle(
+                            color: white, fontWeight: FontWeight.w500),
+                        onPressed: () {
+                          context.pushNamed(RoutesName.detailsScreen);
+                          Navigator.pop(context);
+                          context.read<DateBlocBloc>().add(DateInitial());
+                        },
+                      ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
           );

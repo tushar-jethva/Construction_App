@@ -31,7 +31,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
           CustomScrollView(
             slivers: [
               SliverAppBar(
-                expandedHeight: 50.h,
+                expandedHeight: 40.h,
                 floating: true,
                 surfaceTintColor: Colors.transparent,
                 flexibleSpace: const MyHomeScreenAppBar(),
@@ -43,7 +43,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
               ),
             ],
           ),
-           TransactionBottomWidget(),
+          TransactionBottomWidget(),
         ],
       ),
     );

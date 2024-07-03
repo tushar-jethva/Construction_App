@@ -12,7 +12,7 @@ class MyCustomButton extends StatelessWidget {
       required this.buttonName,
       required this.color,
       required this.style,
-      required this.onPressed });
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +20,7 @@ class MyCustomButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15.h, vertical: 8.h),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(12.r)),
         child: Text(

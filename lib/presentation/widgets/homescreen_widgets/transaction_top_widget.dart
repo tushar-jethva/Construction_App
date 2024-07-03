@@ -14,12 +14,11 @@ class TransactionTopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 130.h,
-      collapsedHeight: 130.h,
+      expandedHeight: 80.h,
+      collapsedHeight: 80.h,
       surfaceTintColor: Colors.transparent,
       pinned: true,
-      flexibleSpace: TransactionsTotalWidget(),
+      flexibleSpace: const TransactionsTotalWidget(),
     );
   }
 }
-

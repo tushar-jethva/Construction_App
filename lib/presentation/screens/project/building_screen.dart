@@ -1,7 +1,9 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
+import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_add_bottom_sheet_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,174 +22,11 @@ class BuildingsScreen extends StatefulWidget {
 }
 
 class _BuildingsScreenState extends State<BuildingsScreen> {
-  final TextEditingController _buildingNameController = TextEditingController();
-  final TextEditingController _floorController = TextEditingController();
-  final TextEditingController _unitPerFootController = TextEditingController();
-
-  @override
-  dispose() {
-    super.dispose();
-    _buildingNameController.dispose();
-    _floorController.dispose();
-    _unitPerFootController.dispose();
-  }
-
-  Future<void> _selectDateStart(BuildContext context) async {
-    final DateBlocBloc dateBloc = BlocProvider.of<DateBlocBloc>(context);
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != DateTime.now()) {
-      dateBloc.add(DateDetailsStartChanged(startDate: picked));
-    }
-  }
-
-  Future<void> _selectDateEnd(BuildContext context) async {
-    final DateBlocBloc dateBloc = BlocProvider.of<DateBlocBloc>(context);
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != DateTime.now()) {
-      dateBloc.add(DateDetailsEndChanged(endDate: picked));
-    }
-  }
-
   openBottomSheet({required BuildContext context}) {
     showModalBottomSheet(
         context: context,
         builder: (context) {
-          return Container(
-            height: 400.h,
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            decoration: BoxDecoration(
-                color: white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15.r),
-                    topRight: Radius.circular(15.r))),
-            child: Column(
-              children: [
-                Container(
-                  height: 7.w,
-                  width: 50.w,
-                  margin: EdgeInsets.symmetric(vertical: 15.h),
-                  decoration: BoxDecoration(
-                      color: grey, borderRadius: BorderRadius.circular(8)),
-                ),
-                MyCustomTextField(
-                  controller: _buildingNameController,
-                  hintText: 'Project Name',
-                  maxLines: 1,
-                ),
-                Gap(15.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 50.h,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 15.h),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: grey,
-                          )),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BlocBuilder<DateBlocBloc, DateBlocState>(
-                            builder: (context, state) {
-                              final String formattedDate =
-                                  DateFormat.yMMMd().format(DateTime.now());
-                              if (state is DateBlocDetailsStartState) {
-                                final String formattedDate =
-                                    DateFormat.yMMMd().format(state.startDate);
-                                return Text("Start: $formattedDate");
-                              }
-                              return Text("Start: $formattedDate");
-                            },
-                          ),
-                          InkWell(
-                              onTap: () {
-                                _selectDateStart(context);
-                              },
-                              child: const Icon(Icons.calendar_month))
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 50.h,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 15.h),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: grey,
-                          )),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BlocBuilder<DateBlocBloc, DateBlocState>(
-                            builder: (context, state) {
-                              final String formattedDate =
-                                  DateFormat.yMMMd().format(DateTime.now());
-                              if (state is DateBlocDetailsEndState) {
-                                final String formattedDate =
-                                    DateFormat.yMMMd().format(state.endDate);
-                                return Text(
-                                  formattedDate,
-                                );
-                              }
-                              return Text("End:  $formattedDate");
-                            },
-                          ),
-                          InkWell(
-                              onTap: () {
-                                _selectDateEnd(context);
-                              },
-                              child: const Icon(Icons.calendar_month))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Gap(15.h),
-                MyCustomTextField(
-                  controller: _floorController,
-                  hintText: 'Project Description',
-                  maxLines: 3,
-                ),
-                Gap(20.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MyCustomButton(
-                      buttonName: 'Add Building',
-                      color: green,
-                      style: const TextStyle(
-                          color: white, fontWeight: FontWeight.w500),
-                      onPressed: () {},
-                    ),
-                    MyCustomButton(
-                      buttonName: 'Next',
-                      color: green,
-                      style: const TextStyle(
-                          color: white, fontWeight: FontWeight.w500),
-                      onPressed: () {
-                        context.goNamed(RoutesName.detailsScreen);
-                      },
-                    ),
-                  ],
-                )
-              ],
-            ),
-          );
+          return MyBuildingAddBottomSheetWidget();
         });
   }
 

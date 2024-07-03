@@ -7,14 +7,6 @@ class DateChanged extends DateBlocEvent{
   DateChanged({required this.dateTime});
 }
 
-class DateDetailsStartChanged extends DateBlocEvent{
-  final DateTime startDate;
+class DateInitial extends DateBlocEvent{}
 
-  DateDetailsStartChanged({required this.startDate});
-}
 
-class DateDetailsEndChanged extends DateBlocEvent{
-  final DateTime endDate;
-
-  DateDetailsEndChanged({required this.endDate});
-}
