@@ -56,7 +56,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
               ),
             ],
           ),
-          TransactionBottomWidget(),
+          const TransactionBottomWidget(),
         ],
       ),
     );

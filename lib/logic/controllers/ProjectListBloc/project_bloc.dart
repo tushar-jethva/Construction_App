@@ -11,7 +11,6 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   }
 
   void _onLoadProjects(LoadProjects event, Emitter<ProjectState> emit) {
-    print(projects);
     emit(ProjectLoadSuccess(projects: projects));
   }
 }
