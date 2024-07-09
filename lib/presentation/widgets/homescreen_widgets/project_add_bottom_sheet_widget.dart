@@ -4,6 +4,7 @@ import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,8 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
   final TextEditingController _projectNameController = TextEditingController();
 
   final TextEditingController _descriptionController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   dispose() {
@@ -53,14 +56,15 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
       padding: mediaQueryData.viewInsets,
       child: SingleChildScrollView(
         child: Container(
-          height: 380.h,
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           decoration: BoxDecoration(
-              color: white,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15.r),
-                  topRight: Radius.circular(15.r))),
+            color: white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15.r),
+              topRight: Radius.circular(15.r),
+            ),
+          ),
           child: Column(
             children: [
               Container(
@@ -70,10 +74,14 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                 decoration: BoxDecoration(
                     color: grey, borderRadius: BorderRadius.circular(8)),
               ),
-              MyCustomTextField(
-                controller: _projectNameController,
-                hintText: 'Project Name',
-                maxLines: 1,
+              Form(
+                key: _formKey,
+                child: MyCustomTextFormField(
+                  controller: _projectNameController,
+                  hintText: 'Project Name',
+                  maxLines: 1,
+                  textInputType: TextInputType.name,
+                ),
               ),
               Gap(15.h),
               Container(
@@ -111,35 +119,34 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                 maxLines: 3,
               ),
               Gap(20.h),
-              Row(
-                children: [
-                  Expanded(
-                    child: MyCustomButton(
-                      buttonName: 'Add Project',
-                      color: green,
-                      style: const TextStyle(
-                          color: white, fontWeight: FontWeight.w500),
-                      onPressed: () {
-                        final startDateState =
-                            context.read<DateBlocBloc>().state;
-                        if (_projectNameController.text.isNotEmpty) {
-                          projects.add(ProjectModel(
-                              projectName: _projectNameController.text,
-                              startDate: startDateState.selectedDate.toString(),
-                              description: _descriptionController.text,
-                              payIn: 0,
-                              payOut: 0));
-                        }
-                        context.read<ProjectBloc>().add(LoadProjects());
-                        context.pushNamed(RoutesName.detailsScreen);
-                        Navigator.pop(context);
-                        context
-                            .read<DateBlocBloc>()
-                            .add(DateChanged(dateTime: DateTime.now()));
-                      },
-                    ),
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.only(bottom: 10.h),
+                child: MyCustomButton(
+                  buttonName: 'Add Project',
+                  color: green,
+                  style: const TextStyle(
+                      color: white, fontWeight: FontWeight.w500),
+                  onPressed: () {
+                    final startDateState = context.read<DateBlocBloc>().state;
+                    if (_formKey.currentState!.validate()) {
+                      projects.add(
+                        ProjectModel(
+                            projectId: "",
+                            projectName: _projectNameController.text,
+                            startDate: startDateState.selectedDate.toString(),
+                            description: _descriptionController.text,
+                            payIn: 0,
+                            payOut: 0),
+                      );
+                      context.read<ProjectBloc>().add(LoadProjects());
+                      context.pushNamed(RoutesName.projectDetailsScreen);
+                      Navigator.pop(context);
+                      context
+                          .read<DateBlocBloc>()
+                          .add(DateChanged(dateTime: DateTime.now()));
+                    }
+                  },
+                ),
               ),
             ],
           ),

@@ -1,6 +1,8 @@
+import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
@@ -31,7 +33,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => BuildingsBloc(),
         ),
-
+        BlocProvider(
+          create: (_) => PerBuildingAgenciesBloc(),
+        ),
+         BlocProvider(
+          create: (_) => AddAgencyDropDownsBloc(),
+        ),
+        
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

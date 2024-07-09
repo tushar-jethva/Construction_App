@@ -3,5 +3,6 @@ class RoutesName {
   static String partiesScreen = '/homeScreen';
   static String projectScreen = '/projectScreen';
   static String billsScreen = '/billsScreen';
-  static String detailsScreen = '/detailsScreen';
+  static String projectDetailsScreen = '/detailsScreen';
+  static String buildingDetailsScreen = '/buildingDetailsScreen';
 }
