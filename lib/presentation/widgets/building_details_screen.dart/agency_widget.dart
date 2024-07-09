@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/add_agency_bottom_sheet.dart';
@@ -19,8 +20,11 @@ class MyPerBuildingAgency extends StatelessWidget {
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return MyAddAgencyBottomSheet(
-            buildingModel: buildingModel,
+          return BlocProvider(
+            create: (_) => SelectFloorsBloc(),
+            child: MyAddAgencyBottomSheet(
+              buildingModel: buildingModel,
+            ),
           );
         });
   }

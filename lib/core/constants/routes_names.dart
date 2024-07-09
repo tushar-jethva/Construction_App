@@ -5,4 +5,5 @@ class RoutesName {
   static String billsScreen = '/billsScreen';
   static String projectDetailsScreen = '/detailsScreen';
   static String buildingDetailsScreen = '/buildingDetailsScreen';
+  static String selectFloorsScreen = '/selectFloorScreen';
 }

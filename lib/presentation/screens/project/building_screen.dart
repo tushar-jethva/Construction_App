@@ -66,8 +66,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                     BuildingModel building = state.buildings[index];
                     return InkWell(
                         onTap: () {
-                          context.pushNamed(RoutesName.buildingDetailsScreen,
-                              extra: building);
+                          context.pushNamed(RoutesName.buildingDetailsScreen,extra: building);
                         },
                         child: MyBuildingListWidget(building: building));
                   }),

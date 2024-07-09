@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
@@ -6,6 +7,7 @@ import 'package:construction_mate/presentation/screens/parties/parties_screen.da
 import 'package:construction_mate/presentation/screens/project/building_details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
+import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -42,6 +44,19 @@ class Routes {
       builder: (context, state) {
         final buildingModel = state.extra as BuildingModel;
         return MyBuildingDetailsScreen(buildingModel: buildingModel);
+      },
+    ),
+    GoRoute(
+      path: RoutesName.selectFloorsScreen,
+      name: RoutesName.selectFloorsScreen,
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        final buildingModel = args['buildingModel'] as BuildingModel;
+        final selectFloorsBloc = args['bloc'] as SelectFloorsBloc;
+        return MySelectFloorsScreen(
+          buildingModel: buildingModel,
+          selectFloorsBloc: selectFloorsBloc,
+        );
       },
     ),
   ]);

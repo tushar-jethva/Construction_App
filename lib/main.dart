@@ -36,10 +36,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => PerBuildingAgenciesBloc(),
         ),
-         BlocProvider(
+        BlocProvider(
           create: (_) => AddAgencyDropDownsBloc(),
         ),
-        
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),
