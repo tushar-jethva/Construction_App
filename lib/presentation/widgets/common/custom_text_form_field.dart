@@ -6,12 +6,14 @@ class MyCustomTextFormField extends StatelessWidget {
   final String hintText;
   final int maxLines;
   final TextInputType textInputType;
+  final String? Function(String? value) validator;
   const MyCustomTextFormField(
       {super.key,
       required this.controller,
       required this.hintText,
       required this.maxLines,
-      required this.textInputType});
+      required this.textInputType,
+      required this.validator});
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +36,7 @@ class MyCustomTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: grey, width: 1)),
       ),
-      validator: (value) {
-        
-        if (value == null || value.isEmpty) {
-          return "Please fill the $hintText";
-        }
-      },
+      validator: validator
     );
   }
 }

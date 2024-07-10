@@ -81,6 +81,11 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                   hintText: 'Project Name',
                   maxLines: 1,
                   textInputType: TextInputType.name,
+                  validator: (value) {
+                        if(value==null || value.isEmpty){
+                          return 'Please enter project name!';
+                        }
+                      },
                 ),
               ),
               Gap(15.h),

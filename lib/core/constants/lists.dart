@@ -8,6 +8,12 @@ List<BuildingModel> buildings = [];
 
 List<PerBuildingAgencyModel> agencies = [];
 
-List<String> workType = ["RCC", "Iron", "Marbles"];
+List<String> workType = ["--Select Work--", "RCC", "Iron", "Marbles"];
 
-List<String> nameOfAgency = ["Jethva Consturction", "Kapur&Sons Construction", "Sanghani Marbles"];
+List<String> nameOfAgency = [
+  "--Select Agency--",
+  "Jethva Consturction",
+  "Kapur&Sons Construction",
+  "Sanghani Marbles",
+  "asdjfjseijfiasjdfajf jsdfjsalfjklsajfd;"
+];

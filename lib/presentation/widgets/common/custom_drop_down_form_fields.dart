@@ -57,7 +57,11 @@ class MyDropDownFormField extends StatelessWidget {
       onChanged: (val) {
         context.read<AddAgencyDropDownsBloc>().add(event(val!));
       },
-      validator: (value) {},
+      validator: (value) {
+        if (value == items[0]) {
+          return 'Please select one of the names!';
+        }
+      },
     );
   }
 }

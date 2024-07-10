@@ -65,7 +65,38 @@ class MyPerBuildingAgency extends StatelessWidget {
                   itemCount: state.agencies.length,
                   itemBuilder: (context, index) {
                     PerBuildingAgencyModel agency = state.agencies[index];
-                    return InkWell(onTap: () {}, child: Container());
+                    return InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.w, vertical: 5.h),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 10.h),
+                          decoration: BoxDecoration(
+                              color: greyLight,
+                              borderRadius: BorderRadius.circular(15.r)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(agency.nameOfAgency),
+                                  Text(agency.workType)
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text(agency.pricePerFeet.toString()),
+                                  Text(agency.floors.length.toString())
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
                   }),
             );
           } else {

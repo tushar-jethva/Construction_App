@@ -93,9 +93,14 @@ class _MyBuildingAddBottomSheetWidgetState
                   children: [
                     MyCustomTextFormField(
                       controller: _buildingNameController,
-                      hintText: 'Project Name',
+                      hintText: 'Building Name',
                       maxLines: 1,
                       textInputType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter building name!';
+                        }
+                      },
                     ),
                     Gap(15.h),
                     Container(
@@ -163,6 +168,17 @@ class _MyBuildingAddBottomSheetWidgetState
                       textInputType: TextInputType.number,
                       hintText: "Add floors",
                       maxLines: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please add floors!';
+                        }
+                        if (int.tryParse(value) == null) {
+                          return 'Please enter valid digit!';
+                        }
+                        if (value.startsWith('-')) {
+                          return 'Please enter valid digit!';
+                        }
+                      },
                     ),
                     Gap(20.h),
                     MyCustomTextFormField(
@@ -170,6 +186,17 @@ class _MyBuildingAddBottomSheetWidgetState
                       textInputType: TextInputType.number,
                       hintText: 'Unit per floor',
                       maxLines: 1,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please add foot per floor!';
+                        }
+                        if (double.tryParse(value) == null) {
+                          return 'Please enter valid digit!';
+                        }
+                        if (value.startsWith('-')) {
+                          return 'Please enter valid digit!';
+                        }
+                      },
                     ),
                   ],
                 ),
