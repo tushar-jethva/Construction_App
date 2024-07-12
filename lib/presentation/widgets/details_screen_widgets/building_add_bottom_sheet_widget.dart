@@ -1,19 +1,24 @@
-import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/core/constants/lists.dart';
-import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
-import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
-import 'package:construction_mate/logic/models/building_model.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
+import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/data/datasource/building_data_source.dart';
+import 'package:construction_mate/data/repository/building_repository.dart';
+import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
+import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 
 class MyBuildingAddBottomSheetWidget extends StatefulWidget {
-  const MyBuildingAddBottomSheetWidget({super.key});
+  final ProjectModel project;
+  const MyBuildingAddBottomSheetWidget({
+    super.key,
+    required this.project,
+  });
 
   @override
   State<MyBuildingAddBottomSheetWidget> createState() =>
@@ -25,8 +30,12 @@ class _MyBuildingAddBottomSheetWidgetState
   final TextEditingController _buildingNameController = TextEditingController();
   final TextEditingController _floorController = TextEditingController();
   final TextEditingController _unitPerFootController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  final BuildingRepository buildingRepository =
+      BuildingRepositoryImpl(BuildingDataSourceImpl());
 
   @override
   dispose() {
@@ -34,6 +43,7 @@ class _MyBuildingAddBottomSheetWidgetState
     _buildingNameController.dispose();
     _floorController.dispose();
     _unitPerFootController.dispose();
+    _descriptionController.dispose();
   }
 
   Future<void> _selectDateStart(BuildContext context) async {
@@ -62,6 +72,15 @@ class _MyBuildingAddBottomSheetWidgetState
     if (picked != null && picked != DateTime.now()) {
       dateBloc.add(DateDetailsEndChanged(endDate: picked));
     }
+  }
+
+  Future<void> addBuilding() async {
+    await buildingRepository.addBuilding(
+        buildingName: _buildingNameController.text,
+        floors: _floorController.text,
+        unitPerFloor: _unitPerFootController.text,
+        description: _descriptionController.text,
+        projectId: widget.project.sId!);
   }
 
   @override
@@ -102,66 +121,66 @@ class _MyBuildingAddBottomSheetWidgetState
                         }
                       },
                     ),
-                    Gap(15.h),
-                    Container(
-                      height: 50.h,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 15.h),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: grey,
-                          )),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BlocBuilder<StartAndEndDateBloc,
-                              StartAndEndDateState>(
-                            builder: (context, state) {
-                              final String formattedDate =
-                                  DateFormat.yMMMd().format(state.startDate);
-                              return Text("Start Date: $formattedDate");
-                            },
-                          ),
-                          InkWell(
-                              onTap: () {
-                                _selectDateStart(context);
-                              },
-                              child: const Icon(Icons.calendar_month))
-                        ],
-                      ),
-                    ),
-                    Gap(15.h),
-                    Container(
-                      height: 50.h,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 15.h),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                            color: grey,
-                          )),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          BlocBuilder<StartAndEndDateBloc,
-                              StartAndEndDateState>(
-                            builder: (context, state) {
-                              final String formattedDate =
-                                  DateFormat.yMMMd().format(state.endDate);
-                              return Text(
-                                "End Date: $formattedDate",
-                              );
-                            },
-                          ),
-                          InkWell(
-                              onTap: () {
-                                _selectDateEnd(context);
-                              },
-                              child: const Icon(Icons.calendar_month))
-                        ],
-                      ),
-                    ),
+                    // Gap(15.h),
+                    // Container(
+                    //   height: 50.h,
+                    //   padding: EdgeInsets.symmetric(
+                    //       horizontal: 10.w, vertical: 15.h),
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       border: Border.all(
+                    //         color: grey,
+                    //       )),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       BlocBuilder<StartAndEndDateBloc,
+                    //           StartAndEndDateState>(
+                    //         builder: (context, state) {
+                    //           final String formattedDate =
+                    //               DateFormat.yMMMd().format(state.startDate);
+                    //           return Text("Start Date: $formattedDate");
+                    //         },
+                    //       ),
+                    //       InkWell(
+                    //           onTap: () {
+                    //             _selectDateStart(context);
+                    //           },
+                    //           child: const Icon(Icons.calendar_month))
+                    //     ],
+                    //   ),
+                    // ),
+                    // Gap(15.h),
+                    // Container(
+                    //   height: 50.h,
+                    //   padding: EdgeInsets.symmetric(
+                    //       horizontal: 10.w, vertical: 15.h),
+                    //   decoration: BoxDecoration(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       border: Border.all(
+                    //         color: grey,
+                    //       )),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       BlocBuilder<StartAndEndDateBloc,
+                    //           StartAndEndDateState>(
+                    //         builder: (context, state) {
+                    //           final String formattedDate =
+                    //               DateFormat.yMMMd().format(state.endDate);
+                    //           return Text(
+                    //             "End Date: $formattedDate",
+                    //           );
+                    //         },
+                    //       ),
+                    //       InkWell(
+                    //           onTap: () {
+                    //             _selectDateEnd(context);
+                    //           },
+                    //           child: const Icon(Icons.calendar_month))
+                    //     ],
+                    //   ),
+                    // ),
                     Gap(15.h),
                     MyCustomTextFormField(
                       controller: _floorController,
@@ -190,11 +209,24 @@ class _MyBuildingAddBottomSheetWidgetState
                         if (value == null || value.isEmpty) {
                           return 'Please add foot per floor!';
                         }
-                        if (double.tryParse(value) == null) {
+                        if (int.tryParse(value) == null) {
                           return 'Please enter valid digit!';
                         }
                         if (value.startsWith('-')) {
                           return 'Please enter valid digit!';
+                        }
+                      },
+                    ),
+                    Gap(15.h),
+
+                    MyCustomTextFormField(
+                      controller: _descriptionController,
+                      hintText: 'Description',
+                      maxLines: 3,
+                      textInputType: TextInputType.name,
+                      validator: (value) {
+                         if (value == null || value.isEmpty) {
+                          return 'Please add foot per floor!';
                         }
                       },
                     ),
@@ -209,30 +241,25 @@ class _MyBuildingAddBottomSheetWidgetState
                   color: green,
                   style: const TextStyle(
                       color: white, fontWeight: FontWeight.w500),
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      final startAndEndDate =
-                          context.read<StartAndEndDateBloc>().state;
-                      buildings.add(BuildingModel(
-                          buildingName: _buildingNameController.text,
-                          startDate: startAndEndDate.startDate.toString(),
-                          endDate: startAndEndDate.endDate.toString(),
-                          noOfFloors: int.parse(_floorController.text),
-                          unitPerFloor:
-                              double.parse(_unitPerFootController.text)));
-                      context.read<BuildingsBloc>().add(LoadBuildings(
-                          buildings: buildings.reversed.toList()));
-
-                      _buildingNameController.clear();
-                      _floorController.clear();
-                      _unitPerFootController.clear();
-                      context.read<StartAndEndDateBloc>().add(
-                          DateDetailsStartChanged(startDate: DateTime.now()));
+                      await addBuilding();
+                      // ignore: use_build_context_synchronously
                       context
-                          .read<StartAndEndDateBloc>()
-                          .add(DateDetailsEndChanged(endDate: DateTime.now()));
-
-                      context.pop();
+                          .read<BuildingsBloc>()
+                          .add(LoadBuildings(projectId: widget.project.sId!));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      // final startAndEndDate =
+                      //     context.read<StartAndEndDateBloc>().state;
+                      // _buildingNameController.clear();
+                      // _floorController.clear();
+                      // _unitPerFootController.clear();
+                      // context.read<StartAndEndDateBloc>().add(
+                      //     DateDetailsStartChanged(startDate: DateTime.now()));
+                      // context
+                      //     .read<StartAndEndDateBloc>()
+                      //     .add(DateDetailsEndChanged(endDate: DateTime.now()));
                     }
                   },
                 ),

@@ -1,9 +1,11 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_projects_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_top_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /* Created By: Tushar Jethva
@@ -16,6 +18,14 @@ class MyProjectScreen extends StatefulWidget {
 }
 
 class _MyProjectScreenState extends State<MyProjectScreen> {
+  late ProjectBloc _projectBloc;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _projectBloc = BlocProvider.of<ProjectBloc>(context);
+    _projectBloc.add(LoadProjects());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

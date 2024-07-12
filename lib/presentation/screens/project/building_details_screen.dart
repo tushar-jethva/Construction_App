@@ -18,7 +18,7 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.buildingModel.buildingName),
+            title: Text(widget.buildingModel.name!),
             bottom: TabBar(
               onTap: (index) {},
               tabs: const [

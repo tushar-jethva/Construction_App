@@ -5,9 +5,9 @@ part 'bottom_bar_event.dart';
 part 'bottom_bar_state.dart';
 
 class BottomBarBloc extends Bloc<BottomBarEvent, BottomBarState> {
-  BottomBarBloc() : super(const LandingPageInitial(tabIndex: 0)) {
+  BottomBarBloc() : super(const LandingPageInitial(tabIndex: 1)) {
     on<BottomBarEvent>((event, emit) {
-      if(event is TabChangeEvent){
+      if (event is TabChangeEvent) {
         emit(LandingPageInitial(tabIndex: event.tabIndex));
       }
     });

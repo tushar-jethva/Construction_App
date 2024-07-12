@@ -1,9 +1,9 @@
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/data/datasource/project_data_source.dart';
+import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
-import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 
 class MyProjectAddBottomSheet extends StatefulWidget {
   const MyProjectAddBottomSheet({super.key});
@@ -27,7 +26,12 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
 
   final TextEditingController _descriptionController = TextEditingController();
 
+  final TextEditingController _addressController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  ProjectRepository projectRepository =
+      ProjectRepositoryImpl(ProjectDataSourceImpl());
 
   @override
   dispose() {
@@ -36,17 +40,14 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
     _descriptionController.dispose();
   }
 
-  Future<void> _selectDate(BuildContext context) async {
-    final DateBlocBloc dateBloc = BlocProvider.of<DateBlocBloc>(context);
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != DateTime.now()) {
-      dateBloc.add(DateChanged(dateTime: picked));
-    }
+  void addProject() async {
+    await projectRepository.addProject(
+        projectName: _projectNameController.text,
+        address: _addressController.text,
+        description: _descriptionController.text);
+    // ignore: use_build_context_synchronously
+    context.read<ProjectBloc>().add(LoadProjects());
+    Navigator.pop(context);
   }
 
   @override
@@ -76,44 +77,31 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
               ),
               Form(
                 key: _formKey,
-                child: MyCustomTextFormField(
-                  controller: _projectNameController,
-                  hintText: 'Project Name',
-                  maxLines: 1,
-                  textInputType: TextInputType.name,
-                  validator: (value) {
-                        if(value==null || value.isEmpty){
+                child: Column(
+                  children: [
+                    MyCustomTextFormField(
+                      controller: _projectNameController,
+                      hintText: 'Project Name',
+                      maxLines: 1,
+                      textInputType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
                           return 'Please enter project name!';
                         }
                       },
-                ),
-              ),
-              Gap(15.h),
-              Container(
-                height: 50.h,
-                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(
-                      color: grey,
-                    )),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BlocBuilder<DateBlocBloc, DateBlocState>(
-                      builder: (context, state) {
-                        final String formattedDate =
-                            DateFormat.yMMMd().format(state.selectedDate);
-                        return Text(
-                          formattedDate,
-                        );
+                    ),
+                    Gap(15.h),
+                    MyCustomTextFormField(
+                      controller: _addressController,
+                      hintText: 'Project Address',
+                      maxLines: 1,
+                      textInputType: TextInputType.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter project address!';
+                        }
                       },
                     ),
-                    InkWell(
-                        onTap: () {
-                          _selectDate(context);
-                        },
-                        child: const Icon(Icons.calendar_month))
                   ],
                 ),
               ),
@@ -131,24 +119,9 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                   color: green,
                   style: const TextStyle(
                       color: white, fontWeight: FontWeight.w500),
-                  onPressed: () {
-                    final startDateState = context.read<DateBlocBloc>().state;
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      projects.add(
-                        ProjectModel(
-                            projectId: "",
-                            projectName: _projectNameController.text,
-                            startDate: startDateState.selectedDate.toString(),
-                            description: _descriptionController.text,
-                            payIn: 0,
-                            payOut: 0),
-                      );
-                      context.read<ProjectBloc>().add(LoadProjects());
-                      context.pushNamed(RoutesName.projectDetailsScreen);
-                      Navigator.pop(context);
-                      context
-                          .read<DateBlocBloc>()
-                          .add(DateChanged(dateTime: DateTime.now()));
+                      addProject();
                     }
                   },
                 ),

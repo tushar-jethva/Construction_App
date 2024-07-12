@@ -2,45 +2,56 @@
 import 'dart:convert';
 
 class ProjectModel {
-  final String projectId;
-  final String projectName;
-  final String startDate;
-  final String description;
-  final double payIn;
-  final double payOut;
+  String? sId;
+  String? name;
+  String? description;
+  int? paymentIn;
+  int? paymentOut;
+  String? startDate;
+  String? address;
+  int? totalBuilding;
+  bool? isDeleted;
+  String? createdAt;
+  String? updatedAt;
 
-  ProjectModel({
-    required this.projectId,
-    required this.projectName,
-    required this.startDate,
-    required this.description,
-    required this.payIn,
-    required this.payOut,
-  });
+  ProjectModel(
+      {this.sId,
+      this.name,
+      this.description,
+      this.paymentIn,
+      this.paymentOut,
+      this.startDate,
+      this.address,
+      this.totalBuilding,
+      this.isDeleted,
+      this.createdAt,
+      this.updatedAt});
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'projectId': projectId,
-      'projectName': projectName,
-      'startDate': startDate,
-      'description': description,
-      'payIn': payIn,
-      'payOut': payOut,
-    };
+  ProjectModel.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['Name'];
+    description = json['Description'];
+    paymentIn = json['PaymentIn'];
+    paymentOut = json['PaymentOut'];
+    startDate = json['StartDate'];
+    address = json['Address'];
+    totalBuilding = json['TotalBuilding'];
+    isDeleted = json['isDeleted'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
   }
 
-  factory ProjectModel.fromMap(Map<String, dynamic> map) {
-    return ProjectModel(
-      projectId: map['projectId'] as String,
-      projectName: map['projectName'] as String,
-      startDate: map['startDate'] as String,
-      description: map['description'] as String,
-      payIn: map['payIn'] as double,
-      payOut: map['payOut'] as double,
-    );
+
+  Map<String, dynamic> toJsonAddProject() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['Name'] = this.name;
+    data['Description'] = this.description;
+    data['Address'] = this.address;
+    return data;
   }
 
-  String toJson() => json.encode(toMap());
 
-  factory ProjectModel.fromJson(String source) => ProjectModel.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  String toJson() => json.encode(toJsonAddProject());
+
 }

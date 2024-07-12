@@ -23,10 +23,10 @@ class MyBuildingListWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  building.buildingName,
+                  building.name!,
                   style: TextStyle(fontSize: 14.sp),
                 ),
-                Text(building.noOfFloors.toString())
+                Text(building.totalFloor.toString())
               ],
             ),
             Row(

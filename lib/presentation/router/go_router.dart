@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
@@ -36,7 +37,12 @@ class Routes {
     GoRoute(
       path: RoutesName.projectDetailsScreen,
       name: RoutesName.projectDetailsScreen,
-      builder: (contex, state) => const MyProjectDetailsScreen(),
+      builder: (contex, state) {
+        final ProjectModel project = state.extra as ProjectModel;
+        return MyProjectDetailsScreen(
+          projectModel: project,
+        );
+      },
     ),
     GoRoute(
       path: RoutesName.buildingDetailsScreen,

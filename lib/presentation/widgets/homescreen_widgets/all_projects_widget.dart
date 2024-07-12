@@ -17,12 +17,13 @@ class AllProjectsWidget extends StatelessWidget {
     return BlocBuilder<ProjectBloc, ProjectState>(
       builder: (context, state) {
         if (state is ProjectInitial) {
-          return const SliverToBoxAdapter(
-            child: Column(
-              children: [
-                Center(child: CircularProgressIndicator()),
-              ],
-            ),
+          return SliverToBoxAdapter(
+            child: Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                    height: ReusableFunctions.getHeight(
+                        context: context, height: 0.5),
+                    child: const Center(child: CircularProgressIndicator()))),
           );
         } else if (state is ProjectLoadSuccess) {
           return SliverList(
@@ -31,7 +32,8 @@ class AllProjectsWidget extends StatelessWidget {
                 ProjectModel project = state.projects[index];
                 return InkWell(
                   onTap: () {
-                    context.pushNamed(RoutesName.projectDetailsScreen);
+                    context.pushNamed(RoutesName.projectDetailsScreen,
+                        extra: project);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -45,8 +47,9 @@ class AllProjectsWidget extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(project.projectName),
-                              Text((project.payIn - project.payOut).toString())
+                              Text(project.name!),
+                              Text((project.paymentIn! - project.paymentOut!)
+                                  .toString())
                             ],
                           ),
                           Row(

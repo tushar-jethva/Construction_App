@@ -1,12 +1,19 @@
-import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/presentation/screens/project/building_screen.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_status_widget.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/vertical_divider.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/screens/project/building_screen.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_status_widget.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/vertical_divider.dart';
+
 class MyProjectDetailsScreen extends StatefulWidget {
-  const MyProjectDetailsScreen({super.key});
+  final ProjectModel projectModel;
+  const MyProjectDetailsScreen({
+    Key? key,
+    required this.projectModel,
+  }) : super(key: key);
 
   @override
   State<MyProjectDetailsScreen> createState() => _MyProjectDetailsScreenState();
@@ -15,6 +22,8 @@ class MyProjectDetailsScreen extends StatefulWidget {
 class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    final project = widget.projectModel;
+
     return DefaultTabController(
       initialIndex: 1,
       length: 3,
@@ -26,7 +35,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
               children: [
                 TransactionStatusWidget(
                   upperText: "Advanced Paid",
-                  belowText: "\$12000",
+                  belowText: "\$${project.paymentIn}",
                   upperTextStyle: TextStyle(color: grey, fontSize: 12),
                   belowTextStyle: TextStyle(color: green, fontSize: 12),
                 ),
@@ -37,7 +46,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                 ),
                 TransactionStatusWidget(
                   upperText: "Pending to Pay",
-                  belowText: "\$12000",
+                  belowText: "\$${project.paymentOut}",
                   upperTextStyle: TextStyle(color: grey, fontSize: 12),
                   belowTextStyle: TextStyle(color: red, fontSize: 12),
                 ),
@@ -53,10 +62,10 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
             ],
           ),
         ),
-        body: const TabBarView(
+        body:  TabBarView(
           children: [
             Center(child: Text('Paties Tab')),
-            BuildingsScreen(),
+            BuildingsScreen(project: widget.projectModel,),
             Center(child: Text('Transactions Tab')),
           ],
         ),

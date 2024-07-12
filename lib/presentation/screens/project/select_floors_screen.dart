@@ -36,7 +36,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: GridView.builder(
-                  itemCount: widget.buildingModel.noOfFloors,
+                  itemCount: widget.buildingModel.totalFloor,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 20.w,

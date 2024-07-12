@@ -1,3 +1,7 @@
+import 'package:construction_mate/data/datasource/building_data_source.dart';
+import 'package:construction_mate/data/datasource/project_data_source.dart';
+import 'package:construction_mate/data/repository/building_repository.dart';
+import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
@@ -28,10 +32,12 @@ class MyApp extends StatelessWidget {
           create: (_) => StartAndEndDateBloc(),
         ),
         BlocProvider(
-          create: (_) => ProjectBloc(),
+          create: (_) =>
+              ProjectBloc(ProjectRepositoryImpl(ProjectDataSourceImpl()))
+                ..add(LoadProjects()),
         ),
         BlocProvider(
-          create: (_) => BuildingsBloc(),
+          create: (_) => BuildingsBloc(BuildingRepositoryImpl(BuildingDataSourceImpl())),
         ),
         BlocProvider(
           create: (_) => PerBuildingAgenciesBloc(),
