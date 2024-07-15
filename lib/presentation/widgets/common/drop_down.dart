@@ -1,20 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/logic/models/work_type_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MyDropDownFormField extends StatelessWidget {
-  final List<WorkTypeModel> items;
-  final Function(String val) event;
-  const MyDropDownFormField({
-    Key? key,
-    required this.items,
-    required this.event,
-  }) : super(key: key);
+class CustomDropDown extends StatelessWidget {
+  const CustomDropDown({super.key, required this.items});
+
+  final List<String> items;
 
   @override
   Widget build(BuildContext context) {
@@ -40,26 +31,24 @@ class MyDropDownFormField extends StatelessWidget {
           borderSide: const BorderSide(color: purple),
         ),
       ),
-      value: items[0].sId,
+      value: items[0],
       items: items
           .map((e) => DropdownMenuItem(
-                value: e.sId,
+                value: e,
                 child: Container(
                   width: MediaQuery.of(context).size.width *
                       0.4, // Set a specific width here
                   child: Text(
-                    e.name!,
+                    e,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ))
           .toList(),
-      onChanged: (val) {
-        context.read<AddAgencyDropDownsBloc>().add(event(val.toString()));
-      },
+      onChanged: (val) {},
       validator: (value) {
-        if (value == items[0].sId) {
+        if (value == items[0]) {
           return 'Please select one of the names!';
         }
       },

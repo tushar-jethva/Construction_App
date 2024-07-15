@@ -4,6 +4,7 @@ import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_buildi
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/add_agency_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyPerBuildingAgency extends StatelessWidget {
   final BuildingModel buildingModel;
-
-  const MyPerBuildingAgency({super.key, required this.buildingModel});
+  final ProjectModel projectModel;
+  const MyPerBuildingAgency(
+      {super.key, required this.buildingModel, required this.projectModel});
 
   openBottomSheet({required BuildContext context}) {
     showModalBottomSheet(
@@ -24,6 +26,7 @@ class MyPerBuildingAgency extends StatelessWidget {
             create: (_) => SelectFloorsBloc(),
             child: MyAddAgencyBottomSheet(
               buildingModel: buildingModel,
+              projectModel: projectModel,
             ),
           );
         });

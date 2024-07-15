@@ -14,7 +14,9 @@ class ProjectRepositoryImpl extends ProjectRepository{
     try{
       await projectDataSource.addProject(projectName: projectName, address: address, description: description);
     }
-    catch(e){}
+    catch(e){
+      print(e.toString());
+    }
   }
 
   @override
@@ -23,7 +25,10 @@ class ProjectRepositoryImpl extends ProjectRepository{
     try{
       allProjectList = await projectDataSource.allProjects();
     }
-    catch(e){}
+    catch(e){
+      print(e.toString());
+
+    }
     return allProjectList;
   }
 }

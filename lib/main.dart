@@ -1,7 +1,11 @@
+import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/datasource/building_data_source.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
+import 'package:construction_mate/data/datasource/work_types_source.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
+import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
@@ -37,13 +41,18 @@ class MyApp extends StatelessWidget {
                 ..add(LoadProjects()),
         ),
         BlocProvider(
-          create: (_) => BuildingsBloc(BuildingRepositoryImpl(BuildingDataSourceImpl())),
+          create: (_) =>
+              BuildingsBloc(BuildingRepositoryImpl(BuildingDataSourceImpl())),
         ),
         BlocProvider(
           create: (_) => PerBuildingAgenciesBloc(),
         ),
         BlocProvider(
-          create: (_) => AddAgencyDropDownsBloc(),
+          create: (_) => AddAgencyDropDownsBloc(
+              agencyRepository: AgencyRepositoryImpl(
+                  agencyDataSource: AgencyDataSourceDataSourceImpl()),
+              workTypesRepository:
+                  WorkTypesRepositoryImpl(WorkTypesDataSourceImpl())),
         ),
       ],
       child: ScreenUtilInit(

@@ -1,7 +1,14 @@
 part of 'add_agency_drop_downs_bloc.dart';
 
 @immutable
-sealed class AddAgencyDropDownsEvent {}
+abstract class AddAgencyDropDownsEvent {}
+
+class FetchWorkTypesEvent extends AddAgencyDropDownsEvent {}
+
+class FetchAgenciesEvent extends AddAgencyDropDownsEvent {
+  final String workTypeId;
+  FetchAgenciesEvent({required this.workTypeId});
+}
 
 class DropdownWorkTypeChangedEvent extends AddAgencyDropDownsEvent {
   final String value;

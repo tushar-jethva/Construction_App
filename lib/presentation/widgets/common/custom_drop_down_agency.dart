@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/work_type_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,10 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class MyDropDownFormField extends StatelessWidget {
-  final List<WorkTypeModel> items;
+class MyDropDownFormFieldAgency extends StatelessWidget {
+  final List<AgencyModel> items;
   final Function(String val) event;
-  const MyDropDownFormField({
+
+  const MyDropDownFormFieldAgency({
     Key? key,
     required this.items,
     required this.event,

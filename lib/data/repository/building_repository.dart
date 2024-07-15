@@ -29,7 +29,9 @@ class BuildingRepositoryImpl extends BuildingRepository {
           unitPerFloor: unitPerFloor,
           description: description,
           projectId: projectId);
-    } catch (e) {}
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   @override
@@ -39,7 +41,9 @@ class BuildingRepositoryImpl extends BuildingRepository {
     try {
       listOfBuildings =
           await buildingDataSource.allBuildingById(projectId: projectId);
-    } catch (e) {}
+    } catch (e) {
+      print(e.toString());
+    }
     return listOfBuildings;
   }
 }

@@ -1,12 +1,21 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/data/datasource/agency_data_source.dart';
+import 'package:construction_mate/data/datasource/work_types_source.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
+import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/logic/models/work_type_model.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_drop_down_agency.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_drop_down_form_fields.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
+import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +27,9 @@ import '../../../logic/models/building_model.dart';
 
 class MyAddAgencyBottomSheet extends StatefulWidget {
   final BuildingModel buildingModel;
-  MyAddAgencyBottomSheet({super.key, required this.buildingModel});
+  final ProjectModel projectModel;
+  MyAddAgencyBottomSheet(
+      {super.key, required this.buildingModel, required this.projectModel});
 
   @override
   State<MyAddAgencyBottomSheet> createState() => _MyAddAgencyBottomSheetState();
@@ -26,18 +37,54 @@ class MyAddAgencyBottomSheet extends StatefulWidget {
 
 class _MyAddAgencyBottomSheetState extends State<MyAddAgencyBottomSheet> {
   final TextEditingController _pricePerFeetController = TextEditingController();
-
   final TextEditingController _descriptionController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _pricePerFeetController.dispose();
     _descriptionController.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => AddAgencyDropDownsBloc(
+          agencyRepository: AgencyRepositoryImpl(
+            agencyDataSource: AgencyDataSourceDataSourceImpl(),
+          ),
+          workTypesRepository:
+              WorkTypesRepositoryImpl(WorkTypesDataSourceImpl()))
+        ..add(FetchWorkTypesEvent()),
+      child: _AddAgencyBottomSheetForm(
+        buildingModel: widget.buildingModel,
+        projectModel: widget.projectModel,
+        formKey: _formKey,
+        pricePerFeetController: _pricePerFeetController,
+        descriptionController: _descriptionController,
+      ),
+    );
+  }
+}
+
+class _AddAgencyBottomSheetForm extends StatelessWidget {
+  _AddAgencyBottomSheetForm({
+    required this.buildingModel,
+    required this.projectModel,
+    required this.formKey,
+    required this.pricePerFeetController,
+    required this.descriptionController,
+  });
+
+  final BuildingModel buildingModel;
+  final ProjectModel projectModel;
+  final GlobalKey<FormState> formKey;
+  final TextEditingController pricePerFeetController;
+  final TextEditingController descriptionController;
+
+  final AgencyRepository agencyRepository =
+      AgencyRepositoryImpl(agencyDataSource: AgencyDataSourceDataSourceImpl());
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +96,7 @@ class _MyAddAgencyBottomSheetState extends State<MyAddAgencyBottomSheet> {
           width: double.infinity,
           padding: const EdgeInsets.all(15),
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               children: [
                 Container(
@@ -69,8 +116,17 @@ class _MyAddAgencyBottomSheetState extends State<MyAddAgencyBottomSheet> {
                       child: BlocBuilder<AddAgencyDropDownsBloc,
                           AddAgencyDropDownsState>(
                         builder: (context, state) {
+                          if (state is WorkTypeLoadingState) {
+                            return CustomDropDown(items: workType);
+                          }
+
                           return MyDropDownFormField(
-                            items: workType,
+                            items: state.workTypes.isNotEmpty
+                                ? state.workTypes
+                                : workType
+                                    .map(
+                                        (e) => WorkTypeModel(name: e, sId: "1"))
+                                    .toList(),
                             event: (value) =>
                                 DropdownWorkTypeChangedEvent(value),
                           );
@@ -90,11 +146,14 @@ class _MyAddAgencyBottomSheetState extends State<MyAddAgencyBottomSheet> {
                       child: BlocBuilder<AddAgencyDropDownsBloc,
                           AddAgencyDropDownsState>(
                         builder: (context, state) {
-                          return MyDropDownFormField(
-                            items: nameOfAgency,
-                            event: (value) =>
-                                DropdownNameOfAgencyChangedEvent(value),
-                          );
+                          if (state is AgencyLoadedState) {
+                            return MyDropDownFormFieldAgency(
+                              items: state.agencies,
+                              event: (value) =>
+                                  DropdownNameOfAgencyChangedEvent(value),
+                            );
+                          }
+                          return CustomDropDown(items: nameOfAgency);
                         },
                       ),
                     )
@@ -102,23 +161,24 @@ class _MyAddAgencyBottomSheetState extends State<MyAddAgencyBottomSheet> {
                 ),
                 Gap(15.h),
                 MyCustomButton(
-                    buttonName: 'Select Floors',
-                    color: green,
-                    style: const TextStyle(color: white),
-                    onPressed: () {
-                      final selectFloorsBloc =
-                          BlocProvider.of<SelectFloorsBloc>(context);
-                      context.pushNamed(
-                        RoutesName.selectFloorsScreen,
-                        extra: {
-                          'buildingModel': widget.buildingModel,
-                          'bloc': selectFloorsBloc,
-                        },
-                      );
-                    }),
+                  buttonName: 'Select Floors',
+                  color: green,
+                  style: const TextStyle(color: white),
+                  onPressed: () {
+                    final selectFloorsBloc =
+                        BlocProvider.of<SelectFloorsBloc>(context);
+                    context.pushNamed(
+                      RoutesName.selectFloorsScreen,
+                      extra: {
+                        'buildingModel': buildingModel,
+                        'bloc': selectFloorsBloc,
+                      },
+                    );
+                  },
+                ),
                 Gap(15.h),
                 MyCustomTextFormField(
-                  controller: _pricePerFeetController,
+                  controller: pricePerFeetController,
                   hintText: "PricePerFeet",
                   maxLines: 1,
                   textInputType: TextInputType.number,
@@ -136,7 +196,7 @@ class _MyAddAgencyBottomSheetState extends State<MyAddAgencyBottomSheet> {
                 ),
                 Gap(15.h),
                 MyCustomTextFormField(
-                  controller: _descriptionController,
+                  controller: descriptionController,
                   hintText: "Description",
                   maxLines: 2,
                   textInputType: TextInputType.name,
@@ -150,18 +210,22 @@ class _MyAddAgencyBottomSheetState extends State<MyAddAgencyBottomSheet> {
                   color: green,
                   style: const TextStyle(color: white),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
+                    if (formKey.currentState!.validate()) {
                       final agencyDropDown =
                           context.read<AddAgencyDropDownsBloc>().state;
                       final selectedFloors =
                           context.read<SelectFloorsBloc>().state;
-                      agencies.add(PerBuildingAgencyModel(
-                          workType: agencyDropDown.workTypeValue,
-                          nameOfAgency: agencyDropDown.nameOfAgencyValue,
-                          floors: selectedFloors.floorList,
-                          pricePerFeet:
-                              double.parse(_pricePerFeetController.text),
-                          description: _descriptionController.text));
+                      agencyRepository.addAgencyInBuilding(
+                        workTypeId: agencyDropDown.workTypeValue,
+                        agencyId: agencyDropDown.nameOfAgencyValue,
+                        floors: selectedFloors.floorList,
+                        pricePerFeet: double.parse(pricePerFeetController.text),
+                        name: "name",
+                        companyId: "companyId",
+                        buildingId: buildingModel.sId!,
+                        projectId: projectModel.sId!,
+                        description: descriptionController.text,
+                      );
 
                       context
                           .read<PerBuildingAgenciesBloc>()
@@ -169,7 +233,7 @@ class _MyAddAgencyBottomSheetState extends State<MyAddAgencyBottomSheet> {
                       context.pop();
                     }
                   },
-                )
+                ),
               ],
             ),
           ),

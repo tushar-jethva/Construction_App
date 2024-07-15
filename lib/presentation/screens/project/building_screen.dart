@@ -87,7 +87,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                               onTap: () {
                                 context.pushNamed(
                                     RoutesName.buildingDetailsScreen,
-                                    extra: building);
+                                    extra: {"buildingModel":building,"projectModel":widget.project});
                               },
                               child: MyBuildingListWidget(building: building));
                         }),

@@ -18,25 +18,27 @@ class MyCustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      maxLines: maxLines,
-      keyboardType: textInputType,
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: grey, width: 1)),
-        errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: red, width: 1)),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: grey, width: 1)),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: grey, width: 1)),
-      ),
-      validator: validator
-    );
+        onTapOutside: (val) {
+          FocusScope.of(context).unfocus();
+        },
+        controller: controller,
+        maxLines: maxLines,
+        keyboardType: textInputType,
+        decoration: InputDecoration(
+          hintText: hintText,
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: grey, width: 1)),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(color: red, width: 1)),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: grey, width: 1)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: grey, width: 1)),
+        ),
+        validator: validator);
   }
 }

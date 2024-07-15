@@ -35,6 +35,7 @@ class ProjectDataSourceImpl extends ProjectDataSource {
   Future<List<ProjectModel>> allProjects() async {
     List<ProjectModel> allProjectList = [];
     try {
+      print("Hello");
       http.Response res = await http.get(
         Uri.parse(API.GET_PROJECT_URL),
         headers: <String, String>{
@@ -45,7 +46,9 @@ class ProjectDataSourceImpl extends ProjectDataSource {
       for (var project in projects["data"]) {
         allProjectList.add(ProjectModel.fromJson(project));
       }
-    } catch (e) {}
+    } catch (e) {
+      print("All Projects: ${e.toString()}");
+    }
     return allProjectList;
   }
 }

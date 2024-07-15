@@ -1,10 +1,12 @@
 import 'package:construction_mate/logic/models/building_model.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/agency_widget.dart';
 import 'package:flutter/material.dart';
 
 class MyBuildingDetailsScreen extends StatefulWidget {
   final BuildingModel buildingModel;
-  const MyBuildingDetailsScreen({super.key, required this.buildingModel});
+  final ProjectModel projectModel;
+  const MyBuildingDetailsScreen({super.key, required this.buildingModel, required this.projectModel});
 
   @override
   State<MyBuildingDetailsScreen> createState() =>
@@ -30,7 +32,7 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
           body:  TabBarView(
             children: [
               const Center(child: Text('Site Progress Tab')),
-              MyPerBuildingAgency(buildingModel: widget.buildingModel,)
+              MyPerBuildingAgency(buildingModel: widget.buildingModel,projectModel: widget.projectModel,)
             ],
           ),
         ));
