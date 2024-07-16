@@ -62,9 +62,11 @@ class Routes {
         final args = state.extra as Map<String, dynamic>;
         final buildingModel = args['buildingModel'] as BuildingModel;
         final selectFloorsBloc = args['bloc'] as SelectFloorsBloc;
+        final workTypeId = args['workTypeId'] as String;
+        final projectModel = args['projectModel'] as ProjectModel;
         return MySelectFloorsScreen(
           buildingModel: buildingModel,
-          selectFloorsBloc: selectFloorsBloc,
+          selectFloorsBloc: selectFloorsBloc, projectModel: projectModel, workTypeId: workTypeId,
         );
       },
     ),

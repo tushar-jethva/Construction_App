@@ -2,18 +2,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/data/datasource/agency_data_source.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
 
 class MySelectFloorsScreen extends StatefulWidget {
   final BuildingModel buildingModel;
+  final ProjectModel projectModel;
+  final String workTypeId;
   final SelectFloorsBloc selectFloorsBloc;
   const MySelectFloorsScreen({
     Key? key,
     required this.buildingModel,
+    required this.projectModel,
+    required this.workTypeId,
     required this.selectFloorsBloc,
   }) : super(key: key);
 
@@ -23,6 +29,19 @@ class MySelectFloorsScreen extends StatefulWidget {
 
 class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
   List<int> list = [1, 2, 3, 4];
+  final AgencyRepository agencyRepository =
+      AgencyRepositoryImpl(agencyDataSource: AgencyDataSourceDataSourceImpl());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.selectFloorsBloc.add(FetchSelectedFloorsEvent(
+        buildingId: widget.buildingModel.sId!,
+        projectId: widget.projectModel.sId!,
+        workTypeId: widget.workTypeId));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
@@ -33,6 +52,13 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
         ),
         body: BlocBuilder<SelectFloorsBloc, SelectFloorsState>(
           builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: purple,
+                ),
+              );
+            }
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: GridView.builder(
@@ -43,7 +69,8 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                       mainAxisSpacing: 20.w,
                       mainAxisExtent: 125),
                   itemBuilder: (context, index) {
-                    if (list.contains(index + 1)) {
+                    if (state.selectedFloorList
+                        .any((floor) => floor.floorIndex == index + 1)) {
                       return GestureDetector(
                         onTap: () {
                           ReusableFunctions.showSnackBar(

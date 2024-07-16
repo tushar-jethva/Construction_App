@@ -7,4 +7,5 @@ class API {
   static const GET_ALL_WORK_TYPES = "$BASE_URL/WorkType/GetWorkType";
   static const GET_AGENCY_BY_WORK_TYPE = "$BASE_URL/Agency/GetAgency";
   static const GET_FLOORS_BY_WORK_TYPE = "$BASE_URL/Task/GetSelectedFloors";
+  static const ADD_TASK_URL = "$BASE_URL/Task/AddTask";
 }

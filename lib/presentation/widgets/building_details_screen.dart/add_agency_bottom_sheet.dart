@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
@@ -165,15 +166,26 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   color: green,
                   style: const TextStyle(color: white),
                   onPressed: () {
-                    final selectFloorsBloc =
-                        BlocProvider.of<SelectFloorsBloc>(context);
-                    context.pushNamed(
-                      RoutesName.selectFloorsScreen,
-                      extra: {
-                        'buildingModel': buildingModel,
-                        'bloc': selectFloorsBloc,
-                      },
-                    );
+                    for (int i = 0; i < 1; i++) {
+                      if (formKey.currentState!.validate()) {
+                        final dropDown =
+                            context.read<AddAgencyDropDownsBloc>().state;
+
+                        if (dropDown.workTypeValue.isNotEmpty) {
+                          final selectFloorsBloc =
+                              BlocProvider.of<SelectFloorsBloc>(context);
+                          context.pushNamed(
+                            RoutesName.selectFloorsScreen,
+                            extra: {
+                              'buildingModel': buildingModel,
+                              'bloc': selectFloorsBloc,
+                              'projectModel': projectModel,
+                              'workTypeId': dropDown.workTypeValue
+                            },
+                          );
+                        }
+                      }
+                    }
                   },
                 ),
                 Gap(15.h),

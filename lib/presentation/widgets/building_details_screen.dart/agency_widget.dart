@@ -1,4 +1,6 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/data/datasource/agency_data_source.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
@@ -23,7 +25,8 @@ class MyPerBuildingAgency extends StatelessWidget {
         context: context,
         builder: (context) {
           return BlocProvider(
-            create: (_) => SelectFloorsBloc(),
+            create: (_) => SelectFloorsBloc(AgencyRepositoryImpl(
+                agencyDataSource: AgencyDataSourceDataSourceImpl())),
             child: MyAddAgencyBottomSheet(
               buildingModel: buildingModel,
               projectModel: projectModel,
