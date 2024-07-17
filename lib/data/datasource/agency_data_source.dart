@@ -1,11 +1,9 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/floor_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:construction_mate/logic/models/work_type_model.dart';
 
 abstract class AgencyDataSource {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
