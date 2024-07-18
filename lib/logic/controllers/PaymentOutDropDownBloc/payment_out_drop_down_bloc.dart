@@ -60,11 +60,11 @@ class PaymentOutDropDownBloc
 
         emit(BuildingsLoadedState(
             projectValue: state.projectValue,
-            buildingValue: state.buildingValue,
-            agencyValue: state.agencyValue,
+            buildingValue: '',
+            agencyValue: '',
             projects: state.projects,
             buildings: state.buildings,
-            agencies: state.agencies));
+            agencies: []));
       } catch (e) {
         print(e.toString());
       }
