@@ -46,57 +46,100 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Buildings",
-                style: TextStyle(
-                    color: black, fontWeight: FontWeight.w500, fontSize: 14),
-              ),
-              MyCustomButton(
-                  buttonName: '+ Add Building',
-                  color: transparent,
-                  style: const TextStyle(
-                      fontSize: 16, color: purple, fontWeight: FontWeight.bold),
-                  onPressed: () {
-                    openBottomSheet(context: context);
-                  }),
-            ],
+    return Scaffold(
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Buildings",
+                  style: TextStyle(
+                      color: black, fontWeight: FontWeight.w500, fontSize: 14),
+                ),
+                MyCustomButton(
+                    buttonName: '+ Add Building',
+                    color: transparent,
+                    style: const TextStyle(
+                        fontSize: 16,
+                        color: purple,
+                        fontWeight: FontWeight.bold),
+                    onPressed: () {
+                      openBottomSheet(context: context);
+                    }),
+              ],
+            ),
           ),
-        ),
-        BlocBuilder<BuildingsBloc, BuildingsState>(builder: (context, state) {
-          if (state is BuildingsInitial) {
-            return Expanded(
-                child: const Center(child: CircularProgressIndicator()));
-          } else if (state is BuildingsLoadSuccess) {
-            return state.buildings.isEmpty
-                ? Expanded(
-                    child: const Center(child: Text("No building founds")))
-                : Expanded(
-                    child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: state.buildings.length,
-                        itemBuilder: (context, index) {
-                          BuildingModel building = state.buildings[index];
-                          return InkWell(
-                              onTap: () {
-                                context.pushNamed(
-                                    RoutesName.buildingDetailsScreen,
-                                    extra: {"buildingModel":building,"projectModel":widget.project});
-                              },
-                              child: MyBuildingListWidget(building: building));
-                        }),
-                  );
-          } else {
-            return const Center(child: Text('Failed to load projects'));
-          }
-        })
-      ],
+          BlocBuilder<BuildingsBloc, BuildingsState>(builder: (context, state) {
+            if (state is BuildingsInitial) {
+              return Expanded(
+                  child: const Center(child: CircularProgressIndicator()));
+            } else if (state is BuildingsLoadSuccess) {
+              return state.buildings.isEmpty
+                  ? Expanded(
+                      child: const Center(child: Text("No building founds")))
+                  : Expanded(
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: state.buildings.length,
+                          itemBuilder: (context, index) {
+                            BuildingModel building = state.buildings[index];
+                            return InkWell(
+                                onTap: () {
+                                  context.pushNamed(
+                                      RoutesName.buildingDetailsScreen,
+                                      extra: {
+                                        "buildingModel": building,
+                                        "projectModel": widget.project
+                                      });
+                                },
+                                child:
+                                    MyBuildingListWidget(building: building));
+                          }),
+                    );
+            } else {
+              return const Center(child: Text('Failed to load projects'));
+            }
+          }),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              margin: EdgeInsets.only(
+                  left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
+              height: 50.h,
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MyCustomButton(
+                    buttonName: "Payment In",
+                    color: green,
+                    style: const TextStyle(
+                        color: white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
+                    onPressed: () {},
+                  ),
+                  MyCustomButton(
+                    buttonName: "Payment Out",
+                    color: red,
+                    style: const TextStyle(
+                        color: white,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

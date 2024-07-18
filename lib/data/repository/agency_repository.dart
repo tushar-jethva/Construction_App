@@ -6,6 +6,8 @@ import 'package:construction_mate/logic/models/work_type_model.dart';
 
 abstract class AgencyRepository {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
+   Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId});
+
 
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
@@ -83,5 +85,18 @@ class AgencyRepositoryImpl extends AgencyRepository {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<List<AgencyModel>> getAgencyByBuildingId(
+      {required buildingId }) async {
+    List<AgencyModel> allAgencyByBuildingIdList = [];
+    try {
+      allAgencyByBuildingIdList =
+          await agencyDataSource.getAgencyByBuildingId(buildingId: buildingId);
+    } catch (e) {
+      print(e.toString());
+    }
+    return allAgencyByBuildingIdList;
   }
 }

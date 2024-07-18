@@ -48,8 +48,10 @@ class AllProjectsWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(project.name!),
-                              Text((project.paymentIn! - project.paymentOut!)
-                                  .toString())
+                              // Text((project.paymentIn! - project.paymentOut!)
+                              //     .toString()),
+                              IconButton(
+                                  onPressed: () {}, icon: const Icon(Icons.more_vert))
                             ],
                           ),
                           Row(

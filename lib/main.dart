@@ -10,6 +10,7 @@ import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agenc
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
@@ -54,6 +55,12 @@ class MyApp extends StatelessWidget {
               workTypesRepository:
                   WorkTypesRepositoryImpl(WorkTypesDataSourceImpl())),
         ),
+        BlocProvider(
+            create: (_) => PaymentOutDropDownBloc(
+                buildingRepository:
+                    BuildingRepositoryImpl(BuildingDataSourceImpl()),
+                agencyRepository: AgencyRepositoryImpl(
+                    agencyDataSource: AgencyDataSourceDataSourceImpl()),projectRepository: ProjectRepositoryImpl(ProjectDataSourceImpl())))
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

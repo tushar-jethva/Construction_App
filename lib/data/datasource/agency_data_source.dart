@@ -8,6 +8,9 @@ import 'package:http/http.dart' as http;
 abstract class AgencyDataSource {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
 
+   Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId});
+
+
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
       required String agencyId,
@@ -113,5 +116,26 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId}) async{
+    List<AgencyModel> allAgencyByBuildingIdList = [];
+    try {
+      http.Response res = await http.get(
+        Uri.parse("${API.GET_AGENCY_BY_BUILDING_ID}/${buildingId}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      final agencies = jsonDecode(res.body);
+      for (var agency in agencies["data"]) {
+        allAgencyByBuildingIdList.add(AgencyModel.fromJson(agency));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return allAgencyByBuildingIdList;
   }
 }

@@ -8,4 +8,5 @@ class API {
   static const GET_AGENCY_BY_WORK_TYPE = "$BASE_URL/Agency/GetAgency";
   static const GET_FLOORS_BY_WORK_TYPE = "$BASE_URL/Task/GetSelectedFloors";
   static const ADD_TASK_URL = "$BASE_URL/Task/AddTask";
+  static const GET_AGENCY_BY_BUILDING_ID = "$BASE_URL/Task/GetTask";
 }
