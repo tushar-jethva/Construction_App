@@ -29,7 +29,6 @@ class BuildingDataSourceImpl extends BuildingDataSource {
           totalFloor: int.parse(floors),
           unitPerFloor: int.parse(unitPerFloor),
           description: description);
-      print(building.toJson());
       await http.post(
         Uri.parse(API.ADD_BUILDING_URL),
         body: building.toJson(),
@@ -45,14 +44,12 @@ class BuildingDataSourceImpl extends BuildingDataSource {
       {required String projectId}) async {
     List<BuildingModel> listOfBuildings = [];
     try {
-      print("Hell0");
       http.Response res = await http.get(
         Uri.parse("${API.GET_BUILDING_BY_ID_URL}/${projectId}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      print(res.body);
       final buildings = jsonDecode(res.body);
       for (var building in buildings["data"]) {
         listOfBuildings.add(BuildingModel.fromJson(building));

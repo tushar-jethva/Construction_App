@@ -60,7 +60,9 @@ class MyApp extends StatelessWidget {
                 buildingRepository:
                     BuildingRepositoryImpl(BuildingDataSourceImpl()),
                 agencyRepository: AgencyRepositoryImpl(
-                    agencyDataSource: AgencyDataSourceDataSourceImpl()),projectRepository: ProjectRepositoryImpl(ProjectDataSourceImpl())))
+                    agencyDataSource: AgencyDataSourceDataSourceImpl()),
+                projectRepository:
+                    ProjectRepositoryImpl(ProjectDataSourceImpl())))
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

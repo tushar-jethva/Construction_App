@@ -3,11 +3,13 @@ import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AllProjectsWidget extends StatelessWidget {
   const AllProjectsWidget({super.key});
@@ -18,12 +20,64 @@ class AllProjectsWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is ProjectInitial) {
           return SliverToBoxAdapter(
-            child: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                    height: ReusableFunctions.getHeight(
-                        context: context, height: 0.5),
-                    child: const Center(child: CircularProgressIndicator()))),
+            child: Shimmer(
+              gradient: LinearGradient(
+                  colors: [baseColor, highlightColor], stops: [0.1, 0.8]),
+              child: SingleChildScrollView(
+                child: ListView.builder(
+                  itemCount: 5,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 8),
+                        child: Container(
+                          height: ReusableFunctions.getHeight(
+                              context: context, height: 0.12),
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: greyLight,
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ShimmerBox(height: 10, width: 200),
+                                  Icon(Icons.more_vert)
+                                ],
+                              ),
+                              Gap(10.h),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                    width: ReusableFunctions.getwidth(
+                                        context: context, width: 0.6),
+                                    child: LinearProgressIndicator(
+                                      borderRadius: BorderRadius.circular(10),
+                                      value: 0.2,
+                                      backgroundColor: Colors.white,
+                                      valueColor:
+                                          const AlwaysStoppedAnimation<Color>(
+                                              purple),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
           );
         } else if (state is ProjectLoadSuccess) {
           return SliverList(
@@ -38,7 +92,7 @@ class AllProjectsWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                           color: greyLight,
                           borderRadius: BorderRadius.circular(10)),
@@ -51,7 +105,8 @@ class AllProjectsWidget extends StatelessWidget {
                               // Text((project.paymentIn! - project.paymentOut!)
                               //     .toString()),
                               IconButton(
-                                  onPressed: () {}, icon: const Icon(Icons.more_vert))
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.more_vert))
                             ],
                           ),
                           Row(
@@ -65,7 +120,8 @@ class AllProjectsWidget extends StatelessWidget {
                                   value: 0.2,
                                   backgroundColor: Colors.white,
                                   valueColor:
-                                      AlwaysStoppedAnimation<Color>(purple),
+                                      const AlwaysStoppedAnimation<Color>(
+                                          purple),
                                 ),
                               ),
                               Gap(10.w),

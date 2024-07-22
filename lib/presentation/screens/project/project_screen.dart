@@ -26,45 +26,52 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     _projectBloc.add(LoadProjects());
   }
 
+  Future<void> _refreshProjects() async {
+    _projectBloc.add(LoadProjects());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
-          CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                expandedHeight: 40.h,
-                floating: true,
-                surfaceTintColor: Colors.transparent,
-                flexibleSpace: const MyHomeScreenAppBar(),
-              ),
-              const TransactionTopWidget(),
-              SliverAppBar(
-                toolbarHeight: 10,
-                surfaceTintColor: Colors.transparent,
-                pinned: true,
-                flexibleSpace: Padding(
-                  padding: EdgeInsets.only(left: 8.w, top: 12.h),
-                  child: const Row(
-                    children: [
-                      Text(
-                        "All Projects",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            color: black),
-                      )
-                    ],
+          RefreshIndicator(
+            onRefresh: _refreshProjects,
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  expandedHeight: 40.h,
+                  floating: true,
+                  surfaceTintColor: Colors.transparent,
+                  flexibleSpace: const MyHomeScreenAppBar(),
+                ),
+                const TransactionTopWidget(),
+                SliverAppBar(
+                  toolbarHeight: 10,
+                  surfaceTintColor: Colors.transparent,
+                  pinned: true,
+                  flexibleSpace: Padding(
+                    padding: EdgeInsets.only(left: 8.w, top: 12.h),
+                    child: const Row(
+                      children: [
+                        Text(
+                          "All Projects",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: black),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const AllProjectsWidget(),
-              SliverToBoxAdapter(
-                child: SizedBox(height: 50.h), // Spacer for bottom bar
-              ),
-            ],
+                const AllProjectsWidget(),
+                SliverToBoxAdapter(
+                  child: SizedBox(height: 50.h), // Spacer for bottom bar
+                ),
+              ],
+            ),
           ),
           const TransactionBottomWidget(),
         ],

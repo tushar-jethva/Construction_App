@@ -8,8 +8,7 @@ import 'package:http/http.dart' as http;
 abstract class AgencyDataSource {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
 
-   Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId});
-
+  Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId});
 
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
@@ -60,8 +59,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
     try {
       print("$projectId $buildingId $workTypeId");
       http.Response res = await http.post(
-        Uri.parse(
-            "https://constructionmate-backend.onrender.com/Task/GetSelectedFloors"),
+        Uri.parse(API.GET_FLOORS_BY_WORK_TYPE),
         body: jsonEncode({
           "ProjectId": projectId,
           "BuildingId": buildingId,
@@ -99,7 +97,6 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
         body: jsonEncode({
           "Name": name,
           "AgencyId": agencyId,
-          "CompanyId": companyId,
           "ProjectId": projectId,
           "WorkType": workTypeId,
           "WorkingFloors": floors.map((e) => e.toString()).toList(),
@@ -119,7 +116,8 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   }
 
   @override
-  Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId}) async{
+  Future<List<AgencyModel>> getAgencyByBuildingId(
+      {required String buildingId}) async {
     List<AgencyModel> allAgencyByBuildingIdList = [];
     try {
       http.Response res = await http.get(

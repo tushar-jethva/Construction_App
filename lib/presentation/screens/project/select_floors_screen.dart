@@ -69,8 +69,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                       mainAxisSpacing: 20.w,
                       mainAxisExtent: 125),
                   itemBuilder: (context, index) {
-                    if (state.selectedFloorList
-                        .any((floor) => floor.floorIndex == index + 1)) {
+                    if (state.selectedFloorList[index].isCompleted!) {
                       return GestureDetector(
                         onTap: () {
                           ReusableFunctions.showSnackBar(

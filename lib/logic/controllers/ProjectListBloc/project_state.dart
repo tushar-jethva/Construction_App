@@ -2,6 +2,7 @@ part of 'project_bloc.dart';
 
 @immutable
 sealed class ProjectState {}
+
 final class ProjectInitial extends ProjectState {}
 
 class ProjectLoadSuccess extends ProjectState {
@@ -9,3 +10,9 @@ class ProjectLoadSuccess extends ProjectState {
 
   ProjectLoadSuccess({required this.projects});
 }
+
+class ProjectAddLoading extends ProjectState {}
+
+class ProjectAddSuccess extends ProjectState {}
+
+class ProjectAddFailure extends ProjectState {}

@@ -38,11 +38,10 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
   }
 
   void addProject() async {
-    await projectRepository.addProject(
+    context.read<ProjectBloc>().add(AddProject(
+        projectAddress: _addressController.text,
         projectName: _projectNameController.text,
-        address: _addressController.text,
-        description: _descriptionController.text);
-    // ignore: use_build_context_synchronously
+        projectDescription: _descriptionController.text));
     context.read<ProjectBloc>().add(LoadProjects());
     Navigator.pop(context);
   }
@@ -109,19 +108,28 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                 maxLines: 3,
               ),
               Gap(20.h),
-              Padding(
-                padding: EdgeInsets.only(bottom: 10.h),
-                child: MyCustomButton(
-                  buttonName: 'Add Project',
-                  color: green,
-                  style: const TextStyle(
-                      color: white, fontWeight: FontWeight.w500),
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      addProject();
-                    }
-                  },
-                ),
+              BlocBuilder<ProjectBloc, ProjectState>(
+                builder: (context, state) {
+                  if (state is ProjectAddLoading) {
+                    return CircularProgressIndicator(
+                      color: purple,
+                    );
+                  }
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 10.h),
+                    child: MyCustomButton(
+                      buttonName: 'Add Project',
+                      color: green,
+                      style: const TextStyle(
+                          color: white, fontWeight: FontWeight.w500),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          addProject();
+                        }
+                      },
+                    ),
+                  );
+                },
               ),
             ],
           ),

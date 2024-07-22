@@ -7,8 +7,7 @@ class FloorModel {
 
   FloorModel.fromJson(Map<String, dynamic> json) {
     floorIndex = json['floorIndex'];
-    isCompleted = json['isCompleted'] ?? '';
-    completeDate = json['completeDate'];
+    isCompleted = json['isSelect'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

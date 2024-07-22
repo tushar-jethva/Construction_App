@@ -18,3 +18,8 @@ class FetchAgenciesEvent2 extends PaymentOutDropDownEvent {
   FetchAgenciesEvent2(this.buildingId);
 }
 
+class AgencyValueChanged extends PaymentOutDropDownEvent{
+  final String agencyId;
+  AgencyValueChanged({required this.agencyId});
+}
+

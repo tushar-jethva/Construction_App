@@ -1,8 +1,17 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
+import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
+import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_screen_list_shimmer.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:construction_mate/core/constants/colors.dart';
@@ -12,6 +21,7 @@ import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_add_bottom_sheet_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_card.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BuildingsScreen extends StatefulWidget {
   final ProjectModel project;
@@ -25,6 +35,14 @@ class BuildingsScreen extends StatefulWidget {
 }
 
 class _BuildingsScreenState extends State<BuildingsScreen> {
+  final TextEditingController _priceInController = TextEditingController();
+  final TextEditingController _priceOutController = TextEditingController();
+
+  final TextEditingController _descriptionController = TextEditingController();
+  final formPaymentOutKey = GlobalKey<FormState>();
+  final TransactionRepository transactionRepository = TransactionRepositoryImpl(
+      transactionDataSource: TransactionDataSourceImpl());
+
   openBottomSheet({required BuildContext context}) {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -44,101 +62,287 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
     _buildingsBloc.add(LoadBuildings(projectId: widget.project.sId!));
   }
 
+  Future<void> _refreshBuildings() async {
+    _buildingsBloc.add(LoadBuildings(projectId: widget.project.sId!));
+  }
+
+  void _showPaymentOutDialog() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return SimpleDialog(
+            children: [
+              Form(
+                key: formPaymentOutKey,
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
+                  child: Column(
+                    children: [
+                      const Center(
+                        child: Text(
+                          "Payment Out",
+                          style: TextStyle(
+                              color: black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      ),
+                      Gap(40.h),
+                      Text("${widget.project.name}"),
+                      Gap(15.h),
+                      BlocBuilder<PaymentOutDropDownBloc,
+                          PaymentOutDropDownState>(
+                        builder: (context, state) {
+                          if (state is BuildingsLoadingState) {
+                            return CustomDropDown(items: selectBuilding);
+                          } else if (state is BuildingsLoadedState ||
+                              state is AgenciesLoadedState) {
+                            return PaymentOutCustomDropDown(
+                              value: state.buildingValue,
+                              list: state.buildings
+                                  .map((e) => DropdownMenuItem(
+                                        value: e.sId,
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4, // Set a specific width here
+                                          child: Text(
+                                            e.name!,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (val) {
+                                context
+                                    .read<PaymentOutDropDownBloc>()
+                                    .add(FetchAgenciesEvent2(val!));
+                              },
+                              validator: (val) {
+                                if (val == state.buildings[0].sId) {
+                                  return 'Please select one of the names!';
+                                }
+                              },
+                            );
+                          }
+                          return CustomDropDown(items: selectBuilding);
+                        },
+                      ),
+                      Gap(15.h),
+                      BlocBuilder<PaymentOutDropDownBloc,
+                          PaymentOutDropDownState>(
+                        builder: (context, state) {
+                          if (state is AgenciesLoadedState) {
+                            return PaymentOutCustomDropDown(
+                              value: state.agencies[0].sId,
+                              list: state.agencies
+                                  .map((e) => DropdownMenuItem(
+                                        value: e.sId,
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.4, // Set a specific width here
+                                          child: Text(
+                                            e.name!,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ))
+                                  .toList(),
+                              onChanged: (val) {
+                                context
+                                    .read<PaymentOutDropDownBloc>()
+                                    .add(AgencyValueChanged(agencyId: val!));
+                              },
+                              validator: (val) {
+                                if (val == state.agencies[0].sId) {
+                                  return 'Please select one of the names!';
+                                }
+                              },
+                            );
+                          }
+                          return CustomDropDown(items: nameOfAgency);
+                        },
+                      ),
+                      Gap(20.h),
+                      MyCustomTextFormField(
+                        controller: _priceOutController,
+                        hintText: "Payment OUT",
+                        maxLines: 1,
+                        textInputType: TextInputType.number,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter price per feet!';
+                          }
+                          if (double.tryParse(value) == null) {
+                            return 'Please enter valid digit!';
+                          }
+                          if (value.startsWith('-')) {
+                            return 'Please enter valid digit!';
+                          }
+                        },
+                      ),
+                      Gap(15.h),
+                      MyCustomTextFormField(
+                        controller: _descriptionController,
+                        hintText: "Description",
+                        maxLines: 3,
+                        textInputType: TextInputType.name,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter description!';
+                          }
+                        },
+                      ),
+                      Gap(30.h),
+                      MyCustomButton(
+                          buttonName: "Payment Out",
+                          color: green,
+                          style: TextStyle(color: white),
+                          onPressed: () async {
+                            if (formPaymentOutKey.currentState!.validate()) {
+                              final state =
+                                  context.read<PaymentOutDropDownBloc>().state;
+                              await transactionRepository
+                                  .addPaymentOutTransaction(
+                                      description: _descriptionController.text,
+                                      agencyId: state.agencyValue,
+                                      projectId: state.projectValue,
+                                      buildingId: state.buildingValue,
+                                      amount: _priceOutController.text);
+                              context.pop();
+                            }
+                          })
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Buildings",
-                  style: TextStyle(
-                      color: black, fontWeight: FontWeight.w500, fontSize: 14),
-                ),
-                MyCustomButton(
-                    buttonName: '+ Add Building',
-                    color: transparent,
-                    style: const TextStyle(
-                        fontSize: 16,
-                        color: purple,
-                        fontWeight: FontWeight.bold),
-                    onPressed: () {
-                      openBottomSheet(context: context);
-                    }),
-              ],
-            ),
-          ),
-          BlocBuilder<BuildingsBloc, BuildingsState>(builder: (context, state) {
-            if (state is BuildingsInitial) {
-              return Expanded(
-                  child: const Center(child: CircularProgressIndicator()));
-            } else if (state is BuildingsLoadSuccess) {
-              return state.buildings.isEmpty
-                  ? Expanded(
-                      child: const Center(child: Text("No building founds")))
-                  : Expanded(
-                      child: ListView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: state.buildings.length,
-                          itemBuilder: (context, index) {
-                            BuildingModel building = state.buildings[index];
-                            return InkWell(
-                                onTap: () {
-                                  context.pushNamed(
-                                      RoutesName.buildingDetailsScreen,
-                                      extra: {
-                                        "buildingModel": building,
-                                        "projectModel": widget.project
-                                      });
-                                },
-                                child:
-                                    MyBuildingListWidget(building: building));
-                          }),
-                    );
-            } else {
-              return const Center(child: Text('Failed to load projects'));
-            }
-          }),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(
-                  left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
-              height: 50.h,
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+      body: RefreshIndicator(
+        onRefresh: _refreshBuildings,
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  MyCustomButton(
-                    buttonName: "Payment In",
-                    color: green,
-                    style: const TextStyle(
-                        color: white,
+                  const Text(
+                    "Buildings",
+                    style: TextStyle(
+                        color: black,
                         fontWeight: FontWeight.w500,
-                        fontSize: 15),
-                    onPressed: () {},
+                        fontSize: 14),
                   ),
                   MyCustomButton(
-                    buttonName: "Payment Out",
-                    color: red,
-                    style: const TextStyle(
-                        color: white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15),
-                    onPressed: () {},
-                  ),
+                      buttonName: '+ Add Building',
+                      color: transparent,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          color: purple,
+                          fontWeight: FontWeight.bold),
+                      onPressed: () {
+                        openBottomSheet(context: context);
+                      }),
                 ],
               ),
             ),
-          )
-        ],
+            BlocBuilder<BuildingsBloc, BuildingsState>(
+                builder: (context, state) {
+              if (state is BuildingsInitial) {
+                return Expanded(
+                  child: Shimmer(
+                    gradient: LinearGradient(
+                        colors: [baseColor, highlightColor], stops: [0.1, 0.8]),
+                    child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: 6,
+                        itemBuilder: (context, index) {
+                          return MyBuildingListShimmerWidget();
+                        }),
+                  ),
+                );
+              } else if (state is BuildingsLoadSuccess) {
+                return state.buildings.isEmpty
+                    ? const Expanded(
+                        child: Center(child: Text("No building founds")))
+                    : Expanded(
+                        child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: state.buildings.length,
+                            itemBuilder: (context, index) {
+                              BuildingModel building = state.buildings[index];
+                              return InkWell(
+                                  onTap: () {
+                                    context.pushNamed(
+                                        RoutesName.buildingDetailsScreen,
+                                        extra: {
+                                          "buildingModel": building,
+                                          "projectModel": widget.project
+                                        });
+                                  },
+                                  child:
+                                      MyBuildingListWidget(building: building));
+                            }),
+                      );
+              } else {
+                return const Center(child: Text('Failed to load projects'));
+              }
+            }),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                margin: EdgeInsets.only(
+                    left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
+                height: 50.h,
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    MyCustomButton(
+                      buttonName: "Payment In",
+                      color: green,
+                      style: const TextStyle(
+                          color: white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15),
+                      onPressed: () {},
+                    ),
+                    MyCustomButton(
+                      buttonName: "Payment Out",
+                      color: red,
+                      style: const TextStyle(
+                          color: white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15),
+                      onPressed: () {
+                        context
+                            .read<PaymentOutDropDownBloc>()
+                            .add(FetchBuildingsEvent(widget.project.sId!));
+                        _showPaymentOutDialog();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

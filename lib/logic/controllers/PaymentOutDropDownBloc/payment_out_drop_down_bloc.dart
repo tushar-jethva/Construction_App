@@ -55,12 +55,14 @@ class PaymentOutDropDownBloc
             agencies: state.agencies));
         final buildings = await buildingRepository.allBuildingById(
             projectId: event.projectId);
-        buildings.insert(0, BuildingModel(name: "--Select Building--"));
-        emit(state.copyWith(buildings: buildings));
-
+        buildings.insert(
+            0, BuildingModel(name: "--Select Building--", sId: '1'));
+        emit(state.copyWith(
+            buildings: buildings, projectValue: event.projectId));
+        print(state.buildings);
         emit(BuildingsLoadedState(
             projectValue: state.projectValue,
-            buildingValue: '',
+            buildingValue: state.buildings[0].sId.toString(),
             agencyValue: '',
             projects: state.projects,
             buildings: state.buildings,
@@ -82,9 +84,10 @@ class PaymentOutDropDownBloc
         final agencies = await agencyRepository.getAgencyByBuildingId(
             buildingId: event.buildingId);
         agencies.insert(0, AgencyModel(name: "--Select Agency--"));
-        emit(state.copyWith(agencies: agencies));
+        emit(state.copyWith(
+            agencies: agencies, buildingValue: event.buildingId));
 
-        emit(AgenciesLoadingState(
+        emit(AgenciesLoadedState(
             projectValue: state.projectValue,
             buildingValue: state.buildingValue,
             agencyValue: state.agencyValue,
@@ -94,6 +97,17 @@ class PaymentOutDropDownBloc
       } catch (e) {
         print(e.toString());
       }
+    });
+
+    on<AgencyValueChanged>((event, emit) async {
+      emit(state.copyWith(agencyValue: event.agencyId));
+      emit(AgenciesLoadedState(
+          projectValue: state.projectValue,
+          buildingValue: state.buildingValue,
+          agencyValue: state.agencyValue,
+          projects: state.projects,
+          buildings: state.buildings,
+          agencies: state.agencies));
     });
   }
 }

@@ -1,5 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
+import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
+import 'package:construction_mate/presentation/screens/project/transaction_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:construction_mate/core/constants/colors.dart';
@@ -23,7 +29,6 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final project = widget.projectModel;
-
     return DefaultTabController(
       initialIndex: 1,
       length: 3,
@@ -62,11 +67,23 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
             ],
           ),
         ),
-        body:  TabBarView(
+        body: TabBarView(
           children: [
-            Center(child: Text('Paties Tab')),
-            BuildingsScreen(project: widget.projectModel,),
-            Center(child: Text('Transactions Tab')),
+            const Center(child: Text('Paties Tab')),
+            BuildingsScreen(
+              project: widget.projectModel,
+            ),
+            BlocProvider(
+              create: (context) => TransactionBuildingBloc(
+                  transactionRepository: TransactionRepositoryImpl(
+                      transactionDataSource: TransactionDataSourceImpl())),
+              child: BlocProvider(
+                create: (context) => StartAndEndDateBloc(),
+                child: MyTransactionScreen(
+                  project: widget.projectModel,
+                ),
+              ),
+            ),
           ],
         ),
       ),

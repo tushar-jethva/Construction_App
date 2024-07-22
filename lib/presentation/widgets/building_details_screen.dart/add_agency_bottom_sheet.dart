@@ -161,6 +161,24 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   ],
                 ),
                 Gap(15.h),
+                MyCustomTextFormField(
+                  controller: pricePerFeetController,
+                  hintText: "PricePerFeet",
+                  maxLines: 1,
+                  textInputType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter price per feet!';
+                    }
+                    if (double.tryParse(value) == null) {
+                      return 'Please enter valid digit!';
+                    }
+                    if (value.startsWith('-')) {
+                      return 'Please enter valid digit!';
+                    }
+                  },
+                ),
+                Gap(15.h),
                 MyCustomButton(
                   buttonName: 'Select Floors',
                   color: green,
@@ -185,24 +203,6 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                           );
                         }
                       }
-                    }
-                  },
-                ),
-                Gap(15.h),
-                MyCustomTextFormField(
-                  controller: pricePerFeetController,
-                  hintText: "PricePerFeet",
-                  maxLines: 1,
-                  textInputType: TextInputType.number,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter price per feet!';
-                    }
-                    if (double.tryParse(value) == null) {
-                      return 'Please enter valid digit!';
-                    }
-                    if (value.startsWith('-')) {
-                      return 'Please enter valid digit!';
                     }
                   },
                 ),
