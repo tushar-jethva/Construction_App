@@ -6,9 +6,11 @@ sealed class PerBuildingAgenciesEvent {}
 
 // ignore: must_be_immutable
 class LoadAgencies extends PerBuildingAgenciesEvent {
-  List<PerBuildingAgencyModel> agencies;
+  final String projectId;
+  final String  buildingId;
   LoadAgencies({
-    required this.agencies,
+   required this.projectId,
+   required this.buildingId
   });
 
 }

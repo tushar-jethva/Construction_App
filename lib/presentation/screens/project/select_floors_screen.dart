@@ -28,7 +28,6 @@ class MySelectFloorsScreen extends StatefulWidget {
 }
 
 class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
-  List<int> list = [1, 2, 3, 4];
   final AgencyRepository agencyRepository =
       AgencyRepositoryImpl(agencyDataSource: AgencyDataSourceDataSourceImpl());
 
@@ -52,90 +51,92 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
         ),
         body: BlocBuilder<SelectFloorsBloc, SelectFloorsState>(
           builder: (context, state) {
-            if (state.isLoading) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: purple,
-                ),
-              );
-            }
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                  itemCount: widget.buildingModel.totalFloor,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 20.w,
-                      mainAxisSpacing: 20.w,
-                      mainAxisExtent: 125),
-                  itemBuilder: (context, index) {
-                    if (state.selectedFloorList[index].isCompleted!) {
-                      return GestureDetector(
-                        onTap: () {
-                          ReusableFunctions.showSnackBar(
-                              context: context, content: "Already given!");
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            color: grey,
+            print(state.isLoading);
+            if (!state.isLoading) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                    itemCount: widget.buildingModel.totalFloor,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 20.w,
+                        mainAxisSpacing: 20.w,
+                        mainAxisExtent: 125),
+                    itemBuilder: (context, index) {
+                      if (state.selectedFloorList[index].isCompleted!) {
+                        return GestureDetector(
+                          onTap: () {
+                            ReusableFunctions.showSnackBar(
+                                context: context, content: "Already given!");
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.r),
+                              color: grey,
+                            ),
+                            child: Text(
+                              "${index + 1} floor",
+                              style: const TextStyle(
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                            ),
                           ),
-                          child: Text(
-                            "${index + 1} floor",
-                            style: const TextStyle(
-                                color: white,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16),
+                        );
+                      }
+                      if (state.floorList.contains(index + 1)) {
+                        return GestureDetector(
+                          onTap: () {
+                            context
+                                .read<SelectFloorsBloc>()
+                                .add(RemoveFloorEvent(floor: index + 1));
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: green,
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Text(
+                              "${index + 1} floor",
+                              style: const TextStyle(
+                                  color: white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                    if (state.floorList.contains(index + 1)) {
+                        );
+                      }
                       return GestureDetector(
                         onTap: () {
                           context
                               .read<SelectFloorsBloc>()
-                              .add(RemoveFloorEvent(floor: index + 1));
+                              .add(AddFloorEvent(floor: index + 1));
                         },
                         child: Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                            color: green,
                             borderRadius: BorderRadius.circular(10.r),
+                            color: greyLight,
                           ),
                           child: Text(
                             "${index + 1} floor",
                             style: const TextStyle(
-                                color: white,
+                                color: black,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16),
                           ),
                         ),
                       );
-                    }
-                    return GestureDetector(
-                      onTap: () {
-                        context
-                            .read<SelectFloorsBloc>()
-                            .add(AddFloorEvent(floor: index + 1));
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.r),
-                          color: greyLight,
-                        ),
-                        child: Text(
-                          "${index + 1} floor",
-                          style: const TextStyle(
-                              color: black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
-                        ),
-                      ),
-                    );
-                  }),
+                    }),
+              );
+            }
+
+            return const Center(
+              child: CircularProgressIndicator(
+                color: purple,
+              ),
             );
           },
         ),

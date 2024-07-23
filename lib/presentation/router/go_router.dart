@@ -1,7 +1,9 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
+import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
-import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/logic/models/floor_site_model.dart';
+import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
@@ -10,6 +12,8 @@ import 'package:construction_mate/presentation/screens/project/building_details_
 import 'package:construction_mate/presentation/screens/project/details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
+import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
+import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -49,10 +53,13 @@ class Routes {
       path: RoutesName.buildingDetailsScreen,
       name: RoutesName.buildingDetailsScreen,
       builder: (context, state) {
-        final args = state.extra as Map<String,dynamic>;
+        final args = state.extra as Map<String, dynamic>;
         final buildingModel = args['buildingModel'] as BuildingModel;
         final projectModel = args["projectModel"] as ProjectModel;
-        return MyBuildingDetailsScreen(buildingModel: buildingModel, projectModel: projectModel,);
+        return MyBuildingDetailsScreen(
+          buildingModel: buildingModel,
+          projectModel: projectModel,
+        );
       },
     ),
     GoRoute(
@@ -66,7 +73,33 @@ class Routes {
         final projectModel = args['projectModel'] as ProjectModel;
         return MySelectFloorsScreen(
           buildingModel: buildingModel,
-          selectFloorsBloc: selectFloorsBloc, projectModel: projectModel, workTypeId: workTypeId,
+          selectFloorsBloc: selectFloorsBloc,
+          projectModel: projectModel,
+          workTypeId: workTypeId,
+        );
+      },
+    ),
+    GoRoute(
+      path: RoutesName.workingAgencyDetailsScreen,
+      name: RoutesName.workingAgencyDetailsScreen,
+      builder: (context, state) {
+        final PerBuildingAgencyModel perBuildingAgencyModel =
+            state.extra as PerBuildingAgencyModel;
+        return MyWorkingAgencyDetailsScreen(
+          perBuildingAgency: perBuildingAgencyModel,
+        );
+      },
+    ),
+    GoRoute(
+      path: RoutesName.siteProgressDeailsScreen,
+      name: RoutesName.siteProgressDeailsScreen,
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        final floorSiteModel = args['floorSiteModel'] as FloorSiteModel;
+        final siteProgressAgencyUpdateBloc = args['bloc'] as SiteProgressAgencyUpdateBloc;
+        return MySiteProgressDetailsWidget(
+          floorSiteModel: floorSiteModel,
+          siteProgressAgencyUpdateBloc: siteProgressAgencyUpdateBloc,
         );
       },
     ),

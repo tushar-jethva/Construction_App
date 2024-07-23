@@ -11,16 +11,16 @@ class MyDropDownFormField extends StatelessWidget {
   final List<WorkTypeModel> items;
   final Function(String val) event;
   const MyDropDownFormField({
-    Key? key,
+    super.key,
     required this.items,
     required this.event,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(7),
+        contentPadding: const EdgeInsets.all(7),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             10.r,
@@ -44,7 +44,7 @@ class MyDropDownFormField extends StatelessWidget {
       items: items
           .map((e) => DropdownMenuItem(
                 value: e.sId,
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width *
                       0.4, // Set a specific width here
                   child: Text(

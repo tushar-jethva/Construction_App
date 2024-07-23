@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:meta/meta.dart';
 
@@ -7,12 +8,18 @@ part 'per_building_agencies_state.dart';
 
 class PerBuildingAgenciesBloc
     extends Bloc<PerBuildingAgenciesEvent, PerBuildingAgenciesState> {
-  PerBuildingAgenciesBloc() : super(PerBuildingAgenciesInitial()) {
+  final AgencyRepository agencyRepository;
+  PerBuildingAgenciesBloc({required this.agencyRepository})
+      : super(PerBuildingAgenciesInitial()) {
     on<LoadAgencies>(_onLoadAgencies);
   }
 
   void _onLoadAgencies(
-      LoadAgencies event, Emitter<PerBuildingAgenciesState> state) {
-    emit(PerBuildingAgenciesSuccess(agencies: event.agencies));
+      LoadAgencies event, Emitter<PerBuildingAgenciesState> state) async {
+    emit(PerBuildingAgenciesInitial());
+    List<PerBuildingAgencyModel> perBuildingAgencyList =
+        await agencyRepository.getWorkingAgenciesOnBuilding(
+            buildingId: event.buildingId, projectId: event.projectId);
+    emit(PerBuildingAgenciesSuccess(agencies: perBuildingAgencyList));
   }
 }

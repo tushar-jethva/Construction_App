@@ -1,6 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +18,7 @@ class MyBuildingListShimmerWidget extends StatelessWidget {
             color: greyLight, borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ShimmerBox(

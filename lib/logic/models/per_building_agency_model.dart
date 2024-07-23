@@ -3,20 +3,18 @@ import 'dart:convert';
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 class PerBuildingAgencyModel {
-
-  final String workType;
-  final String nameOfAgency;
-  final List<int> floors;
-  final double pricePerFeet;
-  final String description;
+  final String? workType;
+  final String? nameOfAgency;
+  final List<int>? floors;
+  final String? pricePerFeet;
+  final String? description;
   PerBuildingAgencyModel({
-    required this.workType,
-    required this.nameOfAgency,
-    required this.floors,
-    required this.pricePerFeet,
-    required this.description,
+    this.workType,
+    this.nameOfAgency,
+    this.floors,
+    this.pricePerFeet,
+    this.description,
   });
-  
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -30,15 +28,16 @@ class PerBuildingAgencyModel {
 
   factory PerBuildingAgencyModel.fromMap(Map<String, dynamic> map) {
     return PerBuildingAgencyModel(
-      workType: map['workType'] as String,
-      nameOfAgency: map['nameOfAgency'] as String,
-      floors: List<int>.from((map['floors'] as List<int>)),
-      pricePerFeet: map['pricePerFeet'] as double,
-      description: map['description'] as String,
+      workType: map['workTypeName'] as String,
+      nameOfAgency: map['agencyName'] as String,
+      floors: List<int>.from((map['floorIndices'] as List<dynamic>)),
+      pricePerFeet: (map['price'] as dynamic).toString(),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory PerBuildingAgencyModel.fromJson(String source) => PerBuildingAgencyModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory PerBuildingAgencyModel.fromJson(String source) =>
+      PerBuildingAgencyModel.fromMap(
+          json.decode(source) as Map<String, dynamic>);
 }

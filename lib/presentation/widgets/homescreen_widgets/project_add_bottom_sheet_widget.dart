@@ -111,7 +111,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
               BlocBuilder<ProjectBloc, ProjectState>(
                 builder: (context, state) {
                   if (state is ProjectAddLoading) {
-                    return CircularProgressIndicator(
+                    return const CircularProgressIndicator(
                       color: purple,
                     );
                   }

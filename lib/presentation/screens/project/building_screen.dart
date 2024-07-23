@@ -26,9 +26,9 @@ import 'package:shimmer/shimmer.dart';
 class BuildingsScreen extends StatefulWidget {
   final ProjectModel project;
   const BuildingsScreen({
-    Key? key,
+    super.key,
     required this.project,
-  }) : super(key: key);
+  });
 
   @override
   State<BuildingsScreen> createState() => _BuildingsScreenState();
@@ -265,12 +265,12 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                 return Expanded(
                   child: Shimmer(
                     gradient: LinearGradient(
-                        colors: [baseColor, highlightColor], stops: [0.1, 0.8]),
+                        colors: [baseColor, highlightColor], stops: const [0.1, 0.8]),
                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: 6,
                         itemBuilder: (context, index) {
-                          return MyBuildingListShimmerWidget();
+                          return const MyBuildingListShimmerWidget();
                         }),
                   ),
                 );

@@ -11,7 +11,7 @@ class CustomDropDown extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(7),
+        contentPadding: const EdgeInsets.all(7),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             10.r,
@@ -35,7 +35,7 @@ class CustomDropDown extends StatelessWidget {
       items: items
           .map((e) => DropdownMenuItem(
                 value: e,
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width *
                       0.4, // Set a specific width here
                   child: Text(

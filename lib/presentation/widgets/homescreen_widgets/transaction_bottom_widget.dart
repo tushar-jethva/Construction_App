@@ -3,15 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
-import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_drop_down_form_fields.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
@@ -197,7 +194,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                               list: state.projects
                                   .map((e) => DropdownMenuItem(
                                         value: e.sId,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -237,7 +234,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                               list: state.buildings
                                   .map((e) => DropdownMenuItem(
                                         value: e.sId,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -275,7 +272,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                               list: state.agencies
                                   .map((e) => DropdownMenuItem(
                                         value: e.sId,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *

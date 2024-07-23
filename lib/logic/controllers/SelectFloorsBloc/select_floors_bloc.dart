@@ -22,16 +22,15 @@ class SelectFloorsBloc extends Bloc<SelectFloorsEvent, SelectFloorsState> {
     });
 
     on<FetchSelectedFloorsEvent>((event, emit) async {
-      emit(state.copyWith(isLoading: true));
       try {
+        emit(state.copyWith(isLoading: true));
+
         final floors = await agencyRepository.getSelectedFloors(
             buildingId: event.buildingId,
             projectId: event.projectId,
             workTypeId: event.workTypeId);
         emit(state.copyWith(selectedFloorList: floors, isLoading: false));
-      } catch (e) {
-        emit(state.copyWith(isLoading: false, error: e.toString()));
-      }
+      } catch (e) {}
     });
   }
 }

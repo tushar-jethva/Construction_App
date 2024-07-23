@@ -6,4 +6,6 @@ class RoutesName {
   static String projectDetailsScreen = '/detailsScreen';
   static String buildingDetailsScreen = '/buildingDetailsScreen';
   static String selectFloorsScreen = '/selectFloorScreen';
+  static String workingAgencyDetailsScreen = '/workingAgencyDetailsScreen';
+  static String siteProgressDeailsScreen = '/siteProgressDetailsScreen';
 }

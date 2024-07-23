@@ -1,10 +1,12 @@
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/datasource/building_data_source.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
+import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
+import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
@@ -13,6 +15,7 @@ import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
+import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +29,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
@@ -46,7 +49,9 @@ class MyApp extends StatelessWidget {
               BuildingsBloc(BuildingRepositoryImpl(BuildingDataSourceImpl())),
         ),
         BlocProvider(
-          create: (_) => PerBuildingAgenciesBloc(),
+          create: (_) => PerBuildingAgenciesBloc(
+              agencyRepository: AgencyRepositoryImpl(
+                  agencyDataSource: AgencyDataSourceDataSourceImpl())),
         ),
         BlocProvider(
           create: (_) => AddAgencyDropDownsBloc(
@@ -62,7 +67,11 @@ class MyApp extends StatelessWidget {
                 agencyRepository: AgencyRepositoryImpl(
                     agencyDataSource: AgencyDataSourceDataSourceImpl()),
                 projectRepository:
-                    ProjectRepositoryImpl(ProjectDataSourceImpl())))
+                    ProjectRepositoryImpl(ProjectDataSourceImpl()))),
+        BlocProvider(
+            create: (_) => SiteProgressFloorsBloc(
+                siteProgressRepository: SiteProgressRepositoryImpl(
+                    siteProgressDataSource: SiteProgressDataSourceImpl())))
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

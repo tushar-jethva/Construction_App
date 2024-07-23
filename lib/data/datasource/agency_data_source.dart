@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/floor_model.dart';
+import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:http/http.dart' as http;
 
 abstract class AgencyDataSource {
@@ -25,6 +26,9 @@ abstract class AgencyDataSource {
       {required String projectId,
       required String buildingId,
       required String workTypeId});
+
+  Future<List<PerBuildingAgencyModel>> getWorkingAgenciesOnBuilding(
+      {required String buildingId, required String projectId});
 }
 
 class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
@@ -135,5 +139,30 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       print(e.toString());
     }
     return allAgencyByBuildingIdList;
+  }
+
+  @override
+  Future<List<PerBuildingAgencyModel>> getWorkingAgenciesOnBuilding(
+      {required String buildingId, required String projectId}) async {
+    List<PerBuildingAgencyModel> allAgencyWorkingInBuildingIdList = [];
+    try {
+      http.Response res = await http.post(
+        Uri.parse("${API.GET_AGENCY_WORKING_IN_BUILDING_ID}"),
+        body: jsonEncode(
+            {"ProjectId": "$projectId", "BuildingId": "$buildingId"}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      final agencies = jsonDecode(res.body);
+      for (var agency in agencies["data"]) {
+        allAgencyWorkingInBuildingIdList
+            .add(PerBuildingAgencyModel.fromMap(agency));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return allAgencyWorkingInBuildingIdList;
   }
 }

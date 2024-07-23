@@ -10,7 +10,7 @@ class SelectFloorsState {
   SelectFloorsState({
     required this.floorList,
     required this.selectedFloorList,
-    this.isLoading = false,
+    this.isLoading = true,
     this.error,
   });
 

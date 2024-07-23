@@ -1,7 +1,6 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
@@ -9,8 +8,6 @@ import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
-import 'package:construction_mate/logic/models/agency_model.dart';
-import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/work_type_model.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_drop_down_agency.dart';
@@ -239,9 +236,9 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                         description: descriptionController.text,
                       );
 
-                      context
-                          .read<PerBuildingAgenciesBloc>()
-                          .add(LoadAgencies(agencies: agencies));
+                      context.read<PerBuildingAgenciesBloc>().add(LoadAgencies(
+                          buildingId: buildingModel.sId!,
+                          projectId: projectModel.sId!));
                       context.pop();
                     }
                   },

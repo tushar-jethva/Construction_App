@@ -1,10 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
-import 'package:construction_mate/logic/models/work_type_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,16 +11,16 @@ class MyDropDownFormFieldAgency extends StatelessWidget {
   final Function(String val) event;
 
   const MyDropDownFormFieldAgency({
-    Key? key,
+    super.key,
     required this.items,
     required this.event,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField(
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.all(7),
+        contentPadding: const EdgeInsets.all(7),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             10.r,
@@ -46,7 +44,7 @@ class MyDropDownFormFieldAgency extends StatelessWidget {
       items: items
           .map((e) => DropdownMenuItem(
                 value: e.sId,
-                child: Container(
+                child: SizedBox(
                   width: MediaQuery.of(context).size.width *
                       0.4, // Set a specific width here
                   child: Text(

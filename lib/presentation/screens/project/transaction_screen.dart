@@ -19,9 +19,9 @@ import 'package:shimmer/shimmer.dart';
 class MyTransactionScreen extends StatefulWidget {
   final ProjectModel project;
   const MyTransactionScreen({
-    Key? key,
+    super.key,
     required this.project,
-  }) : super(key: key);
+  });
 
   @override
   State<MyTransactionScreen> createState() => _MyTransactionScreenState();
@@ -49,6 +49,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
     );
 
     if (pickedDate != null) {
+      // ignore: use_build_context_synchronously
       context
           .read<StartAndEndDateBloc>()
           .add(DateDetailsStartChanged(startDate: pickedDate));
@@ -65,6 +66,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
     );
 
     if (pickedDate != null) {
+      // ignore: use_build_context_synchronously
       context
           .read<StartAndEndDateBloc>()
           .add(DateDetailsEndChanged(endDate: pickedDate));
@@ -73,7 +75,6 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _searchController.dispose();
   }
@@ -126,7 +127,6 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                 ),
                 PopupMenuButton<String>(
                   onSelected: (String value) {
-                    print('Selected: $value');
                   },
                   itemBuilder: (BuildContext context) => [
                     PopupMenuItem<String>(
@@ -214,10 +214,9 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                             MyCustomButton(
                                 buttonName: 'Reset',
                                 color: greyLight,
-                                style: TextStyle(color: black),
+                                style: const TextStyle(color: black),
                                 onPressed: () {
-                                  final state =
-                                      context.read<StartAndEndDateBloc>().state;
+                                  
                                   context
                                       .read<StartAndEndDateBloc>()
                                       .add(DateInitial());
@@ -239,7 +238,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                   child: Shimmer(
                       gradient: LinearGradient(
                           colors: [baseColor, highlightColor],
-                          stops: [0.1, 0.8]),
+                          stops: const [0.1, 0.8]),
                       child: ListView.builder(
                         itemCount: 5,
                         itemBuilder: (context, index) {
@@ -247,7 +246,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10.0.w, vertical: 10.h),
                             child: Container(
-                              padding: EdgeInsets.all(20),
+                              padding: const EdgeInsets.all(20),
                               height: ReusableFunctions.getHeight(
                                   context: context, height: 0.09),
                               decoration: BoxDecoration(
@@ -262,12 +261,12 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                                         CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      ShimmerBox(height: 10, width: 250),
+                                      const ShimmerBox(height: 10, width: 250),
                                       Gap(5.h),
-                                      ShimmerBox(height: 10, width: 160),
+                                      const ShimmerBox(height: 10, width: 160),
                                     ],
                                   ),
-                                  ShimmerBox(height: 3, width: 5),
+                                  const ShimmerBox(height: 3, width: 5),
                                 ],
                               ),
                             ),
@@ -298,7 +297,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                                     borderRadius: BorderRadius.circular(15.r)),
                                 child: ListTile(
                                   title: Text("${transaction.name}"),
-                                  subtitle: Text("${formattedDate}"),
+                                  subtitle: Text(formattedDate),
                                   trailing: Text(
                                     "${transaction.amount}",
                                     style: TextStyle(
@@ -314,7 +313,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                         ),
                 );
               }
-              return Text("No Transaction Found");
+              return const Text("No Transaction Found");
             }))
           ],
         ),

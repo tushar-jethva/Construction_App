@@ -6,10 +6,15 @@ class API {
   static const GET_BUILDING_BY_ID_URL = "$BASE_URL/Project/GetProjectBuildings";
   static const GET_ALL_WORK_TYPES = "$BASE_URL/WorkType/GetWorkType";
   static const GET_AGENCY_BY_WORK_TYPE = "$BASE_URL/Agency/GetAgency";
-  static const GET_FLOORS_BY_WORK_TYPE = "$BASE_URL/Floor/GetSelectedStatusOfFloors";
+  static const GET_FLOORS_BY_WORK_TYPE =
+      "$BASE_URL/Floor/GetSelectedStatusOfFloors";
   static const ADD_TASK_URL = "$BASE_URL/Floor/AddTask";
   static const GET_AGENCY_BY_BUILDING_ID = "$BASE_URL/Task/GetTask";
   static const ADD_PAYMENT_OUT = "$BASE_URL/Transaction/AddTransaction";
-  static const GET_ALL_TRANSACTION_BY_PROJECT_ID = "$BASE_URL/Transaction/GetTransactionByProject";
-
+  static const GET_ALL_TRANSACTION_BY_PROJECT_ID =
+      "$BASE_URL/Transaction/GetTransactionByProject";
+  static const GET_AGENCY_WORKING_IN_BUILDING_ID =
+      "$BASE_URL/Building/GetBuildingTask";
+  static const GET_FLOORS = "$BASE_URL/Floor/GetFloor";
+  static const SITE_PROGRESS_UPDATE_AGENCY = "$BASE_URL/Floor/UpdateSiteProgress";
 }

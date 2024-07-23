@@ -1,8 +1,7 @@
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
-import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/floor_model.dart';
-import 'package:construction_mate/logic/models/work_type_model.dart';
+import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 
 abstract class AgencyRepository {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
@@ -23,6 +22,9 @@ abstract class AgencyRepository {
       {required String projectId,
       required String buildingId,
       required String workTypeId});
+
+  Future<List<PerBuildingAgencyModel>> getWorkingAgenciesOnBuilding(
+      {required String buildingId, required String projectId});
 }
 
 class AgencyRepositoryImpl extends AgencyRepository {
@@ -50,10 +52,8 @@ class AgencyRepositoryImpl extends AgencyRepository {
       required String workTypeId}) async {
     List<FloorModel> floorList = [];
     try {
-      print("HI");
       floorList = await agencyDataSource.getSelectedFloors(
           projectId: projectId, buildingId: buildingId, workTypeId: workTypeId);
-      print(floorList);
     } catch (e) {
       print(e.toString());
     }
@@ -97,5 +97,19 @@ class AgencyRepositoryImpl extends AgencyRepository {
       print(e.toString());
     }
     return allAgencyByBuildingIdList;
+  }
+
+  @override
+  Future<List<PerBuildingAgencyModel>> getWorkingAgenciesOnBuilding(
+      {required String buildingId, required String projectId}) async {
+    List<PerBuildingAgencyModel> allAgencyWorkingInBuildingIdList = [];
+    try {
+      allAgencyWorkingInBuildingIdList =
+          await agencyDataSource.getWorkingAgenciesOnBuilding(
+              buildingId: buildingId, projectId: projectId);
+    } catch (e) {
+      print(e.toString());
+    }
+    return allAgencyWorkingInBuildingIdList;
   }
 }
