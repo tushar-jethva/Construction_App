@@ -77,10 +77,11 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
               create: (context) => TransactionBuildingBloc(
                   transactionRepository: TransactionRepositoryImpl(
                       transactionDataSource: TransactionDataSourceImpl())),
-              child: BlocProvider(
-                create: (context) => StartAndEndDateBloc(),
+              child: BlocProvider.value(
+                value: BlocProvider.of<StartAndEndDateBloc>(context),
                 child: MyTransactionScreen(
                   project: widget.projectModel,
+                  bloc: BlocProvider.of<StartAndEndDateBloc>(context),
                 ),
               ),
             ),

@@ -10,6 +10,11 @@ abstract class SiteProgressRepository {
   Future<List<FloorSiteModel>> getFloorsOfSite(
       {required String projectId, required String buildingId});
 
+  Future<FloorSiteModel> getFloorOfSiteByFloorIndex(
+      {required String projectId,
+      required String buildingId,
+      required String floorIndex});
+
   Future<void> siteProgressUpdateAgency(
       {required String projectId,
       required String buildingId,
@@ -28,10 +33,27 @@ class SiteProgressRepositoryImpl extends SiteProgressRepository {
     try {
       floorsOfSiteList = await siteProgressDataSource.getFloorsOfSite(
           projectId: projectId, buildingId: buildingId);
+
+      floorsOfSiteList.sort((a, b) => a.floorIndex!.compareTo(b.floorIndex!));
     } catch (e) {
       print(e.toString());
     }
     return floorsOfSiteList;
+  }
+
+  @override
+  Future<FloorSiteModel> getFloorOfSiteByFloorIndex(
+      {required String projectId,
+      required String buildingId,
+      required String floorIndex}) async {
+    FloorSiteModel floorsOfSite = FloorSiteModel();
+    try {
+      floorsOfSite = await siteProgressDataSource.getFloorOfSiteByFloorIndex(
+          projectId: projectId, buildingId: buildingId, floorIndex: floorIndex);
+    } catch (e) {
+      print(e.toString());
+    }
+    return floorsOfSite;
   }
 
   @override

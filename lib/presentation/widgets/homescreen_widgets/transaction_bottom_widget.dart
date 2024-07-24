@@ -208,9 +208,11 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                       ))
                                   .toList(),
                               onChanged: (val) {
-                                context
-                                    .read<PaymentOutDropDownBloc>()
-                                    .add(FetchBuildingsEvent(val!));
+                                val != state.projects[0].sId
+                                    ? context
+                                        .read<PaymentOutDropDownBloc>()
+                                        .add(FetchBuildingsEvent(val!))
+                                    : ();
                               },
                               validator: (val) {
                                 if (val == state.projects[0].sId) {
@@ -248,9 +250,12 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                       ))
                                   .toList(),
                               onChanged: (val) {
-                                context
-                                    .read<PaymentOutDropDownBloc>()
-                                    .add(FetchAgenciesEvent2(val!));
+                                val != state.buildings[0].sId
+                                    ? context
+                                        .read<PaymentOutDropDownBloc>()
+                                        .add(FetchAgenciesEvent2(
+                                            val!, state.projectValue))
+                                    : {};
                               },
                               validator: (val) {
                                 if (val == state.buildings[0].sId) {
@@ -268,17 +273,17 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         builder: (context, state) {
                           if (state is AgenciesLoadedState) {
                             return PaymentOutCustomDropDown(
-                              value: state.agencies[0].sId,
+                              value: state.agencies[0].agencyId,
                               list: state.agencies
                                   .map((e) => DropdownMenuItem(
-                                        value: e.sId,
+                                        value: e.agencyId,
                                         child: SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
                                               0.4, // Set a specific width here
                                           child: Text(
-                                            e.name!,
+                                            e.nameOfAgency!,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -286,12 +291,14 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                       ))
                                   .toList(),
                               onChanged: (val) {
-                                context
-                                    .read<PaymentOutDropDownBloc>()
-                                    .add(AgencyValueChanged(agencyId: val!));
+                                val != state.agencies[0].agencyId
+                                    ? context
+                                        .read<PaymentOutDropDownBloc>()
+                                        .add(AgencyValueChanged(agencyId: val!))
+                                    : {};
                               },
                               validator: (val) {
-                                if (val == state.agencies[0].sId) {
+                                if (val == state.agencies[0].agencyId) {
                                   return 'Please select one of the names!';
                                 }
                               },

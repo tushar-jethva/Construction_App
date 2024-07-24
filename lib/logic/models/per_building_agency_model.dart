@@ -8,12 +8,14 @@ class PerBuildingAgencyModel {
   final List<int>? floors;
   final String? pricePerFeet;
   final String? description;
+  final String? agencyId;
   PerBuildingAgencyModel({
     this.workType,
     this.nameOfAgency,
     this.floors,
     this.pricePerFeet,
     this.description,
+    this.agencyId
   });
 
   Map<String, dynamic> toMap() {
@@ -32,6 +34,7 @@ class PerBuildingAgencyModel {
       nameOfAgency: map['agencyName'] as String,
       floors: List<int>.from((map['floorIndices'] as List<dynamic>)),
       pricePerFeet: (map['price'] as dynamic).toString(),
+      agencyId: map['agencyId'] as String
     );
   }
 

@@ -4,7 +4,9 @@ import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
+import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/building_details_screen.dart/agency_widget.dart';
 import 'package:meta/meta.dart';
 
 part 'payment_out_drop_down_event.dart';
@@ -30,7 +32,7 @@ class PaymentOutDropDownBloc
           agencies: state.agencies));
       try {
         final projects = await projectRepository.allProjects();
-        projects.insert(0, ProjectModel(name: "--Select Project--"));
+        projects.insert(0, ProjectModel(name: "--Select Project--", sId: '0'));
         emit(state.copyWith(projects: projects));
         emit(ProjectsLoadedState(
             projectValue: state.projectValue,
@@ -56,7 +58,7 @@ class PaymentOutDropDownBloc
         final buildings = await buildingRepository.allBuildingById(
             projectId: event.projectId);
         buildings.insert(
-            0, BuildingModel(name: "--Select Building--", sId: '1'));
+            0, BuildingModel(name: "--Select Building--", sId: '0'));
         emit(state.copyWith(
             buildings: buildings, projectValue: event.projectId));
         print(state.buildings);
@@ -81,9 +83,13 @@ class PaymentOutDropDownBloc
           buildings: state.buildings,
           agencies: state.agencies));
       try {
-        final agencies = await agencyRepository.getAgencyByBuildingId(
-            buildingId: event.buildingId);
-        agencies.insert(0, AgencyModel(name: "--Select Agency--"));
+        final agencies = await agencyRepository.getWorkingAgenciesOnBuilding(
+            buildingId: event.buildingId, projectId: event.projectId);
+        print(agencies);
+        agencies.insert(
+            0,
+            PerBuildingAgencyModel(
+                nameOfAgency: "--Select Agency--", agencyId: '0'));
         emit(state.copyWith(
             agencies: agencies, buildingValue: event.buildingId));
 

@@ -9,6 +9,11 @@ abstract class SiteProgressDataSource {
   Future<List<FloorSiteModel>> getFloorsOfSite(
       {required String projectId, required String buildingId});
 
+  Future<FloorSiteModel> getFloorOfSiteByFloorIndex(
+      {required String projectId,
+      required String buildingId,
+      required String floorIndex});
+
   Future<void> siteProgressUpdateAgency(
       {required String projectId,
       required String buildingId,
@@ -31,6 +36,7 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
         },
       );
       final floors = jsonDecode(res.body);
+      print(floors);
       for (var floor in floors["data"]) {
         floorsOfSiteList.add(FloorSiteModel.fromJson(floor));
       }
@@ -41,12 +47,39 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
   }
 
   @override
+  Future<FloorSiteModel> getFloorOfSiteByFloorIndex(
+      {required String projectId,
+      required String buildingId,
+      required String floorIndex}) async {
+    FloorSiteModel floorsOfSite = FloorSiteModel();
+    try {
+      http.Response res = await http.post(
+        Uri.parse("${API.GET_FLOOR_BY_FLOOR_INDEX}"),
+        body: jsonEncode({
+          "projectId": projectId,
+          "buildingId": buildingId,
+          "floorIndex": floorIndex
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      final floors = jsonDecode(res.body);
+      floorsOfSite = FloorSiteModel.fromJson(floors["data"][0]);
+    } catch (e) {
+      print(e.toString());
+    }
+    return floorsOfSite;
+  }
+
+  @override
   Future<void> siteProgressUpdateAgency(
       {required String projectId,
       required String buildingId,
       required List<String> workTypeIds,
       required String floorIndex}) async {
     try {
+      print("$projectId $buildingId $floorIndex $workTypeIds");
       http.Response res = await http.post(
         Uri.parse("${API.SITE_PROGRESS_UPDATE_AGENCY}"),
         body: jsonEncode({

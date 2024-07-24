@@ -78,6 +78,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 10.h),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Center(
                         child: Text(
@@ -89,7 +90,19 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         ),
                       ),
                       Gap(40.h),
-                      Text("${widget.project.name}"),
+                      Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: grey, width: 1)),
+                          child: TextField(
+                            readOnly: true,
+                            decoration: InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 10.w),
+                                border: InputBorder.none,
+                                hintText: "${widget.project.name}"),
+                          )),
                       Gap(15.h),
                       BlocBuilder<PaymentOutDropDownBloc,
                           PaymentOutDropDownState>(
@@ -117,9 +130,12 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                       ))
                                   .toList(),
                               onChanged: (val) {
-                                context
-                                    .read<PaymentOutDropDownBloc>()
-                                    .add(FetchAgenciesEvent2(val!));
+                                val != state.buildings[0].sId
+                                    ? context
+                                        .read<PaymentOutDropDownBloc>()
+                                        .add(FetchAgenciesEvent2(
+                                            val!, state.projectValue))
+                                    : {};
                               },
                               validator: (val) {
                                 if (val == state.buildings[0].sId) {
@@ -137,17 +153,17 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         builder: (context, state) {
                           if (state is AgenciesLoadedState) {
                             return PaymentOutCustomDropDown(
-                              value: state.agencies[0].sId,
+                              value: state.agencies[0].agencyId,
                               list: state.agencies
                                   .map((e) => DropdownMenuItem(
-                                        value: e.sId,
+                                        value: e.agencyId,
                                         child: Container(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
                                               0.4, // Set a specific width here
                                           child: Text(
-                                            e.name!,
+                                            e.nameOfAgency!,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -155,12 +171,14 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                       ))
                                   .toList(),
                               onChanged: (val) {
-                                context
-                                    .read<PaymentOutDropDownBloc>()
-                                    .add(AgencyValueChanged(agencyId: val!));
+                                val != state.agencies[0].agencyId
+                                    ? context
+                                        .read<PaymentOutDropDownBloc>()
+                                        .add(AgencyValueChanged(agencyId: val!))
+                                    : {};
                               },
                               validator: (val) {
-                                if (val == state.agencies[0].sId) {
+                                if (val == state.agencies[0].agencyId) {
                                   return 'Please select one of the names!';
                                 }
                               },
@@ -265,7 +283,8 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                 return Expanded(
                   child: Shimmer(
                     gradient: LinearGradient(
-                        colors: [baseColor, highlightColor], stops: const [0.1, 0.8]),
+                        colors: [baseColor, highlightColor],
+                        stops: const [0.1, 0.8]),
                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: 6,

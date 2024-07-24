@@ -39,8 +39,8 @@ class TransactionModel {
     sId = json['_id'];
     description = json['description'];
     date = json['date'];
-    buildingId = json['buildingId'];
-    agencyId = json['agencyId'];
+    buildingId = json['buildingId']['_id'];
+    agencyId = json['agencyId']['_id'];
     projectId = json['projectId'];
     amount = json['amount'].toString();
     entryType = json['entryType'];
@@ -48,7 +48,7 @@ class TransactionModel {
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    name = json['agencyId'];
+    name = json['agencyId']['Name'];
     iV = json['__v'];
   }
 

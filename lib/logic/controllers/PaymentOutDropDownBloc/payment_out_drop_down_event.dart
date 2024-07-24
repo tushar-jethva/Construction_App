@@ -14,8 +14,8 @@ class FetchBuildingsEvent extends PaymentOutDropDownEvent {
 
 class FetchAgenciesEvent2 extends PaymentOutDropDownEvent {
   final String buildingId;
-
-  FetchAgenciesEvent2(this.buildingId);
+  final String projectId;
+  FetchAgenciesEvent2(this.buildingId,this.projectId);
 }
 
 class AgencyValueChanged extends PaymentOutDropDownEvent{

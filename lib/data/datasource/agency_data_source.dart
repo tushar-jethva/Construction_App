@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 abstract class AgencyDataSource {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
 
-  Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId});
+  Future<List<AgencyModel>>   getAgencyByBuildingId({required String buildingId});
 
   Future<void> addAgencyInBuilding(
       {required String workTypeId,

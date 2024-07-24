@@ -44,7 +44,6 @@ class TransactionRepositoryImpl extends TransactionRepository {
     try {
       listOfTransactions = await transactionDataSource
           .getAllTransactionsByProjectId(projectId: projectId);
-      print(listOfTransactions);
     } catch (e) {
       print(e.toString());
     }

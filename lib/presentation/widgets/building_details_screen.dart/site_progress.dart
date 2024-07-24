@@ -1,5 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
+import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
@@ -96,9 +98,9 @@ class _MySiteProgressScreenWidgetState
               itemBuilder: (context, index) {
                 FloorSiteModel floorSiteModel = state.listOfFloorsSite[index];
                 String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
-                    .format(DateTime.parse(floorSiteModel.updatedAt!));
+                    .format(DateTime.parse(floorSiteModel.completedDate!));
                 return BlocProvider(
-                  create: (context) => SiteProgressAgencyUpdateBloc(),
+                  create: (context) => SiteProgressAgencyUpdateBloc(siteProgressRepository: SiteProgressRepositoryImpl(siteProgressDataSource: SiteProgressDataSourceImpl())),
                   child: Builder(builder: (context) {
                     return InkWell(
                       onTap: () {

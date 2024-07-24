@@ -36,8 +36,10 @@ class _MySiteProgressDetailsWidgetState
   void initState() {
     // TODO: implement initState
     super.initState();
-    widget.siteProgressAgencyUpdateBloc.add(
-        FetchAlreadySelectedAgencies(floorSiteModel: widget.floorSiteModel));
+    widget.siteProgressAgencyUpdateBloc.add(FetchAlreadySelectedAgencies(
+        projectId: widget.floorSiteModel.projectId!,
+        buildingId: widget.floorSiteModel.buildingId!,
+        floorIndex: widget.floorSiteModel.floorIndex.toString()));
   }
 
   @override
@@ -75,20 +77,25 @@ class _MySiteProgressDetailsWidgetState
                             child: ListView.builder(
                               itemCount: floor.workStatus!.length,
                               itemBuilder: (context, index) {
-                                return ListTile(
-                                  leading: Checkbox(
-                                    value: state
-                                        .selectedAgencies[index].isSelected,
-                                    onChanged: (bool? value) {
-                                      context
-                                          .read<SiteProgressAgencyUpdateBloc>()
-                                          .add(ToggleAgencySelection(
-                                              index: index));
-                                    },
-                                  ),
-                                  title:
-                                      Text(floor.workStatus![index].agencyId!),
-                                );
+                                return state.selectedAgencies[index].isSelected!
+                                    ? Text(
+                                        "${state.selectedAgencies[index].agencyName} task is Already completed!")
+                                    : ListTile(
+                                        leading: Checkbox(
+                                          value: state
+                                              .currentSelectedAgencies[index]
+                                              .isSelected,
+                                          onChanged: (bool? value) {
+                                            context
+                                                .read<
+                                                    SiteProgressAgencyUpdateBloc>()
+                                                .add(ToggleAgencySelection(
+                                                    index: index));
+                                          },
+                                        ),
+                                        title: Text(floor
+                                            .workStatus![index].agencyName!),
+                                      );
                               },
                             ),
                           )
@@ -104,16 +111,18 @@ class _MySiteProgressDetailsWidgetState
                       color: green,
                       style: TextStyle(color: white),
                       onPressed: () async {
-                        final selectedAgencies = context
+                        final currentSelectedAgencies = context
                             .read<SiteProgressAgencyUpdateBloc>()
                             .state
-                            .selectedAgencies;
+                            .currentSelectedAgencies
+                            .where((element) => element.isSelected!)
+                            .toList();
 
-                        print(selectedAgencies.map((e) => e.agencyId));
+                        print(currentSelectedAgencies.map((e) => e.workTypeId));
                         await siteProgressRepository.siteProgressUpdateAgency(
                             projectId: floor.projectId!,
                             buildingId: floor.buildingId!,
-                            workTypeIds: selectedAgencies
+                            workTypeIds: currentSelectedAgencies
                                 .map((e) => e.workTypeId!)
                                 .toList(),
                             floorIndex: floor.floorIndex.toString());

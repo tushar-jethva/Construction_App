@@ -30,7 +30,7 @@ class FloorSiteModel {
     buildingId = json['buildingId'];
     floorIndex = json['floorIndex'];
     isCompleted = json['isCompleted'];
-    completedDate = json['completedDate'];
+    completedDate = json['completedDate'] ?? DateTime.now().toString();
     if (json['workStatus'] != null) {
       workStatus = <WorkStatus>[];
       json['workStatus'].forEach((v) {
@@ -38,9 +38,6 @@ class FloorSiteModel {
       });
     }
     isDeleted = json['isDeleted'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
   }
 
   Map<String, dynamic> toJson() {
@@ -65,6 +62,8 @@ class FloorSiteModel {
 class WorkStatus {
   String? agencyId;
   String? workTypeId;
+  String? agencyName;
+  String? workTypeName;
   bool? isCompleted;
   String? completedDate;
   String? pricePerFeet;
@@ -83,6 +82,8 @@ class WorkStatus {
   WorkStatus.fromJson(Map<String, dynamic> json) {
     agencyId = json['agencyId'];
     workTypeId = json['workTypeId'];
+    agencyName = json['agencyName'];
+    workTypeName = json['workTypeName'];
     isCompleted = json['isCompleted'];
     completedDate = json['completedDate'];
     pricePerFeet = (json['pricePerFeet'] as dynamic).toString();

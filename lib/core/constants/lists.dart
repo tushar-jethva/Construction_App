@@ -10,9 +10,7 @@ List<PerBuildingAgencyModel> agencies = [];
 
 List<String> workType = ["--Select Work--"];
 
-List<String> nameOfAgency = [
-  "--Select Agency--"
-
-];
+List<String> nameOfAgency = ["--Select Agency--"];
 
 List<String> selectBuilding = ["--Select Building--"];
+List<String> selectProject = ["--Select Project--"];

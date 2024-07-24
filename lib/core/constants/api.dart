@@ -17,4 +17,5 @@ class API {
       "$BASE_URL/Building/GetBuildingTask";
   static const GET_FLOORS = "$BASE_URL/Floor/GetFloor";
   static const SITE_PROGRESS_UPDATE_AGENCY = "$BASE_URL/Floor/UpdateSiteProgress";
+  static const GET_FLOOR_BY_FLOOR_INDEX = "$BASE_URL/Floor/GetFloorByFloorIndex";
 }

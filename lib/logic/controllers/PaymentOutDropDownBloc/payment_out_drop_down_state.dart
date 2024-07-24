@@ -7,7 +7,7 @@ class PaymentOutDropDownState {
   final String agencyValue;
   final List<ProjectModel> projects;
   final List<BuildingModel> buildings;
-  final List<AgencyModel> agencies;
+  final List<PerBuildingAgencyModel> agencies;
   PaymentOutDropDownState({
      this.projectValue = '',
      this.buildingValue = '',
@@ -23,7 +23,7 @@ class PaymentOutDropDownState {
     String? agencyValue,
     List<ProjectModel>? projects,
     List<BuildingModel>? buildings,
-    List<AgencyModel>? agencies,
+    List<PerBuildingAgencyModel>? agencies,
   }) {
     return PaymentOutDropDownState(
       projectValue: projectValue ?? this.projectValue,
