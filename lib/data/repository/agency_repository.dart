@@ -1,7 +1,9 @@
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
+import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
 import 'package:construction_mate/logic/models/floor_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
+import 'package:construction_mate/logic/models/total_agency_model.dart';
 
 abstract class AgencyRepository {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
@@ -25,6 +27,10 @@ abstract class AgencyRepository {
 
   Future<List<PerBuildingAgencyModel>> getWorkingAgenciesOnBuilding(
       {required String buildingId, required String projectId});
+
+  Future<List<DropDownAgencyModel>> getWorkingAgenciesOnBuildingForDropDown(
+      {required String buildingId, required String projectId});
+  Future<List<TotalAgencyModel>> getTotalAgencies();
 }
 
 class AgencyRepositoryImpl extends AgencyRepository {
@@ -111,5 +117,30 @@ class AgencyRepositoryImpl extends AgencyRepository {
       print(e.toString());
     }
     return allAgencyWorkingInBuildingIdList;
+  }
+
+  @override
+  Future<List<DropDownAgencyModel>> getWorkingAgenciesOnBuildingForDropDown(
+      {required String buildingId, required String projectId}) async {
+    List<DropDownAgencyModel> allAgencyWorkingInBuildingIdList = [];
+    try {
+      allAgencyWorkingInBuildingIdList =
+          await agencyDataSource.getWorkingAgenciesOnBuildingForDropDown(
+              buildingId: buildingId, projectId: projectId);
+    } catch (e) {
+      print(e.toString());
+    }
+    return allAgencyWorkingInBuildingIdList;
+  }
+
+  @override
+  Future<List<TotalAgencyModel>> getTotalAgencies() async {
+    List<TotalAgencyModel> totalAgenciesList = [];
+    try {
+      totalAgenciesList = await agencyDataSource.getTotalAgencies();
+    } catch (e) {
+      print(e.toString());
+    }
+    return totalAgenciesList;
   }
 }

@@ -7,7 +7,7 @@ class BuildingModel {
   String? startDate;
   int? totalFloor;
   int? unitPerFloor;
-  int? totalAmount;
+  String? totalAmount;
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
@@ -33,7 +33,7 @@ class BuildingModel {
     startDate = json['StartDate'];
     totalFloor = json['TotalFloor'];
     unitPerFloor = json['UnitPerFloor'];
-    totalAmount = json['TotalAmount'];
+    totalAmount = (json['TotalAmount'] as dynamic).toString();
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

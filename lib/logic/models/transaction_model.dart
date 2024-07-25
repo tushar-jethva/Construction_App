@@ -41,7 +41,6 @@ class TransactionModel {
     date = json['date'];
     buildingId = json['buildingId']['_id'];
     agencyId = json['agencyId']['_id'];
-    projectId = json['projectId'];
     amount = json['amount'].toString();
     entryType = json['entryType'];
     isCompleted = json['isCompleted'];

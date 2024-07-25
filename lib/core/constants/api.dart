@@ -16,6 +16,11 @@ class API {
   static const GET_AGENCY_WORKING_IN_BUILDING_ID =
       "$BASE_URL/Building/GetBuildingTask";
   static const GET_FLOORS = "$BASE_URL/Floor/GetFloor";
-  static const SITE_PROGRESS_UPDATE_AGENCY = "$BASE_URL/Floor/UpdateSiteProgress";
-  static const GET_FLOOR_BY_FLOOR_INDEX = "$BASE_URL/Floor/GetFloorByFloorIndex";
+  static const SITE_PROGRESS_UPDATE_AGENCY =
+      "$BASE_URL/Floor/UpdateSiteProgress";
+  static const GET_FLOOR_BY_FLOOR_INDEX =
+      "$BASE_URL/Floor/GetFloorByFloorIndex";
+  static const GET_AGENCY_FOR_DROPDOWN = "$BASE_URL/Agency/GetAgencyByBuilding";
+  static const GET_TOTAL_AGENCIES = "$BASE_URL/Agency/GetAgency";
+  static const GET_TRANSACTOIN_BY_AGENCY_ID = "$BASE_URL/Transaction/GetTransactionByAgency";
 }

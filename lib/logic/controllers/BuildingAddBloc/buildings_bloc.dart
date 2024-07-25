@@ -9,6 +9,7 @@ class BuildingsBloc extends Bloc<BuildingsEvent, BuildingsState> {
   final BuildingRepository buildingRepository;
   BuildingsBloc(this.buildingRepository) : super(BuildingsInitial()) {
     on<LoadBuildings>(_onLoadBuildings);
+    on<AddBuilding>(_onBuildingAdd);
   }
 
   void _onLoadBuildings(
@@ -17,7 +18,25 @@ class BuildingsBloc extends Bloc<BuildingsEvent, BuildingsState> {
     try {
       List<BuildingModel> listOfBuildings =
           await buildingRepository.allBuildingById(projectId: event.projectId);
+      print(event.projectId);
+      print(listOfBuildings);
       emit(BuildingsLoadSuccess(buildings: listOfBuildings));
     } catch (e) {}
+  }
+
+  void _onBuildingAdd(AddBuilding event, Emitter<BuildingsState> emit) async {
+    try {
+      emit(BuildingAddLoading());
+      await buildingRepository.addBuilding(
+          buildingName: event.buildName,
+          floors: event.floors,
+          unitPerFloor: event.unitPerFloor,
+          description: event.description,
+          projectId: event.projectId);
+      emit(BuildingAddSuccess());
+      add(LoadBuildings(projectId: event.projectId));
+    } catch (e) {
+      emit(BuildingAddFailure());
+    }
   }
 }

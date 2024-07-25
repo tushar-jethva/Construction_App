@@ -7,14 +7,14 @@ class PaymentOutDropDownState {
   final String agencyValue;
   final List<ProjectModel> projects;
   final List<BuildingModel> buildings;
-  final List<PerBuildingAgencyModel> agencies;
+  final List<DropDownAgencyModel> agencies;
   PaymentOutDropDownState({
-     this.projectValue = '',
-     this.buildingValue = '',
-     this.agencyValue = '',
-     this.projects = const [],
-     this.buildings = const [],
-     this.agencies = const[],
+    this.projectValue = '',
+    this.buildingValue = '',
+    this.agencyValue = '',
+    this.projects = const [],
+    this.buildings = const [],
+    this.agencies = const [],
   });
 
   PaymentOutDropDownState copyWith({
@@ -23,7 +23,7 @@ class PaymentOutDropDownState {
     String? agencyValue,
     List<ProjectModel>? projects,
     List<BuildingModel>? buildings,
-    List<PerBuildingAgencyModel>? agencies,
+    List<DropDownAgencyModel>? agencies,
   }) {
     return PaymentOutDropDownState(
       projectValue: projectValue ?? this.projectValue,
@@ -35,8 +35,6 @@ class PaymentOutDropDownState {
     );
   }
 }
-
-
 
 class ProjectsLoadingState extends PaymentOutDropDownState {
   ProjectsLoadingState(
@@ -97,3 +95,8 @@ class AgenciesLoadedState extends PaymentOutDropDownState {
       required super.buildings,
       required super.agencies});
 }
+
+class PaymentOutAddLoading extends PaymentOutDropDownState{}
+class PaymentOutAddSuccess extends PaymentOutDropDownState{}
+class PaymentOutAddFailure extends PaymentOutDropDownState{}
+

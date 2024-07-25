@@ -15,7 +15,7 @@ class PerBuildingAgenciesBloc
   }
 
   void _onLoadAgencies(
-      LoadAgencies event, Emitter<PerBuildingAgenciesState> state) async {
+      LoadAgencies event, Emitter<PerBuildingAgenciesState> emit) async {
     emit(PerBuildingAgenciesInitial());
     List<PerBuildingAgencyModel> perBuildingAgencyList =
         await agencyRepository.getWorkingAgenciesOnBuilding(

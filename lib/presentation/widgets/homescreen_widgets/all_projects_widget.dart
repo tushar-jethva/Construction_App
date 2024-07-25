@@ -18,11 +18,11 @@ class AllProjectsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProjectBloc, ProjectState>(
       builder: (context, state) {
-        if (state is ProjectInitial) {
+        if (state is ProjectInitial || state is ProjectAddLoading) {
           return SliverToBoxAdapter(
             child: Shimmer(
               gradient: LinearGradient(
-                  colors: [baseColor, highlightColor], stops: [0.1, 0.8]),
+                  colors: [baseColor, highlightColor], stops: const [0.1, 0.8]),
               child: SingleChildScrollView(
                 child: ListView.builder(
                   itemCount: 5,

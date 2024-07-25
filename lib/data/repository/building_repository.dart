@@ -41,6 +41,7 @@ class BuildingRepositoryImpl extends BuildingRepository {
     try {
       listOfBuildings =
           await buildingDataSource.allBuildingById(projectId: projectId);
+      print(listOfBuildings);
     } catch (e) {
       print(e.toString());
     }

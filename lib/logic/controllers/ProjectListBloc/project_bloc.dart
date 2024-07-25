@@ -25,7 +25,11 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
           projectName: event.projectName,
           address: event.projectAddress,
           description: event.projectDescription);
+      // await Future.delayed(Duration(seconds: 5), () {
+      //   emit(ProjectAddSuccess());
+      // });
       emit(ProjectAddSuccess());
+      add(LoadProjects());
     } catch (e) {
       emit(ProjectAddFailure());
     }

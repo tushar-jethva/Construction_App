@@ -2,11 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
-import 'package:construction_mate/logic/models/agency_model.dart';
+import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
-import 'package:construction_mate/logic/models/per_building_agency_model.dart';
+import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
-import 'package:construction_mate/presentation/widgets/building_details_screen.dart/agency_widget.dart';
 import 'package:meta/meta.dart';
 
 part 'payment_out_drop_down_event.dart';
@@ -17,10 +16,12 @@ class PaymentOutDropDownBloc
   final BuildingRepository buildingRepository;
   final AgencyRepository agencyRepository;
   final ProjectRepository projectRepository;
+  final TransactionRepository transactionRepository;
   PaymentOutDropDownBloc(
       {required this.buildingRepository,
       required this.agencyRepository,
-      required this.projectRepository})
+      required this.projectRepository,
+      required this.transactionRepository})
       : super(PaymentOutDropDownState()) {
     on<FetchProjectsEvent>((event, emit) async {
       emit(ProjectsLoadingState(
@@ -83,13 +84,14 @@ class PaymentOutDropDownBloc
           buildings: state.buildings,
           agencies: state.agencies));
       try {
-        final agencies = await agencyRepository.getWorkingAgenciesOnBuilding(
-            buildingId: event.buildingId, projectId: event.projectId);
+        final agencies =
+            await agencyRepository.getWorkingAgenciesOnBuildingForDropDown(
+                buildingId: event.buildingId, projectId: event.projectId);
         print(agencies);
         agencies.insert(
             0,
-            PerBuildingAgencyModel(
-                nameOfAgency: "--Select Agency--", agencyId: '0'));
+            DropDownAgencyModel(
+                agencyName: "--Select Agency--", agencyId: '0'));
         emit(state.copyWith(
             agencies: agencies, buildingValue: event.buildingId));
 
@@ -114,6 +116,21 @@ class PaymentOutDropDownBloc
           projects: state.projects,
           buildings: state.buildings,
           agencies: state.agencies));
+    });
+
+    on<AddPaymentOutTransaction>((event, emit) async {
+      try {
+        emit(PaymentOutAddLoading());
+        await transactionRepository.addPaymentOutTransaction(
+            description: event.description,
+            agencyId: event.agencyId,
+            projectId: event.projectId,
+            buildingId: event.buildingId,
+            amount: event.amount);
+        emit(PaymentOutAddSuccess());
+      } catch (e) {
+        emit(PaymentOutAddFailure());
+      }
     });
   }
 }

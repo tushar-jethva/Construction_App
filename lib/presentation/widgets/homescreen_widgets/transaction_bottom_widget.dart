@@ -283,7 +283,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                                   .width *
                                               0.4, // Set a specific width here
                                           child: Text(
-                                            e.nameOfAgency!,
+                                            e.agencyName!,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),

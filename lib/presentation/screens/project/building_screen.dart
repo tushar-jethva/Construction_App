@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_screen_list_shimmer.dart';
@@ -163,7 +165,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                                   .width *
                                               0.4, // Set a specific width here
                                           child: Text(
-                                            e.nameOfAgency!,
+                                            e.agencyName!,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -218,24 +220,46 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         },
                       ),
                       Gap(30.h),
-                      MyCustomButton(
-                          buttonName: "Payment Out",
-                          color: green,
-                          style: TextStyle(color: white),
-                          onPressed: () async {
-                            if (formPaymentOutKey.currentState!.validate()) {
-                              final state =
-                                  context.read<PaymentOutDropDownBloc>().state;
-                              await transactionRepository
-                                  .addPaymentOutTransaction(
-                                      description: _descriptionController.text,
-                                      agencyId: state.agencyValue,
-                                      projectId: state.projectValue,
-                                      buildingId: state.buildingValue,
-                                      amount: _priceOutController.text);
-                              context.pop();
-                            }
-                          })
+                      BlocListener<PaymentOutDropDownBloc,
+                          PaymentOutDropDownState>(
+                        listener: (context, state) {
+                          if (state is PaymentOutAddSuccess) {
+                            Navigator.pop(context);
+                            ReusableFunctions.showSnackBar(
+                                context: context,
+                                content: "Transaction Out add successfully!");
+                          }
+                        },
+                        child: BlocBuilder<PaymentOutDropDownBloc,
+                            PaymentOutDropDownState>(
+                          builder: (context, state) {
+                            return MyCustomButtonWidget(
+                                widget: state is PaymentOutAddLoading
+                                    ? ReusableFunctions.loader()
+                                    : const Text(
+                                        "Payment Out",
+                                        style: TextStyle(color: white),
+                                      ),
+                                color: green,
+                                onPressed: () async {
+                                  if (formPaymentOutKey.currentState!
+                                      .validate()) {
+                                    final state = context
+                                        .read<PaymentOutDropDownBloc>()
+                                        .state;
+                                    context.read<PaymentOutDropDownBloc>().add(
+                                        AddPaymentOutTransaction(
+                                            agencyId: state.agencyValue,
+                                            projectId: state.projectValue,
+                                            buildingId: state.buildingValue,
+                                            amount: _priceOutController.text,
+                                            description:
+                                                _descriptionController.text));
+                                  }
+                                });
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -279,7 +303,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
             ),
             BlocBuilder<BuildingsBloc, BuildingsState>(
                 builder: (context, state) {
-              if (state is BuildingsInitial) {
+              if (state is BuildingsInitial || state is BuildingAddLoading) {
                 return Expanded(
                   child: Shimmer(
                     gradient: LinearGradient(

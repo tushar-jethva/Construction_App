@@ -141,50 +141,58 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
               );
             } else if (state is PerBuildingAgenciesSuccess) {
               return Expanded(
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: state.agencies.length,
-                    itemBuilder: (context, index) {
-                      PerBuildingAgencyModel agency = state.agencies[index];
-                      return InkWell(
-                        onTap: () {
-                          context.pushNamed(
-                              RoutesName.workingAgencyDetailsScreen,
-                              extra: agency);
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 15.w, vertical: 5.h),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 15.w, vertical: 10.h),
-                            decoration: BoxDecoration(
-                                color: greyLight,
-                                borderRadius: BorderRadius.circular(15.r)),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: state.agencies.isEmpty
+                    ? const Center(
+                        child: Text("No agencies found!"),
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: state.agencies.length,
+                        itemBuilder: (context, index) {
+                          PerBuildingAgencyModel agency = state.agencies[index];
+                          return InkWell(
+                            onTap: () {
+                              context.pushNamed(
+                                  RoutesName.workingAgencyDetailsScreen,
+                                  extra: agency);
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 15.w, vertical: 5.h),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15.w, vertical: 10.h),
+                                decoration: BoxDecoration(
+                                    color: greyLight,
+                                    borderRadius: BorderRadius.circular(15.r)),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(agency.nameOfAgency!),
-                                    Text(agency.workType!)
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(agency.nameOfAgency!),
+                                        Text(agency.workType!)
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            "Price: ${agency.pricePerFeet} \$"),
+                                        Text(
+                                            "Given Floors: ${agency.floors!.length.toString()}")
+                                      ],
+                                    ),
                                   ],
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Price: ${agency.pricePerFeet} \$"),
-                                    Text(
-                                        "Given Floors: ${agency.floors!.length.toString()}")
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    }),
+                          );
+                        }),
               );
             } else {
               return const Center(child: Text('Failed to load projects'));

@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,12 +76,12 @@ class _MyBuildingAddBottomSheetWidgetState
   }
 
   Future<void> addBuilding() async {
-    await buildingRepository.addBuilding(
-        buildingName: _buildingNameController.text,
+    context.read<BuildingsBloc>().add(AddBuilding(
+        buildName: _buildingNameController.text,
         floors: _floorController.text,
         unitPerFloor: _unitPerFootController.text,
         description: _descriptionController.text,
-        projectId: widget.project.sId!);
+        projectId: widget.project.sId!));
   }
 
   @override
@@ -224,8 +226,8 @@ class _MyBuildingAddBottomSheetWidgetState
                       maxLines: 3,
                       textInputType: TextInputType.name,
                       validator: (value) {
-                         if (value == null || value.isEmpty) {
-                          return 'Please add foot per floor!';
+                        if (value == null || value.isEmpty) {
+                          return 'Please add description!';
                         }
                       },
                     ),
@@ -233,33 +235,44 @@ class _MyBuildingAddBottomSheetWidgetState
                 ),
               ),
               Gap(20.h),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: MyCustomButton(
-                  buttonName: 'Add Building',
-                  color: green,
-                  style: const TextStyle(
-                      color: white, fontWeight: FontWeight.w500),
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      await addBuilding();
-                      // ignore: use_build_context_synchronously
-                      context
-                          .read<BuildingsBloc>()
-                          .add(LoadBuildings(projectId: widget.project.sId!));
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context);
-                      // final startAndEndDate =
-                      //     context.read<StartAndEndDateBloc>().state;
-                      // _buildingNameController.clear();
-                      // _floorController.clear();
-                      // _unitPerFootController.clear();
-                      // context.read<StartAndEndDateBloc>().add(
-                      //     DateDetailsStartChanged(startDate: DateTime.now()));
-                      // context
-                      //     .read<StartAndEndDateBloc>()
-                      //     .add(DateDetailsEndChanged(endDate: DateTime.now()));
-                    }
+              BlocListener<BuildingsBloc, BuildingsState>(
+                listener: (context, state) {
+                  if (state is BuildingAddSuccess) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: BlocBuilder<BuildingsBloc, BuildingsState>(
+                  builder: (context, state) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: MyCustomButtonWidget(
+                        widget: state is BuildingAddLoading
+                            ? ReusableFunctions.loader()
+                            : const Text(
+                                'Add Building',
+                                style: TextStyle(color: white),
+                              ),
+                        color: green,
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            await addBuilding();
+                            // ignore: use_build_context_synchronously
+
+                            // ignore: use_build_context_synchronously
+                            // final startAndEndDate =
+                            //     context.read<StartAndEndDateBloc>().state;
+                            // _buildingNameController.clear();
+                            // _floorController.clear();
+                            // _unitPerFootController.clear();
+                            // context.read<StartAndEndDateBloc>().add(
+                            //     DateDetailsStartChanged(startDate: DateTime.now()));
+                            // context
+                            //     .read<StartAndEndDateBloc>()
+                            //     .add(DateDetailsEndChanged(endDate: DateTime.now()));
+                          }
+                        },
+                      ),
+                    );
                   },
                 ),
               ),

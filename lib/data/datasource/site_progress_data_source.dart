@@ -53,6 +53,7 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
       required String floorIndex}) async {
     FloorSiteModel floorsOfSite = FloorSiteModel();
     try {
+      print("$projectId $buildingId");
       http.Response res = await http.post(
         Uri.parse("${API.GET_FLOOR_BY_FLOOR_INDEX}"),
         body: jsonEncode({

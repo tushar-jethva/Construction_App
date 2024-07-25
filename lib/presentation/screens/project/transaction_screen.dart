@@ -31,7 +31,10 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
   late TransactionBuildingBloc transactionBuildingBloc;
 
   @override
-  void didChangeDependencies() {
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print("Hello dipendecies");
     super.didChangeDependencies();
     transactionBuildingBloc = BlocProvider.of<TransactionBuildingBloc>(context);
     transactionBuildingBloc
@@ -76,8 +79,11 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
   }
 
   Future<void> _refreshTransactions() async {
-    transactionBuildingBloc
-        .add(FetchAllTransactionByProjectId(projectId: widget.project.sId!));
+    _searchController.text.isEmpty
+        ? transactionBuildingBloc
+            .add(FetchAllTransactionByProjectId(projectId: widget.project.sId!))
+        : transactionBuildingBloc
+            .add(FetchTransactionByQuery(query: _searchController.text));
   }
 
   @override

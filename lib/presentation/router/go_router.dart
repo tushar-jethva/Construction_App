@@ -5,9 +5,11 @@ import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
+import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/project/building_details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
@@ -96,12 +98,24 @@ class Routes {
       builder: (context, state) {
         final args = state.extra as Map<String, dynamic>;
         final floorSiteModel = args['floorSiteModel'] as FloorSiteModel;
-        final siteProgressAgencyUpdateBloc = args['bloc'] as SiteProgressAgencyUpdateBloc;
+        final siteProgressAgencyUpdateBloc =
+            args['bloc'] as SiteProgressAgencyUpdateBloc;
         return MySiteProgressDetailsWidget(
           floorSiteModel: floorSiteModel,
           siteProgressAgencyUpdateBloc: siteProgressAgencyUpdateBloc,
         );
       },
     ),
+    GoRoute(
+      path: RoutesName.transactionOfAgencyPartiesScreen,
+      name: RoutesName.transactionOfAgencyPartiesScreen,
+      builder: (context, state) {
+        final TotalAgencyModel totalAgencyModel =
+            state.extra as TotalAgencyModel;
+        return MyTransactionPartiesScreen(
+          agency: totalAgencyModel,
+        );
+      },
+    )
   ]);
 }

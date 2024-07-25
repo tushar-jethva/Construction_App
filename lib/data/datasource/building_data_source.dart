@@ -50,10 +50,14 @@ class BuildingDataSourceImpl extends BuildingDataSource {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+      print(res.body);
       final buildings = jsonDecode(res.body);
       for (var building in buildings["data"]) {
+        print(building);
         listOfBuildings.add(BuildingModel.fromJson(building));
+        print(listOfBuildings);
       }
+      print(listOfBuildings);
     } catch (e) {}
     return listOfBuildings;
   }

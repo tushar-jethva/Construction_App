@@ -2,6 +2,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
@@ -42,8 +43,6 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
         projectAddress: _addressController.text,
         projectName: _projectNameController.text,
         projectDescription: _descriptionController.text));
-    context.read<ProjectBloc>().add(LoadProjects());
-    Navigator.pop(context);
   }
 
   @override
@@ -108,28 +107,36 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                 maxLines: 3,
               ),
               Gap(20.h),
-              BlocBuilder<ProjectBloc, ProjectState>(
-                builder: (context, state) {
-                  if (state is ProjectAddLoading) {
-                    return const CircularProgressIndicator(
-                      color: purple,
-                    );
+              BlocListener<ProjectBloc, ProjectState>(
+                listener: (context, state) {
+                  if (state is ProjectAddSuccess) {
+                    Navigator.pop(context);
                   }
-                  return Padding(
-                    padding: EdgeInsets.only(bottom: 10.h),
-                    child: MyCustomButton(
-                      buttonName: 'Add Project',
-                      color: green,
-                      style: const TextStyle(
-                          color: white, fontWeight: FontWeight.w500),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          addProject();
-                        }
-                      },
-                    ),
-                  );
                 },
+                child: BlocBuilder<ProjectBloc, ProjectState>(
+                  builder: (context, state) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: 10.h),
+                      child: MyCustomButtonWidget(
+                        widget: state is ProjectAddLoading
+                            ? const CircularProgressIndicator(
+                                color: white,
+                              )
+                            : const Text(
+                                'Add Project',
+                                style: TextStyle(
+                                    color: white, fontWeight: FontWeight.w500),
+                              ),
+                        color: green,
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            addProject();
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),

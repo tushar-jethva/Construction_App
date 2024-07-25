@@ -11,6 +11,9 @@ abstract class TransactionRepository {
 
   Future<List<TransactionModel>> getAllTransactionsByProjectId(
       {required String projectId});
+
+  Future<List<TransactionModel>> getAllTransactionsByAgencyId(
+      {required String agencyId});
 }
 
 class TransactionRepositoryImpl extends TransactionRepository {
@@ -48,5 +51,19 @@ class TransactionRepositoryImpl extends TransactionRepository {
       print(e.toString());
     }
     return listOfTransactions.reversed.toList();
+  }
+
+  @override
+  Future<List<TransactionModel>> getAllTransactionsByAgencyId(
+      {required String agencyId}) async {
+    List<TransactionModel> listOfTransactionsAgency = [];
+
+    try {
+      listOfTransactionsAgency = await transactionDataSource
+          .getAllTransactionsByAgencyId(agencyId: agencyId);
+    } catch (e) {
+      print(e.toString());
+    }
+    return listOfTransactionsAgency;
   }
 }

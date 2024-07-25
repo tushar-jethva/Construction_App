@@ -10,3 +10,9 @@ class BuildingsLoadSuccess extends BuildingsState {
 
   BuildingsLoadSuccess({required this.buildings});
 }
+
+class BuildingAddLoading extends BuildingsState{}
+class BuildingAddSuccess extends BuildingsState{}
+class BuildingAddFailure extends BuildingsState{}
+
+

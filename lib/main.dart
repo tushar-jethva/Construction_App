@@ -2,11 +2,13 @@ import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/datasource/building_data_source.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
+import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
+import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
@@ -17,6 +19,8 @@ import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_buildi
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
+import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,11 +71,21 @@ class MyApp extends StatelessWidget {
                 agencyRepository: AgencyRepositoryImpl(
                     agencyDataSource: AgencyDataSourceDataSourceImpl()),
                 projectRepository:
-                    ProjectRepositoryImpl(ProjectDataSourceImpl()))),
+                    ProjectRepositoryImpl(ProjectDataSourceImpl()),
+                transactionRepository: TransactionRepositoryImpl(
+                    transactionDataSource: TransactionDataSourceImpl()))),
         BlocProvider(
             create: (_) => SiteProgressFloorsBloc(
                 siteProgressRepository: SiteProgressRepositoryImpl(
-                    siteProgressDataSource: SiteProgressDataSourceImpl())))
+                    siteProgressDataSource: SiteProgressDataSourceImpl()))),
+        BlocProvider(
+            create: (_) => TotalAgenciesBloc(
+                agencyRepository: AgencyRepositoryImpl(
+                    agencyDataSource: AgencyDataSourceDataSourceImpl()))),
+        BlocProvider(
+            create: (_) => TransactionByAgencyBloc(
+                transactionRepository: TransactionRepositoryImpl(
+                    transactionDataSource: TransactionDataSourceImpl())))
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),
