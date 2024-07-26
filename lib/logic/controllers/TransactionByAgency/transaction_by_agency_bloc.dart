@@ -40,5 +40,31 @@ class TransactionByAgencyBloc
             listOfTransactionsAgency: filteredTransactions));
       }
     });
+
+    on<FetchTransactionsByDatesParties>((event, emit) {
+      try {
+        final filteredTransactions = _originalTransactions.where((transaction) {
+          final transactionDate = DateTime.parse(
+              transaction.date!); // Assume `date` is a DateTime property
+
+          return transactionDate.isAfter(event.startDate) &&
+              transactionDate.isBefore(event.endDate.add(Duration(days: 1)));
+        }).toList();
+
+        emit(TransactionByAgencySuccess(
+            listOfTransactionsAgency: filteredTransactions));
+      } catch (e) {
+        emit(TransactionByAgencyFailure());
+      }
+    });
+
+    on<ResetAllPartiesDate>((event, emit) {
+      try {
+        emit(TransactionByAgencySuccess(
+            listOfTransactionsAgency: _originalTransactions));
+      } catch (e) {
+        emit(TransactionByAgencyFailure());
+      }
+    });
   }
 }

@@ -1,8 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
+import 'package:construction_mate/presentation/screens/project/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/project/transaction_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -69,20 +73,28 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
         ),
         body: TabBarView(
           children: [
-            const Center(child: Text('Paties Tab')),
+            BlocProvider(
+              create: (context) => AgencyWorksProjectsBloc(agencyRepository: AgencyRepositoryImpl(agencyDataSource: AgencyDataSourceDataSourceImpl())),
+              child: MyPartiesProjectScreen(
+                project: widget.projectModel,
+              ),
+            ),
             BuildingsScreen(
               project: widget.projectModel,
             ),
-            BlocProvider(
-              create: (context) => TransactionBuildingBloc(
-                  transactionRepository: TransactionRepositoryImpl(
-                      transactionDataSource: TransactionDataSourceImpl())),
-              child: BlocProvider.value(
-                value: BlocProvider.of<StartAndEndDateBloc>(context),
-                child: MyTransactionScreen(
-                  project: widget.projectModel,
-                  bloc: BlocProvider.of<StartAndEndDateBloc>(context),
+            MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (_) => TransactionBuildingBloc(
+                      transactionRepository: TransactionRepositoryImpl(
+                          transactionDataSource: TransactionDataSourceImpl())),
                 ),
+                BlocProvider(
+                  create: (_) => StartAndEndDateBloc(),
+                )
+              ],
+              child: MyTransactionScreen(
+                project: widget.projectModel,
               ),
             ),
           ],

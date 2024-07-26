@@ -31,6 +31,8 @@ abstract class AgencyRepository {
   Future<List<DropDownAgencyModel>> getWorkingAgenciesOnBuildingForDropDown(
       {required String buildingId, required String projectId});
   Future<List<TotalAgencyModel>> getTotalAgencies();
+  Future<List<TotalAgencyModel>> getAgencyByProject(
+      {required String projectId});
 }
 
 class AgencyRepositoryImpl extends AgencyRepository {
@@ -138,6 +140,19 @@ class AgencyRepositoryImpl extends AgencyRepository {
     List<TotalAgencyModel> totalAgenciesList = [];
     try {
       totalAgenciesList = await agencyDataSource.getTotalAgencies();
+    } catch (e) {
+      print(e.toString());
+    }
+    return totalAgenciesList;
+  }
+
+  @override
+  Future<List<TotalAgencyModel>> getAgencyByProject(
+      {required String projectId}) async {
+    List<TotalAgencyModel> totalAgenciesList = [];
+    try {
+      totalAgenciesList =
+          await agencyDataSource.getAgencyByProject(projectId: projectId);
     } catch (e) {
       print(e.toString());
     }

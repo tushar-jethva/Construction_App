@@ -36,6 +36,9 @@ abstract class AgencyDataSource {
       {required String buildingId, required String projectId});
 
   Future<List<TotalAgencyModel>> getTotalAgencies();
+
+  Future<List<TotalAgencyModel>> getAgencyByProject(
+      {required String projectId});
 }
 
 class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
@@ -199,10 +202,10 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   }
 
   @override
-  Future<List<TotalAgencyModel>> getTotalAgencies() async{
+  Future<List<TotalAgencyModel>> getTotalAgencies() async {
     List<TotalAgencyModel> totalAgenciesList = [];
-    try{
-        http.Response res = await http.get(
+    try {
+      http.Response res = await http.get(
         Uri.parse("${API.GET_TOTAL_AGENCIES}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -213,8 +216,30 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       for (var agency in agencies["data"]) {
         totalAgenciesList.add(TotalAgencyModel.fromJson(agency));
       }
+    } catch (e) {
+      print(e.toString());
     }
-    catch(e){
+    return totalAgenciesList;
+  }
+
+  @override
+  Future<List<TotalAgencyModel>> getAgencyByProject(
+      {required String projectId}) async {
+    List<TotalAgencyModel> totalAgenciesList = [];
+    try {
+      http.Response res = await http.post(
+        Uri.parse("${API.GET_AGENCY_BY_PROJECT}"),
+        body: jsonEncode({"ProjectId": projectId}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(res.body);
+      final agencies = jsonDecode(res.body);
+      for (var agency in agencies["data"]) {
+        totalAgenciesList.add(TotalAgencyModel.fromJson(agency));
+      }
+    } catch (e) {
       print(e.toString());
     }
     return totalAgenciesList;

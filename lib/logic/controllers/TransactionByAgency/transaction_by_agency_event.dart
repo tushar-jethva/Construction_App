@@ -13,3 +13,13 @@ class FetchTransactionByQueryParties extends TransactionByAgencyEvent{
   final String query;
   FetchTransactionByQueryParties({required this.query});
 }
+
+class FetchTransactionsByDatesParties extends TransactionByAgencyEvent{
+  final DateTime startDate;
+  final DateTime endDate;
+
+  FetchTransactionsByDatesParties({required this.startDate, required this.endDate});
+}
+
+class ResetAllPartiesDate extends TransactionByAgencyEvent{
+}

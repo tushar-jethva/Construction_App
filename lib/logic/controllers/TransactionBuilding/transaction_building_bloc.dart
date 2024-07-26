@@ -47,8 +47,7 @@ class TransactionBuildingBloc
           final transactionDate = DateTime.parse(
               transaction.date!); // Assume `date` is a DateTime property
 
-          return transactionDate
-                  .isAfter(event.startDate.subtract(Duration(days: 1))) &&
+          return transactionDate.isAfter(event.startDate) &&
               transactionDate.isBefore(event.endDate.add(Duration(days: 1)));
         }).toList();
 

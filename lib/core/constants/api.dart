@@ -23,4 +23,5 @@ class API {
   static const GET_AGENCY_FOR_DROPDOWN = "$BASE_URL/Agency/GetAgencyByBuilding";
   static const GET_TOTAL_AGENCIES = "$BASE_URL/Agency/GetAgency";
   static const GET_TRANSACTOIN_BY_AGENCY_ID = "$BASE_URL/Transaction/GetTransactionByAgency";
+  static const GET_AGENCY_BY_PROJECT = "$BASE_URL/Agency/GetAgencyByProject";
 }

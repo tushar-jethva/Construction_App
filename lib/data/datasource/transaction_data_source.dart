@@ -35,7 +35,7 @@ class TransactionDataSourceImpl extends TransactionDataSource {
           buildingId: buildingId,
           amount: amount,
           taskId: "",
-          entryType: "Credit");
+          entryType: "Debit");
       print("$description $agencyId $projectId $buildingId");
       http.Response response = await http.post(
         Uri.parse(API.ADD_PAYMENT_OUT),

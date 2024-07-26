@@ -40,9 +40,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => BottomBarBloc(),
         ),
-        BlocProvider(
-          create: (_) => StartAndEndDateBloc(),
-        ),
+        
         BlocProvider(
           create: (_) =>
               ProjectBloc(ProjectRepositoryImpl(ProjectDataSourceImpl()))

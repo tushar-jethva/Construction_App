@@ -1,37 +1,44 @@
-import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/core/constants/routes_names.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
-import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
-class MyPartiesScreen extends StatefulWidget {
-  const MyPartiesScreen({super.key});
+import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
+
+class MyPartiesProjectScreen extends StatefulWidget {
+  final ProjectModel project;
+  const MyPartiesProjectScreen({
+    Key? key,
+    required this.project,
+  }) : super(key: key);
 
   @override
-  State<MyPartiesScreen> createState() => _MyPartiesScreenState();
+  State<MyPartiesProjectScreen> createState() => _MyPartiesProjectScreenState();
 }
 
-class _MyPartiesScreenState extends State<MyPartiesScreen> {
+class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
   final TextEditingController _searchController = TextEditingController();
 
-  late TotalAgenciesBloc _totalAgenciesBloc;
+  late AgencyWorksProjectsBloc _totalAgenciesProjectBloc;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _totalAgenciesBloc = BlocProvider.of<TotalAgenciesBloc>(context);
-    _totalAgenciesBloc.add(LoadTotalAgencies());
+    _totalAgenciesProjectBloc =
+        BlocProvider.of<AgencyWorksProjectsBloc>(context);
+    _totalAgenciesProjectBloc
+        .add(LoadTotalProjectAgencies(projectId: widget.project.sId!));
   }
 
   Future<void> _refreshTotalAgencies() async {
-    _totalAgenciesBloc.add(LoadTotalAgencies());
+    _totalAgenciesProjectBloc
+        .add(LoadTotalProjectAgencies(projectId: widget.project.sId!));
   }
 
   @override
@@ -47,35 +54,14 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 15.w, right: 15.w, top: 30.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Agencies",
-                  style: TextStyle(
-                      color: black, fontWeight: FontWeight.w500, fontSize: 17),
-                ),
-                MyCustomButton(
-                    buttonName: '+ Add Agency',
-                    color: transparent,
-                    style: const TextStyle(
-                        fontSize: 16,
-                        color: purple,
-                        fontWeight: FontWeight.bold),
-                    onPressed: () {}),
-              ],
-            ),
-          ),
-          Padding(
             padding: EdgeInsets.only(
                 top: 15.h, left: 15.w, bottom: 10.h, right: 15.w),
             child: TextField(
               controller: _searchController,
               maxLines: 1,
               onChanged: (value) {
-                context.read<TotalAgenciesBloc>().add(
-                    FetchTransactionByQueryTotalAgency(
+                context.read<AgencyWorksProjectsBloc>().add(
+                    FetchTransactionByQueryProjectAgency(
                         query: _searchController.text));
               },
               onTapOutside: (event) {
@@ -95,9 +81,9 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
               ),
             ),
           ),
-          BlocBuilder<TotalAgenciesBloc, TotalAgenciesState>(
+          BlocBuilder<AgencyWorksProjectsBloc, AgencyWorksProjectsState>(
               builder: (context, state) {
-            if (state is TotalAgenciesInitial) {
+            if (state is AgencyWorksProjectsInitial) {
               return Expanded(
                 child: Shimmer(
                   gradient: LinearGradient(
@@ -130,7 +116,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                 ),
               );
             }
-            if (state is TotalAgenciesLoadSuccess) {
+            if (state is AgencyWorksProjectsSuccess) {
               return Expanded(
                   child: RefreshIndicator(
                 onRefresh: _refreshTotalAgencies,
@@ -142,41 +128,34 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                         itemCount: state.totalAgencies.length,
                         itemBuilder: (context, index) {
                           final agency = state.totalAgencies[index];
-                          return InkWell(
-                            onTap: () {
-                              context.pushNamed(
-                                  RoutesName.transactionOfAgencyPartiesScreen,
-                                  extra: agency);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 15.0, right: 15, bottom: 10),
-                              child: Container(
-                                height: ReusableFunctions.getHeight(
-                                    context: context, height: 0.08),
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: greyLight,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(agency.name!),
-                                    Text(
-                                      agency.totalAccount!.startsWith('-')
-                                          ? agency.totalAccount!.substring(
-                                              1, agency.totalAccount!.length)
-                                          : agency.totalAccount.toString(),
-                                      style: TextStyle(
-                                          color: agency.totalAccount!
-                                                  .startsWith('-')
-                                              ? red
-                                              : green),
-                                    )
-                                  ],
-                                ),
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15.0, right: 15, bottom: 10),
+                            child: Container(
+                              height: ReusableFunctions.getHeight(
+                                  context: context, height: 0.08),
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: greyLight,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(agency.name!),
+                                  Text(
+                                    agency.totalAccount!.startsWith('-')
+                                        ? agency.totalAccount!.substring(
+                                            1, agency.totalAccount!.length)
+                                        : agency.totalAccount.toString(),
+                                    style: TextStyle(
+                                        color:
+                                            agency.totalAccount!.startsWith('-')
+                                                ? red
+                                                : green),
+                                  )
+                                ],
                               ),
                             ),
                           );
@@ -191,5 +170,6 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
         ],
       ),
     );
+    ;
   }
 }
