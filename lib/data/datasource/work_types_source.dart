@@ -6,8 +6,7 @@ import 'package:construction_mate/logic/models/work_type_model.dart';
 
 abstract class WorkTypesDataSource {
   Future<List<WorkTypeModel>> getAllWorkTypes();
-
-  
+  Future<String> addWorkType({required String workTypeName});
 }
 
 class WorkTypesDataSourceImpl extends WorkTypesDataSource {
@@ -30,5 +29,29 @@ class WorkTypesDataSourceImpl extends WorkTypesDataSource {
       print(e.toString());
     }
     return allWorkTypeList;
+  }
+
+  @override
+  Future<String> addWorkType({required String workTypeName}) async{
+    String strRes = "";
+    try{
+      http.Response res = await http.post(
+        Uri.parse(API.ADD_WORK_TYPE),
+        body: jsonEncode({
+          "Name" : workTypeName.toUpperCase()
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      final map = jsonDecode(res.body);
+      strRes = map["message"];
+    }
+    catch(e){
+      print(e.toString());
+      
+    }
+    return strRes;
   }
 }

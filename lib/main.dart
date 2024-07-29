@@ -11,6 +11,7 @@ import 'package:construction_mate/data/repository/site_progress_repository.dart'
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
+import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
@@ -18,7 +19,6 @@ import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payme
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
-import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
@@ -40,7 +40,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => BottomBarBloc(),
         ),
-        
+        BlocProvider(
+            create: (_) => AgencyWorkTypesSelectionBloc(
+                workTypesRepository:
+                    WorkTypesRepositoryImpl(WorkTypesDataSourceImpl()))),
         BlocProvider(
           create: (_) =>
               ProjectBloc(ProjectRepositoryImpl(ProjectDataSourceImpl()))

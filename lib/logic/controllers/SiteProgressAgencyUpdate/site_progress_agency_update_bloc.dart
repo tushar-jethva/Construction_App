@@ -59,11 +59,11 @@ class SiteProgressAgencyUpdateBloc
       final selectAll =
           currentSelectedAgencies.every((selected) => selected.isSelected!);
       emit(state.copyWith(
-        currentSelectedAgencies: currentSelectedAgencies,
+     
+   currentSelectedAgencies: currentSelectedAgencies,
         selectAll: selectAll,
       ));
     });
-
     on<ToggleSelectAll>((event, emit) {
       final selectAll = !state.selectAll;
       List<SiteProgressAgencyUpdateModel> currentSelectedAgencies =

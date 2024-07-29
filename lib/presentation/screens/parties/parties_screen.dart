@@ -2,8 +2,10 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
+import 'package:construction_mate/presentation/widgets/building_details_screen.dart/add_agency_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+import 'package:construction_mate/presentation/widgets/parties_screen_widgets/add_agency_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -41,6 +43,15 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
     _searchController.dispose();
   }
 
+  openBottomSheet({required BuildContext context}) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return MyAddAgencyBottomSheetParties();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +74,9 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                         fontSize: 16,
                         color: purple,
                         fontWeight: FontWeight.bold),
-                    onPressed: () {}),
+                    onPressed: () {
+                      openBottomSheet(context: context);
+                    }),
               ],
             ),
           ),

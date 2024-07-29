@@ -3,6 +3,7 @@ import 'package:construction_mate/logic/models/work_type_model.dart';
 
 abstract class WorkTypesRepository {
   Future<List<WorkTypeModel>> getAllWorkTypes();
+  Future<String> addWorkType({required String workTypeName});
 }
 
 class WorkTypesRepositoryImpl extends WorkTypesRepository {
@@ -17,5 +18,17 @@ class WorkTypesRepositoryImpl extends WorkTypesRepository {
       print(e.toString());
     }
     return allWorkTypeList;
+  }
+
+  @override
+  Future<String> addWorkType({required String workTypeName}) async {
+    String strRes = "";
+    try {
+      strRes =
+          await workTypesDataSource.addWorkType(workTypeName: workTypeName);
+    } catch (e) {
+      print(e.toString());
+    }
+    return strRes;
   }
 }
