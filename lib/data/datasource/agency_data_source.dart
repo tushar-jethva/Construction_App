@@ -39,6 +39,11 @@ abstract class AgencyDataSource {
 
   Future<List<TotalAgencyModel>> getAgencyByProject(
       {required String projectId});
+
+  Future<void> addAgency(
+      {required String name,
+      required String description,
+      required List<String> workTypeIds});
 }
 
 class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
@@ -243,5 +248,27 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       print(e.toString());
     }
     return totalAgenciesList;
+  }
+
+  @override
+  Future<void> addAgency(
+      {required String name,
+      required String description,
+      required List<String> workTypeIds}) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse("${API.ADD_AGENCY}"),
+        body: jsonEncode({
+          "Name": name,
+          "Description": description,
+          "WorkType": workTypeIds
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

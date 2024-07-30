@@ -20,3 +20,13 @@ class OnAddWorkTypeButtonPressed extends AgencyWorkTypesSelectionEvent {
     required this.name,
   });
 }
+
+class OnAddAgencyPartiesButtonPressed extends AgencyWorkTypesSelectionEvent {
+  final String name;
+  final String description;
+  OnAddAgencyPartiesButtonPressed({
+    required this.name,
+    required this.description,
+  });
+
+}

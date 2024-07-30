@@ -64,6 +64,6 @@ class TransactionRepositoryImpl extends TransactionRepository {
     } catch (e) {
       print(e.toString());
     }
-    return listOfTransactionsAgency;
+    return listOfTransactionsAgency.reversed.toList();
   }
 }

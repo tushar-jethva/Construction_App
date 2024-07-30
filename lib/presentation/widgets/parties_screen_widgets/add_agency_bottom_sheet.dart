@@ -1,6 +1,8 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
+import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/models/agency_work_type_selection_model.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
@@ -119,9 +121,10 @@ class _MyAddAgencyBottomSheetPartiesState
                             ),
                             color: green,
                             onPressed: () {
-                              context
-                              .read<AgencyWorkTypesSelectionBloc>()
-                              .add(OnAddWorkTypeButtonPressed(name: _workTypeAddController.text));
+                              context.read<AgencyWorkTypesSelectionBloc>().add(
+                                  OnAddWorkTypeButtonPressed(
+                                      name: _workTypeAddController.text));
+                              _workTypeAddController.clear();
                             })
                       ],
                     ),
@@ -159,18 +162,41 @@ class _MyAddAgencyBottomSheetPartiesState
                       );
                     })),
                     Gap(15.h),
-                    MyCustomButtonWidget(
-                        widget: const Text(
-                          "Add Agency",
-                          style: TextStyle(
-                              color: white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        color: green,
-                        onPressed: () {
-                          
-                        }),
+                    BlocListener<AgencyWorkTypesSelectionBloc,
+                        AgencyWorkTypesSelectionState>(
+                      listener: (context, state) {
+                        if (state.isAddedAgency == 2) {
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: BlocBuilder<AgencyWorkTypesSelectionBloc,
+                          AgencyWorkTypesSelectionState>(
+                        builder: (context, state) {
+                          return MyCustomButtonWidget(
+                              widget: state.isAddedAgency == 1
+                                  ? ReusableFunctions.loader()
+                                  : const Text(
+                                      "Add Agency",
+                                      style: TextStyle(
+                                          color: white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                              color: green,
+                              onPressed: () {
+                                context
+                                    .read<AgencyWorkTypesSelectionBloc>()
+                                    .add(OnAddAgencyPartiesButtonPressed(
+                                        name: _agencyNameController.text,
+                                        description:
+                                            _descriptionController.text));
+                                context
+                                    .read<TotalAgenciesBloc>()
+                                    .add(LoadTotalAgencies());
+                              });
+                        },
+                      ),
+                    ),
                     Gap(15.h),
                   ],
                 ),

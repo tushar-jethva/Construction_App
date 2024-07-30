@@ -185,7 +185,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                       BlocBuilder<PaymentOutDropDownBloc,
                           PaymentOutDropDownState>(builder: (context, state) {
                         if (state is ProjectsLoadingState) {
-                          return CustomDropDown(items: selectBuilding);
+                          return CustomDropDown(items: selectProject);
                         }
                         return Column(
                           children: [

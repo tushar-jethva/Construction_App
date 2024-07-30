@@ -33,6 +33,10 @@ abstract class AgencyRepository {
   Future<List<TotalAgencyModel>> getTotalAgencies();
   Future<List<TotalAgencyModel>> getAgencyByProject(
       {required String projectId});
+  Future<void> addAgency(
+      {required String name,
+      required String description,
+      required List<String> workTypeIds});
 }
 
 class AgencyRepositoryImpl extends AgencyRepository {
@@ -157,5 +161,18 @@ class AgencyRepositoryImpl extends AgencyRepository {
       print(e.toString());
     }
     return totalAgenciesList;
+  }
+
+  @override
+  Future<void> addAgency(
+      {required String name,
+      required String description,
+      required List<String> workTypeIds}) async {
+    try {
+      await agencyDataSource.addAgency(
+          name: name, description: description, workTypeIds: workTypeIds);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }

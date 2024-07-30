@@ -1,6 +1,11 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/data/datasource/agency_data_source.dart';
+import 'package:construction_mate/data/datasource/work_types_source.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
+import 'package:construction_mate/data/repository/work_type_repository.dart';
+import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/add_agency_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
@@ -33,7 +38,10 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
   }
 
   Future<void> _refreshTotalAgencies() async {
-    _totalAgenciesBloc.add(LoadTotalAgencies());
+    _searchController.text.isEmpty
+        ? _totalAgenciesBloc.add(LoadTotalAgencies())
+        : _totalAgenciesBloc.add(
+            FetchTransactionByQueryTotalAgency(query: _searchController.text));
   }
 
   @override
@@ -48,7 +56,14 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
         isScrollControlled: true,
         context: context,
         builder: (context) {
-          return MyAddAgencyBottomSheetParties();
+          return BlocProvider(
+            create: (context) => AgencyWorkTypesSelectionBloc(
+                agencyRepository: AgencyRepositoryImpl(
+                    agencyDataSource: AgencyDataSourceDataSourceImpl()),
+                workTypesRepository:
+                    WorkTypesRepositoryImpl(WorkTypesDataSourceImpl())),
+            child: const MyAddAgencyBottomSheetParties(),
+          );
         });
   }
 
@@ -155,7 +170,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                         itemCount: state.totalAgencies.length,
                         itemBuilder: (context, index) {
                           final agency = state.totalAgencies[index];
-                          return InkWell(
+                          return GestureDetector(
                             onTap: () {
                               context.pushNamed(
                                   RoutesName.transactionOfAgencyPartiesScreen,

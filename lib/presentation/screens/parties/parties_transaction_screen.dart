@@ -9,11 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
-import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
-import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/transaction_model.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -34,9 +31,7 @@ class _MyTransactionPartiesScreenState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    print("Hello dipendecies");
     super.didChangeDependencies();
     transactionByAgencyBloc = BlocProvider.of<TransactionByAgencyBloc>(context);
     transactionByAgencyBloc
@@ -319,7 +314,7 @@ class _MyTransactionPartiesScreenState
                                       borderRadius:
                                           BorderRadius.circular(15.r)),
                                   child: ListTile(
-                                    title: Text("${transaction.name}"),
+                                    title: Text("${transaction.description}"),
                                     subtitle: Text(formattedDate),
                                     trailing: Text(
                                       "${transaction.amount}",

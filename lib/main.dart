@@ -40,10 +40,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => BottomBarBloc(),
         ),
-        BlocProvider(
-            create: (_) => AgencyWorkTypesSelectionBloc(
-                workTypesRepository:
-                    WorkTypesRepositoryImpl(WorkTypesDataSourceImpl()))),
+      
         BlocProvider(
           create: (_) =>
               ProjectBloc(ProjectRepositoryImpl(ProjectDataSourceImpl()))
@@ -83,10 +80,7 @@ class MyApp extends StatelessWidget {
             create: (_) => TotalAgenciesBloc(
                 agencyRepository: AgencyRepositoryImpl(
                     agencyDataSource: AgencyDataSourceDataSourceImpl()))),
-        BlocProvider(
-            create: (_) => TransactionByAgencyBloc(
-                transactionRepository: TransactionRepositoryImpl(
-                    transactionDataSource: TransactionDataSourceImpl())))
+      
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

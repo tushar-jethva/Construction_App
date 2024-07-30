@@ -1,6 +1,9 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
+import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
@@ -16,6 +19,7 @@ import 'package:construction_mate/presentation/screens/project/project_screen.da
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
@@ -112,8 +116,11 @@ class Routes {
       builder: (context, state) {
         final TotalAgencyModel totalAgencyModel =
             state.extra as TotalAgencyModel;
-        return MyTransactionPartiesScreen(
-          agency: totalAgencyModel,
+        return BlocProvider(
+          create: (context) => TransactionByAgencyBloc(
+              transactionRepository: TransactionRepositoryImpl(
+                  transactionDataSource: TransactionDataSourceImpl())),
+          child: MyTransactionPartiesScreen(agency: totalAgencyModel),
         );
       },
     )

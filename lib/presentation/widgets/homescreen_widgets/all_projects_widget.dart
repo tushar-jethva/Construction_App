@@ -4,6 +4,7 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,9 +105,66 @@ class AllProjectsWidget extends StatelessWidget {
                               Text(project.name!),
                               // Text((project.paymentIn! - project.paymentOut!)
                               //     .toString()),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.more_vert))
+                              PopupMenuButton(
+                                itemBuilder: (context) => [
+                                  PopupMenuItem(
+                                      child: TextButton(
+                                          onPressed: () {},
+                                          child: const Text("Update"))),
+                                  PopupMenuItem(
+                                      child: TextButton(
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return SimpleDialog(
+                                                    backgroundColor: white,
+                                                    children: [
+                                                      const Center(
+                                                        child: Text(
+                                                          "Are you sure?",
+                                                          style: TextStyle(
+                                                              color: black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 16),
+                                                        ),
+                                                      ),
+                                                      const Center(
+                                                        child: Text(
+                                                            "Do you want to delete it?"),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          MyCustomButton(
+                                                              buttonName:
+                                                                  'Delete',
+                                                              color: red,
+                                                              style:
+                                                                  const TextStyle(
+                                                                      color:
+                                                                          white),
+                                                              onPressed: () {}),
+                                                          MyCustomButton(
+                                                              buttonName:
+                                                                  'Cancel',
+                                                              color: green,
+                                                              style:
+                                                                  const TextStyle(
+                                                                      color:
+                                                                          white),
+                                                              onPressed: () {}),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  );
+                                                });
+                                          },
+                                          child: const Text("Delete")))
+                                ],
+                                icon: const Icon(Icons.more_vert_rounded),
+                              )
                             ],
                           ),
                           Row(
