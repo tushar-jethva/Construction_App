@@ -4,6 +4,7 @@ import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
+import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
 import 'package:construction_mate/presentation/screens/project/parties_screen.dart';
@@ -30,6 +31,18 @@ class MyProjectDetailsScreen extends StatefulWidget {
 }
 
 class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
+  late PaymentTotalProjectBloc _paymentTotalProjectBloc;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _paymentTotalProjectBloc =
+        BlocProvider.of<PaymentTotalProjectBloc>(context);
+    _paymentTotalProjectBloc
+        .add(FetchTotalPaymentOutProject(projectId: widget.projectModel.sId!));
+  }
+
   @override
   Widget build(BuildContext context) {
     final project = widget.projectModel;
@@ -42,22 +55,30 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                TransactionStatusWidget(
-                  upperText: "Advanced Paid",
-                  belowText: "\$${project.paymentIn}",
-                  upperTextStyle: TextStyle(color: grey, fontSize: 12),
-                  belowTextStyle: TextStyle(color: green, fontSize: 12),
+                BlocBuilder<PaymentTotalProjectBloc, PaymentTotalProjectState>(
+                  builder: (context, state) {
+                    return TransactionStatusWidget(
+                      upperText: "Advanced Paid",
+                      belowText: state.paymentOut,
+                      upperTextStyle: TextStyle(color: grey, fontSize: 12),
+                      belowTextStyle: TextStyle(color: green, fontSize: 12),
+                    );
+                  },
                 ),
                 MyVerticalDivider(
                   height: 40.h,
                   width: 2.w,
                   color: grey,
                 ),
-                TransactionStatusWidget(
-                  upperText: "Pending to Pay",
-                  belowText: "\$${project.paymentOut}",
-                  upperTextStyle: TextStyle(color: grey, fontSize: 12),
-                  belowTextStyle: TextStyle(color: red, fontSize: 12),
+                BlocBuilder<PaymentTotalProjectBloc, PaymentTotalProjectState>(
+                  builder: (context, state) {
+                    return TransactionStatusWidget(
+                      upperText: "Pending to Pay",
+                      belowText: state.paymentIn,
+                      upperTextStyle: TextStyle(color: grey, fontSize: 12),
+                      belowTextStyle: TextStyle(color: red, fontSize: 12),
+                    );
+                  },
                 ),
               ],
             ),
@@ -74,7 +95,9 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
         body: TabBarView(
           children: [
             BlocProvider(
-              create: (context) => AgencyWorksProjectsBloc(agencyRepository: AgencyRepositoryImpl(agencyDataSource: AgencyDataSourceDataSourceImpl())),
+              create: (context) => AgencyWorksProjectsBloc(
+                  agencyRepository: AgencyRepositoryImpl(
+                      agencyDataSource: AgencyDataSourceDataSourceImpl())),
               child: MyPartiesProjectScreen(
                 project: widget.projectModel,
               ),

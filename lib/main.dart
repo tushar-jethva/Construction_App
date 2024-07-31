@@ -20,6 +20,7 @@ import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_buildi
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => BottomBarBloc(),
         ),
-      
+        BlocProvider(
+            create: (_) => TotalPaymentOutBloc(
+                transactionRepository: TransactionRepositoryImpl(
+                    transactionDataSource: TransactionDataSourceImpl()))),
         BlocProvider(
           create: (_) =>
               ProjectBloc(ProjectRepositoryImpl(ProjectDataSourceImpl()))
@@ -80,7 +84,6 @@ class MyApp extends StatelessWidget {
             create: (_) => TotalAgenciesBloc(
                 agencyRepository: AgencyRepositoryImpl(
                     agencyDataSource: AgencyDataSourceDataSourceImpl()))),
-      
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

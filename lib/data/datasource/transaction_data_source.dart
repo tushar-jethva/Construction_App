@@ -17,6 +17,9 @@ abstract class TransactionDataSource {
 
   Future<List<TransactionModel>> getAllTransactionsByAgencyId(
       {required String agencyId});
+
+  Future<String> getTotalPaymentOut();
+  Future<String> getTotalPaymentOutProject({required String projectId});
 }
 
 class TransactionDataSourceImpl extends TransactionDataSource {
@@ -92,5 +95,43 @@ class TransactionDataSourceImpl extends TransactionDataSource {
       print(e.toString());
     }
     return listOfTransactionsAgency;
+  }
+
+  @override
+  Future<String> getTotalPaymentOut() async {
+    String total = "0";
+    try {
+      http.Response response = await http.get(
+        Uri.parse("${API.GET_TOTAL_PAYMENT_OUT}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      final map = jsonDecode(response.body);
+      total = map["TotalPayOut"].toString();
+    } catch (e) {
+      print(e.toString());
+    }
+    return total;
+  }
+
+  @override
+  Future<String> getTotalPaymentOutProject({required String projectId}) async {
+    String total = "0";
+    try {
+      http.Response response = await http.get(
+        Uri.parse("${API.GET_TOTAL_PAYMENT_OUT_PROJECT}/$projectId"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      final map = jsonDecode(response.body);
+      total = map["ProjectPayOut"].toString();
+    } catch (e) {
+      print(e.toString());
+    }
+    return total;
   }
 }

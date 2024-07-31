@@ -6,6 +6,7 @@ import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -120,42 +121,55 @@ class AllProjectsWidget extends StatelessWidget {
                                                   return SimpleDialog(
                                                     backgroundColor: white,
                                                     children: [
-                                                      const Center(
-                                                        child: Text(
-                                                          "Are you sure?",
-                                                          style: TextStyle(
-                                                              color: black,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 16),
+                                                      SizedBox(
+                                                        height: 130.h,
+                                                        child: Column(
+                                                          children: [
+                                                            const Center(
+                                                              child: Text(
+                                                                "Are you sure?",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        black,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                            ),
+                                                            const Center(
+                                                              child: Text(
+                                                                  "Do you want to delete it?"),
+                                                            ),
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                MyCustomButton(
+                                                                    buttonName:
+                                                                        'Delete',
+                                                                    color: red,
+                                                                    style: const TextStyle(
+                                                                        color:
+                                                                            white),
+                                                                    onPressed:
+                                                                        () {}),
+                                                                MyCustomButton(
+                                                                    buttonName:
+                                                                        'Cancel',
+                                                                    color:
+                                                                        green,
+                                                                    style: const TextStyle(
+                                                                        color:
+                                                                            white),
+                                                                    onPressed:
+                                                                        () {}),
+                                                              ],
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ),
-                                                      const Center(
-                                                        child: Text(
-                                                            "Do you want to delete it?"),
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          MyCustomButton(
-                                                              buttonName:
-                                                                  'Delete',
-                                                              color: red,
-                                                              style:
-                                                                  const TextStyle(
-                                                                      color:
-                                                                          white),
-                                                              onPressed: () {}),
-                                                          MyCustomButton(
-                                                              buttonName:
-                                                                  'Cancel',
-                                                              color: green,
-                                                              style:
-                                                                  const TextStyle(
-                                                                      color:
-                                                                          white),
-                                                              onPressed: () {}),
-                                                        ],
                                                       ),
                                                     ],
                                                   );

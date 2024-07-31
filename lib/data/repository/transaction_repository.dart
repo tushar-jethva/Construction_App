@@ -14,6 +14,9 @@ abstract class TransactionRepository {
 
   Future<List<TransactionModel>> getAllTransactionsByAgencyId(
       {required String agencyId});
+
+  Future<String> getTotalPaymentOut();
+  Future<String> getTotalPaymentOutProject({required String projectId});
 }
 
 class TransactionRepositoryImpl extends TransactionRepository {
@@ -65,5 +68,28 @@ class TransactionRepositoryImpl extends TransactionRepository {
       print(e.toString());
     }
     return listOfTransactionsAgency.reversed.toList();
+  }
+
+  @override
+  Future<String> getTotalPaymentOut() async {
+    String total = "0";
+    try {
+      total = await transactionDataSource.getTotalPaymentOut();
+    } catch (e) {
+      print(e.toString());
+    }
+    return total;
+  }
+
+  @override
+  Future<String> getTotalPaymentOutProject({required String projectId}) async {
+    String total = "0";
+    try {
+      total = await transactionDataSource.getTotalPaymentOutProject(
+          projectId: projectId);
+    } catch (e) {
+      print(e.toString());
+    }
+    return total;
   }
 }

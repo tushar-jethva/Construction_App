@@ -1,5 +1,6 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
+import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_projects_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
@@ -19,10 +20,13 @@ class MyProjectScreen extends StatefulWidget {
 
 class _MyProjectScreenState extends State<MyProjectScreen> {
   late ProjectBloc _projectBloc;
+  late TotalPaymentOutBloc _totalPaymentOutBloc;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _projectBloc = BlocProvider.of<ProjectBloc>(context);
+    _totalPaymentOutBloc = BlocProvider.of<TotalPaymentOutBloc>(context);
+    _totalPaymentOutBloc.add(FetchTotalPaymentOut());
     _projectBloc.add(LoadProjects());
   }
 

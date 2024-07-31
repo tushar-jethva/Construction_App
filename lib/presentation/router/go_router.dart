@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
@@ -50,8 +51,13 @@ class Routes {
       name: RoutesName.projectDetailsScreen,
       builder: (contex, state) {
         final ProjectModel project = state.extra as ProjectModel;
-        return MyProjectDetailsScreen(
-          projectModel: project,
+        return BlocProvider(
+          create: (context) => PaymentTotalProjectBloc(
+              transactionRepository: TransactionRepositoryImpl(
+                  transactionDataSource: TransactionDataSourceImpl())),
+          child: MyProjectDetailsScreen(
+            projectModel: project,
+          ),
         );
       },
     ),

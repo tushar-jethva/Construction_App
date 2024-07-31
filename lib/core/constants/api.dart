@@ -26,4 +26,6 @@ class API {
   static const GET_AGENCY_BY_PROJECT = "$BASE_URL/Agency/GetAgencyByProject";
   static const ADD_WORK_TYPE = "$BASE_URL/Worktype/AddWorktype";
   static const ADD_AGENCY = "$BASE_URL/Agency/AddAgency";
+  static const GET_TOTAL_PAYMENT_OUT = "$BASE_URL/Project/GetPayOut";
+  static const GET_TOTAL_PAYMENT_OUT_PROJECT = "$BASE_URL/Project/GetPayOut";
 }
