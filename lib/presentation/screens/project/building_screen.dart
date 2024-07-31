@@ -271,6 +271,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _refreshBuildings,
@@ -281,12 +282,9 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "Buildings",
-                    style: TextStyle(
-                        color: black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14),
+                    style: theme.textTheme.titleMedium!.copyWith(fontSize: 16),
                   ),
                   MyCustomButton(
                       buttonName: '+ Add Building',

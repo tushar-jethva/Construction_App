@@ -11,7 +11,9 @@ class MyHomeScreenAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
+      color: theme.scaffoldBackgroundColor,
       padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 35.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,7 +24,10 @@ class MyHomeScreenAppBar extends StatelessWidget {
                 backgroundImage: AssetImage('assets/images/assets.png'),
               ),
               Gap(10.h),
-              const Text("Tushar Jethva")
+              Text(
+                "Tushar Jethva",
+                style: theme.textTheme.titleMedium,
+              )
             ],
           ),
           BlocBuilder<ThemeBloc, ThemeState>(
@@ -32,8 +37,14 @@ class MyHomeScreenAppBar extends StatelessWidget {
                   context.read<ThemeBloc>().add(OnThemeChangeEvent());
                 },
                 child: state.themeData.scaffoldBackgroundColor == black
-                    ? Icon(Icons.sunny)
-                    : Icon(Icons.nights_stay),
+                    ? Icon(
+                        Icons.sunny,
+                        color: theme.canvasColor,
+                      )
+                    : Icon(
+                        Icons.nights_stay,
+                        color: theme.canvasColor,
+                      ),
               );
             },
           )

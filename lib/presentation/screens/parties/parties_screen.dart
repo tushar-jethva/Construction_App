@@ -69,6 +69,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: Column(
         children: [
@@ -77,18 +78,15 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Agencies",
-                  style: TextStyle(
-                      color: black, fontWeight: FontWeight.w500, fontSize: 17),
+                  style: theme.textTheme.bodyMedium!.copyWith(fontSize: 17),
                 ),
                 MyCustomButton(
                     buttonName: '+ Add Agency',
                     color: transparent,
-                    style: const TextStyle(
-                        fontSize: 16,
-                        color: purple,
-                        fontWeight: FontWeight.bold),
+                    style: theme.textTheme.titleLarge!
+                        .copyWith(color: purple, fontSize: 16),
                     onPressed: () {
                       openBottomSheet(context: context);
                     }),
@@ -110,7 +108,11 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                 FocusScope.of(context).unfocus();
               },
               decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search_rounded),
+                prefixIcon: Icon(
+                  Icons.search_rounded,
+                  color: theme.canvasColor,
+                ),
+                hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
                 hintText: 'Search transactions',
                 contentPadding: EdgeInsets.symmetric(vertical: 5.h),
                 border: InputBorder.none,
@@ -163,8 +165,11 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                   child: RefreshIndicator(
                 onRefresh: _refreshTotalAgencies,
                 child: state.totalAgencies.isEmpty
-                    ? const Center(
-                        child: Text('No agencies found!'),
+                    ? Center(
+                        child: Text(
+                          'No agencies found!',
+                          style: theme.textTheme.titleMedium,
+                        ),
                       )
                     : ListView.builder(
                         itemCount: state.totalAgencies.length,
@@ -191,7 +196,10 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(agency.name!),
+                                    Text(
+                                      agency.name!,
+                                      style: theme.textTheme.titleMedium,
+                                    ),
                                     Text(
                                       agency.totalAccount!.startsWith('-')
                                           ? agency.totalAccount!.substring(

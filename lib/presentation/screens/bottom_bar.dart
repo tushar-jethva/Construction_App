@@ -21,12 +21,15 @@ class _MyBottomBarState extends State<MyBottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocConsumer<BottomBarBloc, BottomBarState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           body: screens[state.tabIndex],
           bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: theme.scaffoldBackgroundColor,
+              unselectedItemColor: theme.canvasColor,
               elevation: 0,
               currentIndex: state.tabIndex,
               onTap: (value) {

@@ -18,11 +18,16 @@ class MyBuildingDetailsScreen extends StatefulWidget {
 class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return DefaultTabController(
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(widget.buildingModel.name!),
+            backgroundColor: theme.scaffoldBackgroundColor,
+            title: Text(
+              widget.buildingModel.name!,
+              style: theme.textTheme.titleLarge,
+            ),
             bottom: TabBar(
               onTap: (index) {},
               tabs: const [

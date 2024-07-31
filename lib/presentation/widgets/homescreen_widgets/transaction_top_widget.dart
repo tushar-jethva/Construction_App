@@ -13,6 +13,7 @@ class TransactionTopWidget extends StatelessWidget {
       expandedHeight: 85.h,
       collapsedHeight: 85.h,
       surfaceTintColor: Colors.transparent,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       pinned: true,
       flexibleSpace: const TransactionsTotalWidget(),
     );

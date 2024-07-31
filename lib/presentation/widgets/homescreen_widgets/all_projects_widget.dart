@@ -18,6 +18,7 @@ class AllProjectsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocBuilder<ProjectBloc, ProjectState>(
       builder: (context, state) {
         if (state is ProjectInitial || state is ProjectAddLoading) {
@@ -105,9 +106,7 @@ class AllProjectsWidget extends StatelessWidget {
                             children: [
                               Text(
                                 project.name!,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'Roboto'),
+                                style: theme.textTheme.titleMedium,
                               ),
                               // Text((project.paymentIn! - project.paymentOut!)
                               //     .toString()),
@@ -182,7 +181,10 @@ class AllProjectsWidget extends StatelessWidget {
                                           },
                                           child: const Text("Delete")))
                                 ],
-                                icon: const Icon(Icons.more_vert_rounded),
+                                icon: Icon(
+                                  Icons.more_vert_rounded,
+                                  color: theme.canvasColor,
+                                ),
                               )
                             ],
                           ),

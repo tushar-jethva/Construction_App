@@ -46,11 +46,13 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final project = widget.projectModel;
+    final theme = Theme.of(context);
     return DefaultTabController(
       initialIndex: 1,
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: theme.scaffoldBackgroundColor,
           title: Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

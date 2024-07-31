@@ -36,7 +36,9 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
       resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
@@ -48,6 +50,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                   expandedHeight: 40.h,
                   floating: true,
                   surfaceTintColor: Colors.transparent,
+                  backgroundColor: theme.scaffoldBackgroundColor,
                   flexibleSpace: const MyHomeScreenAppBar(),
                 ),
                 const TransactionTopWidget(),
@@ -55,17 +58,14 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                   toolbarHeight: 10,
                   surfaceTintColor: Colors.transparent,
                   pinned: true,
+                  backgroundColor: theme.scaffoldBackgroundColor,
                   flexibleSpace: Padding(
                     padding: EdgeInsets.only(left: 8.w, top: 12.h),
-                    child: const Row(
+                    child: Row(
                       children: [
-                        Text(
-                          "All Projects",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              color: black),
-                        )
+                        Text("All Projects",
+                            style: theme.textTheme.titleLarge!
+                                .copyWith(fontSize: 18))
                       ],
                     ),
                   ),
