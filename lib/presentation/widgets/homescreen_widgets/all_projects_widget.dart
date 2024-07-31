@@ -103,7 +103,12 @@ class AllProjectsWidget extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(project.name!),
+                              Text(
+                                project.name!,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontFamily: 'Roboto'),
+                              ),
                               // Text((project.paymentIn! - project.paymentOut!)
                               //     .toString()),
                               PopupMenuButton(

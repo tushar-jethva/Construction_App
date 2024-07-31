@@ -19,6 +19,7 @@ import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payme
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
+import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
@@ -84,20 +85,22 @@ class MyApp extends StatelessWidget {
             create: (_) => TotalAgenciesBloc(
                 agencyRepository: AgencyRepositoryImpl(
                     agencyDataSource: AgencyDataSourceDataSourceImpl()))),
+      BlocProvider(create: (_) => ThemeBloc())
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),
         splitScreenMode: true,
         child: MultiBlocProvider(
           providers: [BlocProvider(create: (_) => DateBlocBloc())],
-          child: MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-            routerConfig: Routes.routes,
+          child: BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              return MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Demo',
+                theme: state.themeData,
+                routerConfig: Routes.routes,
+              );
+            },
           ),
         ),
       ),

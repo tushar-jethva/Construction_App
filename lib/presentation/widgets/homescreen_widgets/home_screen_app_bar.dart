@@ -1,5 +1,8 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -22,12 +25,17 @@ class MyHomeScreenAppBar extends StatelessWidget {
               const Text("Tushar Jethva")
             ],
           ),
-          InkWell(
-            onTap: () {
-              ReusableFunctions.showSnackBar(
-                  context: context, content: "Testing");
+          BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              return InkWell(
+                onTap: () {
+                  context.read<ThemeBloc>().add(OnThemeChangeEvent());
+                },
+                child: state.themeData.scaffoldBackgroundColor == black
+                    ? Icon(Icons.sunny)
+                    : Icon(Icons.nights_stay),
+              );
             },
-            child: const Icon(Icons.notifications_none_outlined),
           )
         ],
       ),
