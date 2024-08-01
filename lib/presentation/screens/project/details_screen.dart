@@ -60,7 +60,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                 BlocBuilder<PaymentTotalProjectBloc, PaymentTotalProjectState>(
                   builder: (context, state) {
                     return TransactionStatusWidget(
-                      upperText: "Advanced Paid",
+                      upperText: "Amount Received",
                       belowText: state.paymentOut,
                       upperTextStyle: TextStyle(color: grey, fontSize: 12),
                       belowTextStyle: TextStyle(color: green, fontSize: 12),
@@ -75,7 +75,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                 BlocBuilder<PaymentTotalProjectBloc, PaymentTotalProjectState>(
                   builder: (context, state) {
                     return TransactionStatusWidget(
-                      upperText: "Pending to Pay",
+                      upperText: "Amount Paid",
                       belowText: state.paymentIn,
                       upperTextStyle: TextStyle(color: grey, fontSize: 12),
                       belowTextStyle: TextStyle(color: red, fontSize: 12),

@@ -64,6 +64,7 @@ class TransactionDataSourceImpl extends TransactionDataSource {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+      print(response.body);
       final transactions = jsonDecode(response.body);
       for (var transaction in transactions["data"]) {
         listOfTransactions.add(TransactionModel.fromMap(transaction));

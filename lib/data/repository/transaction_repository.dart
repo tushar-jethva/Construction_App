@@ -53,7 +53,7 @@ class TransactionRepositoryImpl extends TransactionRepository {
     } catch (e) {
       print(e.toString());
     }
-    return listOfTransactions.reversed.toList();
+    return listOfTransactions;
   }
 
   @override
@@ -67,7 +67,7 @@ class TransactionRepositoryImpl extends TransactionRepository {
     } catch (e) {
       print(e.toString());
     }
-    return listOfTransactionsAgency.reversed.toList();
+    return listOfTransactionsAgency;
   }
 
   @override
