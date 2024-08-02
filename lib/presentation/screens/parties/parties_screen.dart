@@ -107,6 +107,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();
               },
+              style: theme.textTheme.titleMedium,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search_rounded,

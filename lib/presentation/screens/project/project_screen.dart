@@ -21,9 +21,11 @@ class MyProjectScreen extends StatefulWidget {
 class _MyProjectScreenState extends State<MyProjectScreen> {
   late ProjectBloc _projectBloc;
   late TotalPaymentOutBloc _totalPaymentOutBloc;
+
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     _projectBloc = BlocProvider.of<ProjectBloc>(context);
     _totalPaymentOutBloc = BlocProvider.of<TotalPaymentOutBloc>(context);
     _totalPaymentOutBloc.add(FetchTotalPaymentOut());
@@ -55,7 +57,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                 ),
                 const TransactionTopWidget(),
                 SliverAppBar(
-                  toolbarHeight: 10,
+                  toolbarHeight: 20,
                   surfaceTintColor: Colors.transparent,
                   pinned: true,
                   backgroundColor: theme.scaffoldBackgroundColor,
@@ -65,7 +67,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                       children: [
                         Text("All Projects",
                             style: theme.textTheme.titleLarge!
-                                .copyWith(fontSize: 18))
+                                .copyWith(fontSize: 18)),
                       ],
                     ),
                   ),

@@ -206,8 +206,8 @@ class AllProjectsWidget extends StatelessWidget {
                               Gap(10.w),
                               Text(
                                 '${(0.2 * 100).toStringAsFixed(1)}%',
-                                style: const TextStyle(
-                                    fontSize: 14, color: Colors.purple),
+                                style: theme.textTheme.titleMedium!
+                                    .copyWith(fontSize: 14),
                               ),
                             ],
                           ),

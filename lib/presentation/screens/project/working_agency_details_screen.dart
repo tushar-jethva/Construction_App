@@ -20,9 +20,15 @@ class _MyWorkingAgencyDetailsScreenState
   @override
   Widget build(BuildContext context) {
     PerBuildingAgencyModel perBuildingAgency = widget.perBuildingAgency;
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(perBuildingAgency.nameOfAgency!),
+        backgroundColor: theme.scaffoldBackgroundColor,
+        iconTheme: IconThemeData(color: theme.canvasColor),
+        title: Text(
+          perBuildingAgency.nameOfAgency!,
+          style: theme.textTheme.titleLarge,
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -33,7 +39,7 @@ class _MyWorkingAgencyDetailsScreenState
               children: [
                 Text(
                   "Price per feet: ",
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 17),
                 ),
                 Text(
                   "${perBuildingAgency.pricePerFeet!} \$",
@@ -43,7 +49,7 @@ class _MyWorkingAgencyDetailsScreenState
             ),
             Gap(20.h),
             Text("Assigned Floors:",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500)),
+                style: theme.textTheme.titleLarge!.copyWith(fontSize: 17)),
             Gap(20.h),
             Expanded(
               child: GridView.builder(

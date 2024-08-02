@@ -3,6 +3,7 @@ import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_pa
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_status_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/vertical_divider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -13,8 +14,9 @@ class TransactionsTotalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
-      padding: EdgeInsets.only(left: 8.w, right: 9.w, top: 15.h),
+      padding: EdgeInsets.only(left: 8.w, right: 9.w, top: 20.h),
       child: Container(
         decoration: BoxDecoration(
             color: greyLight, borderRadius: BorderRadius.circular(15.r)),
@@ -31,8 +33,10 @@ class TransactionsTotalWidget extends StatelessWidget {
                       return TransactionStatusWidget(
                         upperText: "Total +ve",
                         belowText: state.paymentIn,
-                        upperTextStyle: TextStyle(color: grey),
-                        belowTextStyle: TextStyle(color: green),
+                        upperTextStyle: theme.textTheme.titleMedium!
+                            .copyWith(color: greyELight, fontSize: 15),
+                        belowTextStyle: theme.textTheme.titleLarge!
+                            .copyWith(color: green, fontSize: 15),
                       );
                     },
                   ),
@@ -46,8 +50,10 @@ class TransactionsTotalWidget extends StatelessWidget {
                       return TransactionStatusWidget(
                         upperText: "Total -ve",
                         belowText: state.paymentOut,
-                        upperTextStyle: TextStyle(color: grey),
-                        belowTextStyle: TextStyle(color: red),
+                        upperTextStyle: theme.textTheme.titleMedium!
+                            .copyWith(color: greyELight, fontSize: 15),
+                        belowTextStyle: theme.textTheme.titleLarge!
+                            .copyWith(color: red, fontSize: 15),
                       );
                     },
                   ),
@@ -63,8 +69,10 @@ class TransactionsTotalWidget extends StatelessWidget {
                         belowText: (double.parse(state.paymentIn) -
                                 double.parse(state.paymentOut))
                             .toString(),
-                        upperTextStyle: const TextStyle(color: grey),
-                        belowTextStyle: const TextStyle(color: black),
+                        upperTextStyle: theme.textTheme.titleMedium!
+                            .copyWith(color: greyELight, fontSize: 15),
+                        belowTextStyle:
+                            theme.textTheme.titleLarge!.copyWith(fontSize: 15),
                       );
                     },
                   ),

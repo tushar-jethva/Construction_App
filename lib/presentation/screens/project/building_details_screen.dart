@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/agency_widget.dart';
@@ -23,6 +24,7 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+            iconTheme: IconThemeData(color: theme.canvasColor),
             backgroundColor: theme.scaffoldBackgroundColor,
             title: Text(
               widget.buildingModel.name!,
@@ -30,6 +32,8 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
             ),
             bottom: TabBar(
               onTap: (index) {},
+              labelColor: purple,
+              unselectedLabelColor: greyELight,
               tabs: const [
                 Tab(text: 'Progress'),
                 Tab(text: 'Agencies'),

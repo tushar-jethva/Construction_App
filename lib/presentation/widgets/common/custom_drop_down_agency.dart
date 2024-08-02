@@ -18,7 +18,9 @@ class MyDropDownFormFieldAgency extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return DropdownButtonFormField(
+      dropdownColor: theme.scaffoldBackgroundColor,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(7),
         border: OutlineInputBorder(
@@ -51,6 +53,7 @@ class MyDropDownFormFieldAgency extends StatelessWidget {
                     e.name!,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.titleMedium,
                   ),
                 ),
               ))

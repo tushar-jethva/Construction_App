@@ -43,11 +43,14 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocProvider.value(
       value: widget.selectFloorsBloc,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Select Floors"),
+          iconTheme: IconThemeData(color: theme.canvasColor),
+          backgroundColor: theme.scaffoldBackgroundColor,
+          title: Text("Select Floors", style: theme.textTheme.titleLarge),
         ),
         body: BlocBuilder<SelectFloorsBloc, SelectFloorsState>(
           builder: (context, state) {
@@ -77,10 +80,8 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                             ),
                             child: Text(
                               "${index + 1} floor",
-                              style: const TextStyle(
-                                  color: white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                              style: theme.textTheme.titleMedium!
+                                  .copyWith(fontSize: 16),
                             ),
                           ),
                         );
@@ -100,10 +101,8 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                             ),
                             child: Text(
                               "${index + 1} floor",
-                              style: const TextStyle(
-                                  color: white,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                              style: theme.textTheme.titleMedium!
+                                  .copyWith(fontSize: 16),
                             ),
                           ),
                         );
@@ -122,10 +121,8 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                           ),
                           child: Text(
                             "${index + 1} floor",
-                            style: const TextStyle(
-                                color: black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16),
+                            style: theme.textTheme.titleMedium!
+                                .copyWith(fontSize: 16),
                           ),
                         ),
                       );

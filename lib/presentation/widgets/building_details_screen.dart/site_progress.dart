@@ -100,16 +100,16 @@ class _MySiteProgressScreenWidgetState
                 String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
                     .format(DateTime.parse(floorSiteModel.completedDate!));
                 return BlocProvider(
-                  create: (context) => SiteProgressAgencyUpdateBloc(siteProgressRepository: SiteProgressRepositoryImpl(siteProgressDataSource: SiteProgressDataSourceImpl())),
+                  create: (context) => SiteProgressAgencyUpdateBloc(
+                      siteProgressRepository: SiteProgressRepositoryImpl(
+                          siteProgressDataSource:
+                              SiteProgressDataSourceImpl())),
                   child: Builder(builder: (context) {
                     return InkWell(
                       onTap: () {
                         context.pushNamed(RoutesName.siteProgressDeailsScreen,
                             extra: {
                               'floorSiteModel': floorSiteModel,
-                              'bloc':
-                                  BlocProvider.of<SiteProgressAgencyUpdateBloc>(
-                                      context)
                             });
                       },
                       child: Padding(
@@ -121,20 +121,21 @@ class _MySiteProgressScreenWidgetState
                           decoration: BoxDecoration(
                               color: greyLight,
                               borderRadius: BorderRadius.circular(15.r)),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Column(
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                       "Floor No. ${floorSiteModel.floorIndex}"),
-                                  Text("Updated last: $formattedDate")
+                                  Text(
+                                      "Total agencies: ${floorSiteModel.workStatus!.length}")
                                 ],
                               ),
-                              Text(
-                                  "Total agencies: ${floorSiteModel.workStatus!.length}")
+                              Text("Updated last: $formattedDate")
                             ],
                           ),
                         ),

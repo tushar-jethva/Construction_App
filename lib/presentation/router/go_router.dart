@@ -1,5 +1,7 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
@@ -108,11 +110,14 @@ class Routes {
       builder: (context, state) {
         final args = state.extra as Map<String, dynamic>;
         final floorSiteModel = args['floorSiteModel'] as FloorSiteModel;
-        final siteProgressAgencyUpdateBloc =
-            args['bloc'] as SiteProgressAgencyUpdateBloc;
-        return MySiteProgressDetailsWidget(
-          floorSiteModel: floorSiteModel,
-          siteProgressAgencyUpdateBloc: siteProgressAgencyUpdateBloc,
+
+        return BlocProvider(
+          create: (context) => SiteProgressAgencyUpdateBloc(
+              siteProgressRepository: SiteProgressRepositoryImpl(
+                  siteProgressDataSource: SiteProgressDataSourceImpl())),
+          child: MySiteProgressDetailsWidget(
+            floorSiteModel: floorSiteModel,
+          ),
         );
       },
     ),

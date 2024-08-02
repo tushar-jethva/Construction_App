@@ -88,9 +88,15 @@ class _MyTransactionPartiesScreenState
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.agency.name!),
+        backgroundColor: theme.scaffoldBackgroundColor,
+        iconTheme: IconThemeData(color: theme.canvasColor),
+        title: Text(
+          widget.agency.name!,
+          style: theme.textTheme.titleLarge,
+        ),
         surfaceTintColor: Colors.transparent,
       ),
       body: RefreshIndicator(
@@ -116,9 +122,15 @@ class _MyTransactionPartiesScreenState
                         onTapOutside: (event) {
                           FocusScope.of(context).unfocus();
                         },
+                        style: theme.textTheme.titleMedium,
                         decoration: InputDecoration(
-                          prefixIcon: const Icon(Icons.search_rounded),
+                          prefixIcon: const Icon(
+                            Icons.search_rounded,
+                            color: grey,
+                          ),
                           hintText: 'Search transactions',
+                          hintStyle: theme.textTheme.titleMedium!
+                              .copyWith(color: grey),
                           contentPadding: EdgeInsets.symmetric(vertical: 5.h),
                           border: InputBorder.none,
                           focusedBorder: OutlineInputBorder(
@@ -241,7 +253,10 @@ class _MyTransactionPartiesScreenState
                         ),
                       ),
                     ],
-                    icon: const Icon(Icons.filter_alt_outlined),
+                    icon: Icon(
+                      Icons.filter_alt_outlined,
+                      color: theme.canvasColor,
+                    ),
                   )
                 ],
               ),
@@ -314,8 +329,15 @@ class _MyTransactionPartiesScreenState
                                       borderRadius:
                                           BorderRadius.circular(15.r)),
                                   child: ListTile(
-                                    title: Text("${transaction.description}"),
-                                    subtitle: Text(formattedDate),
+                                    title: Text(
+                                      "${transaction.description}",
+                                      style: theme.textTheme.titleMedium,
+                                    ),
+                                    subtitle: Text(
+                                      formattedDate,
+                                      style: theme.textTheme.titleMedium!
+                                          .copyWith(color: grey, fontSize: 14),
+                                    ),
                                     trailing: Text(
                                       "${transaction.amount}",
                                       style: TextStyle(
@@ -332,7 +354,10 @@ class _MyTransactionPartiesScreenState
                           ),
                   );
                 }
-                return const Text("No Transaction Found");
+                return Text(
+                  "No Transaction Found",
+                  style: theme.textTheme.titleMedium!,
+                );
               }))
             ],
           ),
