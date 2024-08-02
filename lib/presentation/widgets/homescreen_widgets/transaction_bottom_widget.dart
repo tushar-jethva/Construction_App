@@ -394,10 +394,13 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                 onTap: () {
                   openBottomSheet(context: context);
                 },
-                child: const Icon(
-                  Icons.add_circle_rounded,
-                  color: Colors.deepPurple,
-                  size: 30,
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: const Icon(
+                    Icons.add_circle_rounded,
+                    color: purple,
+                    size: 30,
+                  ),
                 )),
             MyCustomButton(
               buttonName: "Payment Out",

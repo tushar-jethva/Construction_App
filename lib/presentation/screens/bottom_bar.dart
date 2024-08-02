@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
@@ -29,7 +30,8 @@ class _MyBottomBarState extends State<MyBottomBar> {
           body: screens[state.tabIndex],
           bottomNavigationBar: BottomNavigationBar(
               backgroundColor: theme.scaffoldBackgroundColor,
-              unselectedItemColor: theme.canvasColor,
+              unselectedItemColor: grey,
+              selectedItemColor: purple,
               elevation: 0,
               currentIndex: state.tabIndex,
               onTap: (value) {

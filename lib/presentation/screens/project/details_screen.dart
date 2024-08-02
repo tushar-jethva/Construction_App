@@ -52,6 +52,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(color: theme.canvasColor),
           backgroundColor: theme.scaffoldBackgroundColor,
           title: Container(
             child: Row(
@@ -62,8 +63,10 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                     return TransactionStatusWidget(
                       upperText: "Advanced Paid",
                       belowText: state.paymentOut,
-                      upperTextStyle: TextStyle(color: grey, fontSize: 12),
-                      belowTextStyle: TextStyle(color: green, fontSize: 12),
+                      upperTextStyle: theme.textTheme.titleLarge!
+                          .copyWith(color: greyELight, fontSize: 13),
+                      belowTextStyle: theme.textTheme.titleLarge!
+                          .copyWith(color: green, fontSize: 13.5),
                     );
                   },
                 ),
@@ -77,8 +80,10 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                     return TransactionStatusWidget(
                       upperText: "Pending to Pay",
                       belowText: state.paymentIn,
-                      upperTextStyle: TextStyle(color: grey, fontSize: 12),
-                      belowTextStyle: TextStyle(color: red, fontSize: 12),
+                      upperTextStyle: theme.textTheme.titleLarge!
+                          .copyWith(color: greyELight, fontSize: 13),
+                      belowTextStyle: theme.textTheme.titleLarge!
+                          .copyWith(color: red, fontSize: 13.5),
                     );
                   },
                 ),
@@ -87,6 +92,8 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
           ),
           bottom: TabBar(
             onTap: (index) {},
+            labelColor: purple,
+            unselectedLabelColor: greyELight,
             tabs: const [
               Tab(text: 'Parties'),
               Tab(text: 'Buildings'),

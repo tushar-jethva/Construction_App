@@ -17,6 +17,7 @@ class MyCustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return TextFormField(
         onTapOutside: (val) {
           FocusScope.of(context).unfocus();
@@ -24,8 +25,10 @@ class MyCustomTextFormField extends StatelessWidget {
         controller: controller,
         maxLines: maxLines,
         keyboardType: textInputType,
+        style: theme.textTheme.titleMedium,
         decoration: InputDecoration(
           hintText: hintText,
+          hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: grey, width: 1)),

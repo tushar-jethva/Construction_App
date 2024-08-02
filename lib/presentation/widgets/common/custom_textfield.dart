@@ -6,15 +6,21 @@ class MyCustomTextField extends StatelessWidget {
   final String hintText;
   final int maxLines;
   const MyCustomTextField(
-      {super.key, required this.controller, required this.hintText, required this.maxLines});
+      {super.key,
+      required this.controller,
+      required this.hintText,
+      required this.maxLines});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return TextField(
       controller: controller,
       maxLines: maxLines,
+      style: theme.textTheme.titleMedium,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
         border: InputBorder.none,
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),

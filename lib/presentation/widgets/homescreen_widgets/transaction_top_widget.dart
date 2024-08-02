@@ -10,8 +10,8 @@ class TransactionTopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 85.h,
-      collapsedHeight: 85.h,
+      expandedHeight: 90.h,
+      collapsedHeight: 90.h,
       surfaceTintColor: Colors.transparent,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       pinned: true,

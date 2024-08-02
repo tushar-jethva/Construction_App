@@ -11,7 +11,6 @@ import 'package:construction_mate/data/repository/site_progress_repository.dart'
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
-import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
@@ -22,9 +21,9 @@ import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_p
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
-import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -34,7 +33,8 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  static final GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
             create: (_) => TotalAgenciesBloc(
                 agencyRepository: AgencyRepositoryImpl(
                     agencyDataSource: AgencyDataSourceDataSourceImpl()))),
-      BlocProvider(create: (_) => ThemeBloc())
+        BlocProvider(create: (_) => ThemeBloc())
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

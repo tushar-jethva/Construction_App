@@ -50,7 +50,7 @@ class _MyAddAgencyBottomSheetPartiesState
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
-
+    final theme = Theme.of(context);
     return Padding(
       padding: mediaQueryData.viewInsets,
       child: SingleChildScrollView(
@@ -58,7 +58,7 @@ class _MyAddAgencyBottomSheetPartiesState
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           decoration: BoxDecoration(
-              color: white,
+              color: theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15.r),
                   topRight: Radius.circular(15.r))),
@@ -99,6 +99,40 @@ class _MyAddAgencyBottomSheetPartiesState
                       },
                     ),
                     Gap(15.h),
+                    BlocBuilder<AgencyWorkTypesSelectionBloc,
+                            AgencyWorkTypesSelectionState>(
+                        builder: ((context, state) {
+                      if (state.isLoading) {
+                        return const CircularProgressIndicator();
+                      }
+                      return SizedBox(
+                        height: 200.h,
+                        child: ListView.builder(
+                            itemCount: state.agencyWorkTypeSelectedList.length,
+                            itemBuilder: ((context, index) {
+                              final AgencyWorkTypeSelectModel
+                                  agencyWorkTypeSelectModel =
+                                  state.agencyWorkTypeSelectedList[index];
+                              return Row(
+                                children: [
+                                  Checkbox(
+                                      side: BorderSide(color: grey),
+                                      value:
+                                          agencyWorkTypeSelectModel.isSelected,
+                                      onChanged: (val) {
+                                        context
+                                            .read<
+                                                AgencyWorkTypesSelectionBloc>()
+                                            .add(ToggleWorkTypeSelection(
+                                                index: index));
+                                      }),
+                                  Text(agencyWorkTypeSelectModel.name!)
+                                ],
+                              );
+                            })),
+                      );
+                    })),
+                    Gap(15.h),
                     Row(
                       children: [
                         Expanded(
@@ -121,46 +155,19 @@ class _MyAddAgencyBottomSheetPartiesState
                             ),
                             color: green,
                             onPressed: () {
-                              context.read<AgencyWorkTypesSelectionBloc>().add(
-                                  OnAddWorkTypeButtonPressed(
-                                      name: _workTypeAddController.text));
-                              _workTypeAddController.clear();
+                              if (_workTypeAddController.text.isNotEmpty) {
+                                context
+                                    .read<AgencyWorkTypesSelectionBloc>()
+                                    .add(OnAddWorkTypeButtonPressed(
+                                        name: _workTypeAddController.text));
+                                _workTypeAddController.clear();
+                              } else {
+                                ReusableFunctions.showSnackBar(
+                                    context: context, content: "Add Some");
+                              }
                             })
                       ],
                     ),
-                    Gap(15.h),
-                    BlocBuilder<AgencyWorkTypesSelectionBloc,
-                            AgencyWorkTypesSelectionState>(
-                        builder: ((context, state) {
-                      if (state.isLoading) {
-                        return const CircularProgressIndicator();
-                      }
-                      return SizedBox(
-                        height: 200.h,
-                        child: ListView.builder(
-                            itemCount: state.agencyWorkTypeSelectedList.length,
-                            itemBuilder: ((context, index) {
-                              final AgencyWorkTypeSelectModel
-                                  agencyWorkTypeSelectModel =
-                                  state.agencyWorkTypeSelectedList[index];
-                              return Row(
-                                children: [
-                                  Checkbox(
-                                      value:
-                                          agencyWorkTypeSelectModel.isSelected,
-                                      onChanged: (val) {
-                                        context
-                                            .read<
-                                                AgencyWorkTypesSelectionBloc>()
-                                            .add(ToggleWorkTypeSelection(
-                                                index: index));
-                                      }),
-                                  Text(agencyWorkTypeSelectModel.name!)
-                                ],
-                              );
-                            })),
-                      );
-                    })),
                     Gap(15.h),
                     BlocListener<AgencyWorkTypesSelectionBloc,
                         AgencyWorkTypesSelectionState>(

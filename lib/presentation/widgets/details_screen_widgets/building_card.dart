@@ -11,6 +11,7 @@ class MyBuildingListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -26,9 +27,10 @@ class MyBuildingListWidget extends StatelessWidget {
                   building.name!,
                   style: TextStyle(fontSize: 14.sp),
                 ),
-                Text(building.totalFloor.toString())
+                Text("Floors: ${building.totalFloor.toString()}")
               ],
             ),
+            Gap(10.h),
             Row(
               children: [
                 SizedBox(
@@ -45,7 +47,7 @@ class MyBuildingListWidget extends StatelessWidget {
                 Gap(10.w),
                 Text(
                   '${(0.2 * 100).toStringAsFixed(1)}%',
-                  style: const TextStyle(fontSize: 14, color: Colors.purple),
+                  style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
                 ),
               ],
             ),
@@ -53,6 +55,5 @@ class MyBuildingListWidget extends StatelessWidget {
         ),
       ),
     );
-    
   }
 }

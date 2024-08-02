@@ -91,6 +91,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: _refreshTransactions,
@@ -113,9 +114,15 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                       onTapOutside: (event) {
                         FocusScope.of(context).unfocus();
                       },
+                      style: theme.textTheme.titleMedium,
                       decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search_rounded),
+                        prefixIcon: const Icon(
+                          Icons.search_rounded,
+                          color: grey,
+                        ),
                         hintText: 'Search transactions',
+                        hintStyle:
+                            theme.textTheme.titleMedium!.copyWith(color: grey),
                         contentPadding: EdgeInsets.symmetric(vertical: 5.h),
                         border: InputBorder.none,
                         focusedBorder: OutlineInputBorder(
@@ -237,7 +244,10 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                       ),
                     ),
                   ],
-                  icon: const Icon(Icons.filter_alt_outlined),
+                  icon: Icon(
+                    Icons.filter_alt_outlined,
+                    color: theme.canvasColor,
+                  ),
                 )
               ],
             ),
@@ -306,8 +316,15 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                                     color: greyLight,
                                     borderRadius: BorderRadius.circular(15.r)),
                                 child: ListTile(
-                                  title: Text("${transaction.name}"),
-                                  subtitle: Text(formattedDate),
+                                  title: Text(
+                                    "${transaction.name}",
+                                    style: theme.textTheme.titleMedium,
+                                  ),
+                                  subtitle: Text(
+                                    formattedDate,
+                                    style: theme.textTheme.titleMedium!
+                                        .copyWith(color: grey, fontSize: 14),
+                                  ),
                                   trailing: Text(
                                     "${transaction.amount}",
                                     style: TextStyle(

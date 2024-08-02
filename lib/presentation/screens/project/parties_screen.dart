@@ -50,6 +50,7 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: Column(
         children: [
@@ -67,9 +68,14 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();
               },
+              style: theme.textTheme.titleMedium,
               decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search_rounded),
+                prefixIcon: const Icon(
+                  Icons.search_rounded,
+                  color: grey,
+                ),
                 hintText: 'Search transactions',
+                hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
                 contentPadding: EdgeInsets.symmetric(vertical: 5.h),
                 border: InputBorder.none,
                 focusedBorder: OutlineInputBorder(

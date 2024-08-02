@@ -64,6 +64,7 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return RefreshIndicator(
       onRefresh: _onRefreshAgencies,
       child: Column(
@@ -73,10 +74,9 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
+                Text(
                   "Agencies",
-                  style: TextStyle(
-                      color: black, fontWeight: FontWeight.w500, fontSize: 14),
+                  style: theme.textTheme.titleMedium!.copyWith(fontSize: 16),
                 ),
                 MyCustomButton(
                     buttonName: '+ Add Agency',

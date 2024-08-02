@@ -87,12 +87,17 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
+    final theme = Theme.of(context);
     return Padding(
       padding: mediaQueryData.viewInsets,
       child: SingleChildScrollView(
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.r),
+            color: theme.scaffoldBackgroundColor,
+          ),
           child: Form(
             key: formKey,
             child: Column(
@@ -106,9 +111,10 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       "Work Type: ",
-                      style: TextStyle(fontSize: 16),
+                      style:
+                          theme.textTheme.titleLarge!.copyWith(fontSize: 16.5),
                     ),
                     Expanded(
                       child: BlocBuilder<AddAgencyDropDownsBloc,
@@ -136,9 +142,10 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                 Gap(15.h),
                 Row(
                   children: [
-                    const Text(
+                    Text(
                       "Name of Agency: ",
-                      style: TextStyle(fontSize: 16),
+                      style:
+                          theme.textTheme.titleLarge!.copyWith(fontSize: 16.5),
                     ),
                     Expanded(
                       child: BlocBuilder<AddAgencyDropDownsBloc,
