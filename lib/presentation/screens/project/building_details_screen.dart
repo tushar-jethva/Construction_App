@@ -34,6 +34,7 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
               onTap: (index) {},
               labelColor: purple,
               unselectedLabelColor: greyELight,
+              indicatorColor: purple,
               tabs: const [
                 Tab(text: 'Progress'),
                 Tab(text: 'Agencies'),

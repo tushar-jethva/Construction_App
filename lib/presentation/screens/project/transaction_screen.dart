@@ -257,7 +257,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                 return Expanded(
                   child: Shimmer(
                       gradient: LinearGradient(
-                          colors: [baseColor, highlightColor],
+                          colors: [theme.hoverColor, theme.cardColor],
                           stops: const [0.1, 0.8]),
                       child: ListView.builder(
                         itemCount: 5,
@@ -270,7 +270,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                               height: ReusableFunctions.getHeight(
                                   context: context, height: 0.09),
                               decoration: BoxDecoration(
-                                  color: greyLight,
+                                  color: theme.cardColor,
                                   borderRadius: BorderRadius.circular(15.r)),
                               child: Row(
                                 mainAxisAlignment:
@@ -313,7 +313,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                                   horizontal: 10.0.w, vertical: 10.h),
                               child: Container(
                                 decoration: BoxDecoration(
-                                    color: greyLight,
+                                    color: theme.cardColor,
                                     borderRadius: BorderRadius.circular(15.r)),
                                 child: ListTile(
                                   title: Text(

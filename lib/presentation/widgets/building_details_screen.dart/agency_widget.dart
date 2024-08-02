@@ -81,7 +81,7 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
                 MyCustomButton(
                     buttonName: '+ Add Agency',
                     color: transparent,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 16,
                         color: purple,
                         fontWeight: FontWeight.bold),
@@ -97,7 +97,8 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
               return Expanded(
                 child: Shimmer(
                   gradient: LinearGradient(
-                      colors: [baseColor, highlightColor], stops: [0.1, 0.8]),
+                      colors: [theme.hoverColor, theme.cardColor],
+                      stops: [0.1, 0.8]),
                   child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       itemCount: 5,
@@ -111,7 +112,7 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 15.w, vertical: 10.h),
                               decoration: BoxDecoration(
-                                  color: greyLight,
+                                  color: theme.cardColor,
                                   borderRadius: BorderRadius.circular(15.r)),
                               child: const Row(
                                 mainAxisAlignment:
@@ -163,7 +164,7 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 15.w, vertical: 10.h),
                                 decoration: BoxDecoration(
-                                    color: greyLight,
+                                    color: theme.cardColor,
                                     borderRadius: BorderRadius.circular(15.r)),
                                 child: Row(
                                   mainAxisAlignment:

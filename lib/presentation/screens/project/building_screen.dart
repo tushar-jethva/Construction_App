@@ -426,7 +426,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                   MyCustomButton(
                       buttonName: '+ Add Building',
                       color: transparent,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 16,
                           color: purple,
                           fontWeight: FontWeight.bold),
@@ -441,9 +441,13 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
               if (state is BuildingsInitial || state is BuildingAddLoading) {
                 return Expanded(
                   child: Shimmer(
-                    gradient: LinearGradient(
-                        colors: [baseColor, highlightColor],
-                        stops: const [0.1, 0.8]),
+                    gradient: LinearGradient(colors: [
+                      theme.hoverColor,
+                      theme.cardColor
+                    ], stops: const [
+                      0.1,
+                      0.8
+                    ]),
                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: 6,

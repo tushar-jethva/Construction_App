@@ -95,7 +95,9 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.r),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15.r),
+                topRight: Radius.circular(15.r)),
             color: theme.scaffoldBackgroundColor,
           ),
           child: Form(

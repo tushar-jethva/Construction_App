@@ -132,7 +132,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
               return Expanded(
                 child: Shimmer(
                   gradient: LinearGradient(
-                      colors: [baseColor, highlightColor],
+                      colors: [theme.hoverColor, theme.cardColor],
                       stops: const [0.1, 0.8]),
                   child: ListView.builder(
                       itemCount: 5,
@@ -145,7 +145,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                                 context: context, height: 0.08),
                             padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(
-                              color: greyLight,
+                              color: theme.cardColor,
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: const Row(
@@ -190,7 +190,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                                     context: context, height: 0.08),
                                 padding: const EdgeInsets.all(20),
                                 decoration: BoxDecoration(
-                                  color: greyLight,
+                                  color: theme.cardColor,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Row(
