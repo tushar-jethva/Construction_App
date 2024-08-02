@@ -62,7 +62,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                   builder: (context, state) {
                     return TransactionStatusWidget(
                       upperText: "Amount Received",
-                      belowText: state.paymentOut,
+                      belowText: state.paymentIn,
                       upperTextStyle: theme.textTheme.titleLarge!
                           .copyWith(color: greyELight, fontSize: 13),
                       belowTextStyle: theme.textTheme.titleLarge!
@@ -79,7 +79,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                   builder: (context, state) {
                     return TransactionStatusWidget(
                       upperText: "Amount Paid",
-                      belowText: state.paymentIn,
+                      belowText: state.paymentOut,
                       upperTextStyle: theme.textTheme.titleLarge!
                           .copyWith(color: greyELight, fontSize: 13),
                       belowTextStyle: theme.textTheme.titleLarge!

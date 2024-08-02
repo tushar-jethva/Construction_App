@@ -44,6 +44,8 @@ abstract class AgencyDataSource {
       {required String name,
       required String description,
       required List<String> workTypeIds});
+
+  Future<List<DropDownAgencyModel>> getPaymentInAgency();
 }
 
 class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
@@ -270,5 +272,26 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<List<DropDownAgencyModel>> getPaymentInAgency() async {
+    List<DropDownAgencyModel> listOfPayInAgency = [];
+    try {
+      http.Response res = await http.get(
+        Uri.parse("${API.GET_PAYMENT_IN_AGENCY}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      final agencies = jsonDecode(res.body);
+      for (var agency in agencies["data"]) {
+        listOfPayInAgency.add(DropDownAgencyModel.fromJson(agency));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return listOfPayInAgency;
   }
 }

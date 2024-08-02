@@ -9,4 +9,5 @@ class RoutesName {
   static String workingAgencyDetailsScreen = '/workingAgencyDetailsScreen';
   static String siteProgressDeailsScreen = '/siteProgressDetailsScreen';
   static String transactionOfAgencyPartiesScreen = '/agencyTransacationParties';
+  static String transactionIndividualScreen = '/transactionIndividualScreen';
 }

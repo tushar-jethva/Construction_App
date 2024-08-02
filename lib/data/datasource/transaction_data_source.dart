@@ -12,6 +12,12 @@ abstract class TransactionDataSource {
       required String buildingId,
       required String amount});
 
+  Future<void> addPaymentInTransaction(
+      {required String projectId,
+      required String agencyId,
+      required String amount,
+      required String description});
+
   Future<List<TransactionModel>> getAllTransactionsByProjectId(
       {required String projectId});
 
@@ -20,6 +26,10 @@ abstract class TransactionDataSource {
 
   Future<String> getTotalPaymentOut();
   Future<String> getTotalPaymentOutProject({required String projectId});
+  Future<String> getTotalPaymentIn();
+  Future<String> getTotalPaymentInProject({required String projectId});
+  Future<List<TransactionModel>> getAllTransactionByIndividualAgency(
+      {required String agencyId, required String projectId});
 }
 
 class TransactionDataSourceImpl extends TransactionDataSource {
@@ -42,6 +52,34 @@ class TransactionDataSourceImpl extends TransactionDataSource {
       print("$description $agencyId $projectId $buildingId");
       http.Response response = await http.post(
         Uri.parse(API.ADD_PAYMENT_OUT),
+        body: transactionModel.toJson(),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(response.body);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Future<void> addPaymentInTransaction(
+      {required String description,
+      required String agencyId,
+      required String projectId,
+      required String amount}) async {
+    try {
+      TransactionModel transactionModel = TransactionModel(
+          description: description,
+          projectId: projectId,
+          agencyId: agencyId,
+          buildingId: "",
+          amount: amount,
+          taskId: "",
+          entryType: "Credit");
+      http.Response response = await http.post(
+        Uri.parse(API.ADD_PAYMENT_IN),
         body: transactionModel.toJson(),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -134,5 +172,65 @@ class TransactionDataSourceImpl extends TransactionDataSource {
       print(e.toString());
     }
     return total;
+  }
+
+  @override
+  Future<String> getTotalPaymentIn() async {
+    String total = "0";
+    try {
+      http.Response response = await http.get(
+        Uri.parse("${API.GET_TOTAL_PAYMENT_IN}"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      final map = jsonDecode(response.body);
+      total = map["PayIn"].toString();
+    } catch (e) {
+      print(e.toString());
+    }
+    return total;
+  }
+
+  @override
+  Future<String> getTotalPaymentInProject({required String projectId}) async {
+    String total = "0";
+    try {
+      http.Response response = await http.get(
+        Uri.parse("${API.GET_TOTAL_PAYMENT_IN}/$projectId"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      final map = jsonDecode(response.body);
+      total = map["PayIn"].toString();
+    } catch (e) {
+      print(e.toString());
+    }
+    return total;
+  }
+
+  @override
+  Future<List<TransactionModel>> getAllTransactionByIndividualAgency(
+      {required String agencyId, required String projectId}) async {
+    List<TransactionModel> transactionsOfIndividualAgency = [];
+    try {
+      http.Response response = await http.post(
+        Uri.parse(API.GET_TRANSACTION_BY_INDIVIDUAL_AGENCIES),
+        body: jsonEncode({"agencyId": agencyId, "projectId": projectId}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+      print(response.body);
+      final map = jsonDecode(response.body);
+      for (var agency in map["data"]) {
+        transactionsOfIndividualAgency.add(TransactionModel.fromMap(agency));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return transactionsOfIndividualAgency;
   }
 }

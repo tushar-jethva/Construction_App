@@ -28,4 +28,8 @@ class API {
   static const ADD_AGENCY = "$BASE_URL/Agency/AddAgency";
   static const GET_TOTAL_PAYMENT_OUT = "$BASE_URL/Project/GetPayOut";
   static const GET_TOTAL_PAYMENT_OUT_PROJECT = "$BASE_URL/Project/GetPayOut";
+  static const GET_TOTAL_PAYMENT_IN = "$BASE_URL/Project/GetPayIn";
+  static const GET_PAYMENT_IN_AGENCY = "$BASE_URL/Agency/GetPayInAgency";
+  static const ADD_PAYMENT_IN = "$BASE_URL/Project/PayIn";
+  static const GET_TRANSACTION_BY_INDIVIDUAL_AGENCIES = "$BASE_URL/Transaction/GetTransactionByIndividualAgencyInProject";
 }

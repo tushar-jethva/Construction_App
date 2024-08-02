@@ -32,7 +32,7 @@ class TransactionByAgencyBloc
       } else {
         final filteredTransactions = _originalTransactions.where((transaction) {
           final normalizedTransactionName =
-              transaction.name!.toLowerCase().replaceAll(' ', '');
+              transaction.description!.toLowerCase().replaceAll(' ', '');
           return normalizedTransactionName.contains(query);
         }).toList();
 

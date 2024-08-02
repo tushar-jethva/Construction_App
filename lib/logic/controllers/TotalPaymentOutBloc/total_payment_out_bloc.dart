@@ -14,7 +14,9 @@ class TotalPaymentOutBloc
       try {
         String totalPaymentOut =
             await transactionRepository.getTotalPaymentOut();
-        emit(state.copyWith(paymentOut: totalPaymentOut));
+        String totalPaymentIn = await transactionRepository.getTotalPaymentIn();
+        emit(state.copyWith(
+            paymentOut: totalPaymentOut, paymentIn: totalPaymentIn));
       } catch (e) {}
     });
   }

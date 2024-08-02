@@ -7,6 +7,7 @@ import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
+import 'package:construction_mate/logic/controllers/TransactionIndividualAgency/transactions_individual_agency_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
@@ -18,6 +19,7 @@ import 'package:construction_mate/presentation/screens/parties/parties_screen.da
 import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/project/building_details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/details_screen.dart';
+import 'package:construction_mate/presentation/screens/project/inidividual_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
@@ -132,6 +134,23 @@ class Routes {
               transactionRepository: TransactionRepositoryImpl(
                   transactionDataSource: TransactionDataSourceImpl())),
           child: MyTransactionPartiesScreen(agency: totalAgencyModel),
+        );
+      },
+    ),
+    GoRoute(
+      path: RoutesName.transactionIndividualScreen,
+      name: RoutesName.transactionIndividualScreen,
+      builder: (context, state) {
+        final args = state.extra as Map<String, dynamic>;
+        final agencyId = args['agencyId'] as String;
+        final projectId = args['projectId'] as String;
+        final agencyName = args['agencyName'] as String;
+        return BlocProvider(
+          create: (context) => TransactionsIndividualAgencyBloc(
+              transactionRepository: TransactionRepositoryImpl(
+                  transactionDataSource: TransactionDataSourceImpl())),
+          child: MyTransactionIndividualScreen(
+              agencyId: agencyId, projectId: projectId, agencyName: agencyName),
         );
       },
     )

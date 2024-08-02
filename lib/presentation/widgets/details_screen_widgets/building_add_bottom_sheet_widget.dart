@@ -87,6 +87,7 @@ class _MyBuildingAddBottomSheetWidgetState
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
+    final theme = Theme.of(context);
     return Padding(
       padding: mediaQueryData.viewInsets,
       child: SingleChildScrollView(
@@ -94,7 +95,7 @@ class _MyBuildingAddBottomSheetWidgetState
           width: double.infinity,
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           decoration: BoxDecoration(
-              color: white,
+              color: theme.scaffoldBackgroundColor,
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(15.r),
                   topRight: Radius.circular(15.r))),
