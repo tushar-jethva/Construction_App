@@ -48,12 +48,14 @@ class _MySiteProgressScreenWidgetState
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return BlocBuilder<SiteProgressFloorsBloc, SiteProgressFloorsState>(
       builder: (context, state) {
         if (state is SiteProgressFloorsInitial) {
           return Shimmer(
             gradient: LinearGradient(
-                colors: [baseColor, highlightColor], stops: const [0.1, 0.8]),
+                colors: [theme.hoverColor, theme.cardColor],
+                stops: const [0.1, 0.8]),
             child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: 5,
@@ -67,7 +69,7 @@ class _MySiteProgressScreenWidgetState
                         padding: EdgeInsets.symmetric(
                             horizontal: 15.w, vertical: 10.h),
                         decoration: BoxDecoration(
-                            color: greyLight,
+                            color: theme.cardColor,
                             borderRadius: BorderRadius.circular(15.r)),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,7 +121,7 @@ class _MySiteProgressScreenWidgetState
                           padding: EdgeInsets.symmetric(
                               horizontal: 15.w, vertical: 10.h),
                           decoration: BoxDecoration(
-                              color: greyLight,
+                              color: theme.cardColor,
                               borderRadius: BorderRadius.circular(15.r)),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

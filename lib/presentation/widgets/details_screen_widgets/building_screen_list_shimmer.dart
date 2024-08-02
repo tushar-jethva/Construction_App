@@ -10,12 +10,13 @@ class MyBuildingListShimmerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-            color: greyLight, borderRadius: BorderRadius.circular(10)),
+            color: theme.cardColor, borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
             const Row(
@@ -39,7 +40,7 @@ class MyBuildingListShimmerWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     value: 0.2,
                     backgroundColor: Colors.white,
-                    valueColor: const AlwaysStoppedAnimation<Color>(purple),
+                    valueColor: AlwaysStoppedAnimation<Color>(purple),
                   ),
                 ),
                 Gap(10.w),

@@ -4,25 +4,35 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
       scaffoldBackgroundColor: white,
-      textTheme: const TextTheme(
+      cardColor: greyLight,
+      hoverColor: highlightColor,
+      textTheme: TextTheme(
           bodyMedium: TextStyle(
-              fontFamily: 'Roboto', fontWeight: FontWeight.w500, color: black),
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w500,
+              color: textColor),
           titleLarge: TextStyle(
-              fontFamily: 'Roboto', fontWeight: FontWeight.w700, color: black),
-          titleMedium: TextStyle(
-              fontFamily: 'Roboto', fontWeight: FontWeight.w400, color: black)),
-      canvasColor: black);
-
-  static ThemeData darkTheme = ThemeData(
-      scaffoldBackgroundColor: black,
-      canvasColor: white,
-      textTheme: const TextTheme(
-          bodyMedium: TextStyle(
-              fontFamily: 'Roboto', fontWeight: FontWeight.w500, color: white),
-          titleLarge: TextStyle(
-              fontFamily: 'Roboto', fontWeight: FontWeight.w700, color: white),
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w700,
+              color: textColor),
           titleMedium: TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w400,
-              color: white)));
+              color: textColor)),
+      canvasColor: black);
+
+  static ThemeData darkTheme = ThemeData(
+      scaffoldBackgroundColor: blackBackgroundColor,
+      cardColor: darkCardColor,
+      hoverColor: darkShimmerColor,
+      canvasColor: white,
+      textTheme:  TextTheme(
+          bodyMedium: TextStyle(
+              fontFamily: 'Roboto', fontWeight: FontWeight.w500, color: darkTextColor),
+          titleLarge: TextStyle(
+              fontFamily: 'Roboto', fontWeight: FontWeight.w700, color: darkTextColor),
+          titleMedium: TextStyle(
+              fontFamily: 'Roboto',
+              fontWeight: FontWeight.w400,
+              color: darkTextColor)));
 }

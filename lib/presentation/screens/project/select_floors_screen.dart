@@ -130,7 +130,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
               );
             }
 
-            return const Center(
+            return  Center(
               child: CircularProgressIndicator(
                 color: purple,
               ),

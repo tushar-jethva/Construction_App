@@ -45,15 +45,6 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
     _descriptionController.dispose();
   }
 
-  openBottomSheet({required BuildContext context}) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return const MyProjectAddBottomSheet();
-        });
-  }
-
   void _showPaymentInDialog({required ThemeData theme}) {
     showDialog(
         context: context,
@@ -425,7 +416,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        margin: EdgeInsets.only(left: 10.w, right: 10.w),
+        margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
         height: 50.h,
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -445,18 +436,6 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                 _showPaymentInDialog(theme: theme);
               },
             ),
-            InkWell(
-                onTap: () {
-                  openBottomSheet(context: context);
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Icon(
-                    Icons.add_circle_rounded,
-                    color: purple,
-                    size: 30,
-                  ),
-                )),
             MyCustomButton(
               buttonName: "Payment Out",
               color: red,
@@ -512,7 +491,7 @@ class PaymentOutCustomDropDown extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             10.r,
           ),
-          borderSide: const BorderSide(color: purple),
+          borderSide: BorderSide(color: purple),
         ),
       ),
       value: value,

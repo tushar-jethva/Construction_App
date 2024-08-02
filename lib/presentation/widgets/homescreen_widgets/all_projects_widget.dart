@@ -25,7 +25,8 @@ class AllProjectsWidget extends StatelessWidget {
           return SliverToBoxAdapter(
             child: Shimmer(
               gradient: LinearGradient(
-                  colors: [baseColor, highlightColor], stops: const [0.1, 0.8]),
+                  colors: [theme.hoverColor, theme.cardColor],
+                  stops: const [0.1, 0.8]),
               child: SingleChildScrollView(
                 child: ListView.builder(
                   itemCount: 5,
@@ -41,7 +42,7 @@ class AllProjectsWidget extends StatelessWidget {
                               context: context, height: 0.12),
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                              color: greyLight,
+                              color: theme.cardColor,
                               borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -66,8 +67,7 @@ class AllProjectsWidget extends StatelessWidget {
                                       value: 0.2,
                                       backgroundColor: Colors.white,
                                       valueColor:
-                                          const AlwaysStoppedAnimation<Color>(
-                                              purple),
+                                          AlwaysStoppedAnimation<Color>(purple),
                                     ),
                                   ),
                                 ],
@@ -97,7 +97,7 @@ class AllProjectsWidget extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                          color: greyLight,
+                          color: theme.cardColor,
                           borderRadius: BorderRadius.circular(10)),
                       child: Column(
                         children: [
@@ -108,78 +108,85 @@ class AllProjectsWidget extends StatelessWidget {
                                 project.name!,
                                 style: theme.textTheme.titleMedium,
                               ),
-                              // Text((project.paymentIn! - project.paymentOut!)
-                              //     .toString()),
                               PopupMenuButton(
+                                color: theme.scaffoldBackgroundColor,
                                 itemBuilder: (context) => [
                                   PopupMenuItem(
                                       child: TextButton(
                                           onPressed: () {},
-                                          child: const Text("Update"))),
+                                          child: Text(
+                                            "Update",
+                                            style: theme.textTheme.titleMedium!
+                                                .copyWith(fontSize: 14),
+                                          ))),
                                   PopupMenuItem(
                                       child: TextButton(
                                           onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return SimpleDialog(
-                                                    backgroundColor: white,
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 130.h,
-                                                        child: Column(
-                                                          children: [
-                                                            const Center(
-                                                              child: Text(
-                                                                "Are you sure?",
-                                                                style: TextStyle(
-                                                                    color:
-                                                                        black,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        16),
-                                                              ),
-                                                            ),
-                                                            const Center(
-                                                              child: Text(
-                                                                  "Do you want to delete it?"),
-                                                            ),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                MyCustomButton(
-                                                                    buttonName:
-                                                                        'Delete',
-                                                                    color: red,
-                                                                    style: const TextStyle(
-                                                                        color:
-                                                                            white),
-                                                                    onPressed:
-                                                                        () {}),
-                                                                MyCustomButton(
-                                                                    buttonName:
-                                                                        'Cancel',
-                                                                    color:
-                                                                        green,
-                                                                    style: const TextStyle(
-                                                                        color:
-                                                                            white),
-                                                                    onPressed:
-                                                                        () {}),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                });
+                                            //   showDialog(
+                                            //       context: context,
+                                            //       builder: (context) {
+                                            //         return SimpleDialog(
+                                            //           backgroundColor: white,
+                                            //           children: [
+                                            //             SizedBox(
+                                            //               height: 130.h,
+                                            //               child: Column(
+                                            //                 children: [
+                                            //                   const Center(
+                                            //                     child: Text(
+                                            //                       "Are you sure?",
+                                            //                       style: TextStyle(
+                                            //                           color:
+                                            //                               black,
+                                            //                           fontWeight:
+                                            //                               FontWeight
+                                            //                                   .bold,
+                                            //                           fontSize:
+                                            //                               16),
+                                            //                     ),
+                                            //                   ),
+                                            //                   const Center(
+                                            //                     child: Text(
+                                            //                         "Do you want to delete it?"),
+                                            //                   ),
+                                            //                   Row(
+                                            //                     mainAxisAlignment:
+                                            //                         MainAxisAlignment
+                                            //                             .spaceBetween,
+                                            //                     children: [
+                                            //                       MyCustomButton(
+                                            //                           buttonName:
+                                            //                               'Delete',
+                                            //                           color: red,
+                                            //                           style: const TextStyle(
+                                            //                               color:
+                                            //                                   white),
+                                            //                           onPressed:
+                                            //                               () {}),
+                                            //                       MyCustomButton(
+                                            //                           buttonName:
+                                            //                               'Cancel',
+                                            //                           color:
+                                            //                               green,
+                                            //                           style: const TextStyle(
+                                            //                               color:
+                                            //                                   white),
+                                            //                           onPressed:
+                                            //                               () {}),
+                                            //                     ],
+                                            //                   ),
+                                            //                 ],
+                                            //               ),
+                                            //             ),
+                                            //           ],
+                                            //         );
+                                            //       });
                                           },
-                                          child: const Text("Delete")))
+                                          child: Text(
+                                            "Delete",
+                                            style: theme.textTheme.titleMedium!
+                                                .copyWith(fontSize: 14),
+                                          )))
                                 ],
                                 icon: Icon(
                                   Icons.more_vert_rounded,
@@ -191,7 +198,7 @@ class AllProjectsWidget extends StatelessWidget {
                           Row(
                             children: [
                               SizedBox(
-                                height: 10,
+                                height: 6,
                                 width: ReusableFunctions.getwidth(
                                     context: context, width: 0.6),
                                 child: LinearProgressIndicator(
@@ -199,8 +206,7 @@ class AllProjectsWidget extends StatelessWidget {
                                   value: 0.2,
                                   backgroundColor: Colors.white,
                                   valueColor:
-                                      const AlwaysStoppedAnimation<Color>(
-                                          purple),
+                                      AlwaysStoppedAnimation<Color>(purple),
                                 ),
                               ),
                               Gap(10.w),

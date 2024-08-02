@@ -17,7 +17,7 @@ class MyBuildingListWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-            color: greyLight, borderRadius: BorderRadius.circular(10)),
+            color: theme.cardColor, borderRadius: BorderRadius.circular(10)),
         child: Column(
           children: [
             Row(
@@ -41,7 +41,7 @@ class MyBuildingListWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     value: 0.2,
                     backgroundColor: Colors.white,
-                    valueColor: const AlwaysStoppedAnimation<Color>(purple),
+                    valueColor: AlwaysStoppedAnimation<Color>(purple),
                   ),
                 ),
                 Gap(10.w),

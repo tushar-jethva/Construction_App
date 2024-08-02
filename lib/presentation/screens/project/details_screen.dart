@@ -35,7 +35,6 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _paymentTotalProjectBloc =
         BlocProvider.of<PaymentTotalProjectBloc>(context);
@@ -45,7 +44,6 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final project = widget.projectModel;
     final theme = Theme.of(context);
     return DefaultTabController(
       initialIndex: 1,
@@ -94,6 +92,9 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
             onTap: (index) {},
             labelColor: purple,
             unselectedLabelColor: greyELight,
+            dividerColor: theme.canvasColor,
+            indicatorColor: purple,
+            overlayColor: const MaterialStatePropertyAll(Colors.transparent),
             tabs: const [
               Tab(text: 'Parties'),
               Tab(text: 'Buildings'),

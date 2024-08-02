@@ -36,14 +36,15 @@ class MyHomeScreenAppBar extends StatelessWidget {
                 onTap: () {
                   context.read<ThemeBloc>().add(OnThemeChangeEvent());
                 },
-                child: state.themeData.scaffoldBackgroundColor == black
+                child: state.themeData.scaffoldBackgroundColor ==
+                        blackBackgroundColor
                     ? Icon(
                         Icons.sunny,
-                        color: theme.canvasColor,
+                        color: purple,
                       )
-                    : Icon(
+                    : const Icon(
                         Icons.nights_stay,
-                        color: theme.canvasColor,
+                        color: Color.fromARGB(255, 85, 85, 85),
                       ),
               );
             },

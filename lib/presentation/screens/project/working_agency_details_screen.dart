@@ -64,7 +64,7 @@ class _MyWorkingAgencyDetailsScreenState
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.r),
-                        color: grey,
+                        color: theme.cardColor,
                       ),
                       child: Text(
                         "${perBuildingAgency.floors![index]} floor",

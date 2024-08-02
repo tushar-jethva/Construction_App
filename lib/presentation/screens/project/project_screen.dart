@@ -2,12 +2,15 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_projects_widget.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/project_add_bottom_sheet_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_top_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 /* Created By: Tushar Jethva
 */
@@ -36,6 +39,15 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     _projectBloc.add(LoadProjects());
   }
 
+  openBottomSheet({required BuildContext context}) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return const MyProjectAddBottomSheet();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -57,17 +69,27 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                 ),
                 const TransactionTopWidget(),
                 SliverAppBar(
-                  toolbarHeight: 20,
+                  toolbarHeight: 30,
                   surfaceTintColor: Colors.transparent,
                   pinned: true,
                   backgroundColor: theme.scaffoldBackgroundColor,
                   flexibleSpace: Padding(
                     padding: EdgeInsets.only(left: 8.w, top: 12.h),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text("All Projects",
                             style: theme.textTheme.titleLarge!
                                 .copyWith(fontSize: 18)),
+                        TextButton(
+                            onPressed: () {
+                              openBottomSheet(context: context);
+                            },
+                            child: Text(
+                              "+ Add Project",
+                              style: theme.textTheme.titleLarge!
+                                  .copyWith(color: purple, fontSize: 16.5),
+                            ))
                       ],
                     ),
                   ),

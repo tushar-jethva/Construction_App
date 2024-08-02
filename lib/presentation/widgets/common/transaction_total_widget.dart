@@ -19,7 +19,7 @@ class TransactionsTotalWidget extends StatelessWidget {
       padding: EdgeInsets.only(left: 8.w, right: 9.w, top: 20.h),
       child: Container(
         decoration: BoxDecoration(
-            color: greyLight, borderRadius: BorderRadius.circular(15.r)),
+            color: theme.cardColor, borderRadius: BorderRadius.circular(15.r)),
         child: Column(
           children: [
             Padding(
@@ -33,8 +33,8 @@ class TransactionsTotalWidget extends StatelessWidget {
                       return TransactionStatusWidget(
                         upperText: "Total +ve",
                         belowText: state.paymentIn,
-                        upperTextStyle: theme.textTheme.titleMedium!
-                            .copyWith(color: greyELight, fontSize: 15),
+                        upperTextStyle:
+                            theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                         belowTextStyle: theme.textTheme.titleLarge!
                             .copyWith(color: green, fontSize: 15),
                       );
@@ -50,8 +50,8 @@ class TransactionsTotalWidget extends StatelessWidget {
                       return TransactionStatusWidget(
                         upperText: "Total -ve",
                         belowText: state.paymentOut,
-                        upperTextStyle: theme.textTheme.titleMedium!
-                            .copyWith(color: greyELight, fontSize: 15),
+                        upperTextStyle:
+                            theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                         belowTextStyle: theme.textTheme.titleLarge!
                             .copyWith(color: red, fontSize: 15),
                       );
@@ -69,8 +69,8 @@ class TransactionsTotalWidget extends StatelessWidget {
                         belowText: (double.parse(state.paymentIn) -
                                 double.parse(state.paymentOut))
                             .toString(),
-                        upperTextStyle: theme.textTheme.titleMedium!
-                            .copyWith(color: greyELight, fontSize: 15),
+                        upperTextStyle:
+                            theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                         belowTextStyle:
                             theme.textTheme.titleLarge!.copyWith(fontSize: 15),
                       );
