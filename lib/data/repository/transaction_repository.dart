@@ -9,6 +9,12 @@ abstract class TransactionRepository {
       required String buildingId,
       required String amount});
 
+  Future<void> addPaymentInTransaction(
+      {required String projectId,
+      required String agencyId,
+      required String amount,
+      required String description});
+
   Future<List<TransactionModel>> getAllTransactionsByProjectId(
       {required String projectId});
 
@@ -17,6 +23,10 @@ abstract class TransactionRepository {
 
   Future<String> getTotalPaymentOut();
   Future<String> getTotalPaymentOutProject({required String projectId});
+  Future<String> getTotalPaymentIn();
+  Future<String> getTotalPaymentInProject({required String projectId});
+  Future<List<TransactionModel>> getAllTransactionByIndividualAgency(
+      {required String agencyId, required String projectId});
 }
 
 class TransactionRepositoryImpl extends TransactionRepository {
@@ -37,6 +47,23 @@ class TransactionRepositoryImpl extends TransactionRepository {
           agencyId: agencyId,
           projectId: projectId,
           buildingId: buildingId,
+          amount: amount);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  Future<void> addPaymentInTransaction(
+      {required String description,
+      required String agencyId,
+      required String projectId,
+      required String amount}) async {
+    try {
+      await transactionDataSource.addPaymentInTransaction(
+          description: description,
+          agencyId: agencyId,
+          projectId: projectId,
           amount: amount);
     } catch (e) {
       print(e.toString());
@@ -91,5 +118,42 @@ class TransactionRepositoryImpl extends TransactionRepository {
       print(e.toString());
     }
     return total;
+  }
+
+  @override
+  Future<String> getTotalPaymentInProject({required String projectId}) async {
+    String total = "0";
+    try {
+      total = await transactionDataSource.getTotalPaymentInProject(
+          projectId: projectId);
+    } catch (e) {
+      print(e.toString());
+    }
+    return total;
+  }
+
+  @override
+  Future<String> getTotalPaymentIn() async {
+    String total = "0";
+    try {
+      total = await transactionDataSource.getTotalPaymentIn();
+    } catch (e) {
+      print(e.toString());
+    }
+    return total;
+  }
+
+  @override
+  Future<List<TransactionModel>> getAllTransactionByIndividualAgency(
+      {required String agencyId, required String projectId}) async {
+    List<TransactionModel> transactionsOfIndividualAgency = [];
+    try {
+      transactionsOfIndividualAgency =
+          await transactionDataSource.getAllTransactionByIndividualAgency(
+              agencyId: agencyId, projectId: projectId);
+    } catch (e) {
+      print(e.toString());
+    }
+    return transactionsOfIndividualAgency;
   }
 }

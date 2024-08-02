@@ -91,6 +91,7 @@ class _MySiteProgressDetailsWidgetState
                                       "${state.selectedAgencies[index].agencyName} task is Already completed!")
                                   : ListTile(
                                       leading: Checkbox(
+                                        side: BorderSide(color: grey),
                                         value: state
                                             .currentSelectedAgencies[index]
                                             .isSelected,
@@ -103,7 +104,9 @@ class _MySiteProgressDetailsWidgetState
                                         },
                                       ),
                                       title: Text(
-                                          floor.workStatus![index].agencyName!),
+                                        floor.workStatus![index].agencyName!,
+                                        style: theme.textTheme.titleMedium,
+                                      ),
                                     );
                             },
                           ),

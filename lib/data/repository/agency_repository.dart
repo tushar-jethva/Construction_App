@@ -37,6 +37,8 @@ abstract class AgencyRepository {
       {required String name,
       required String description,
       required List<String> workTypeIds});
+
+  Future<List<DropDownAgencyModel>> getPaymentInAgency();
 }
 
 class AgencyRepositoryImpl extends AgencyRepository {
@@ -174,5 +176,16 @@ class AgencyRepositoryImpl extends AgencyRepository {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<List<DropDownAgencyModel>> getPaymentInAgency() async {
+    List<DropDownAgencyModel> listOfPayInAgency = [];
+    try {
+      listOfPayInAgency = await agencyDataSource.getPaymentInAgency();
+    } catch (e) {
+      print(e.toString());
+    }
+    return listOfPayInAgency;
   }
 }

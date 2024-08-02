@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'package:construction_mate/core/constants/colors.dart';
@@ -134,34 +136,45 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                         itemCount: state.totalAgencies.length,
                         itemBuilder: (context, index) {
                           final agency = state.totalAgencies[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15, bottom: 10),
-                            child: Container(
-                              height: ReusableFunctions.getHeight(
-                                  context: context, height: 0.08),
-                              padding: const EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                color: greyLight,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(agency.name!),
-                                  Text(
-                                    agency.totalAccount!.startsWith('-')
-                                        ? agency.totalAccount!.substring(
-                                            1, agency.totalAccount!.length)
-                                        : agency.totalAccount.toString(),
-                                    style: TextStyle(
-                                        color:
-                                            agency.totalAccount!.startsWith('-')
-                                                ? red
-                                                : green),
-                                  )
-                                ],
+                          return GestureDetector(
+                            onTap: () {
+                              context.push(
+                                  RoutesName.transactionIndividualScreen,
+                                  extra: {
+                                    "agencyId": agency.sId,
+                                    "projectId": widget.project.sId,
+                                    "agencyName": agency.name
+                                  });
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15.0, right: 15, bottom: 10),
+                              child: Container(
+                                height: ReusableFunctions.getHeight(
+                                    context: context, height: 0.08),
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: greyLight,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(agency.name!),
+                                    Text(
+                                      agency.totalAccount!.startsWith('-')
+                                          ? agency.totalAccount!.substring(
+                                              1, agency.totalAccount!.length)
+                                          : agency.totalAccount.toString(),
+                                      style: TextStyle(
+                                          color: agency.totalAccount!
+                                                  .startsWith('-')
+                                              ? red
+                                              : green),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           );
