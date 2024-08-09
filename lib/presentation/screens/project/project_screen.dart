@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_projects_widget.dart';
@@ -61,7 +62,8 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  expandedHeight: 40.h,
+                  expandedHeight: ReusableFunctions.getHeight(
+                      context: context, height: 0.03),
                   floating: true,
                   surfaceTintColor: Colors.transparent,
                   backgroundColor: theme.scaffoldBackgroundColor,
@@ -69,12 +71,13 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                 ),
                 const TransactionTopWidget(),
                 SliverAppBar(
-                  toolbarHeight: 30,
+                  toolbarHeight: ReusableFunctions.getHeight(
+                      context: context, height: 0.03),
                   surfaceTintColor: Colors.transparent,
                   pinned: true,
                   backgroundColor: theme.scaffoldBackgroundColor,
                   flexibleSpace: Padding(
-                    padding: EdgeInsets.only(left: 8.w, top: 12.h),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

@@ -1,37 +1,41 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:construction_mate/core/constants/lists.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/data/datasource/transaction_data_source.dart';
-import 'package:construction_mate/data/repository/transaction_repository.dart';
-import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
-import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
-import 'package:construction_mate/logic/models/project_model.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
-import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
-import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_screen_list_shimmer.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
+import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
+import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
+import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
+import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
+import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_add_bottom_sheet_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_card.dart';
+import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_screen_list_shimmer.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 
 class BuildingsScreen extends StatefulWidget {
   final ProjectModel project;
+  final PaymentTotalProjectBloc bloc;
   const BuildingsScreen({
-    super.key,
+    Key? key,
     required this.project,
-  });
+    required this.bloc,
+  }) : super(key: key);
 
   @override
   State<BuildingsScreen> createState() => _BuildingsScreenState();
@@ -177,26 +181,56 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         },
                       ),
                       Gap(30.h),
-                      MyCustomButton(
-                          buttonName: "Payment In",
-                          color: green,
-                          style: TextStyle(color: white),
-                          onPressed: () async {
-                            if (formPaymentInKey.currentState!.validate()) {
-                              final state =
-                                  context.read<PaymentInDropDownBloc>().state;
-                              await transactionRepository
-                                  .addPaymentInTransaction(
-                                      description: _descriptionController.text,
-                                      agencyId: state.agencyDropDownValue,
-                                      projectId: widget.project.sId!,
-                                      amount: _priceInController.text);
+                      BlocListener<PaymentInDropDownBloc,
+                          PaymentInDropDownState>(
+                        listener: (context, state) {
+                          if (state is PaymentInAddSuccess) {
+                            Navigator.pop(context);
+                            ReusableFunctions.showSnackBar(
+                                context: context,
+                                content: 'Transaction In add successfully!');
+                            widget.bloc.add(FetchTotalPaymentOutProject(
+                                projectId: widget.project.sId!));
+                            context
+                                .read<TotalPaymentOutBloc>()
+                                .add(FetchTotalPaymentOut());
+                          }
+                        },
+                        child: BlocBuilder<PaymentInDropDownBloc,
+                            PaymentInDropDownState>(
+                          builder: (context, state) {
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 10.h),
+                              child: MyCustomButtonWidget(
+                                widget: state is PaymentInAddLoading
+                                    ? ReusableFunctions.loader(color: white)
+                                    : const Text(
+                                        'PaymentIn',
+                                        style: TextStyle(
+                                            color: white,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                color: green,
+                                onPressed: () async {
+                                  if (formPaymentInKey.currentState!
+                                      .validate()) {
+                                    print(_priceInController.text);
+                                    context.read<PaymentInDropDownBloc>().add(
+                                        AddPaymentInTransaction(
+                                            projectValue: widget.project.sId!,
+                                            amount: _priceInController.text,
+                                            description:
+                                                _descriptionController.text));
 
-                              _descriptionController.clear();
-                              _priceInController.clear();
-                              context.pop();
-                            }
-                          })
+                                    _descriptionController.clear();
+                                    _priceInController.clear();
+                                  }
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -362,6 +396,11 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         listener: (context, state) {
                           if (state is PaymentOutAddSuccess) {
                             Navigator.pop(context);
+                            widget.bloc.add(FetchTotalPaymentOutProject(
+                                projectId: widget.project.sId!));
+                            context
+                                .read<TotalPaymentOutBloc>()
+                                .add(FetchTotalPaymentOut());
                             ReusableFunctions.showSnackBar(
                                 context: context,
                                 content: "Transaction Out add successfully!");
@@ -386,9 +425,6 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                         .state;
                                     context.read<PaymentOutDropDownBloc>().add(
                                         AddPaymentOutTransaction(
-                                            agencyId: state.agencyValue,
-                                            projectId: state.projectValue,
-                                            buildingId: state.buildingValue,
                                             amount: _priceOutController.text,
                                             description:
                                                 _descriptionController.text));
@@ -441,13 +477,9 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
               if (state is BuildingsInitial || state is BuildingAddLoading) {
                 return Expanded(
                   child: Shimmer(
-                    gradient: LinearGradient(colors: [
-                      theme.hoverColor,
-                      theme.cardColor
-                    ], stops: const [
-                      0.1,
-                      0.8
-                    ]),
+                    gradient: LinearGradient(
+                        colors: [theme.hoverColor, theme.cardColor],
+                        stops: const [0.1, 0.8]),
                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: 6,

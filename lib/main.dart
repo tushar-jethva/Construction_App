@@ -80,6 +80,7 @@ class MyApp extends StatelessWidget {
                     transactionDataSource: TransactionDataSourceImpl()))),
         BlocProvider(
             create: (_) => PaymentInDropDownBloc(
+              transactionRepository: TransactionRepositoryImpl(transactionDataSource: TransactionDataSourceImpl()),
                 projectRepository:
                     ProjectRepositoryImpl(ProjectDataSourceImpl()),
                 agencyRepository: AgencyRepositoryImpl(

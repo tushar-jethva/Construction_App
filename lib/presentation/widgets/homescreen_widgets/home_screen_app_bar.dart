@@ -13,8 +13,8 @@ class MyHomeScreenAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
+      margin: EdgeInsets.only(left: 10.h, right: 10.h, top: 30),
       color: theme.scaffoldBackgroundColor,
-      padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 35.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

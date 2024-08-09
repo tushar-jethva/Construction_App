@@ -44,6 +44,7 @@ class AddAgencyDropDownsBloc
       print("workvalue ${state.workTypeValue}");
     } catch (e) {
       // Handle error
+      emit(AgencyFailureState(message: e.toString()));
     }
   }
 
@@ -69,6 +70,8 @@ class AddAgencyDropDownsBloc
       ));
     } catch (e) {
       // Handle error
+      emit(AgencyFailureState(message: e.toString()));
+
     }
   }
 

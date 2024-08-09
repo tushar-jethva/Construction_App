@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
+import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:meta/meta.dart';
@@ -12,8 +13,11 @@ class PaymentInDropDownBloc
     extends Bloc<PaymentInDropDownEvent, PaymentInDropDownState> {
   final ProjectRepository projectRepository;
   final AgencyRepository agencyRepository;
+  final TransactionRepository transactionRepository;
   PaymentInDropDownBloc(
-      {required this.projectRepository, required this.agencyRepository})
+      {required this.projectRepository,
+      required this.agencyRepository,
+      required this.transactionRepository})
       : super(PaymentInDropDownState()) {
     on<FetchProjectsInEvent>((event, emit) async {
       emit(ProjectsLoadingInState(
@@ -69,13 +73,39 @@ class PaymentInDropDownBloc
 
     on<ProjectValueInChanged>((event, emit) async {
       emit(state.copyWith(projectDropDownValue: event.projectId));
-       emit(AgenciesLoadedInState(
+      emit(AgenciesLoadedInState(
           projectDropDownValue: state.projectDropDownValue,
           agencyDropDownValue: state.agencyDropDownValue,
           projects: state.projects,
           agencies: state.agencies));
     });
 
-    
+    on<AddPaymentInTransaction>((event, emit) async {
+      try {
+        emit(PaymentInAddLoading(
+            projectDropDownValue: state.projectDropDownValue,
+            agencyDropDownValue: state.agencyDropDownValue,
+            projects: state.projects,
+            agencies: state.agencies));
+        print(state.projectDropDownValue);
+        await transactionRepository.addPaymentInTransaction(
+            description: event.description,
+            agencyId: state.agencyDropDownValue,
+            projectId: event.projectValue ?? state.projectDropDownValue,
+            amount: event.amount);
+        print("amoutn is: ${event.description}");
+        emit(PaymentInAddSuccess(
+            projectDropDownValue: state.projectDropDownValue,
+            agencyDropDownValue: state.agencyDropDownValue,
+            projects: state.projects,
+            agencies: state.agencies));
+      } catch (e) {
+        emit(PaymentInAddFailure(
+            projectDropDownValue: state.projectDropDownValue,
+            agencyDropDownValue: state.agencyDropDownValue,
+            projects: state.projects,
+            agencies: state.agencies));
+      }
+    });
   }
 }

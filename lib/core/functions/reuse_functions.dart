@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 
 class ReusableFunctions {
   static double getHeight(
@@ -38,9 +41,34 @@ class ReusableFunctions {
     ScaffoldMessenger.of(context).showSnackBar(snack);
   }
 
-  static Widget loader() {
-    return const CircularProgressIndicator(
-      color: white,
+  static Widget loader({Color? color}) {
+    return CircularProgressIndicator(
+      color: color ?? purple,
     );
+  }
+
+  static void httpErrorHandled(
+      {required http.Response res,
+      required BuildContext context,
+      required VoidCallback onSuccess}) {
+    switch (res.statusCode) {
+      case 200:
+        onSuccess();
+        break;
+
+      case 400:
+        showSnackBar(context: context, content: jsonDecode(res.body)['msg']);
+        break;
+
+      case 500:
+        showSnackBar(context: context, content: jsonDecode(res.body)['msg']);
+
+        break;
+
+      default:
+        showSnackBar(context: context, content: jsonDecode(res.body)['msg']);
+
+        break;
+    }
   }
 }

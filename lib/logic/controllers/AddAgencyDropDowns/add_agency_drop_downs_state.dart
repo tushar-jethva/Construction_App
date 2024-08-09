@@ -85,3 +85,8 @@ class AgencyLoadedState extends AddAgencyDropDownsState {
           agencies: agencies,
         );
 }
+
+class AgencyFailureState extends AddAgencyDropDownsState{
+  final String message;
+  AgencyFailureState({required this.message});
+}

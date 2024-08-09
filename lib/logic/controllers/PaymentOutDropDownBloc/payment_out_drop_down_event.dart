@@ -25,15 +25,11 @@ class AgencyValueChanged extends PaymentOutDropDownEvent{
 }
 
 class AddPaymentOutTransaction extends PaymentOutDropDownEvent {
- final String agencyId;
- final String projectId;
- final String buildingId;
+
  final String amount;
  final String description;
   AddPaymentOutTransaction({
-    required this.agencyId,
-    required this.projectId,
-    required this.buildingId,
+
     required this.amount,
     required this.description,
   });

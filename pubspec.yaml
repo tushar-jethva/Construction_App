@@ -70,6 +70,7 @@ flutter:
     - assets/images/
     - assets/fonts/
     - assets/logos/
+    - assets/fonts/monteserrat/
 
   fonts:
     - family: Roboto
@@ -110,3 +111,14 @@ flutter:
         - asset: assets/fonts/Roboto-BlackItalic.ttf
           weight: 900
           style: italic
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/monteserrat/Montserrat-Black.ttf
+          weight: 200
+          style: normal
+        - asset: assets/fonts/monteserrat/Montserrat-Bold.ttf
+          weight: 600
+          style: normal
+        - asset: assets/fonts/monteserrat/Montserrat-Regular.ttf
+          weight: 500
+          style: normal

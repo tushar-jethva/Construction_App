@@ -95,7 +95,8 @@ class AllProjectsWidget extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      padding: const EdgeInsets.all(20),
+                      padding:
+                          const EdgeInsets.only(left: 20, top: 20, bottom: 20),
                       decoration: BoxDecoration(
                           color: theme.cardColor,
                           borderRadius: BorderRadius.circular(10)),
@@ -192,6 +193,7 @@ class AllProjectsWidget extends StatelessWidget {
                                   Icons.more_vert_rounded,
                                   color: theme.canvasColor,
                                 ),
+                                padding: EdgeInsets.zero,
                               )
                             ],
                           ),
@@ -200,7 +202,7 @@ class AllProjectsWidget extends StatelessWidget {
                               SizedBox(
                                 height: 6,
                                 width: ReusableFunctions.getwidth(
-                                    context: context, width: 0.6),
+                                    context: context, width: 0.73),
                                 child: LinearProgressIndicator(
                                   borderRadius: BorderRadius.circular(10),
                                   value: 0.2,

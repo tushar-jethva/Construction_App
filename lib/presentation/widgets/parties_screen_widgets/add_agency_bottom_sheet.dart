@@ -103,7 +103,7 @@ class _MyAddAgencyBottomSheetPartiesState
                             AgencyWorkTypesSelectionState>(
                         builder: ((context, state) {
                       if (state.isLoading) {
-                        return const CircularProgressIndicator();
+                        return ReusableFunctions.loader();
                       }
                       return SizedBox(
                         height: 200.h,

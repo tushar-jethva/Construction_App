@@ -62,6 +62,24 @@ class AgenciesLoadedInState extends PaymentInDropDownState {
 }
 
 
-class PaymentInAddLoading extends PaymentInDropDownState{}
-class PaymentInAddSuccess extends PaymentInDropDownState{}
-class PaymentInAddFailure extends PaymentInDropDownState{}
+class PaymentInAddLoading extends PaymentInDropDownState{
+  PaymentInAddLoading(
+      {required super.projectDropDownValue,
+      required super.agencyDropDownValue,
+      required super.projects,
+      required super.agencies});
+}
+class PaymentInAddSuccess extends PaymentInDropDownState{
+  PaymentInAddSuccess(
+      {required super.projectDropDownValue,
+      required super.agencyDropDownValue,
+      required super.projects,
+      required super.agencies});
+}
+class PaymentInAddFailure extends PaymentInDropDownState{
+  PaymentInAddFailure(
+      {required super.projectDropDownValue,
+      required super.agencyDropDownValue,
+      required super.projects,
+      required super.agencies});
+}

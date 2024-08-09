@@ -26,23 +26,27 @@ class AgencyWorksProjectsBloc
       _originalTransactions = totalAgencies;
       emit(AgencyWorksProjectsSuccess(totalAgencies: totalAgencies));
     } catch (e) {
-      emit(AgencyWorksProjectsFailure());
+      emit(AgencyWorksProjectsFailure(message: e.toString()));
     }
   }
 
   void _onSearchQueryTotalAgency(FetchTransactionByQueryProjectAgency event,
       Emitter<AgencyWorksProjectsState> emit) {
-    final query = event.query.toLowerCase().replaceAll(' ', '');
-    if (query.isEmpty) {
-      emit(AgencyWorksProjectsSuccess(totalAgencies: _originalTransactions));
-    } else {
-      final filteredTransactions = _originalTransactions.where((transaction) {
-        final normalizedTransactionName =
-            transaction.name!.toLowerCase().replaceAll(' ', '');
-        return normalizedTransactionName.contains(query);
-      }).toList();
+    try {
+      final query = event.query.toLowerCase().replaceAll(' ', '');
+      if (query.isEmpty) {
+        emit(AgencyWorksProjectsSuccess(totalAgencies: _originalTransactions));
+      } else {
+        final filteredTransactions = _originalTransactions.where((transaction) {
+          final normalizedTransactionName =
+              transaction.name!.toLowerCase().replaceAll(' ', '');
+          return normalizedTransactionName.contains(query);
+        }).toList();
 
-      emit(AgencyWorksProjectsSuccess(totalAgencies: filteredTransactions));
+        emit(AgencyWorksProjectsSuccess(totalAgencies: filteredTransactions));
+      }
+    } catch (e) {
+      emit(AgencyWorksProjectsFailure(message: e.toString()));
     }
   }
 }

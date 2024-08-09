@@ -8,15 +8,15 @@ class AppTheme {
       hoverColor: highlightColor,
       textTheme: TextTheme(
           bodyMedium: TextStyle(
-              fontFamily: 'Roboto',
+              fontFamily: 'Montserrat',
               fontWeight: FontWeight.w500,
               color: textColor),
           titleLarge: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w700,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w600,
               color: textColor),
           titleMedium: TextStyle(
-              fontFamily: 'Roboto',
+              fontFamily: 'Montserrat',
               fontWeight: FontWeight.w400,
               color: textColor)),
       canvasColor: black);
@@ -28,11 +28,11 @@ class AppTheme {
       canvasColor: white,
       textTheme:  TextTheme(
           bodyMedium: TextStyle(
-              fontFamily: 'Roboto', fontWeight: FontWeight.w500, color: darkTextColor),
+              fontFamily: 'Montserrat', fontWeight: FontWeight.w500, color: darkTextColor),
           titleLarge: TextStyle(
-              fontFamily: 'Roboto', fontWeight: FontWeight.w700, color: darkTextColor),
+              fontFamily: 'Montserrat', fontWeight: FontWeight.w700, color: darkTextColor),
           titleMedium: TextStyle(
-              fontFamily: 'Roboto',
+              fontFamily: 'Montserrat',
               fontWeight: FontWeight.w400,
               color: darkTextColor)));
 }

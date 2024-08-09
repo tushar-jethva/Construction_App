@@ -112,8 +112,8 @@ class _MySiteProgressDetailsWidgetState
                           ),
                         )
                       : Text("No agency founds!")
-                  : const Center(
-                      child: CircularProgressIndicator(),
+                  : Center(
+                      child: ReusableFunctions.loader(),
                     ),
               Padding(
                 padding:

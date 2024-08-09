@@ -18,9 +18,11 @@ class ProjectValueInChanged extends PaymentInDropDownEvent{
 class AddPaymentInTransaction extends PaymentInDropDownEvent {
  final String amount;
  final String description;
+ final String? projectValue;
   AddPaymentInTransaction({
     required this.amount,
     required this.description,
+     this.projectValue
   });
 
 

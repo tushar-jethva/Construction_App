@@ -131,9 +131,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
             }
 
             return  Center(
-              child: CircularProgressIndicator(
-                color: purple,
-              ),
+              child: ReusableFunctions.loader()
             );
           },
         ),
