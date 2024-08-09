@@ -120,16 +120,34 @@ class PaymentOutDropDownBloc
 
     on<AddPaymentOutTransaction>((event, emit) async {
       try {
-        emit(PaymentOutAddLoading());
+        emit(PaymentOutAddLoading(
+            projectValue: state.projectValue,
+            buildingValue: state.buildingValue,
+            agencyValue: state.agencyValue,
+            projects: state.projects,
+            buildings: state.buildings,
+            agencies: state.agencies));
         await transactionRepository.addPaymentOutTransaction(
             description: event.description,
-            agencyId: event.agencyId,
-            projectId: event.projectId,
-            buildingId: event.buildingId,
+            agencyId: state.agencyValue,
+            projectId: state.projectValue,
+            buildingId: state.buildingValue,
             amount: event.amount);
-        emit(PaymentOutAddSuccess());
+        emit(PaymentOutAddSuccess(
+            projectValue: state.projectValue,
+            buildingValue: state.buildingValue,
+            agencyValue: state.agencyValue,
+            projects: state.projects,
+            buildings: state.buildings,
+            agencies: state.agencies));
       } catch (e) {
-        emit(PaymentOutAddFailure());
+        emit(PaymentOutAddFailure(
+            projectValue: state.projectValue,
+            buildingValue: state.buildingValue,
+            agencyValue: state.agencyValue,
+            projects: state.projects,
+            buildings: state.buildings,
+            agencies: state.agencies));
       }
     });
   }

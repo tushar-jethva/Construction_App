@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
@@ -113,6 +114,8 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                 listener: (context, state) {
                   if (state is ProjectAddSuccess) {
                     Navigator.pop(context);
+                    ReusableFunctions.showSnackBar(
+                        context: context, content: "Project add successfully!");
                   }
                 },
                 child: BlocBuilder<ProjectBloc, ProjectState>(
@@ -121,9 +124,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                       padding: EdgeInsets.only(bottom: 10.h),
                       child: MyCustomButtonWidget(
                         widget: state is ProjectAddLoading
-                            ? const CircularProgressIndicator(
-                                color: white,
-                              )
+                            ? ReusableFunctions.loader(color: white)
                             : const Text(
                                 'Add Project',
                                 style: TextStyle(

@@ -6,6 +6,7 @@ import 'package:construction_mate/data/datasource/site_progress_data_source.dart
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -112,45 +113,50 @@ class _MySiteProgressDetailsWidgetState
                           ),
                         )
                       : Text("No agency founds!")
-                  : const Center(
-                      child: CircularProgressIndicator(),
+                  : Center(
+                      child: ReusableFunctions.loader(),
                     ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 15.h),
-                child: MyCustomButton(
-                    buttonName: 'Update',
-                    color: green,
-                    style: TextStyle(color: white),
-                    onPressed: () async {
-                      final currentSelectedAgencies = context
-                          .read<SiteProgressAgencyUpdateBloc>()
-                          .state
-                          .currentSelectedAgencies
-                          .where((element) => element.isSelected! == true)
-                          .toList();
-                      print(currentSelectedAgencies.length);
-                      if (currentSelectedAgencies.isNotEmpty) {
-                        await siteProgressRepository.siteProgressUpdateAgency(
-                            projectId: floor.projectId!,
-                            buildingId: floor.buildingId!,
-                            workTypeIds: currentSelectedAgencies
-                                .map((e) => e.workTypeId!)
-                                .toList(),
-                            floorIndex: floor.floorIndex.toString());
-                        context.pop();
-                      } else {
-                        ReusableFunctions.showSnackBar(
-                            context: context,
-                            content: "Agencies are already updated!");
-                      }
-
-                      // context.read<SiteProgressAgencyUpdateBloc>().add(
-                      //     OnUpdateButtonPressed(
-                      //         listOfSiteProgresssAgencyUpdate:
-                      //             selectedAgencies));
-                    }),
-              )
+              BlocListener<SiteProgressAgencyUpdateBloc,
+                  SiteProgressAgencyUpdateState>(
+                listener: (context, state) {
+                  if (state is SiteProgressAgencyUpdateSuccessState) {
+                    Navigator.pop(context);
+                    ReusableFunctions.showSnackBar(
+                        context: context,
+                        content: "Agency updated successfully!");
+                  }
+                },
+                child: BlocBuilder<SiteProgressAgencyUpdateBloc,
+                    SiteProgressAgencyUpdateState>(
+                  builder: (context, state) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: MyCustomButtonWidget(
+                        widget: state is SiteProgressAgencyUpdateLoadingState
+                            ? ReusableFunctions.loader(color: white)
+                            : const Text(
+                                'Update',
+                                style: TextStyle(color: white),
+                              ),
+                        color: green,
+                        onPressed: () {
+                          final currentSelectedAgencies = context
+                              .read<SiteProgressAgencyUpdateBloc>()
+                              .state
+                              .currentSelectedAgencies
+                              .where((element) => element.isSelected! == true)
+                              .toList();
+                          if (currentSelectedAgencies.isNotEmpty) {
+                            context
+                                .read<SiteProgressAgencyUpdateBloc>()
+                                .add(OnUpdateButtonPressed(floor: floor));
+                          }
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           );
         },

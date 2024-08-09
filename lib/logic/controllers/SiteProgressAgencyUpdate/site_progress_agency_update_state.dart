@@ -27,3 +27,51 @@ class SiteProgressAgencyUpdateState {
         isLoading: isLoading ?? this.isLoading);
   }
 }
+
+class SiteProgressAgencyUpdateLoadingState
+    extends SiteProgressAgencyUpdateState {
+  final List<SiteProgressAgencyUpdateModel> selectedAgencies;
+  final List<SiteProgressAgencyUpdateModel> currentSelectedAgencies;
+  final bool selectAll;
+  final bool isLoading;
+
+  SiteProgressAgencyUpdateLoadingState(
+      {
+      required this.selectedAgencies,
+      required this.currentSelectedAgencies,
+      required this.selectAll,
+      required this.isLoading});
+}
+
+
+class SiteProgressAgencyUpdateSuccessState
+    extends SiteProgressAgencyUpdateState {
+  final List<SiteProgressAgencyUpdateModel> selectedAgencies;
+  final List<SiteProgressAgencyUpdateModel> currentSelectedAgencies;
+  final bool selectAll;
+  final bool isLoading;
+
+  SiteProgressAgencyUpdateSuccessState(
+      {
+      required this.selectedAgencies,
+      required this.currentSelectedAgencies,
+      required this.selectAll,
+      required this.isLoading});
+}
+
+class SiteProgressAgencyUpdateFailureState
+    extends SiteProgressAgencyUpdateState {
+  final List<SiteProgressAgencyUpdateModel> selectedAgencies;
+  final List<SiteProgressAgencyUpdateModel> currentSelectedAgencies;
+  final bool selectAll;
+  final bool isLoading;
+
+  SiteProgressAgencyUpdateFailureState(
+      {
+      required this.selectedAgencies,
+      required this.currentSelectedAgencies,
+      required this.selectAll,
+      required this.isLoading});
+}
+
+

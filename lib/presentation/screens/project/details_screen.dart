@@ -114,6 +114,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
             ),
             BuildingsScreen(
               project: widget.projectModel,
+              bloc: _paymentTotalProjectBloc,
             ),
             MultiBlocProvider(
               providers: [

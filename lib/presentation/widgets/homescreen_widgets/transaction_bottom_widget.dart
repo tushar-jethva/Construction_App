@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
+import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -145,7 +148,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                       ),
                       Gap(20.h),
                       MyCustomTextFormField(
-                        controller: _priceOutController,
+                        controller: _priceInController,
                         hintText: "Payment In",
                         maxLines: 1,
                         textInputType: TextInputType.number,
@@ -174,26 +177,54 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         },
                       ),
                       Gap(30.h),
-                      MyCustomButton(
-                          buttonName: "Payment In",
-                          color: green,
-                          style: TextStyle(color: white),
-                          onPressed: () async {
-                            if (formPaymentInKey.currentState!.validate()) {
-                              final state =
-                                  context.read<PaymentInDropDownBloc>().state;
-                              await transactionRepository
-                                  .addPaymentInTransaction(
-                                      description: _descriptionController.text,
-                                      agencyId: state.agencyDropDownValue,
-                                      projectId: state.projectDropDownValue,
-                                      amount: _priceOutController.text);
+                      BlocListener<PaymentInDropDownBloc,
+                          PaymentInDropDownState>(
+                        listener: (context, state) {
+                          if (state is PaymentInAddSuccess) {
+                            Navigator.pop(context);
+                            ReusableFunctions.showSnackBar(
+                                context: context,
+                                content: 'Transaction In add successfully!');
+                          }
+                        },
+                        child: BlocBuilder<PaymentInDropDownBloc,
+                            PaymentInDropDownState>(
+                          builder: (context, state) {
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 10.h),
+                              child: MyCustomButtonWidget(
+                                widget: state is PaymentInAddLoading
+                                    ? ReusableFunctions.loader(color: white)
+                                    : const Text(
+                                        'PaymentIn',
+                                        style: TextStyle(
+                                            color: white,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                color: green,
+                                onPressed: () async {
+                                  if (formPaymentInKey.currentState!
+                                      .validate()) {
+                                    print(_priceInController.text);
+                                    context.read<PaymentInDropDownBloc>().add(
+                                        AddPaymentInTransaction(
+                                          
+                                            amount: _priceInController.text,
+                                            description:
+                                                _descriptionController.text));
+                                    context
+                                        .read<TotalPaymentOutBloc>()
+                                        .add(FetchTotalPaymentOut());
 
-                              _descriptionController.clear();
-                              _priceInController.clear();
-                              context.pop();
-                            }
-                          })
+                                    _descriptionController.clear();
+                                    _priceInController.clear();
+                                  }
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -380,27 +411,54 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         },
                       ),
                       Gap(30.h),
-                      MyCustomButton(
-                          buttonName: "Payment Out",
-                          color: green,
-                          style: TextStyle(color: white),
-                          onPressed: () async {
-                            if (formPaymentOutKey.currentState!.validate()) {
-                              final state =
-                                  context.read<PaymentOutDropDownBloc>().state;
-                              await transactionRepository
-                                  .addPaymentOutTransaction(
-                                      description: _descriptionController.text,
-                                      agencyId: state.agencyValue,
-                                      projectId: state.projectValue,
-                                      buildingId: state.buildingValue,
-                                      amount: _priceOutController.text);
+                      BlocListener<PaymentOutDropDownBloc,
+                          PaymentOutDropDownState>(
+                        listener: (context, state) {
+                          if (state is PaymentOutAddSuccess) {
+                            Navigator.pop(context);
+                            ReusableFunctions.showSnackBar(
+                                context: context,
+                                content: "Payment out add successfully!");
+                          } else if (state is PaymentOutAddFailure) {
+                            Navigator.pop(context);
+                            ReusableFunctions.showSnackBar(
+                                context: context,
+                                content: "Payment out not added!");
+                          }
+                        },
+                        child: BlocBuilder<PaymentOutDropDownBloc,
+                            PaymentOutDropDownState>(
+                          builder: (context, state) {
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 10.h),
+                              child: MyCustomButtonWidget(
+                                widget: state is PaymentOutAddLoading
+                                    ? ReusableFunctions.loader(color: white)
+                                    : const Text(
+                                        'Payment Out',
+                                        style: TextStyle(
+                                            color: white,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                color: green,
+                                onPressed: () async {
+                                  context.read<PaymentOutDropDownBloc>().add(
+                                      AddPaymentOutTransaction(
+                                          description:
+                                              _descriptionController.text,
+                                          amount: _priceOutController.text));
+                                  context
+                                      .read<TotalPaymentOutBloc>()
+                                      .add(FetchTotalPaymentOut());
 
-                              _descriptionController.clear();
-                              _priceOutController.clear();
-                              context.pop();
-                            }
-                          })
+                                  _descriptionController.clear();
+                                  _priceOutController.clear();
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

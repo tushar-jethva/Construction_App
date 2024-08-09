@@ -101,49 +101,40 @@ class _MySiteProgressScreenWidgetState
                 FloorSiteModel floorSiteModel = state.listOfFloorsSite[index];
                 String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
                     .format(DateTime.parse(floorSiteModel.completedDate!));
-                return BlocProvider(
-                  create: (context) => SiteProgressAgencyUpdateBloc(
-                      siteProgressRepository: SiteProgressRepositoryImpl(
-                          siteProgressDataSource:
-                              SiteProgressDataSourceImpl())),
-                  child: Builder(builder: (context) {
-                    return InkWell(
-                      onTap: () {
-                        context.pushNamed(RoutesName.siteProgressDeailsScreen,
-                            extra: {
-                              'floorSiteModel': floorSiteModel,
-                            });
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 15.w, vertical: 5.h),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 15.w, vertical: 10.h),
-                          decoration: BoxDecoration(
-                              color: theme.cardColor,
-                              borderRadius: BorderRadius.circular(15.r)),
-                          child: Column(
+
+                return InkWell(
+                  onTap: () {
+                    context
+                        .pushNamed(RoutesName.siteProgressDeailsScreen, extra: {
+                      'floorSiteModel': floorSiteModel,
+                    });
+                  },
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 15.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                          color: theme.cardColor,
+                          borderRadius: BorderRadius.circular(15.r)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                      "Floor No. ${floorSiteModel.floorIndex}"),
-                                  Text(
-                                      "Total agencies: ${floorSiteModel.workStatus!.length}")
-                                ],
-                              ),
-                              Text("Updated last: $formattedDate")
+                              Text("Floor No. ${floorSiteModel.floorIndex}"),
+                              Text(
+                                  "Total agencies: ${floorSiteModel.workStatus!.length}")
                             ],
                           ),
-                        ),
+                          Text("Updated last: $formattedDate")
+                        ],
                       ),
-                    );
-                  }),
+                    ),
+                  ),
                 );
               });
         } else {

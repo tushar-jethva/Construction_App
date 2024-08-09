@@ -240,6 +240,9 @@ class _MyBuildingAddBottomSheetWidgetState
                 listener: (context, state) {
                   if (state is BuildingAddSuccess) {
                     Navigator.pop(context);
+                    ReusableFunctions.showSnackBar(
+                        context: context,
+                        content: "Building add successfully!");
                   }
                 },
                 child: BlocBuilder<BuildingsBloc, BuildingsState>(
@@ -248,7 +251,7 @@ class _MyBuildingAddBottomSheetWidgetState
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: MyCustomButtonWidget(
                         widget: state is BuildingAddLoading
-                            ? ReusableFunctions.loader()
+                            ? ReusableFunctions.loader(color: white)
                             : const Text(
                                 'Add Building',
                                 style: TextStyle(color: white),

@@ -25,3 +25,5 @@ class AgencyWorkTypesSelectionState {
         isAddedAgency: isAddedAgency ?? this.isAddedAgency);
   }
 }
+
+

@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/presentation/widgets/common/transaction_total_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +11,10 @@ class TransactionTopWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: 90.h,
-      collapsedHeight: 90.h,
+      expandedHeight:
+          ReusableFunctions.getHeight(context: context, height: 0.12),
+      collapsedHeight:
+          ReusableFunctions.getHeight(context: context, height: 0.12),
       surfaceTintColor: Colors.transparent,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       pinned: true,

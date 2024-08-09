@@ -19,6 +19,7 @@ class AddAgencyDropDownsBloc
     on<FetchAgenciesEvent>(_onFetchAgencies);
     on<DropdownWorkTypeChangedEvent>(_onDropdownWorkTypeChanged);
     on<DropdownNameOfAgencyChangedEvent>(_onDropdownNameOfAgencyChanged);
+    on<AddAgencyOfDropDownEvent>(_onAddAgency);
   }
 
   void _onFetchWorkTypes(
@@ -44,6 +45,7 @@ class AddAgencyDropDownsBloc
       print("workvalue ${state.workTypeValue}");
     } catch (e) {
       // Handle error
+      emit(AgencyFailureState(message: e.toString()));
     }
   }
 
@@ -69,6 +71,7 @@ class AddAgencyDropDownsBloc
       ));
     } catch (e) {
       // Handle error
+      emit(AgencyFailureState(message: e.toString()));
     }
   }
 
@@ -90,5 +93,42 @@ class AddAgencyDropDownsBloc
       agencies: state.agencies,
     ));
     print("workvalue ${state.workTypeValue}");
+  }
+
+  void _onAddAgency(AddAgencyOfDropDownEvent event,
+      Emitter<AddAgencyDropDownsState> emit) async {
+    try {
+      emit(AddAgencyLoadingState(
+        workTypes: state.workTypes,
+        workTypeValue: state.workTypeValue,
+        nameOfAgencyValue: state.nameOfAgencyValue,
+        agencies: state.agencies,
+      ));
+
+      await agencyRepository.addAgencyInBuilding(
+          workTypeId: state.workTypeValue,
+          agencyId: state.nameOfAgencyValue,
+          floors: event.floors,
+          pricePerFeet: event.pricePerFeet,
+          name: "name",
+          companyId: "",
+          buildingId: event.buildingId,
+          projectId: event.projectId,
+          description: event.description);
+
+      emit(AddAgencySuccessState(
+        workTypes: state.workTypes,
+        workTypeValue: state.workTypeValue,
+        nameOfAgencyValue: state.nameOfAgencyValue,
+        agencies: state.agencies,
+      ));
+    } catch (e) {
+      emit(AddAgencyFailureState(
+        workTypes: state.workTypes,
+        workTypeValue: state.workTypeValue,
+        nameOfAgencyValue: state.nameOfAgencyValue,
+        agencies: state.agencies,
+      ));
+    }
   }
 }

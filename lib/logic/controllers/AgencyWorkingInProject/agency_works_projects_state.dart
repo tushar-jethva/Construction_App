@@ -10,4 +10,7 @@ final class AgencyWorksProjectsSuccess extends AgencyWorksProjectsState {
   AgencyWorksProjectsSuccess({required this.totalAgencies});
 }
 
-final class AgencyWorksProjectsFailure extends AgencyWorksProjectsState {}
+final class AgencyWorksProjectsFailure extends AgencyWorksProjectsState {
+  final String message;
+  AgencyWorksProjectsFailure({required this.message});
+}

@@ -96,7 +96,31 @@ class AgenciesLoadedState extends PaymentOutDropDownState {
       required super.agencies});
 }
 
-class PaymentOutAddLoading extends PaymentOutDropDownState{}
-class PaymentOutAddSuccess extends PaymentOutDropDownState{}
-class PaymentOutAddFailure extends PaymentOutDropDownState{}
+class PaymentOutAddLoading extends PaymentOutDropDownState{
+    PaymentOutAddLoading(
+      {required super.projectValue,
+      required super.buildingValue,
+      required super.agencyValue,
+      required super.projects,
+      required super.buildings,
+      required super.agencies});
+}
+class PaymentOutAddSuccess extends PaymentOutDropDownState{
+    PaymentOutAddSuccess(
+      {required super.projectValue,
+      required super.buildingValue,
+      required super.agencyValue,
+      required super.projects,
+      required super.buildings,
+      required super.agencies});
+}
+class PaymentOutAddFailure extends PaymentOutDropDownState{
+    PaymentOutAddFailure(
+      {required super.projectValue,
+      required super.buildingValue,
+      required super.agencyValue,
+      required super.projects,
+      required super.buildings,
+      required super.agencies});
+}
 

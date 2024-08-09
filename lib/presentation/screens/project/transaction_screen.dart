@@ -316,9 +316,22 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                                     color: theme.cardColor,
                                     borderRadius: BorderRadius.circular(15.r)),
                                 child: ListTile(
-                                  title: Text(
-                                    "${transaction.name}",
-                                    style: theme.textTheme.titleMedium,
+                                  title: Row(
+                                    children: [
+                                      Text(
+                                        "${transaction.name}",
+                                        style: theme.textTheme.titleMedium,
+                                      ),
+                                      Gap(5.w),
+                                      transaction.isCompleted!
+                                          ? Icon(
+                                              Icons
+                                                  .check_circle_outline_outlined,
+                                              color: green,
+                                              size: 20,
+                                            )
+                                          : SizedBox()
+                                    ],
                                   ),
                                   subtitle: Text(
                                     formattedDate,
