@@ -90,3 +90,44 @@ class AgencyFailureState extends AddAgencyDropDownsState{
   final String message;
   AgencyFailureState({required this.message});
 }
+
+class AddAgencyLoadingState extends AddAgencyDropDownsState{
+    final String workTypeValue;
+  final String nameOfAgencyValue;
+  final List<WorkTypeModel> workTypes;
+  final List<AgencyModel> agencies;
+  AddAgencyLoadingState({
+    required this.workTypeValue,
+    required this.nameOfAgencyValue,
+    required this.workTypes,
+    required this.agencies
+  });
+}
+
+class AddAgencySuccessState extends AddAgencyDropDownsState{
+    final String workTypeValue;
+  final String nameOfAgencyValue;
+  final List<WorkTypeModel> workTypes;
+  final List<AgencyModel> agencies;
+  AddAgencySuccessState({
+    required this.workTypeValue,
+    required this.nameOfAgencyValue,
+    required this.workTypes,
+    required this.agencies
+  });
+}
+
+class AddAgencyFailureState extends AddAgencyDropDownsState{
+    final String workTypeValue;
+  final String nameOfAgencyValue;
+  final List<WorkTypeModel> workTypes;
+  final List<AgencyModel> agencies;
+  AddAgencyFailureState({
+    required this.workTypeValue,
+    required this.nameOfAgencyValue,
+    required this.workTypes,
+    required this.agencies
+  });
+}
+
+

@@ -19,3 +19,18 @@ class DropdownNameOfAgencyChangedEvent extends AddAgencyDropDownsEvent {
   final String value;
   DropdownNameOfAgencyChangedEvent(this.value);
 }
+
+class AddAgencyOfDropDownEvent extends AddAgencyDropDownsEvent {
+  final List<int> floors;
+  final String buildingId;
+  final String projectId;
+  final String description;
+  final double pricePerFeet;
+
+  AddAgencyOfDropDownEvent(
+      {required this.floors,
+      required this.buildingId,
+      required this.projectId,
+      required this.description,
+      required this.pricePerFeet});
+}

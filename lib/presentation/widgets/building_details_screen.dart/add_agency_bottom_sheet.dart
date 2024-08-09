@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
@@ -10,6 +11,7 @@ import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_buildi
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/work_type_model.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_drop_down_agency.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_drop_down_form_fields.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
@@ -223,34 +225,50 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   },
                 ),
                 Gap(15.h),
-                MyCustomButton(
-                  buttonName: 'Submit',
-                  color: green,
-                  style: const TextStyle(color: white),
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      final agencyDropDown =
-                          context.read<AddAgencyDropDownsBloc>().state;
-                      final selectedFloors =
-                          context.read<SelectFloorsBloc>().state;
-                      agencyRepository.addAgencyInBuilding(
-                        workTypeId: agencyDropDown.workTypeValue,
-                        agencyId: agencyDropDown.nameOfAgencyValue,
-                        floors: selectedFloors.floorList,
-                        pricePerFeet: double.parse(pricePerFeetController.text),
-                        name: "name",
-                        companyId: "companyId",
-                        buildingId: buildingModel.sId!,
-                        projectId: projectModel.sId!,
-                        description: descriptionController.text,
-                      );
-
+                BlocListener<AddAgencyDropDownsBloc, AddAgencyDropDownsState>(
+                  listener: (context, state) {
+                    if (state is AddAgencySuccessState) {
+                      Navigator.pop(context);
+                      ReusableFunctions.showSnackBar(
+                          context: context,
+                          content: "Agency added successfully!");
                       context.read<PerBuildingAgenciesBloc>().add(LoadAgencies(
                           buildingId: buildingModel.sId!,
                           projectId: projectModel.sId!));
-                      context.pop();
                     }
                   },
+                  child: BlocBuilder<AddAgencyDropDownsBloc,
+                      AddAgencyDropDownsState>(
+                    builder: (context, state) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: MyCustomButtonWidget(
+                          widget: state is AddAgencyLoadingState
+                              ? ReusableFunctions.loader(color: white)
+                              : const Text(
+                                  'Add Agency',
+                                  style: TextStyle(color: white),
+                                ),
+                          color: green,
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              final selectedFloors =
+                                  context.read<SelectFloorsBloc>().state;
+
+                              context.read<AddAgencyDropDownsBloc>().add(
+                                  AddAgencyOfDropDownEvent(
+                                      floors: selectedFloors.floorList,
+                                      buildingId: buildingModel.sId!,
+                                      projectId: projectModel.sId!,
+                                      description: descriptionController.text,
+                                      pricePerFeet: double.parse(
+                                          pricePerFeetController.text)));
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

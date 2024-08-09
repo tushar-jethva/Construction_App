@@ -20,8 +20,7 @@ class ToggleAgencySelection extends SiteProgressAgencyUpdateEvent {
 class ToggleSelectAll extends SiteProgressAgencyUpdateEvent {}
 
 class OnUpdateButtonPressed extends SiteProgressAgencyUpdateEvent{
-  final List<SiteProgressAgencyUpdateModel> listOfSiteProgresssAgencyUpdate;
-
-  OnUpdateButtonPressed({required this.listOfSiteProgresssAgencyUpdate});
+  final FloorSiteModel floor;
+  OnUpdateButtonPressed({required this.floor});
 
 }

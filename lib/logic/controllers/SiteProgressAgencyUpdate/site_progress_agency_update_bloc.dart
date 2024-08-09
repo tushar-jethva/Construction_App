@@ -59,8 +59,7 @@ class SiteProgressAgencyUpdateBloc
       final selectAll =
           currentSelectedAgencies.every((selected) => selected.isSelected!);
       emit(state.copyWith(
-     
-   currentSelectedAgencies: currentSelectedAgencies,
+        currentSelectedAgencies: currentSelectedAgencies,
         selectAll: selectAll,
       ));
     });
@@ -78,9 +77,37 @@ class SiteProgressAgencyUpdateBloc
           currentSelectedAgencies: currentSelectedAgencies));
     });
 
-    on<OnUpdateButtonPressed>((event, emit) {
-      try {} catch (e) {
-        print(e.toString());
+    on<OnUpdateButtonPressed>((event, emit) async {
+      try {
+        print("1State is $state");
+        emit(SiteProgressAgencyUpdateLoadingState(
+            selectedAgencies: state.selectedAgencies,
+            currentSelectedAgencies: state.currentSelectedAgencies,
+            selectAll: state.selectAll,
+            isLoading: state.isLoading));
+        print("2State is $state");
+        final currentSelectedAgencies = state.currentSelectedAgencies
+            .where((element) => element.isSelected! == true)
+            .toList();
+        await siteProgressRepository.siteProgressUpdateAgency(
+            projectId: event.floor.projectId!,
+            buildingId: event.floor.buildingId!,
+            workTypeIds:
+                currentSelectedAgencies.map((e) => e.workTypeId!).toList(),
+            floorIndex: event.floor.floorIndex.toString());
+        print("3State is $state");
+        emit(SiteProgressAgencyUpdateSuccessState(
+            selectedAgencies: state.selectedAgencies,
+            currentSelectedAgencies: state.currentSelectedAgencies,
+            selectAll: state.selectAll,
+            isLoading: state.isLoading));
+        print("4State is $state");
+      } catch (e) {
+        emit(SiteProgressAgencyUpdateFailureState(
+            selectedAgencies: state.selectedAgencies,
+            currentSelectedAgencies: state.currentSelectedAgencies,
+            selectAll: state.selectAll,
+            isLoading: state.isLoading));
       }
     });
   }

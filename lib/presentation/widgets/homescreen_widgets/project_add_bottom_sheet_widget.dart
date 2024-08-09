@@ -114,6 +114,8 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                 listener: (context, state) {
                   if (state is ProjectAddSuccess) {
                     Navigator.pop(context);
+                    ReusableFunctions.showSnackBar(
+                        context: context, content: "Project add successfully!");
                   }
                 },
                 child: BlocBuilder<ProjectBloc, ProjectState>(
@@ -122,7 +124,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                       padding: EdgeInsets.only(bottom: 10.h),
                       child: MyCustomButtonWidget(
                         widget: state is ProjectAddLoading
-                            ? ReusableFunctions.loader()
+                            ? ReusableFunctions.loader(color: white)
                             : const Text(
                                 'Add Project',
                                 style: TextStyle(

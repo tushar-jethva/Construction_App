@@ -411,7 +411,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                           builder: (context, state) {
                             return MyCustomButtonWidget(
                                 widget: state is PaymentOutAddLoading
-                                    ? ReusableFunctions.loader()
+                                    ? ReusableFunctions.loader(color: white)
                                     : const Text(
                                         "Payment Out",
                                         style: TextStyle(color: white),

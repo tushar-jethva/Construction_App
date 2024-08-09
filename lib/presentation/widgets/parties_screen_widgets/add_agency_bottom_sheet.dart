@@ -174,6 +174,9 @@ class _MyAddAgencyBottomSheetPartiesState
                       listener: (context, state) {
                         if (state.isAddedAgency == 2) {
                           Navigator.pop(context);
+                          ReusableFunctions.showSnackBar(
+                              context: context,
+                              content: "Agency added successfully!");
                         }
                       },
                       child: BlocBuilder<AgencyWorkTypesSelectionBloc,
@@ -181,7 +184,7 @@ class _MyAddAgencyBottomSheetPartiesState
                         builder: (context, state) {
                           return MyCustomButtonWidget(
                               widget: state.isAddedAgency == 1
-                                  ? ReusableFunctions.loader()
+                                  ? ReusableFunctions.loader(color: white)
                                   : const Text(
                                       "Add Agency",
                                       style: TextStyle(
