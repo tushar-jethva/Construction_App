@@ -124,13 +124,16 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                       child: BlocBuilder<AddAgencyDropDownsBloc,
                           AddAgencyDropDownsState>(
                         builder: (context, state) {
+                          final workTypes = state.workTypes
+                              .where((e) => e.name != 'Builder')
+                              .toList();
                           if (state is WorkTypeLoadingState) {
                             return CustomDropDown(items: workType);
                           }
 
                           return MyDropDownFormField(
                             items: state.workTypes.isNotEmpty
-                                ? state.workTypes
+                                ? workTypes
                                 : workType
                                     .map(
                                         (e) => WorkTypeModel(name: e, sId: "1"))

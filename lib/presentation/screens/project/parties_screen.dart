@@ -39,8 +39,11 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
   }
 
   Future<void> _refreshTotalAgencies() async {
-    _totalAgenciesProjectBloc
-        .add(LoadTotalProjectAgencies(projectId: widget.project.sId!));
+    _searchController.text.isEmpty
+        ? _totalAgenciesProjectBloc
+            .add(LoadTotalProjectAgencies(projectId: widget.project.sId!))
+        : _totalAgenciesProjectBloc.add(FetchTransactionByQueryProjectAgency(
+            query: _searchController.text));
   }
 
   @override

@@ -68,8 +68,8 @@ class _MyWorkingAgencyDetailsScreenState
                       ),
                       child: Text(
                         "${perBuildingAgency.floors![index]} floor",
-                        style: const TextStyle(
-                            color: white,
+                        style: TextStyle(
+                            color: theme.canvasColor,
                             fontWeight: FontWeight.w500,
                             fontSize: 16),
                       ),
