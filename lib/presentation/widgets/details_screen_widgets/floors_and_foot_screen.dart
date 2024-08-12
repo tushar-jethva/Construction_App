@@ -1,6 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class MyFootAndFloorScreen extends StatefulWidget {
@@ -18,6 +21,8 @@ class _MyFootAndFloorScreenState extends State<MyFootAndFloorScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    List<dynamic> money = List.generate(widget.floors, (index) => widget.foots);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
@@ -26,6 +31,24 @@ class _MyFootAndFloorScreenState extends State<MyFootAndFloorScreen> {
           "Total Floors  ${widget.floors}",
           style: theme.textTheme.titleLarge,
         ),
+        actions: [
+          InkWell(
+            onTap: () {
+              print(money);
+            },
+            child: Container(
+              height: 40,
+              width: 70,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: green, borderRadius: BorderRadius.circular(12.r)),
+              child: Text(
+                'Done',
+                style: theme.textTheme.titleMedium,
+              ),
+            ),
+          )
+        ],
       ),
       body: ListView.builder(
           itemCount: widget.floors,
@@ -51,6 +74,10 @@ class _MyFootAndFloorScreenState extends State<MyFootAndFloorScreen> {
                         style:
                             theme.textTheme.titleMedium!.copyWith(fontSize: 17),
                         controller: _footController,
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) {
+                          money[index] = value;
+                        },
                         decoration: InputDecoration(
                             hintText: '\$',
                             prefix: Padding(
