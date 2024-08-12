@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
-
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
@@ -185,7 +184,6 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                           PaymentInDropDownState>(
                         listener: (context, state) {
                           if (state is PaymentInAddSuccess) {
-                            Navigator.pop(context);
                             ReusableFunctions.showSnackBar(
                                 context: context,
                                 content: 'Transaction In add successfully!');
@@ -194,6 +192,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                             context
                                 .read<TotalPaymentOutBloc>()
                                 .add(FetchTotalPaymentOut());
+                            Navigator.pop(context);
                           }
                         },
                         child: BlocBuilder<PaymentInDropDownBloc,
@@ -395,7 +394,6 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                           PaymentOutDropDownState>(
                         listener: (context, state) {
                           if (state is PaymentOutAddSuccess) {
-                            Navigator.pop(context);
                             widget.bloc.add(FetchTotalPaymentOutProject(
                                 projectId: widget.project.sId!));
                             context
@@ -404,6 +402,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                             ReusableFunctions.showSnackBar(
                                 context: context,
                                 content: "Transaction Out add successfully!");
+                            Navigator.pop(context);
                           }
                         },
                         child: BlocBuilder<PaymentOutDropDownBloc,
@@ -498,7 +497,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                             itemCount: state.buildings.length,
                             itemBuilder: (context, index) {
                               BuildingModel building = state.buildings[index];
-                              return InkWell(
+                              return GestureDetector(
                                   onTap: () {
                                     context.pushNamed(
                                         RoutesName.buildingDetailsScreen,

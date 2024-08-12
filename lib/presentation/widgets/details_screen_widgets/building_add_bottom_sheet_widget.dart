@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bl
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class MyBuildingAddBottomSheetWidget extends StatefulWidget {
   final ProjectModel project;
@@ -202,22 +203,44 @@ class _MyBuildingAddBottomSheetWidgetState
                       },
                     ),
                     Gap(20.h),
-                    MyCustomTextFormField(
-                      controller: _unitPerFootController,
-                      textInputType: TextInputType.number,
-                      hintText: 'Unit per floor',
-                      maxLines: 1,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please add foot per floor!';
-                        }
-                        if (int.tryParse(value) == null) {
-                          return 'Please enter valid digit!';
-                        }
-                        if (value.startsWith('-')) {
-                          return 'Please enter valid digit!';
-                        }
-                      },
+                    Row(
+                      children: [
+                        Expanded(
+                          child: MyCustomTextFormField(
+                            controller: _unitPerFootController,
+                            textInputType: TextInputType.number,
+                            hintText: 'Unit per floor',
+                            maxLines: 1,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please add foot per floor!';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter valid digit!';
+                              }
+                              if (value.startsWith('-')) {
+                                return 'Please enter valid digit!';
+                              }
+                            },
+                          ),
+                        ),
+                        IconButton(
+                            onPressed: () {
+                              context
+                                  .push(RoutesName.footAndFloorScreen, extra: {
+                                'floors': _floorController.text.isEmpty
+                                    ? 0
+                                    : int.parse(_floorController.text),
+                                'foots': _unitPerFootController.text.isEmpty
+                                    ? 0.0
+                                    : double.parse(_unitPerFootController.text)
+                              });
+                            },
+                            icon: Icon(
+                              Icons.edit,
+                              color: theme.canvasColor,
+                            ))
+                      ],
                     ),
                     Gap(15.h),
 

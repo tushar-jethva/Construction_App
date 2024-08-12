@@ -87,7 +87,7 @@ class AllProjectsWidget extends StatelessWidget {
             delegate: SliverChildBuilderDelegate(
               (_, int index) {
                 ProjectModel project = state.projects[index];
-                return InkWell(
+                return GestureDetector(
                   onTap: () {
                     context.pushNamed(RoutesName.projectDetailsScreen,
                         extra: project);
