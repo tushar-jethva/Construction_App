@@ -308,43 +308,52 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                             String formattedDate =
                                 DateFormat('dd-MM-yyyy  hh:mm')
                                     .format(DateTime.parse(transaction.date!));
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 10.0.w, vertical: 10.h),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: theme.cardColor,
-                                    borderRadius: BorderRadius.circular(15.r)),
-                                child: ListTile(
-                                  title: Row(
-                                    children: [
-                                      Text(
-                                        "${transaction.name}",
-                                        style: theme.textTheme.titleMedium,
-                                      ),
-                                      Gap(5.w),
-                                      transaction.isCompleted!
-                                          ? Icon(
-                                              Icons
-                                                  .check_circle_outline_outlined,
-                                              color: green,
-                                              size: 20,
-                                            )
-                                          : SizedBox()
-                                    ],
-                                  ),
-                                  subtitle: Text(
-                                    formattedDate,
-                                    style: theme.textTheme.titleMedium!
-                                        .copyWith(color: grey, fontSize: 14),
-                                  ),
-                                  trailing: Text(
-                                    "${transaction.amount}",
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        color: transaction.entryType == 'Credit'
-                                            ? green
-                                            : red),
+                            return GestureDetector(
+                              onTap: () {
+                                ReusableFunctions.showSnackBar(
+                                    context: context,
+                                    content: transaction.description!);
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.0.w, vertical: 10.h),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: theme.cardColor,
+                                      borderRadius:
+                                          BorderRadius.circular(15.r)),
+                                  child: ListTile(
+                                    title: Row(
+                                      children: [
+                                        Text(
+                                          "${transaction.name}",
+                                          style: theme.textTheme.titleMedium,
+                                        ),
+                                        Gap(5.w),
+                                        transaction.isCompleted!
+                                            ? Icon(
+                                                Icons
+                                                    .check_circle_outline_outlined,
+                                                color: green,
+                                                size: 20,
+                                              )
+                                            : SizedBox()
+                                      ],
+                                    ),
+                                    subtitle: Text(
+                                      formattedDate,
+                                      style: theme.textTheme.titleMedium!
+                                          .copyWith(color: grey, fontSize: 14),
+                                    ),
+                                    trailing: Text(
+                                      "${transaction.amount}",
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color:
+                                              transaction.entryType == 'Credit'
+                                                  ? green
+                                                  : red),
+                                    ),
                                   ),
                                 ),
                               ),

@@ -24,6 +24,7 @@ import 'package:construction_mate/presentation/screens/project/project_screen.da
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
+import 'package:construction_mate/presentation/widgets/details_screen_widgets/floors_and_foot_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -153,6 +154,19 @@ class Routes {
               agencyId: agencyId, projectId: projectId, agencyName: agencyName),
         );
       },
-    )
+    ),
+    GoRoute(
+      path: RoutesName.footAndFloorScreen,
+      name: RoutesName.footAndFloorScreen,
+      builder: (context, state) {
+        final args = state.extra as Map<String,dynamic>;
+        final int floors = args['floors'];
+        final double foots = args['foots'];
+        return MyFootAndFloorScreen(
+          floors: floors,
+          foots: foots,
+        );
+      },
+    ),
   ]);
 }
