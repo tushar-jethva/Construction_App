@@ -12,13 +12,13 @@ class LoadBuildings extends BuildingsEvent {
 class AddBuilding extends BuildingsEvent {
   final String buildName;
   final String floors;
-  final String unitPerFloor;
+  final List<Map<String, String>> floorArray;
   final String description;
   final String projectId;
   AddBuilding({
     required this.buildName,
     required this.floors,
-    required this.unitPerFloor,
+    required this.floorArray,
     required this.description,
     required this.projectId,
   });

@@ -94,7 +94,7 @@ class SiteProgressAgencyUpdateBloc
             buildingId: event.floor.buildingId!,
             workTypeIds:
                 currentSelectedAgencies.map((e) => e.workTypeId!).toList(),
-            floorIndex: event.floor.floorIndex.toString());
+            floorIndex: event.floor.floorName.toString());
         print("3State is $state");
         emit(SiteProgressAgencyUpdateSuccessState(
             selectedAgencies: state.selectedAgencies,

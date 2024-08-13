@@ -20,7 +20,9 @@ class BuildingsBloc extends Bloc<BuildingsEvent, BuildingsState> {
           await buildingRepository.allBuildingById(projectId: event.projectId);
       print(event.projectId);
       print(listOfBuildings);
-      emit(BuildingsLoadSuccess(buildings: listOfBuildings));
+      emit(BuildingsLoadSuccess(
+        buildings: listOfBuildings,
+      ));
     } catch (e) {}
   }
 
@@ -30,7 +32,7 @@ class BuildingsBloc extends Bloc<BuildingsEvent, BuildingsState> {
       await buildingRepository.addBuilding(
           buildingName: event.buildName,
           floors: event.floors,
-          unitPerFloor: event.unitPerFloor,
+          floorArray: event.floorArray,
           description: event.description,
           projectId: event.projectId);
       emit(BuildingAddSuccess());

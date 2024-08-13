@@ -125,7 +125,7 @@ class _MySiteProgressScreenWidgetState
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Floor No. ${floorSiteModel.floorIndex}"),
+                              Text("${floorSiteModel.floorName}"),
                               Text(
                                   "Total agencies: ${floorSiteModel.workStatus!.length}")
                             ],

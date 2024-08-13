@@ -30,7 +30,7 @@ class SiteProgressRepositoryImpl extends SiteProgressRepository {
       floorsOfSiteList = await siteProgressDataSource.getFloorsOfSite(
           projectId: projectId, buildingId: buildingId);
 
-      floorsOfSiteList.sort((a, b) => a.floorIndex!.compareTo(b.floorIndex!));
+      floorsOfSiteList.sort((a, b) => a.floorName!.compareTo(b.floorName!));
     } catch (e) {
       print(e.toString());
     }
