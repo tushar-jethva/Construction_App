@@ -258,7 +258,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       required String description,
       required List<String> workTypeIds}) async {
     try {
-      http.Response res = await http.post(
+      await http.post(
         Uri.parse("${API.ADD_AGENCY}"),
         body: jsonEncode({
           "Name": name,

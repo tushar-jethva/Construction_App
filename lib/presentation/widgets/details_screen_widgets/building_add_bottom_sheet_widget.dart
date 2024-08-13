@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/bloc/floor_name_and_feet_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +34,7 @@ class _MyBuildingAddBottomSheetWidgetState
   final TextEditingController _floorController = TextEditingController();
   final TextEditingController _unitPerFootController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-
+  List<Map<String, String>> moneyAndFloor = [];
   final _formKey = GlobalKey<FormState>();
 
   final BuildingRepository buildingRepository =
@@ -77,10 +78,20 @@ class _MyBuildingAddBottomSheetWidgetState
   }
 
   Future<void> addBuilding() async {
+    final state = context.read<FloorNameAndFeetBloc>().state;
+    print(state.listOfFloorNameAndFeetState);
+    final floorArray = state.listOfFloorNameAndFeetState.isNotEmpty
+        ? state.listOfFloorNameAndFeetState
+        : List.generate(
+            int.parse(state.floors),
+            (index) => {
+                  'floorName': 'Floor No. ${index + 1}',
+                  'squreFeet': state.feets
+                });
     context.read<BuildingsBloc>().add(AddBuilding(
         buildName: _buildingNameController.text,
         floors: _floorController.text,
-        unitPerFloor: _unitPerFootController.text,
+        floorArray: floorArray,
         description: _descriptionController.text,
         projectId: widget.project.sId!));
   }
@@ -89,6 +100,7 @@ class _MyBuildingAddBottomSheetWidgetState
   Widget build(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     final theme = Theme.of(context);
+
     return Padding(
       padding: mediaQueryData.viewInsets,
       child: SingleChildScrollView(
@@ -189,6 +201,11 @@ class _MyBuildingAddBottomSheetWidgetState
                       controller: _floorController,
                       textInputType: TextInputType.number,
                       hintText: "Add floors",
+                      onChanged: (value) {
+                        print('floor change');
+                        context.read<FloorNameAndFeetBloc>().add(FloorChanged(
+                            floors: value!.isNotEmpty ? value : "0"));
+                      },
                       maxLines: 1,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -211,6 +228,12 @@ class _MyBuildingAddBottomSheetWidgetState
                             textInputType: TextInputType.number,
                             hintText: 'Unit per floor',
                             maxLines: 1,
+                            onChanged: (value) {
+                              print('change');
+                              context
+                                  .read<FloorNameAndFeetBloc>()
+                                  .add(FootsChagned(foots: value!));
+                            },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please add foot per floor!';
@@ -226,15 +249,8 @@ class _MyBuildingAddBottomSheetWidgetState
                         ),
                         IconButton(
                             onPressed: () {
-                              context
-                                  .push(RoutesName.footAndFloorScreen, extra: {
-                                'floors': _floorController.text.isEmpty
-                                    ? 0
-                                    : int.parse(_floorController.text),
-                                'foots': _unitPerFootController.text.isEmpty
-                                    ? 0.0
-                                    : double.parse(_unitPerFootController.text)
-                              });
+                              context.push(RoutesName.footAndFloorScreen,
+                                  extra: context.read<FloorNameAndFeetBloc>());
                             },
                             icon: Icon(
                               Icons.edit,
@@ -243,7 +259,6 @@ class _MyBuildingAddBottomSheetWidgetState
                       ],
                     ),
                     Gap(15.h),
-
                     MyCustomTextFormField(
                       controller: _descriptionController,
                       hintText: 'Description',

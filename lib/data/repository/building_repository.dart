@@ -5,7 +5,7 @@ abstract class BuildingRepository {
   Future<void> addBuilding(
       {required String buildingName,
       required String floors,
-      required String unitPerFloor,
+      required List<Map<String, String>> floorArray,
       required String description,
       required String projectId});
 
@@ -19,14 +19,14 @@ class BuildingRepositoryImpl extends BuildingRepository {
   Future<void> addBuilding(
       {required String buildingName,
       required String floors,
-      required String unitPerFloor,
+      required List<Map<String, String>> floorArray,
       required String description,
       required String projectId}) async {
     try {
       await buildingDataSource.addBuilding(
           buildingName: buildingName,
           floors: floors,
-          unitPerFloor: unitPerFloor,
+          floorArray: floorArray,
           description: description,
           projectId: projectId);
     } catch (e) {

@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';

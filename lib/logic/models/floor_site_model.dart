@@ -1,35 +1,27 @@
 class FloorSiteModel {
-  String? sId;
   String? projectId;
   String? buildingId;
-  int? floorIndex;
+  String? floorName;
+  String? squreFeet;
   bool? isCompleted;
   String? completedDate;
   List<WorkStatus>? workStatus;
-  bool? isDeleted;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
 
   FloorSiteModel(
-      {this.sId,
-      this.projectId,
+      {this.projectId,
       this.buildingId,
-      this.floorIndex,
+      this.floorName,
+      this.squreFeet,
       this.isCompleted,
       this.completedDate,
-      this.workStatus,
-      this.isDeleted,
-      this.createdAt,
-      this.updatedAt,
-      this.iV});
+      this.workStatus});
 
   FloorSiteModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    projectId = json['projectId'];
-    buildingId = json['buildingId'];
-    floorIndex = json['floorIndex'];
-    isCompleted = json['isCompleted'];
+    projectId = json['projectId'] ?? '';
+    buildingId = json['buildingId'] ?? '';
+    floorName = json['floorName'] ?? '';
+    squreFeet = (json['squreFeet'] as dynamic).toString();
+    isCompleted = json['isCompleted'] ?? false;
     completedDate = json['completedDate'] ?? DateTime.now().toString();
     if (json['workStatus'] != null) {
       workStatus = <WorkStatus>[];
@@ -37,24 +29,19 @@ class FloorSiteModel {
         workStatus!.add(new WorkStatus.fromJson(v));
       });
     }
-    isDeleted = json['isDeleted'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
     data['projectId'] = this.projectId;
     data['buildingId'] = this.buildingId;
-    data['floorIndex'] = this.floorIndex;
+    data['floorName'] = this.floorName;
+    data['squreFeet'] = this.squreFeet;
     data['isCompleted'] = this.isCompleted;
     data['completedDate'] = this.completedDate;
     if (this.workStatus != null) {
       data['workStatus'] = this.workStatus!.map((v) => v.toJson()).toList();
     }
-    data['isDeleted'] = this.isDeleted;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
     return data;
   }
 }
@@ -64,42 +51,42 @@ class WorkStatus {
   String? workTypeId;
   String? agencyName;
   String? workTypeName;
+  String? price;
+  String? description;
   bool? isCompleted;
   String? completedDate;
-  String? pricePerFeet;
-  String? description;
-  String? sId;
 
   WorkStatus(
       {this.agencyId,
       this.workTypeId,
-      this.isCompleted,
-      this.completedDate,
-      this.pricePerFeet,
+      this.agencyName,
+      this.workTypeName,
+      this.price,
       this.description,
-      this.sId});
+      this.isCompleted,
+      this.completedDate});
 
   WorkStatus.fromJson(Map<String, dynamic> json) {
-    agencyId = json['agencyId'];
-    workTypeId = json['workTypeId'];
-    agencyName = json['agencyName'];
-    workTypeName = json['workTypeName'];
+    agencyId = json['agencyId'] ?? '';
+    workTypeId = json['workTypeId'] ?? '';
+    agencyName = json['agencyName'] ?? '';
+    workTypeName = json['workTypeName'] ?? '';
+    price = (json['price'] as dynamic).toString();
+    description = json['description'] ?? '';
     isCompleted = json['isCompleted'];
-    completedDate = json['completedDate'];
-    pricePerFeet = (json['pricePerFeet'] as dynamic).toString();
-    description = json['description'];
-    sId = json['_id'];
+    completedDate = json['completedDate'] ?? DateTime.now().toString();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['agencyId'] = this.agencyId;
     data['workTypeId'] = this.workTypeId;
+    data['agencyName'] = this.agencyName;
+    data['workTypeName'] = this.workTypeName;
+    data['price'] = this.price;
+    data['description'] = this.description;
     data['isCompleted'] = this.isCompleted;
     data['completedDate'] = this.completedDate;
-    data['pricePerFeet'] = this.pricePerFeet;
-    data['description'] = this.description;
-    data['_id'] = this.sId;
     return data;
   }
 }

@@ -7,7 +7,7 @@ abstract class BuildingDataSource {
   Future<void> addBuilding(
       {required String buildingName,
       required String floors,
-      required String unitPerFloor,
+      required List<Map<String, String>> floorArray,
       required String description,
       required String projectId});
 
@@ -19,19 +19,20 @@ class BuildingDataSourceImpl extends BuildingDataSource {
   Future<void> addBuilding(
       {required String buildingName,
       required String floors,
-      required String unitPerFloor,
+      required List<Map<String, dynamic>> floorArray,
       required String description,
       required String projectId}) async {
     try {
-      BuildingModel building = BuildingModel(
-          sId: projectId,
-          name: buildingName,
-          totalFloor: int.parse(floors),
-          unitPerFloor: int.parse(unitPerFloor),
-          description: description);
+      print("floorArray $floorArray");
       await http.post(
         Uri.parse(API.ADD_BUILDING_URL),
-        body: building.toJson(),
+        body: jsonEncode({
+          'Name': buildingName,
+          'Description': description,
+          'TotalFloor': floors,
+          'ProjectId': projectId,
+          'floorArray': floorArray
+        }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

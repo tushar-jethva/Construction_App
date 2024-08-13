@@ -1,13 +1,17 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/data/datasource/building_data_source.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionIndividualAgency/transactions_individual_agency_bloc.dart';
+import 'package:construction_mate/logic/controllers/bloc/floor_name_and_feet_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
@@ -159,12 +163,9 @@ class Routes {
       path: RoutesName.footAndFloorScreen,
       name: RoutesName.footAndFloorScreen,
       builder: (context, state) {
-        final args = state.extra as Map<String,dynamic>;
-        final int floors = args['floors'];
-        final double foots = args['foots'];
+        final FloorNameAndFeetBloc bloc = state.extra as FloorNameAndFeetBloc;
         return MyFootAndFloorScreen(
-          floors: floors,
-          foots: foots,
+          floorNameAndFeetBloc: bloc,
         );
       },
     ),

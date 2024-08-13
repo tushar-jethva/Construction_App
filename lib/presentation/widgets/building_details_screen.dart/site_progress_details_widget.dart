@@ -40,7 +40,7 @@ class _MySiteProgressDetailsWidgetState
         FetchAlreadySelectedAgencies(
             projectId: widget.floorSiteModel.projectId!,
             buildingId: widget.floorSiteModel.buildingId!,
-            floorIndex: widget.floorSiteModel.floorIndex.toString()));
+            floorIndex: widget.floorSiteModel.floorName.toString()));
   }
 
   @override
@@ -52,7 +52,7 @@ class _MySiteProgressDetailsWidgetState
         iconTheme: IconThemeData(color: theme.canvasColor),
         backgroundColor: theme.scaffoldBackgroundColor,
         title: Text(
-          "Floor ${floor.floorIndex.toString()}",
+          "Floor ${floor.floorName.toString()}",
           style: theme.textTheme.titleMedium!.copyWith(fontSize: 20),
         ),
       ),
@@ -63,7 +63,7 @@ class _MySiteProgressDetailsWidgetState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Working agency on floor No. ${floor.floorIndex}",
+                "Working agency on floor No. ${floor.floorName}",
                 style: TextStyle(fontSize: 15),
               ),
               ListTile(
