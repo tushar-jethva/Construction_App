@@ -61,6 +61,7 @@ class MyDropDownFormField extends StatelessWidget {
       onChanged: (val) {
         context.read<AddAgencyDropDownsBloc>().add(event(val.toString()));
       },
+      // ignore: body_might_complete_normally_nullable
       validator: (value) {
         if (value == items[0].sId) {
           return 'Please select one of the names!';

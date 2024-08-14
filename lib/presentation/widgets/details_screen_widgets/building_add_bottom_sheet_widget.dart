@@ -121,6 +121,7 @@ class _MyBuildingAddBottomSheetWidgetState
                       hintText: 'Building Name',
                       maxLines: 1,
                       textInputType: TextInputType.name,
+                      // ignore: body_might_complete_normally_nullable
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter building name!';
@@ -192,12 +193,13 @@ class _MyBuildingAddBottomSheetWidgetState
                       controller: _floorController,
                       textInputType: TextInputType.number,
                       hintText: "Add floors",
+                      // ignore: body_might_complete_normally_nullable
                       onChanged: (value) {
-                        print('floor change');
                         context.read<FloorNameAndFeetBloc>().add(FloorChanged(
                             floors: value!.isNotEmpty ? value : "0"));
                       },
                       maxLines: 1,
+                      // ignore: body_might_complete_normally_nullable
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please add floors!';
@@ -219,12 +221,13 @@ class _MyBuildingAddBottomSheetWidgetState
                             textInputType: TextInputType.number,
                             hintText: 'Unit per floor',
                             maxLines: 1,
+                            // ignore: body_might_complete_normally_nullable
                             onChanged: (value) {
-                              print('change');
                               context
                                   .read<FloorNameAndFeetBloc>()
                                   .add(FootsChagned(foots: value!));
                             },
+                            // ignore: body_might_complete_normally_nullable
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please add foot per floor!';
@@ -255,6 +258,7 @@ class _MyBuildingAddBottomSheetWidgetState
                       hintText: 'Description',
                       maxLines: 3,
                       textInputType: TextInputType.name,
+                      // ignore: body_might_complete_normally_nullable
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please add description!';

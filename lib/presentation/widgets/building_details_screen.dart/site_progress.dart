@@ -1,8 +1,4 @@
-import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
-import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
-import 'package:construction_mate/data/repository/site_progress_repository.dart';
-import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
@@ -40,6 +36,7 @@ class _MySiteProgressScreenWidgetState
         buildingId: widget.buildingModel.sId!));
   }
 
+  // ignore: unused_element
   Future<void> _onRefreshAgencies() async {
     siteProgressFloorsBloc.add(LoadFloorsSite(
         projectId: widget.projectModel.sId!,

@@ -6,7 +6,6 @@ import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,6 +81,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                       hintText: 'Project Name',
                       maxLines: 1,
                       textInputType: TextInputType.name,
+                      // ignore: body_might_complete_normally_nullable
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter project name!';
@@ -94,6 +94,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                       hintText: 'Project Address',
                       maxLines: 1,
                       textInputType: TextInputType.name,
+                      // ignore: body_might_complete_normally_nullable
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter project address!';

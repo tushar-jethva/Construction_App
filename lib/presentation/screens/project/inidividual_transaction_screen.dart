@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionIndividualAgency/transactions_individual_agency_bloc.dart';
-import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -229,7 +227,7 @@ class _MyTransactionIndividualScreenState
                               MyCustomButton(
                                 buttonName: 'Filter',
                                 color: green,
-                                style: TextStyle(color: white),
+                                style: const TextStyle(color: white),
                                 onPressed: () {
                                   final state =
                                       context.read<StartAndEndDateBloc>().state;

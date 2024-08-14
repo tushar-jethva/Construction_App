@@ -49,6 +49,7 @@ class CustomDropDown extends StatelessWidget {
               ))
           .toList(),
       onChanged: (val) {},
+      // ignore: body_might_complete_normally_nullable
       validator: (value) {
         if (value == items[0]) {
           return 'Please select one of the names!';

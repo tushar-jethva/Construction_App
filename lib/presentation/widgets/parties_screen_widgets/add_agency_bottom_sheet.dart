@@ -1,14 +1,11 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
-import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/models/agency_work_type_selection_model.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -31,7 +28,6 @@ class _MyAddAgencyBottomSheetPartiesState
   late AgencyWorkTypesSelectionBloc agencyWorksProjectsBloc;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     agencyWorksProjectsBloc =
         BlocProvider.of<AgencyWorkTypesSelectionBloc>(context);
@@ -40,7 +36,6 @@ class _MyAddAgencyBottomSheetPartiesState
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _agencyNameController.dispose();
     _descriptionController.dispose();
@@ -80,6 +75,7 @@ class _MyAddAgencyBottomSheetPartiesState
                       hintText: 'Agency Name',
                       maxLines: 1,
                       textInputType: TextInputType.name,
+                      // ignore: body_might_complete_normally_nullable
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter agency name!';
@@ -92,6 +88,7 @@ class _MyAddAgencyBottomSheetPartiesState
                       hintText: 'Description',
                       maxLines: 3,
                       textInputType: TextInputType.name,
+                      // ignore: body_might_complete_normally_nullable
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter description!';
@@ -116,7 +113,7 @@ class _MyAddAgencyBottomSheetPartiesState
                               return Row(
                                 children: [
                                   Checkbox(
-                                      side: BorderSide(color: grey),
+                                      side: const BorderSide(color: grey),
                                       value:
                                           agencyWorkTypeSelectModel.isSelected,
                                       onChanged: (val) {
@@ -141,6 +138,7 @@ class _MyAddAgencyBottomSheetPartiesState
                             hintText: 'Add New Work',
                             maxLines: 1,
                             textInputType: TextInputType.name,
+                            // ignore: body_might_complete_normally_nullable
                             validator: (value) {},
                           ),
                         ),

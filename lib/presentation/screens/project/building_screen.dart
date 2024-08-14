@@ -143,6 +143,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                         AgencyValueInChanged(agencyId: val!))
                                     : {};
                               },
+                              // ignore: body_might_complete_normally_nullable
                               validator: (val) {
                                 if (val == state.agencies[0].agencyId) {
                                   return 'Please select one of the names!';
@@ -159,6 +160,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         hintText: "Payment In",
                         maxLines: 1,
                         textInputType: TextInputType.number,
+                        // ignore: body_might_complete_normally_nullable
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter price per feet!';
@@ -177,6 +179,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         hintText: "Description",
                         maxLines: 3,
                         textInputType: TextInputType.name,
+                        // ignore: body_might_complete_normally_nullable
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter description!';
@@ -217,7 +220,6 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                 onPressed: () async {
                                   if (formPaymentInKey.currentState!
                                       .validate()) {
-                                    print(_priceInController.text);
                                     context.read<PaymentInDropDownBloc>().add(
                                         AddPaymentInTransaction(
                                             projectValue: widget.project.sId!,
@@ -292,7 +294,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                               list: state.buildings
                                   .map((e) => DropdownMenuItem(
                                         value: e.sId,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -313,6 +315,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                             val!, state.projectValue))
                                     : {};
                               },
+                              // ignore: body_might_complete_normally_nullable
                               validator: (val) {
                                 if (val == state.buildings[0].sId) {
                                   return 'Please select one of the names!';
@@ -333,7 +336,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                               list: state.agencies
                                   .map((e) => DropdownMenuItem(
                                         value: e.agencyId,
-                                        child: Container(
+                                        child: SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -353,6 +356,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                         .add(AgencyValueChanged(agencyId: val!))
                                     : {};
                               },
+                              // ignore: body_might_complete_normally_nullable
                               validator: (val) {
                                 if (val == state.agencies[0].agencyId) {
                                   return 'Please select one of the names!';
@@ -369,6 +373,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         hintText: "Payment OUT",
                         maxLines: 1,
                         textInputType: TextInputType.number,
+                        // ignore: body_might_complete_normally_nullable
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter price per feet!';
@@ -387,6 +392,7 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         hintText: "Description",
                         maxLines: 3,
                         textInputType: TextInputType.name,
+                        // ignore: body_might_complete_normally_nullable
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter description!';
@@ -423,9 +429,6 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                 onPressed: () async {
                                   if (formPaymentOutKey.currentState!
                                       .validate()) {
-                                    final state = context
-                                        .read<PaymentOutDropDownBloc>()
-                                        .state;
                                     context.read<PaymentOutDropDownBloc>().add(
                                         AddPaymentOutTransaction(
                                             amount: _priceOutController.text,
