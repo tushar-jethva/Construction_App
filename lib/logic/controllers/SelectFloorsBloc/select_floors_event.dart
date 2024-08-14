@@ -5,12 +5,12 @@ part of 'select_floors_bloc.dart';
 abstract class SelectFloorsEvent {}
 
 class AddFloorEvent extends SelectFloorsEvent {
-  final int floor;
+  final String floor;
   AddFloorEvent({required this.floor});
 }
 
 class RemoveFloorEvent extends SelectFloorsEvent {
-  final int floor;
+  final String floor;
   RemoveFloorEvent({required this.floor});
 }
 

@@ -16,7 +16,7 @@ abstract class AgencyDataSource {
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
       required String agencyId,
-      required List<int> floors,
+      required List<String> floors,
       required double pricePerFeet,
       required String name,
       required String companyId,
@@ -105,7 +105,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
       required String agencyId,
-      required List<int> floors,
+      required List<String> floors,
       required double pricePerFeet,
       required String name,
       required String companyId,
@@ -113,6 +113,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       required String projectId,
       required String description}) async {
     try {
+      print(floors);
       http.Response res = await http.post(
         Uri.parse("${API.ADD_TASK_URL}"),
         body: jsonEncode({
@@ -120,7 +121,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
           "AgencyId": agencyId,
           "ProjectId": projectId,
           "WorkType": workTypeId,
-          "WorkingFloors": floors.map((e) => e.toString()).toList(),
+          "WorkingFloors": floors,
           "Price": pricePerFeet.toString(),
           "Description": description,
           "BuildingId": buildingId
@@ -173,6 +174,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       );
 
       final agencies = jsonDecode(res.body);
+      print("newage: ${res.body}");
       for (var agency in agencies["data"]) {
         allAgencyWorkingInBuildingIdList
             .add(PerBuildingAgencyModel.fromMap(agency));

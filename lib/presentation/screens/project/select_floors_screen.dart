@@ -79,19 +79,21 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                               color: grey,
                             ),
                             child: Text(
-                              "${index + 1} floor",
+                              "${state.selectedFloorList[index].floorName}",
                               style: theme.textTheme.titleMedium!
                                   .copyWith(fontSize: 16),
                             ),
                           ),
                         );
                       }
-                      if (state.floorList.contains(index + 1)) {
+                      if (state.floorList
+                          .contains(state.selectedFloorList[index].floorName)) {
                         return GestureDetector(
                           onTap: () {
-                            context
-                                .read<SelectFloorsBloc>()
-                                .add(RemoveFloorEvent(floor: index + 1));
+                            context.read<SelectFloorsBloc>().add(
+                                RemoveFloorEvent(
+                                    floor: state
+                                        .selectedFloorList[index].floorName!));
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -109,9 +111,9 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                       }
                       return GestureDetector(
                         onTap: () {
-                          context
-                              .read<SelectFloorsBloc>()
-                              .add(AddFloorEvent(floor: index + 1));
+                          context.read<SelectFloorsBloc>().add(AddFloorEvent(
+                              floor:
+                                  state.selectedFloorList[index].floorName!));
                         },
                         child: Container(
                           alignment: Alignment.center,
@@ -120,7 +122,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                             color: greyLight,
                           ),
                           child: Text(
-                            "${index + 1} floor",
+                            "${state.selectedFloorList[index].floorName}",
                             style: theme.textTheme.titleMedium!
                                 .copyWith(fontSize: 16),
                           ),
@@ -130,9 +132,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
               );
             }
 
-            return  Center(
-              child: ReusableFunctions.loader()
-            );
+            return Center(child: ReusableFunctions.loader());
           },
         ),
       ),

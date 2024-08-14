@@ -14,9 +14,23 @@ class FloorNameAndFeetBloc
     });
     on<FloorChanged>((event, emit) {
       emit(state.copyWith(floors: event.floors));
+      final floorArray = List.generate(
+          int.parse(state.floors),
+          (index) => {
+                'floorName': 'Floor No. ${index + 1}',
+                'squreFeet': state.feets
+              });
+      emit(state.copyWith(listOfFloorNameAndFeetState: floorArray));
     });
     on<FootsChagned>((event, emit) {
       emit(state.copyWith(feets: event.foots));
+      final floorArray = List.generate(
+          int.parse(state.floors),
+          (index) => {
+                'floorName': 'Floor No. ${index + 1}',
+                'squreFeet': state.feets
+              });
+      emit(state.copyWith(listOfFloorNameAndFeetState: floorArray));
     });
   }
 }

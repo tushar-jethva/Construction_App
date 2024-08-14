@@ -65,6 +65,8 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
+
+      print("Floorofsite ${res.body}");
       final floors = jsonDecode(res.body);
       floorsOfSite = FloorSiteModel.fromJson(floors["data"][0]);
     } catch (e) {

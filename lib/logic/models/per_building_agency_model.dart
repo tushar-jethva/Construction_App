@@ -5,18 +5,17 @@ import 'dart:convert';
 class PerBuildingAgencyModel {
   final String? workType;
   final String? nameOfAgency;
-  final List<int>? floors;
+  final List<String>? floors;
   final String? pricePerFeet;
   final String? description;
   final String? agencyId;
-  PerBuildingAgencyModel({
-    this.workType,
-    this.nameOfAgency,
-    this.floors,
-    this.pricePerFeet,
-    this.description,
-    this.agencyId
-  });
+  PerBuildingAgencyModel(
+      {this.workType,
+      this.nameOfAgency,
+      this.floors,
+      this.pricePerFeet,
+      this.description,
+      this.agencyId});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -30,12 +29,11 @@ class PerBuildingAgencyModel {
 
   factory PerBuildingAgencyModel.fromMap(Map<String, dynamic> map) {
     return PerBuildingAgencyModel(
-      workType: map['workTypeName'] as String,
-      nameOfAgency: map['agencyName'] as String,
-      floors: List<int>.from((map['floorIndices'] as List<dynamic>)),
-      pricePerFeet: (map['price'] as dynamic).toString(),
-      agencyId: map['agencyId'] as String
-    );
+        workType: map['workTypeName'] as String,
+        nameOfAgency: map['agencyName'] as String,
+        floors: List<String>.from((map['floorIndices'] as List<dynamic>)),
+        pricePerFeet: (map['price'] as dynamic).toString(),
+        agencyId: map['agencyId'] as String);
   }
 
   String toJson() => json.encode(toMap());
