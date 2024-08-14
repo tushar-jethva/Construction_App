@@ -52,7 +52,7 @@ class _MySiteProgressDetailsWidgetState
         iconTheme: IconThemeData(color: theme.canvasColor),
         backgroundColor: theme.scaffoldBackgroundColor,
         title: Text(
-          "Floor ${floor.floorName.toString()}",
+          floor.floorName.toString(),
           style: theme.textTheme.titleMedium!.copyWith(fontSize: 20),
         ),
       ),
@@ -63,7 +63,7 @@ class _MySiteProgressDetailsWidgetState
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Working agency on floor No. ${floor.floorName}",
+                "Working agency on ${floor.floorName}",
                 style: TextStyle(fontSize: 15),
               ),
               ListTile(

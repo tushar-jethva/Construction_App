@@ -12,12 +12,12 @@ class SelectFloorsBloc extends Bloc<SelectFloorsEvent, SelectFloorsState> {
   SelectFloorsBloc(this.agencyRepository)
       : super(SelectFloorsState(floorList: [], selectedFloorList: [])) {
     on<AddFloorEvent>((event, emit) {
-      final updatedList = List<int>.from(state.floorList)..add(event.floor);
+      final updatedList = List<String>.from(state.floorList)..add(event.floor);
       emit(state.copyWith(floorList: updatedList));
     });
 
     on<RemoveFloorEvent>((event, emit) {
-      final updatedList = List<int>.from(state.floorList)..remove(event.floor);
+      final updatedList = List<String>.from(state.floorList)..remove(event.floor);
       emit(state.copyWith(floorList: updatedList));
     });
 

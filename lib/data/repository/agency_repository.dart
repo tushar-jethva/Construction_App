@@ -12,7 +12,7 @@ abstract class AgencyRepository {
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
       required String agencyId,
-      required List<int> floors,
+      required List<String> floors,
       required double pricePerFeet,
       required String name,
       required String companyId,
@@ -78,7 +78,7 @@ class AgencyRepositoryImpl extends AgencyRepository {
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
       required String agencyId,
-      required List<int> floors,
+      required List<String> floors,
       required double pricePerFeet,
       required String name,
       required String companyId,

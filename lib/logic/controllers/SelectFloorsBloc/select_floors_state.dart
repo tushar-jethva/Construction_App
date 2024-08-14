@@ -2,7 +2,7 @@ part of 'select_floors_bloc.dart';
 
 @immutable
 class SelectFloorsState {
-  final List<int> floorList;
+  final List<String> floorList;
   final List<FloorModel> selectedFloorList;
   final bool isLoading;
   final String? error;
@@ -15,7 +15,7 @@ class SelectFloorsState {
   });
 
   SelectFloorsState copyWith({
-    List<int>? floorList,
+    List<String>? floorList,
     List<FloorModel>? selectedFloorList,
     bool? isLoading,
     String? error,

@@ -21,7 +21,7 @@ class DropdownNameOfAgencyChangedEvent extends AddAgencyDropDownsEvent {
 }
 
 class AddAgencyOfDropDownEvent extends AddAgencyDropDownsEvent {
-  final List<int> floors;
+  final List<String> floors;
   final String buildingId;
   final String projectId;
   final String description;

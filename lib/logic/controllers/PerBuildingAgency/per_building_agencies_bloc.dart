@@ -20,6 +20,7 @@ class PerBuildingAgenciesBloc
     List<PerBuildingAgencyModel> perBuildingAgencyList =
         await agencyRepository.getWorkingAgenciesOnBuilding(
             buildingId: event.buildingId, projectId: event.projectId);
+    print("Helloage $perBuildingAgencyList");
     emit(PerBuildingAgenciesSuccess(agencies: perBuildingAgencyList));
   }
 }

@@ -1,18 +1,18 @@
 class FloorModel {
-  int? floorIndex;
+  String? floorName;
   bool? isCompleted;
   String? completeDate;
 
-  FloorModel({this.floorIndex, this.isCompleted, this.completeDate});
+  FloorModel({this.floorName, this.isCompleted, this.completeDate});
 
   FloorModel.fromJson(Map<String, dynamic> json) {
-    floorIndex = json['floorIndex'];
+    floorName = json['floorName'];
     isCompleted = json['isSelect'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['floorIndex'] = this.floorIndex;
+    data['floorIndex'] = this.floorName;
     data['isCompleted'] = this.isCompleted;
     data['completeDate'] = this.completeDate;
     return data;

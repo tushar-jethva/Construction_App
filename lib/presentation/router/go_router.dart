@@ -11,7 +11,7 @@ import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floo
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionIndividualAgency/transactions_individual_agency_bloc.dart';
-import 'package:construction_mate/logic/controllers/bloc/floor_name_and_feet_bloc.dart';
+import 'package:construction_mate/logic/controllers/FloorNameAndFeet/floor_name_and_feet_bloc.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
