@@ -1,7 +1,5 @@
-import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -43,7 +41,7 @@ class _MyWorkingAgencyDetailsScreenState
                 ),
                 Text(
                   "${perBuildingAgency.pricePerFeet!} \$",
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
+                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
                 ),
               ],
             ),

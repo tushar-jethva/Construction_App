@@ -31,6 +31,7 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     final isDarkTheme = prefs.getBool(_themeKey) ?? false;
     final themeData = isDarkTheme ? AppTheme.darkTheme : AppTheme.lightTheme;
 
+    // ignore: invalid_use_of_visible_for_testing_member
     emit(ThemeState(themeData: themeData));
   }
 }

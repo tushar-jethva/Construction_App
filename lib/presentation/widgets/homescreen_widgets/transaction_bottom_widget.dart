@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
@@ -13,12 +12,10 @@ import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
-import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/project_add_bottom_sheet_widget.dart';
-import 'package:go_router/go_router.dart';
+
 
 class TransactionBottomWidget extends StatefulWidget {
   const TransactionBottomWidget({
@@ -98,6 +95,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                 context.read<PaymentInDropDownBloc>().add(
                                     ProjectValueInChanged(projectId: val!));
                               },
+                              // ignore: body_might_complete_normally_nullable
                               validator: (val) {
                                 if (val == state.projects[0].sId) {
                                   return 'Please select one of the names!';
@@ -136,6 +134,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                         AgencyValueInChanged(agencyId: val!))
                                     : {};
                               },
+                              // ignore: body_might_complete_normally_nullable
                               validator: (val) {
                                 if (val == state.agencies[0].agencyId) {
                                   return 'Please select one of the names!';
@@ -152,6 +151,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         hintText: "Payment In",
                         maxLines: 1,
                         textInputType: TextInputType.number,
+                        // ignore: body_might_complete_normally_nullable
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter price per feet!';
@@ -170,6 +170,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         hintText: "Description",
                         maxLines: 3,
                         textInputType: TextInputType.name,
+                        // ignore: body_might_complete_normally_nullable
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter description!';
@@ -205,7 +206,6 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                 onPressed: () async {
                                   if (formPaymentInKey.currentState!
                                       .validate()) {
-                                    print(_priceInController.text);
                                     context.read<PaymentInDropDownBloc>().add(
                                         AddPaymentInTransaction(
                                           
@@ -287,6 +287,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                         .add(FetchBuildingsEvent(val!))
                                     : ();
                               },
+                              // ignore: body_might_complete_normally_nullable
                               validator: (val) {
                                 if (val == state.projects[0].sId) {
                                   return 'Please select one of the names!';
@@ -330,6 +331,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                             val!, state.projectValue))
                                     : {};
                               },
+                              // ignore: body_might_complete_normally_nullable
                               validator: (val) {
                                 if (val == state.buildings[0].sId) {
                                   return 'Please select one of the names!';
@@ -370,6 +372,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                         .add(AgencyValueChanged(agencyId: val!))
                                     : {};
                               },
+                              // ignore: body_might_complete_normally_nullable
                               validator: (val) {
                                 if (val == state.agencies[0].agencyId) {
                                   return 'Please select one of the names!';
@@ -386,6 +389,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         hintText: "Payment OUT",
                         maxLines: 1,
                         textInputType: TextInputType.number,
+                        // ignore: body_might_complete_normally_nullable
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter price per feet!';
@@ -404,6 +408,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         hintText: "Description",
                         maxLines: 3,
                         textInputType: TextInputType.name,
+                        // ignore: body_might_complete_normally_nullable
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter description!';

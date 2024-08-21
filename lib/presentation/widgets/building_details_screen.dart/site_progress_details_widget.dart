@@ -5,22 +5,17 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
-import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
-
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 class MySiteProgressDetailsWidget extends StatefulWidget {
   final FloorSiteModel floorSiteModel;
   const MySiteProgressDetailsWidget({
-    Key? key,
+    super.key,
     required this.floorSiteModel,
-  }) : super(key: key);
+  });
 
   @override
   State<MySiteProgressDetailsWidget> createState() =>
@@ -34,7 +29,6 @@ class _MySiteProgressDetailsWidgetState
           siteProgressDataSource: SiteProgressDataSourceImpl());
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<SiteProgressAgencyUpdateBloc>().add(
         FetchAlreadySelectedAgencies(
@@ -64,11 +58,11 @@ class _MySiteProgressDetailsWidgetState
             children: [
               Text(
                 "Working agency on ${floor.floorName}",
-                style: TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 15),
               ),
               ListTile(
                 leading: Checkbox(
-                  side: BorderSide(color: grey),
+                  side: const BorderSide(color: grey),
                   value: state.selectAll,
                   onChanged: (bool? value) {
                     context
@@ -92,7 +86,7 @@ class _MySiteProgressDetailsWidgetState
                                       "${state.selectedAgencies[index].agencyName} task is Already completed!")
                                   : ListTile(
                                       leading: Checkbox(
-                                        side: BorderSide(color: grey),
+                                        side: const BorderSide(color: grey),
                                         value: state
                                             .currentSelectedAgencies[index]
                                             .isSelected,
@@ -112,7 +106,7 @@ class _MySiteProgressDetailsWidgetState
                             },
                           ),
                         )
-                      : Text("No agency founds!")
+                      : const Text("No agency founds!")
                   : Center(
                       child: ReusableFunctions.loader(),
                     ),

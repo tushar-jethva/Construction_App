@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
-
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
@@ -15,9 +14,9 @@ import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 class MyPartiesProjectScreen extends StatefulWidget {
   final ProjectModel project;
   const MyPartiesProjectScreen({
-    Key? key,
+    super.key,
     required this.project,
-  }) : super(key: key);
+  });
 
   @override
   State<MyPartiesProjectScreen> createState() => _MyPartiesProjectScreenState();
@@ -30,7 +29,6 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _totalAgenciesProjectBloc =
         BlocProvider.of<AgencyWorksProjectsBloc>(context);
@@ -48,7 +46,6 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _searchController.dispose();
   }
@@ -192,6 +189,6 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
         ],
       ),
     );
-    ;
+    
   }
 }

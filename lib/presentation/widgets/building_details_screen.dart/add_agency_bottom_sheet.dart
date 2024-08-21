@@ -28,7 +28,7 @@ import '../../../logic/models/building_model.dart';
 class MyAddAgencyBottomSheet extends StatefulWidget {
   final BuildingModel buildingModel;
   final ProjectModel projectModel;
-  MyAddAgencyBottomSheet(
+  const MyAddAgencyBottomSheet(
       {super.key, required this.buildingModel, required this.projectModel});
 
   @override
@@ -177,6 +177,7 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   hintText: "PricePerFeet",
                   maxLines: 1,
                   textInputType: TextInputType.number,
+                  // ignore: body_might_complete_normally_nullable
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter price per feet!';

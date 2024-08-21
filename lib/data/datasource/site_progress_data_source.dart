@@ -54,12 +54,13 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
     FloorSiteModel floorsOfSite = FloorSiteModel();
     try {
       print("$projectId $buildingId");
+      print(floorIndex);
       http.Response res = await http.post(
         Uri.parse("${API.GET_FLOOR_BY_FLOOR_INDEX}"),
         body: jsonEncode({
           "projectId": projectId,
           "buildingId": buildingId,
-          "floorIndex": floorIndex
+          "floorName": floorIndex
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
@@ -89,7 +90,7 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
           "ProjectId": projectId,
           "BuildingId": buildingId,
           "WokTypeArray": workTypeIds,
-          "floorIndex": floorIndex
+          "floorName": floorIndex
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
