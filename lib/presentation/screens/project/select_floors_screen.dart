@@ -16,12 +16,12 @@ class MySelectFloorsScreen extends StatefulWidget {
   final String workTypeId;
   final SelectFloorsBloc selectFloorsBloc;
   const MySelectFloorsScreen({
-    Key? key,
+    super.key,
     required this.buildingModel,
     required this.projectModel,
     required this.workTypeId,
     required this.selectFloorsBloc,
-  }) : super(key: key);
+  });
 
   @override
   State<MySelectFloorsScreen> createState() => _MySelectFloorsScreenState();
@@ -33,7 +33,6 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     widget.selectFloorsBloc.add(FetchSelectedFloorsEvent(
         buildingId: widget.buildingModel.sId!,
@@ -54,7 +53,6 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
         ),
         body: BlocBuilder<SelectFloorsBloc, SelectFloorsState>(
           builder: (context, state) {
-            print(state.isLoading);
             if (!state.isLoading) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -131,7 +129,6 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                     }),
               );
             }
-
             return Center(child: ReusableFunctions.loader());
           },
         ),
