@@ -102,7 +102,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             child: Text(
-                              "${index + 1} floor",
+                              "${state.selectedFloorList[index].floorName}",
                               style: theme.textTheme.titleMedium!
                                   .copyWith(fontSize: 16),
                             ),
