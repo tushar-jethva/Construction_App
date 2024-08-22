@@ -59,8 +59,6 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
             child: CustomScrollView(
               slivers: [
                 SliverAppBar(
-                  expandedHeight: ReusableFunctions.getHeight(
-                      context: context, height: 0.03),
                   floating: true,
                   surfaceTintColor: Colors.transparent,
                   backgroundColor: theme.scaffoldBackgroundColor,
@@ -69,7 +67,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                 const TransactionTopWidget(),
                 SliverAppBar(
                   toolbarHeight: ReusableFunctions.getHeight(
-                      context: context, height: 0.03),
+                      context: context, height: 0.01),
                   surfaceTintColor: Colors.transparent,
                   pinned: true,
                   backgroundColor: theme.scaffoldBackgroundColor,

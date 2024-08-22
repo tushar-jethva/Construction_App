@@ -37,14 +37,15 @@ class TransactionsTotalWidget extends StatelessWidget {
                       upperText: "Total +ve",
                       belowText: state.paymentIn,
                       upperTextStyle:
-                          theme.textTheme.titleMedium!.copyWith(fontSize: 15.sp),
+                          theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                       belowTextStyle: theme.textTheme.titleLarge!
-                          .copyWith(color: green, fontSize: 15.sp),
+                          .copyWith(color: green, fontSize: 15),
                     );
                   },
                 ),
                 MyVerticalDivider(
-                  height: ReusableFunctions.getHeight(context: context, height: 0.06),
+                  height: ReusableFunctions.getHeight(
+                      context: context, height: 0.04),
                   width: 2.w,
                   color: grey,
                 ),
@@ -54,14 +55,15 @@ class TransactionsTotalWidget extends StatelessWidget {
                       upperText: "Total -ve",
                       belowText: state.paymentOut,
                       upperTextStyle:
-                          theme.textTheme.titleMedium!.copyWith(fontSize: 15.sp),
+                          theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                       belowTextStyle: theme.textTheme.titleLarge!
-                          .copyWith(color: red, fontSize: 15.sp),
+                          .copyWith(color: red, fontSize: 15),
                     );
                   },
                 ),
                 MyVerticalDivider(
-                  height: ReusableFunctions.getHeight(context: context, height: 0.06),
+                  height: ReusableFunctions.getHeight(
+                      context: context, height: 0.04),
                   width: 2.w,
                   color: grey,
                 ),
@@ -73,9 +75,9 @@ class TransactionsTotalWidget extends StatelessWidget {
                               double.parse(state.paymentOut))
                           .toString(),
                       upperTextStyle:
-                          theme.textTheme.titleMedium!.copyWith(fontSize: 15.sp),
+                          theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                       belowTextStyle:
-                          theme.textTheme.titleLarge!.copyWith(fontSize: 15.sp),
+                          theme.textTheme.titleLarge!.copyWith(fontSize: 15),
                     );
                   },
                 ),
