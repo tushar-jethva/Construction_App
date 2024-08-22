@@ -16,7 +16,6 @@ import 'package:construction_mate/presentation/widgets/common/custom_text_form_f
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 
-
 class TransactionBottomWidget extends StatefulWidget {
   const TransactionBottomWidget({
     super.key,
@@ -208,7 +207,6 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                       .validate()) {
                                     context.read<PaymentInDropDownBloc>().add(
                                         AddPaymentInTransaction(
-                                          
                                             amount: _priceInController.text,
                                             description:
                                                 _descriptionController.text));
@@ -521,13 +519,13 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
 class PaymentOutCustomDropDown extends StatelessWidget {
   final dynamic value;
   final List<DropdownMenuItem<dynamic>> list;
-  final String? Function(dynamic val) validator;
+  final String? Function(dynamic val)? validator;
   final void Function(dynamic val) onChanged;
   const PaymentOutCustomDropDown({
     Key? key,
     required this.value,
     required this.list,
-    required this.validator,
+    this.validator,
     required this.onChanged,
   }) : super(key: key);
 

@@ -20,7 +20,7 @@ class MyProjectAddBottomSheet extends StatefulWidget {
 }
 
 class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
-  final TextEditingController _projectNameController = TextEditingController();
+  final TextEditingController _projectNameController = TextEditingController();   
 
   final TextEditingController _descriptionController = TextEditingController();
 
