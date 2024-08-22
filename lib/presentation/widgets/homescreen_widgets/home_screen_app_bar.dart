@@ -12,7 +12,7 @@ class MyHomeScreenAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      margin: EdgeInsets.only(left: 10.h, right: 10.h, top: 30),
+      margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 40.h),
       color: theme.scaffoldBackgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -22,7 +22,7 @@ class MyHomeScreenAppBar extends StatelessWidget {
               const CircleAvatar(
                 backgroundImage: AssetImage('assets/images/assets.png'),
               ),
-              Gap(10.h),
+              Gap(10.w),
               Text(
                 "Tushar Jethva",
                 style: theme.textTheme.titleMedium,

@@ -66,7 +66,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
           child: Column(
             children: [
               Container(
-                height: 7.w,
+                height: 5.w,
                 width: 50.w,
                 margin: EdgeInsets.symmetric(vertical: 15.h),
                 decoration: BoxDecoration(

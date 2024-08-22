@@ -60,7 +60,7 @@ class _MyAddAgencyBottomSheetPartiesState
           child: Column(
             children: [
               Container(
-                height: 7.w,
+                height: 5.w,
                 width: 50.w,
                 margin: EdgeInsets.symmetric(vertical: 15.h),
                 decoration: BoxDecoration(
@@ -102,8 +102,11 @@ class _MyAddAgencyBottomSheetPartiesState
                       if (state.isLoading) {
                         return ReusableFunctions.loader();
                       }
-                      return SizedBox(
+                      return Container(
                         height: 200.h,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 1, color: grey),
+                            borderRadius: BorderRadius.circular(10)),
                         child: ListView.builder(
                             itemCount: state.agencyWorkTypeSelectedList.length,
                             itemBuilder: ((context, index) {
