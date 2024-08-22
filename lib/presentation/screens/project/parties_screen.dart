@@ -150,8 +150,6 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                               padding: const EdgeInsets.only(
                                   left: 15.0, right: 15, bottom: 10),
                               child: Container(
-                                height: ReusableFunctions.getHeight(
-                                    context: context, height: 0.08),
                                 padding: const EdgeInsets.all(20),
                                 decoration: BoxDecoration(
                                   color: theme.cardColor,
@@ -189,6 +187,5 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
         ],
       ),
     );
-    
   }
 }
