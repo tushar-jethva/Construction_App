@@ -1,7 +1,10 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
+import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_projects_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/project_add_bottom_sheet_widget.dart';
@@ -46,6 +49,18 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
         });
   }
 
+  openBottomSheetOfMaterial({required BuildContext context}) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return BlocProvider(
+            create: (context) => DateBlocBloc(),
+            child: const MyMaterialAddBottomSheet(),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -76,9 +91,21 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("All Projects",
-                            style: theme.textTheme.titleLarge!
-                                .copyWith(fontSize: 18)),
+                        // Text("All Projects",
+                        //     style: theme.textTheme.titleLarge!
+                        //         .copyWith(fontSize: 18)),
+                        TextButton(
+                            onPressed: () {
+                              context
+                    .read<AddMaterialBloc>()
+                    .add(AddMaterialEvent());
+                              openBottomSheetOfMaterial(context: context);
+                            },
+                            child: Text(
+                              "+ Add Material",
+                              style: theme.textTheme.titleLarge!
+                                  .copyWith(color: purple, fontSize: 16.5),
+                            )),
                         TextButton(
                             onPressed: () {
                               openBottomSheet(context: context);
