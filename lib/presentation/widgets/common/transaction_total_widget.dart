@@ -15,17 +15,16 @@ class TransactionsTotalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Center(
+    return Padding(
+      padding: EdgeInsets.only(top: 18.0.h, left: 10.w, right: 10.w),
       child: Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         decoration: BoxDecoration(
           color: theme.cardColor,
           borderRadius: BorderRadius.circular(15.r),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,

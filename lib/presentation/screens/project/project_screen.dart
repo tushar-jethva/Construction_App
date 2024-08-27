@@ -82,7 +82,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                 const TransactionTopWidget(),
                 SliverAppBar(
                   toolbarHeight: ReusableFunctions.getHeight(
-                      context: context, height: 0.01),
+                      context: context, height: 0.015),
                   surfaceTintColor: Colors.transparent,
                   pinned: true,
                   backgroundColor: theme.scaffoldBackgroundColor,
@@ -97,8 +97,8 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                         TextButton(
                             onPressed: () {
                               context
-                    .read<AddMaterialBloc>()
-                    .add(AddMaterialEvent());
+                                  .read<AddMaterialBloc>()
+                                  .add(AddMaterialEvent());
                               openBottomSheetOfMaterial(context: context);
                             },
                             child: Text(
