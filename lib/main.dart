@@ -104,7 +104,9 @@ class MyApp extends StatelessWidget {
         designSize: const Size(392.72, 783.27),
         splitScreenMode: true,
         child: MultiBlocProvider(
-          providers: [BlocProvider(create: (_) => DateBlocBloc())],
+          providers: [
+            BlocProvider(create: (_) => DateBlocBloc()),
+          ],
           child: BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, state) {
               return MaterialApp.router(

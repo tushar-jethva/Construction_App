@@ -5,7 +5,8 @@ import 'package:construction_mate/logic/models/project_model.dart';
 abstract class ProjectRepository{
   Future<void> addProject({required String projectName, required String address, required String description});
   Future<List<ProjectModel>> allProjects();
-} 
+}
+
 class ProjectRepositoryImpl extends ProjectRepository{
   ProjectRepositoryImpl(this.projectDataSource);
   final ProjectDataSource projectDataSource;
