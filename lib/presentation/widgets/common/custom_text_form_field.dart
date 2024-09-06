@@ -5,9 +5,11 @@ class MyCustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final int maxLines;
+  final int? maxLength;
   final TextInputType textInputType;
   final String? Function(String? value) validator;
   final String? Function(String? value)? onChanged;
+  final String? label;
   const MyCustomTextFormField(
       {super.key,
       required this.controller,
@@ -15,7 +17,9 @@ class MyCustomTextFormField extends StatelessWidget {
       required this.maxLines,
       required this.textInputType,
       required this.validator,
-      this.onChanged});
+      this.maxLength,
+      this.onChanged,
+      this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class MyCustomTextFormField extends StatelessWidget {
         onTapOutside: (val) {
           FocusScope.of(context).unfocus();
         },
+        maxLength: maxLength,
         onChanged: onChanged,
         controller: controller,
         maxLines: maxLines,
