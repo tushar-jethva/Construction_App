@@ -1,9 +1,13 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
+import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -37,6 +41,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    context.read<AddBillBloc>().add(BillGetAllPartiesEvent());
     _sgstController.text = "9";
     _cgstController.text = "9";
     _tdsController.text = "2";
@@ -114,6 +119,38 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                 decoration: BoxDecoration(
                     color: grey, borderRadius: BorderRadius.circular(8)),
               ),
+              BlocBuilder<AddBillBloc, AddBillState>(builder: (context, state) {
+                if (!state.isLoadingParties) {
+                  return CustomDropDown(items: selectParties);
+                }
+                return PaymentOutCustomDropDown(
+                    value: state.selecteParty[0].sId,
+                    list: state.selecteParty
+                        .map((e) => DropdownMenuItem(
+                              value: e.sId,
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width *
+                                    0.4, // Set a specific width here
+                                child: Text(
+                                  e.name!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (val) {
+                      context
+                          .read<AddBillBloc>()
+                          .add(BillPartyNameChanged(partyId: val));
+                    },
+                    validator: (val) {
+                      if (val == state.selecteParty[0].sId) {
+                        return 'Please select one of the party!';
+                      }
+                    });
+              }),
+              Gap(10.h),
               BlocBuilder<AddBillBloc, AddBillState>(
                 builder: (context, state) {
                   return ListView.builder(
@@ -382,14 +419,24 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                       ),
                     ),
                     Gap(10.h),
-                    MyCustomButton(
-                      buttonName: "Add Bill",
-                      color: green,
-                      style: theme.textTheme.titleMedium!,
-                      onPressed: () {
-                        if (_billFormKey.currentState!.validate()) {
-                          print("Outer Done");
-                        }
+                    BlocConsumer<AddBillBloc, AddBillState>(
+                      listener: (context, state) {
+                        // TODO: implement listener
+                      },
+                      builder: (context, state) {
+                        return MyCustomButtonWidget(
+                          widget: state.isAddedBill == 1
+                              ? ReusableFunctions.loader()
+                              : Text("Add Bill"),
+                          color: green,
+                          onPressed: () {
+                            if (_billFormKey.currentState!.validate()) {
+                              context
+                                  .read<AddBillBloc>()
+                                  .add(BillAddBillEvent());
+                            }
+                          },
+                        );
                       },
                     ),
                     Gap(10.h),

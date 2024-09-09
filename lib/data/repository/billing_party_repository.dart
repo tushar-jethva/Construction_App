@@ -1,4 +1,5 @@
 import 'package:construction_mate/data/datasource/billing_party_data_source.dart';
+import 'package:construction_mate/logic/models/billing_party_model.dart';
 
 abstract class BillingPartyRepository {
   void addBillingParty(
@@ -9,6 +10,8 @@ abstract class BillingPartyRepository {
       required String contactNo,
       required String shippingAddress,
       required String billingAddress});
+
+  Future<List<BillingPartyModel>> getAllParties();
 }
 
 class BillingRepositoryImpl extends BillingPartyRepository {
@@ -34,5 +37,16 @@ class BillingRepositoryImpl extends BillingPartyRepository {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<List<BillingPartyModel>> getAllParties() async {
+    List<BillingPartyModel> billingItems = [];
+    try {
+      billingItems = await billingPartyDataSource.getAllParties();
+    } catch (e) {
+      print(e.toString());
+    }
+    return billingItems;
   }
 }

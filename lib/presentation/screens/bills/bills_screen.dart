@@ -2,6 +2,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
+import 'package:construction_mate/data/repository/bills_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
@@ -43,7 +44,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
         context: context,
         builder: (context) {
           return BlocProvider(
-            create: (context) => AddBillBloc(),
+            create: (context) => AddBillBloc(billingPartyRepository: BillingRepositoryImpl(), billsRepository: BillsRepositoryImpl()),
             child: MyAddBillBottomSheet(),
           );
         });

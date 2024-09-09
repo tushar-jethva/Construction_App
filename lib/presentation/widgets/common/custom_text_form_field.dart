@@ -35,6 +35,7 @@ class MyCustomTextFormField extends StatelessWidget {
         keyboardType: textInputType,
         style: theme.textTheme.titleMedium,
         decoration: InputDecoration(
+          label: Text(hintText),
           hintText: hintText,
           hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
           border: OutlineInputBorder(

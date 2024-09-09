@@ -47,6 +47,22 @@ class BillingPartyModel {
     iV = json['__v'];
   }
 
+    BillingPartyModel.fromJson2(Map<String, dynamic> json) {
+    name = json['Name'];
+    email = json['Email'];
+    contactNumber = json['ContactNumber'];
+    shippingAddress = json['ShippingAddress'];
+    billingAddress = json['BillingAddress'];
+    receivableAmount = json['ReceivableAmount'];
+    receivedAmount = json['ReceivedAmount'];
+    gSTnumber = json['GSTnumber'];
+    isDeleted = json['isDeleted'];
+    sId = json['_id'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    iV = json['__v'];
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['Name'] = this.name;

@@ -13,6 +13,8 @@ abstract class BillingPartyDataSource {
       required String contactNo,
       required String shippingAddress,
       required String billingAddress});
+
+  Future<List<BillingPartyModel>> getAllParties();
 }
 
 class BillingPartyImpl extends BillingPartyDataSource {
@@ -37,7 +39,7 @@ class BillingPartyImpl extends BillingPartyDataSource {
 
       await http.post(
         Uri.parse(API.ADD_BILLING_PARTY),
-        body:  jsonEncode(billingPartyModel.toJson()),
+        body: jsonEncode(billingPartyModel.toJson()),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -45,5 +47,26 @@ class BillingPartyImpl extends BillingPartyDataSource {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<List<BillingPartyModel>> getAllParties() async {
+    List<BillingPartyModel> billingParties = [];
+    try {
+      http.Response res = await http.get(
+        Uri.parse(API.GET_ALL_PARTIES),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      final parties = jsonDecode(res.body);
+      for (var party in parties["data"]) {
+        billingParties.add(BillingPartyModel.fromJson2(party));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return billingParties;
   }
 }
