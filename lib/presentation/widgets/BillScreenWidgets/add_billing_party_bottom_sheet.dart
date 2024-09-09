@@ -1,6 +1,8 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_drop_down_agency.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
@@ -101,7 +103,10 @@ class _MyAddBillingPartyBottomSheetState
                                     ),
                                   ))
                               .toList(),
-                          onChanged: (val) {},
+                          onChanged: (val) {
+                            context.read<AddBillingPartyBloc>().add(
+                                BillingProjectValueChanged(projectValue: val));
+                          },
                           validator: (val) {
                             if (val == state.projects[0].sId) {
                               return 'Please select one of the projects!';
@@ -201,11 +206,33 @@ class _MyAddBillingPartyBottomSheetState
                                   .copyWith(fontSize: 14),
                             ))),
                     Gap(20.h),
-                    MyCustomButton(
-                        buttonName: 'Add Party',
-                        color: green,
-                        style: TextStyle(),
-                        onPressed: () {}),
+                    BlocConsumer<AddBillingPartyBloc, AddBillingPartyState>(
+                      listener: (context, state) {
+                        if (state.isAdded == 2) {
+                          Navigator.pop(context);
+                        }
+                      },
+                      builder: (context, state) {
+                        return MyCustomButtonWidget(
+                            widget: state.isAdded == 1
+                                ? ReusableFunctions.loader()
+                                : Text("Add Party"),
+                            color: green,
+                            onPressed: () {
+                              context.read<AddBillingPartyBloc>().add(
+                                  AddBillingParty(
+                                      partyName:
+                                          _billingPartyNameController.text,
+                                      email: _emailController.text,
+                                      gstNo: _gstNoController.text,
+                                      contactNo: _contactNoController.text,
+                                      shippingAddress:
+                                          _shippingAddressController.text,
+                                      billingAddress:
+                                          _billingAddressController.text));
+                            });
+                      },
+                    ),
                     Gap(10.h),
                   ],
                 ),

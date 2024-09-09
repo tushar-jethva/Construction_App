@@ -24,5 +24,9 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
     on<BillTDSChangedEvent>((event, emit) {
       emit(state.copyWith(tds: event.tds));
     });
+    on<BillDateChangedEvent>((event, emit) {
+      emit(state.copyWith(date: event.dateTime));
+    });
+    
   }
 }

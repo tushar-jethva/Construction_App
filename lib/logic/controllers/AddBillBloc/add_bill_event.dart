@@ -22,3 +22,10 @@ class BillTDSChangedEvent extends AddBillEvent{
   final double tds;
   BillTDSChangedEvent({required this.tds});
 }
+
+class BillDateChangedEvent extends AddBillEvent{
+  final DateTime dateTime;
+  BillDateChangedEvent({
+    required this.dateTime
+  });
+}

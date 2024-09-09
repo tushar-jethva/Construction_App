@@ -4,10 +4,13 @@ import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.da
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 class MyAddBillBottomSheet extends StatefulWidget {
   const MyAddBillBottomSheet({super.key});
@@ -65,6 +68,23 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
       totalAmount = 0;
       setState(() {});
       return 0;
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null) {
+      // ignore: use_build_context_synchronously
+      context
+          .read<AddBillBloc>()
+          .add(BillDateChangedEvent(dateTime: pickedDate));
     }
   }
 
@@ -219,71 +239,91 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                       ),
                     ),
                     Gap(10.h),
-                    MyCustomTextFormField(
-                      controller: _sgstController,
-                      hintText: "SGST",
-                      maxLines: 1,
-                      textInputType: TextInputType.number,
-                      onChanged: (value) {
-                        context.read<AddBillBloc>().add(BillSGSTChangedEvent(
-                            sgst: double.parse(_sgstController.text)));
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please add SGST!';
-                        }
-                        if (int.tryParse(value) == null) {
-                          return 'Please enter valid digit!';
-                        }
-                        if (value.startsWith('-')) {
-                          return 'Please enter valid digit!';
-                        }
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: MyCustomTextFormField(
+                            controller: _sgstController,
+                            hintText: "SGST",
+                            maxLines: 1,
+                            textInputType: TextInputType.number,
+                            onChanged: (value) {
+                              context.read<AddBillBloc>().add(
+                                  BillSGSTChangedEvent(
+                                      sgst:
+                                          double.parse(_sgstController.text)));
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please add SGST!';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter valid digit!';
+                              }
+                              if (value.startsWith('-')) {
+                                return 'Please enter valid digit!';
+                              }
+                            },
+                          ),
+                        ),
+                        Gap(10.w),
+                        Expanded(
+                          flex: 1,
+                          child: MyCustomTextFormField(
+                            controller: _cgstController,
+                            hintText: "CGST",
+                            maxLines: 1,
+                            textInputType: TextInputType.number,
+                            onChanged: (value) {
+                              context.read<AddBillBloc>().add(
+                                  BillCGSTChangedEvent(
+                                      cgst:
+                                          double.parse(_cgstController.text)));
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please add CGST!';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter valid digit!';
+                              }
+                              if (value.startsWith('-')) {
+                                return 'Please enter valid digit!';
+                              }
+                            },
+                          ),
+                        ),
+                        Gap(10.w),
+                        Expanded(
+                          flex: 1,
+                          child: MyCustomTextFormField(
+                            controller: _tdsController,
+                            hintText: "TDS",
+                            maxLines: 1,
+                            textInputType: TextInputType.number,
+                            onChanged: (value) {
+                              context.read<AddBillBloc>().add(
+                                  BillTDSChangedEvent(
+                                      tds: double.parse(_tdsController.text)));
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please add TDS!';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter valid digit!';
+                              }
+                              if (value.startsWith('-')) {
+                                return 'Please enter valid digit!';
+                              }
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                     Gap(10.h),
-                    MyCustomTextFormField(
-                      controller: _cgstController,
-                      hintText: "CGST",
-                      maxLines: 1,
-                      textInputType: TextInputType.number,
-                      onChanged: (value) {
-                        context.read<AddBillBloc>().add(BillCGSTChangedEvent(
-                            cgst: double.parse(_cgstController.text)));
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please add CGST!';
-                        }
-                        if (int.tryParse(value) == null) {
-                          return 'Please enter valid digit!';
-                        }
-                        if (value.startsWith('-')) {
-                          return 'Please enter valid digit!';
-                        }
-                      },
-                    ),
-                    Gap(10.h),
-                    MyCustomTextFormField(
-                      controller: _tdsController,
-                      hintText: "TDS",
-                      maxLines: 1,
-                      textInputType: TextInputType.number,
-                      onChanged: (value) {
-                        context.read<AddBillBloc>().add(BillTDSChangedEvent(
-                            tds: double.parse(_tdsController.text)));
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please add TDS!';
-                        }
-                        if (int.tryParse(value) == null) {
-                          return 'Please enter valid digit!';
-                        }
-                        if (value.startsWith('-')) {
-                          return 'Please enter valid digit!';
-                        }
-                      },
-                    ),
                     Gap(10.h),
                     BlocBuilder<AddBillBloc, AddBillState>(
                       builder: (context, state) {
@@ -294,7 +334,6 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                         }
                         double SGSTAmount = totalAmount * state.sgst / 100;
                         double CGSTAmount = totalAmount * state.cgst / 100;
-
                         netAmount = totalAmount + SGSTAmount + CGSTAmount;
 
                         return Container(
@@ -312,16 +351,48 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                       },
                     ),
                     Gap(10.h),
+                    GestureDetector(
+                      onTap: () {
+                        _selectDate(context);
+                      },
+                      child: Container(
+                        height: 50.h,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 15.h),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: grey),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            BlocBuilder<AddBillBloc, AddBillState>(
+                              builder: (context, state) {
+                                final String formattedDate =
+                                    DateFormat.yMMMd().format(state.date);
+                                return Text("Date: $formattedDate");
+                              },
+                            ),
+                            Icon(
+                              Icons.calendar_month,
+                              color: theme.canvasColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Gap(10.h),
                     MyCustomButton(
                       buttonName: "Add Bill",
                       color: green,
-                      style: TextStyle(),
+                      style: theme.textTheme.titleMedium!,
                       onPressed: () {
                         if (_billFormKey.currentState!.validate()) {
                           print("Outer Done");
                         }
                       },
                     ),
+                    Gap(10.h),
                   ],
                 ),
               )
