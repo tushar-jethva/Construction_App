@@ -19,6 +19,7 @@ class MyCustomTextField extends StatelessWidget {
       maxLines: maxLines,
       style: theme.textTheme.titleMedium,
       decoration: InputDecoration(
+        label: Text(hintText),
         hintText: hintText,
         hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
         border: InputBorder.none,

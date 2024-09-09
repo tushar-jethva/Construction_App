@@ -4,17 +4,23 @@ part of 'add_billing_party_bloc.dart';
 class AddBillingPartyState {
   final List<ProjectModel> projects;
   final bool isLoadingProject;
-
+  final String projectValue;
+  final int isAdded;
   AddBillingPartyState(
-      {this.projects = const [], this.isLoadingProject = false});
+      {this.projects = const [],
+      this.isLoadingProject = false,
+      this.projectValue = "",
+      this.isAdded = 0});
 
-  AddBillingPartyState copyWith({
-    List<ProjectModel>? projects,
-    bool? isLoadingProject,
-  }) {
+  AddBillingPartyState copyWith(
+      {List<ProjectModel>? projects,
+      bool? isLoadingProject,
+      String? projectValue,
+      int? isAdded}) {
     return AddBillingPartyState(
-      projects: projects ?? this.projects,
-      isLoadingProject: isLoadingProject ?? this.isLoadingProject,
-    );
+        projects: projects ?? this.projects,
+        isLoadingProject: isLoadingProject ?? this.isLoadingProject,
+        projectValue: projectValue ?? this.projectValue,
+        isAdded: isAdded ?? this.isAdded);
   }
 }

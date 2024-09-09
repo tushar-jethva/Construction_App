@@ -1,7 +1,8 @@
 part of 'add_bill_bloc.dart';
 
-@immutable
-sealed class AddBillEvent {}
+ class AddBillEvent {}
+
+ class BillGetAllPartiesEvent extends AddBillEvent{}
 
 class BillItemAddedEvent extends AddBillEvent{
   BillItemModel billItem;
@@ -22,3 +23,21 @@ class BillTDSChangedEvent extends AddBillEvent{
   final double tds;
   BillTDSChangedEvent({required this.tds});
 }
+
+class BillDateChangedEvent extends AddBillEvent{
+  final DateTime dateTime;
+  BillDateChangedEvent({
+    required this.dateTime
+  });
+
+}
+
+  class BillPartyNameChanged extends AddBillEvent{
+    final String partyId;
+    BillPartyNameChanged({required this.partyId});
+  }
+
+  class BillAddBillEvent extends AddBillEvent{
+    
+  }
+
