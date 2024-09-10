@@ -190,7 +190,14 @@ class Routes {
       path: RoutesName.sheetViewScreen,
       name: RoutesName.sheetViewScreen,
       builder: (context, state) {
-        return const MySheetViewScreen();
+        final String partyId = state.extra as String;
+        return BlocProvider(
+          create: (context) => BillingPartyParticularBloc(
+              billsRepository: BillsRepositoryImpl()),
+          child: MySheetViewScreen(
+            partyId: partyId,
+          ),
+        );
       },
     ),
   ]);

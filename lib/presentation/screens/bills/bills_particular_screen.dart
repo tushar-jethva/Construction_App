@@ -127,7 +127,8 @@ class _MyBillsParticularPartyScreenState
         ),
         floatingActionButton: GestureDetector(
           onTap: () {
-            context.pushNamed(RoutesName.sheetViewScreen);
+            context.pushNamed(RoutesName.sheetViewScreen,
+                extra: widget.party.sId);
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
