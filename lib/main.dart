@@ -5,6 +5,7 @@ import 'package:construction_mate/data/datasource/site_progress_data_source.dart
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
+import 'package:construction_mate/data/repository/billing_party_repository.dart';
 import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
@@ -12,6 +13,7 @@ import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
+import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
@@ -98,7 +100,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (_) => AddMaterialBloc(
                 projectRepository:
-                    ProjectRepositoryImpl(ProjectDataSourceImpl())))
+                    ProjectRepositoryImpl(ProjectDataSourceImpl()))),
+        BlocProvider(
+            create: (_) => BillingPartiesHomeBloc(
+                billingPartyRepository: BillingRepositoryImpl()))
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

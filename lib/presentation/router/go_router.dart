@@ -1,20 +1,26 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/data/repository/bills_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionIndividualAgency/transactions_individual_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/FloorNameAndFeet/floor_name_and_feet_bloc.dart';
+import 'package:construction_mate/logic/models/bill_model.dart';
+import 'package:construction_mate/logic/models/billing_party_model.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
+import 'package:construction_mate/presentation/screens/bills/bills_particular_screen.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
+import 'package:construction_mate/presentation/screens/bills/sheet_view_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
@@ -164,6 +170,27 @@ class Routes {
         return MyFootAndFloorScreen(
           floorNameAndFeetBloc: bloc,
         );
+      },
+    ),
+    GoRoute(
+      path: RoutesName.billingPartyPaticularScreen,
+      name: RoutesName.billingPartyPaticularScreen,
+      builder: (context, state) {
+        final BillingPartyModel party = state.extra as BillingPartyModel;
+        return BlocProvider(
+          create: (context) => BillingPartyParticularBloc(
+              billsRepository: BillsRepositoryImpl()),
+          child: MyBillsParticularPartyScreen(
+            party: party,
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: RoutesName.sheetViewScreen,
+      name: RoutesName.sheetViewScreen,
+      builder: (context, state) {
+        return const MySheetViewScreen();
       },
     ),
   ]);

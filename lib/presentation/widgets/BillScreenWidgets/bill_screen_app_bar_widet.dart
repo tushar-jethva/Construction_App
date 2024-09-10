@@ -1,9 +1,11 @@
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/custom_top_bill_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class MyBillScreenAppBarWidget extends StatefulWidget {
-  const MyBillScreenAppBarWidget({super.key});
+  final bool? isdetailScreen;
+  const MyBillScreenAppBarWidget({super.key, this.isdetailScreen = false});
 
   @override
   State<MyBillScreenAppBarWidget> createState() =>
@@ -20,10 +22,21 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
       padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
       decoration: BoxDecoration(
           color: theme.cardColor, borderRadius: BorderRadius.circular(10.r)),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
+          widget.isdetailScreen!
+              ? IconButton(
+                  onPressed: () {
+                    context.pop();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: theme.canvasColor,
+                  ))
+              : const SizedBox(),
+          const Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MyCustomTopBillWidget(
@@ -36,7 +49,7 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
               )
             ],
           ),
-          Column(
+          const Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               MyCustomTopBillWidget(

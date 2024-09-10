@@ -11,4 +11,6 @@ class RoutesName {
   static String transactionOfAgencyPartiesScreen = '/agencyTransacationParties';
   static String transactionIndividualScreen = '/transactionIndividualScreen';
   static String footAndFloorScreen = '/footAndFloorScreen';
+  static String billingPartyPaticularScreen = '/billingPartyParticularScreen';
+  static String sheetViewScreen = "/sheetView";
 }

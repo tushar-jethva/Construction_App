@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:http/http.dart' as http;
@@ -13,6 +12,8 @@ abstract class BillsDataSource {
       required String cgst,
       required String tds,
       required String partyId});
+
+  Future<List<BillModel>> allBiilsByParticularParty({required String partyId});
 }
 
 class BillsDataSourceImpl extends BillsDataSource {
@@ -25,19 +26,6 @@ class BillsDataSourceImpl extends BillsDataSource {
       required String tds,
       required String partyId}) async {
     try {
-      print(billItems.map((e) => e.toJson()).toList());
-      print(billItems[0].toJson());
-
-      print("$date $sgst $cgst $tds $partyId");
-
-      print(jsonEncode({
-        'date': date,
-        'Items': billItems.map((e) => e.toJson()).toList(),
-        'SGST': sgst,
-        'CGST': cgst,
-        'TDS': tds,
-        'PartieId': partyId
-      }));
       http.Response res = await http.post(
         Uri.parse(API.ADD_BILL),
         body: jsonEncode({
@@ -57,5 +45,25 @@ class BillsDataSourceImpl extends BillsDataSource {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  Future<List<BillModel>> allBiilsByParticularParty(
+      {required String partyId}) async {
+    List<BillModel> billsList = [];
+    try {
+      http.Response res = await http.get(
+          Uri.parse("${API.GET_ALL_BILLS_BY_PARTY_ID}/${partyId}"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+      final bills = jsonDecode(res.body);
+      for (var bill in bills["data"]) {
+        billsList.add(BillModel.fromJson(bill));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return billsList;
   }
 }
