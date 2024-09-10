@@ -20,6 +20,7 @@ import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_particular_screen.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
+import 'package:construction_mate/presentation/screens/bills/pdf_preview.dart';
 import 'package:construction_mate/presentation/screens/bills/sheet_view_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
@@ -198,6 +199,13 @@ class Routes {
             partyId: partyId,
           ),
         );
+      },
+    ),
+    GoRoute(
+      path: RoutesName.pdfPreviewScreen,
+      name: RoutesName.pdfPreviewScreen,
+      builder: (context, state) {
+        return const MyPdfPreview();
       },
     ),
   ]);

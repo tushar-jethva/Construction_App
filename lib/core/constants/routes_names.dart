@@ -13,4 +13,5 @@ class RoutesName {
   static String footAndFloorScreen = '/footAndFloorScreen';
   static String billingPartyPaticularScreen = '/billingPartyParticularScreen';
   static String sheetViewScreen = "/sheetView";
+  static String pdfPreviewScreen = "/pdfPreviewScreen";
 }

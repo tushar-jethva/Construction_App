@@ -1,8 +1,11 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/pdf/pdf_generate.dart';
 import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class MySheetViewScreen extends StatefulWidget {
   final String partyId;
@@ -22,6 +25,14 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
         .add(BillingPartyParticularLoadBills(partyId: widget.partyId));
   }
 
+  void _generatePDF() async {
+    final pdfGenerator = PDFGenerator();
+    final pdfData = await pdfGenerator.createInvoicePDF();
+
+    // Share the generated PDF
+    await pdfGenerator.sharePDF(pdfData);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -29,6 +40,15 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
         title: const Text("Sheet View"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                context.pushNamed(RoutesName.pdfPreviewScreen);
+
+                // _generatePDF();
+              },
+              icon: Icon(Icons.picture_as_pdf))
+        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
