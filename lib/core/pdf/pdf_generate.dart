@@ -48,7 +48,6 @@ class PDFGenerator {
     final output = await getApplicationDocumentsDirectory();
     final file = File("${output.path}/invoice.pdf");
     File f = await file.writeAsBytes(await pdf.save());
-
     return pdf.save();
   }
 
@@ -268,7 +267,8 @@ class PDFGenerator {
 
   // Table of items
   pw.Widget _buildItemsTable() {
-    return pw.TableHelper.fromTextArray(
+    return pw.SizedBox(
+        child: pw.TableHelper.fromTextArray(
       headers: ['Sr. No', 'HSN Code', 'Particular', 'SQ.FT', 'Rate', 'Amount'],
       data: [
         [
@@ -279,9 +279,65 @@ class PDFGenerator {
           '130.5',
           '18,42,138.00'
         ],
+        [
+          '1',
+          '995411',
+          'TOWER "C" RCC SLAB 5th FLOOR',
+          '14116',
+          '130.5',
+          '18,42,138.00'
+        ],
+        [
+          '1',
+          '995411',
+          'TOWER "C" RCC SLAB 5th FLOOR',
+          '14116',
+          '130.5',
+          '18,42,138.00'
+        ],
+        [
+          '1',
+          '995411',
+          'TOWER "C" RCC SLAB 5th FLOOR',
+          '14116',
+          '130.5',
+          '18,42,138.00'
+        ],
+        [
+          '1',
+          '995411',
+          'TOWER "C" RCC SLAB 5th FLOOR',
+          '14116',
+          '130.5',
+          '18,42,138.00'
+        ],
+        [
+          '1',
+          '995411',
+          'TOWER "C" RCC SLAB 5th FLOOR',
+          '14116',
+          '130.5',
+          '18,42,138.00'
+        ],
+        [
+          '1',
+          '995411',
+          'TOWER "C" RCC SLAB 5th FLOOR',
+          '14116',
+          '130.5',
+          '18,42,138.00'
+        ],
+        [
+          '1',
+          '995411',
+          'TOWER "C" RCC SLAB 5th FLOOR',
+          '14116',
+          '130.5',
+          '18,42,138.00'
+        ],
         // Add more rows as needed
       ],
-    );
+    ));
   }
 
   // Total amount section
