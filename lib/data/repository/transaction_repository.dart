@@ -9,11 +9,11 @@ abstract class TransactionRepository {
       required String buildingId,
       required String amount});
 
-  Future<void> addPaymentInTransaction(
-      {required String projectId,
-      required String agencyId,
-      required String amount,
-      required String description});
+  Future<void> addPaymentInTransaction({
+    required String date,
+    required String agencyId,
+    required String amount,
+  });
 
   Future<List<TransactionModel>> getAllTransactionsByProjectId(
       {required String projectId});
@@ -55,16 +55,12 @@ class TransactionRepositoryImpl extends TransactionRepository {
 
   @override
   Future<void> addPaymentInTransaction(
-      {required String description,
-      required String agencyId,
-      required String projectId,
+      {required String agencyId,
+      required String date,
       required String amount}) async {
     try {
       await transactionDataSource.addPaymentInTransaction(
-          description: description,
-          agencyId: agencyId,
-          projectId: projectId,
-          amount: amount);
+          date: date, agencyId: agencyId, amount: amount);
     } catch (e) {
       print(e.toString());
     }

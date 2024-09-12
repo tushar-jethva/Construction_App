@@ -25,9 +25,9 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
         .add(BillingPartyParticularLoadBills(partyId: widget.partyId));
   }
 
-  void _generatePDF() async {
+  void _generatePDF({required BillModel bill}) async {
     final pdfGenerator = PDFGenerator();
-    final pdfData = await pdfGenerator.createInvoicePDF();
+    final pdfData = await pdfGenerator.createInvoicePDF(bill: bill);
 
     // Share the generated PDF
     await pdfGenerator.sharePDF(pdfData);
@@ -40,56 +40,52 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
         title: const Text("Sheet View"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                context.pushNamed(RoutesName.pdfPreviewScreen);
-
-                // _generatePDF();
-              },
-              icon: Icon(Icons.picture_as_pdf))
-        ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: BlocBuilder<BillingPartyParticularBloc,
-            BillingPartyParticularState>(
-          builder: (context, state) {
-            if (state is BillingPartyParticularLoading) {
-              return Center(
-                child: CircularProgressIndicator(
-                  color: purple,
-                ),
-              );
-            } else if (state is BillingPartyParticularLoaded) {
-              final List<BillModel> bills = state.bills;
+      body:
+          BlocBuilder<BillingPartyParticularBloc, BillingPartyParticularState>(
+        builder: (context, state) {
+          if (state is BillingPartyParticularLoading) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: purple,
+              ),
+            );
+          } else if (state is BillingPartyParticularLoaded) {
+            final List<BillModel> bills = state.bills;
 
-              final rows = bills.map((bill) {
-                return DataRow(cells: [
-                  const DataCell(Text("1")),
-                  DataCell(Text(bill.netAmount.toString())),
-                  DataCell(Text(bill.totalAmount.toString())),
-                  DataCell(Text(bill.tDSAmount.toString())),
-                  DataCell(Text(bill.cGSTAmount.toString())),
-                  DataCell(Text(bill.sGSTAmount.toString())),
-                ]);
-              }).toList();
+            final rows = bills.map((bill) {
+              return DataRow(cells: [
+                const DataCell(Text("1")),
+                DataCell(Text(bill.netAmount.toString())),
+                DataCell(Text(bill.totalAmount.toString())),
+                DataCell(Text(bill.tDSAmount.toString())),
+                DataCell(Text("${bill.cGSTAmount! + bill.sGSTAmount!}")),
+                DataCell(IconButton(
+                  icon: Icon(Icons.download),
+                  onPressed: () {
+                    context.pushNamed(RoutesName.pdfPreviewScreen, extra: bill);
+                  },
+                )),
+              ]);
+            }).toList();
 
-              return DataTable(columns: const [
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(columns: const [
                 DataColumn(label: Text("Bill No.")),
                 DataColumn(label: Text("Net Amount")),
                 DataColumn(label: Text("Total Amount")),
                 DataColumn(label: Text("TDS")),
-                DataColumn(label: Text("cGST")),
-                DataColumn(label: Text("sGST")),
-              ], rows: rows);
-            } else {
-              return const Center(
-                child: Text("Something went wrong!"),
-              );
-            }
-          },
-        ),
+                DataColumn(label: Text("GST")),
+                DataColumn(label: Text("PDF")),
+              ], rows: rows),
+            );
+          } else {
+            return const Center(
+              child: Text("Something went wrong!"),
+            );
+          }
+        },
       ),
     );
   }

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class BillModel {
   String? sId;
   PartieId? partieId;
@@ -6,6 +7,7 @@ class BillModel {
   int? netAmount;
   int? totalAmount;
   int? receivableAmount;
+  String? billNumber;
   int? sGST;
   int? sGSTAmount;
   int? cGST;
@@ -25,6 +27,7 @@ class BillModel {
       this.netAmount,
       this.totalAmount,
       this.receivableAmount,
+      this.billNumber,
       this.sGST,
       this.sGSTAmount,
       this.cGST,
@@ -48,6 +51,7 @@ class BillModel {
         items!.add(new Items.fromJson(v));
       });
     }
+    billNumber = json["BillNumber"];
     netAmount = json['NetAmount'];
     totalAmount = json['TotalAmount'];
     receivableAmount = json['ReceivableAmount'];

@@ -30,7 +30,7 @@ class API {
   static const GET_TOTAL_PAYMENT_OUT_PROJECT = "$BASE_URL/Project/GetPayOut";
   static const GET_TOTAL_PAYMENT_IN = "$BASE_URL/Project/GetPayIn";
   static const GET_PAYMENT_IN_AGENCY = "$BASE_URL/Agency/GetPayInAgency";
-  static const ADD_PAYMENT_IN = "$BASE_URL/Project/PayIn";
+  static const ADD_PAYMENT_IN = "$BASE_URL/Partie/PayIn";
   static const GET_TRANSACTION_BY_INDIVIDUAL_AGENCIES = "$BASE_URL/Transaction/GetTransactionByIndividualAgencyInProject";
   static const ADD_BILLING_PARTY = "$BASE_URL/Partie/AddParties";
   static const ADD_BILL = "$BASE_URL/Bill/AddBill";

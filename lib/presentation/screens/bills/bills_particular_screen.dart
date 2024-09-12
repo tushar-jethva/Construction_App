@@ -104,8 +104,22 @@ class _MyBillsParticularPartyScreenState
                                       ),
                                     ],
                                   ),
-                                  Text(
-                                      "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}"),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                          "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}"),
+                                      IconButton(
+                                          onPressed: () {
+                                            context.pushNamed(
+                                                RoutesName.pdfPreviewScreen,
+                                                extra: bill);
+                                          },
+                                          icon: Icon(
+                                            Icons.download,
+                                          ))
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
