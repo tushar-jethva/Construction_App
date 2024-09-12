@@ -205,7 +205,8 @@ class Routes {
       path: RoutesName.pdfPreviewScreen,
       name: RoutesName.pdfPreviewScreen,
       builder: (context, state) {
-        return const MyPdfPreview();
+        final BillModel bill = state.extra as BillModel;
+        return  MyPdfPreview(bill: bill,);
       },
     ),
   ]);

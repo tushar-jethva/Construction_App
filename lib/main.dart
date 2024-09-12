@@ -40,6 +40,17 @@ class MyApp extends StatelessWidget {
       GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    return MyMultiBlocProviders();
+  }
+}
+
+class MyMultiBlocProviders extends StatelessWidget {
+  const MyMultiBlocProviders({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -82,12 +93,10 @@ class MyApp extends StatelessWidget {
                     transactionDataSource: TransactionDataSourceImpl()))),
         BlocProvider(
             create: (_) => PaymentInDropDownBloc(
-                transactionRepository: TransactionRepositoryImpl(
-                    transactionDataSource: TransactionDataSourceImpl()),
-                projectRepository:
-                    ProjectRepositoryImpl(ProjectDataSourceImpl()),
-                agencyRepository: AgencyRepositoryImpl(
-                    agencyDataSource: AgencyDataSourceDataSourceImpl()))),
+                  transactionRepository: TransactionRepositoryImpl(
+                      transactionDataSource: TransactionDataSourceImpl()),
+                  billingPartyRepository: BillingRepositoryImpl(),
+                )),
         BlocProvider(
             create: (_) => SiteProgressFloorsBloc(
                 siteProgressRepository: SiteProgressRepositoryImpl(

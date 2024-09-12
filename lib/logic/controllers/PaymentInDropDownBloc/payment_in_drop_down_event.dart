@@ -2,28 +2,22 @@ part of 'payment_in_drop_down_bloc.dart';
 
 @immutable
 sealed class PaymentInDropDownEvent {}
+
 class FetchProjectsInEvent extends PaymentInDropDownEvent {}
+
 class FetchAgencyInEvent extends PaymentInDropDownEvent {}
 
-class AgencyValueInChanged extends PaymentInDropDownEvent{
+class AgencyValueInChanged extends PaymentInDropDownEvent {
   final String agencyId;
   AgencyValueInChanged({required this.agencyId});
 }
 
-class ProjectValueInChanged extends PaymentInDropDownEvent{
-  final String projectId;
-  ProjectValueInChanged({required this.projectId});
+class PaymentInDateChanged extends PaymentInDropDownEvent {
+  final DateTime date;
+  PaymentInDateChanged({required this.date});
 }
 
 class AddPaymentInTransaction extends PaymentInDropDownEvent {
- final String amount;
- final String description;
- final String? projectValue;
-  AddPaymentInTransaction({
-    required this.amount,
-    required this.description,
-     this.projectValue
-  });
-
-
+  final String amount;
+  AddPaymentInTransaction({required this.amount});
 }

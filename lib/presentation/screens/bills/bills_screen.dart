@@ -145,6 +145,8 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                         ],
                                       ),
                                       Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
                                         children: [
                                           RichText(
                                               text: TextSpan(children: [

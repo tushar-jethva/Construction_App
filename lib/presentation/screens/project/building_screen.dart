@@ -100,37 +100,23 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         ),
                       ),
                       Gap(40.h),
-                      Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: grey, width: 1)),
-                          child: TextField(
-                            readOnly: true,
-                            decoration: InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 10.w),
-                                border: InputBorder.none,
-                                hintStyle: theme.textTheme.titleMedium,
-                                hintText: "${widget.project.name}"),
-                          )),
                       Gap(15.h),
                       BlocBuilder<PaymentInDropDownBloc,
                           PaymentInDropDownState>(
                         builder: (context, state) {
                           if (state is AgenciesLoadedInState) {
                             return PaymentOutCustomDropDown(
-                              value: state.agencies[0].agencyId,
+                              value: state.agencies[0].sId,
                               list: state.agencies
                                   .map((e) => DropdownMenuItem(
-                                        value: e.agencyId,
+                                        value: e.sId,
                                         child: SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
                                               0.4, // Set a specific width here
                                           child: Text(
-                                            e.agencyName!,
+                                            e.name!,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                           ),
@@ -138,14 +124,14 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                       ))
                                   .toList(),
                               onChanged: (val) {
-                                val != state.agencies[0].agencyId
+                                val != state.agencies[0].sId
                                     ? context.read<PaymentInDropDownBloc>().add(
                                         AgencyValueInChanged(agencyId: val!))
                                     : {};
                               },
                               // ignore: body_might_complete_normally_nullable
                               validator: (val) {
-                                if (val == state.agencies[0].agencyId) {
+                                if (val == state.agencies[0].sId) {
                                   return 'Please select one of the names!';
                                 }
                               },
@@ -220,12 +206,11 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                                 onPressed: () async {
                                   if (formPaymentInKey.currentState!
                                       .validate()) {
-                                    context.read<PaymentInDropDownBloc>().add(
-                                        AddPaymentInTransaction(
-                                            projectValue: widget.project.sId!,
-                                            amount: _priceInController.text,
-                                            description:
-                                                _descriptionController.text));
+                                    context
+                                        .read<PaymentInDropDownBloc>()
+                                        .add(AddPaymentInTransaction(
+                                          amount: _priceInController.text,
+                                        ));
 
                                     _descriptionController.clear();
                                     _priceInController.clear();

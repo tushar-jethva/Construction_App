@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -18,9 +20,11 @@ class PDFGenerator {
     return data.buffer.asUint8List();
   }
 
-  Future<Uint8List> createInvoicePDF() async {
+  Future<Uint8List> createInvoicePDF({required BillModel bill}) async {
     final pdf = pw.Document();
     final Uint8List imageData = await _loadAssetImage('assets/logos/s2p.jpeg');
+    final String formattedDate =
+        DateFormat.yMMMd().format(DateTime.parse(bill.date!));
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
@@ -31,12 +35,13 @@ class PDFGenerator {
               children: [
                 pw.Text('TAX INVOICE', style: pw.TextStyle(fontSize: 14)),
                 pw.SizedBox(height: 20),
-                _buildHeader(imageData: imageData),
+                _buildHeader(imageData: imageData, date: formattedDate),
                 pw.SizedBox(height: 20),
-                _buildBillingAndSupplyDetails(),
+                _buildBillingAndSupplyDetails(bill: bill),
                 pw.SizedBox(height: 20),
                 _buildItemsTable(),
                 pw.SizedBox(height: 20),
+                _buildItemsTable(),
                 _buildTotalAmountSection(),
               ],
             )
@@ -52,19 +57,19 @@ class PDFGenerator {
   }
 
   // Header section
-  pw.Widget _buildHeader({required Uint8List imageData}) {
+  pw.Widget _buildHeader({required Uint8List imageData, required String date}) {
     return pw.Row(
       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
       crossAxisAlignment: pw.CrossAxisAlignment.center,
       children: [
-        pw.Row(children: [pw.Text("Ack Date: "), pw.Text("6-Jul-24")]),
+        pw.Row(children: [pw.Text("Ack Date: "), pw.Text(date)]),
         pw.Image(pw.MemoryImage(imageData))
       ],
     );
   }
 
   // Billing and Supply details section
-  pw.Widget _buildBillingAndSupplyDetails() {
+  pw.Widget _buildBillingAndSupplyDetails({required BillModel bill}) {
     return pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
       pw.Expanded(
         child: pw.Table(border: pw.TableBorder.all(), children: [
@@ -79,7 +84,7 @@ class PDFGenerator {
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
                       pw.SizedBox(height: 7),
                       pw.Text(
-                          "138, APEXA CHITRAKUT DHAM SOC B/H I.O.C COLONY KALAWAD ROAD RAJKOT GUJRAT 360005",
+                          "138 , APEXA CHITRAKUT DHAM SOC B/H I.O.C COLONY KALAWAD ROAD RAJKOT GUJRAT 360005",
                           overflow: pw.TextOverflow.clip),
                       pw.Text("GSTIN/UIN: 24ABBFP1674M1Z1"),
                       pw.Text("State Name: Gujarat, Code: 24"),
@@ -95,14 +100,14 @@ class PDFGenerator {
                     children: [
                       pw.Text("Consignee (Ship to)"),
                       pw.SizedBox(height: 5),
-                      pw.Text("SAMOR REALTY LTD",
+                      pw.Text("${bill.partieId!.name}",
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
                       pw.SizedBox(height: 7),
-                      pw.Text(
-                          "138, APEXA CHITRAKUT DHAM SOC B/H I.O.C COLONY KALAWAD ROAD RAJKOT GUJRAT 360005",
+                      pw.Text("${bill.partieId!.shippingAddress}",
                           overflow: pw.TextOverflow.clip),
-                      pw.Text("GSTIN/UIN: 24ABBFP1674M1Z1"),
+                      pw.Text("GSTIN/UIN: ${bill.partieId!.gSTnumber}"),
                       pw.Text("State Name: Gujarat, Code: 24"),
+                      pw.Text("E-Mail : ${bill.partieId!.email}")
                     ])),
           ]),
           pw.TableRow(children: [
@@ -114,15 +119,15 @@ class PDFGenerator {
                     children: [
                       pw.Text("Buyer (Bill to)"),
                       pw.SizedBox(height: 5),
-                      pw.Text("SAMOR REALTY LTD",
+                      pw.Text("${bill.partieId!.name}",
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
                       pw.SizedBox(height: 7),
-                      pw.Text(
-                          "138, APEXA CHITRAKUT DHAM SOC B/H I.O.C COLONY KALAWAD ROAD RAJKOT GUJRAT 360005",
+                      pw.Text("${bill.partieId!.billingAddress}",
                           overflow: pw.TextOverflow.clip),
-                      pw.Text("GSTIN/UIN: 24ABBFP1674M1Z1"),
+                      pw.Text("GSTIN/UIN: ${bill.partieId!.gSTnumber}"),
                       pw.Text("State Name: Gujarat, Code: 24"),
-                      pw.Text("Place of Supply: Gujarat")
+                      pw.Text("Place of Supply: Gujarat"),
+                      pw.Text("E-Mail : ${bill.partieId!.email}")
                     ])),
           ]),
         ]),
@@ -136,7 +141,7 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Invoice No."),
-                      pw.Text("SRLAT7856/24",
+                      pw.Text("${bill.billNumber}",
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
@@ -267,77 +272,17 @@ class PDFGenerator {
 
   // Table of items
   pw.Widget _buildItemsTable() {
-    return pw.SizedBox(
-        child: pw.TableHelper.fromTextArray(
-      headers: ['Sr. No', 'HSN Code', 'Particular', 'SQ.FT', 'Rate', 'Amount'],
-      data: [
-        [
-          '1',
-          '995411',
-          'TOWER "C" RCC SLAB 5th FLOOR',
-          '14116',
-          '130.5',
-          '18,42,138.00'
-        ],
-        [
-          '1',
-          '995411',
-          'TOWER "C" RCC SLAB 5th FLOOR',
-          '14116',
-          '130.5',
-          '18,42,138.00'
-        ],
-        [
-          '1',
-          '995411',
-          'TOWER "C" RCC SLAB 5th FLOOR',
-          '14116',
-          '130.5',
-          '18,42,138.00'
-        ],
-        [
-          '1',
-          '995411',
-          'TOWER "C" RCC SLAB 5th FLOOR',
-          '14116',
-          '130.5',
-          '18,42,138.00'
-        ],
-        [
-          '1',
-          '995411',
-          'TOWER "C" RCC SLAB 5th FLOOR',
-          '14116',
-          '130.5',
-          '18,42,138.00'
-        ],
-        [
-          '1',
-          '995411',
-          'TOWER "C" RCC SLAB 5th FLOOR',
-          '14116',
-          '130.5',
-          '18,42,138.00'
-        ],
-        [
-          '1',
-          '995411',
-          'TOWER "C" RCC SLAB 5th FLOOR',
-          '14116',
-          '130.5',
-          '18,42,138.00'
-        ],
-        [
-          '1',
-          '995411',
-          'TOWER "C" RCC SLAB 5th FLOOR',
-          '14116',
-          '130.5',
-          '18,42,138.00'
-        ],
-        // Add more rows as needed
+    return pw.Wrap(
+      children: [
+        pw.Table(
+          border: pw.TableBorder.all(),
+          children: [
+            pw.TableRow(children: []),
+            // Add more table rows...
+          ],
+        ),
       ],
-    ));
+    );
   }
 
   // Total amount section

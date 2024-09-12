@@ -12,11 +12,11 @@ abstract class TransactionDataSource {
       required String buildingId,
       required String amount});
 
-  Future<void> addPaymentInTransaction(
-      {required String projectId,
-      required String agencyId,
-      required String amount,
-      required String description});
+  Future<void> addPaymentInTransaction({
+    required String date,
+    required String agencyId,
+    required String amount,
+  });
 
   Future<List<TransactionModel>> getAllTransactionsByProjectId(
       {required String projectId});
@@ -65,22 +65,14 @@ class TransactionDataSourceImpl extends TransactionDataSource {
 
   @override
   Future<void> addPaymentInTransaction(
-      {required String description,
+      {required String date,
       required String agencyId,
-      required String projectId,
       required String amount}) async {
     try {
-      TransactionModel transactionModel = TransactionModel(
-          description: description,
-          projectId: projectId,
-          agencyId: agencyId,
-          buildingId: "",
-          amount: amount,
-          taskId: "",
-          entryType: "Credit");
       http.Response response = await http.post(
         Uri.parse(API.ADD_PAYMENT_IN),
-        body: transactionModel.toJson(),
+        body:
+            jsonEncode({"PartieId": agencyId, "date": date, "Amount": amount}),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

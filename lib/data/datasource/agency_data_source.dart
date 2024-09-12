@@ -54,13 +54,14 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       {required String workTypeId}) async {
     List<AgencyModel> allAgencyByWorkTypeList = [];
     try {
+      print("AgencyWorkTypee");
       http.Response res = await http.get(
         Uri.parse("${API.GET_AGENCY_BY_WORK_TYPE}/${workTypeId}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-
+      print(res.body);
       final agencies = jsonDecode(res.body);
       for (var agency in agencies["data"]) {
         allAgencyByWorkTypeList.add(AgencyModel.fromJson(agency));

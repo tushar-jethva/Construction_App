@@ -15,6 +15,7 @@ import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payme
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+import 'package:intl/intl.dart';
 
 class TransactionBottomWidget extends StatefulWidget {
   const TransactionBottomWidget({
@@ -44,6 +45,23 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
     _descriptionController.dispose();
   }
 
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime initialDate = DateTime.now();
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (pickedDate != null) {
+      // ignore: use_build_context_synchronously
+      context
+          .read<PaymentInDropDownBloc>()
+          .add(PaymentInDateChanged(date: pickedDate));
+    }
+  }
+
   void _showPaymentInDialog({required ThemeData theme}) {
     showDialog(
         context: context,
@@ -66,15 +84,12 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                       ),
                       Gap(40.h),
                       BlocBuilder<PaymentInDropDownBloc,
-                          PaymentInDropDownState>(builder: (context, state) {
-                        if (state is ProjectsLoadingInState) {
-                          return CustomDropDown(items: selectProject);
-                        }
-                        return Column(
-                          children: [
-                            PaymentOutCustomDropDown(
-                              value: state.projects[0].sId,
-                              list: state.projects
+                          PaymentInDropDownState>(
+                        builder: (context, state) {
+                          if (state is AgenciesLoadedInState) {
+                            return PaymentOutCustomDropDown(
+                              value: state.agencies[0].sId,
+                              list: state.agencies
                                   .map((e) => DropdownMenuItem(
                                         value: e.sId,
                                         child: SizedBox(
@@ -91,51 +106,14 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                       ))
                                   .toList(),
                               onChanged: (val) {
-                                context.read<PaymentInDropDownBloc>().add(
-                                    ProjectValueInChanged(projectId: val!));
-                              },
-                              // ignore: body_might_complete_normally_nullable
-                              validator: (val) {
-                                if (val == state.projects[0].sId) {
-                                  return 'Please select one of the names!';
-                                }
-                              },
-                            ),
-                          ],
-                        );
-                      }),
-                      Gap(15.h),
-                      BlocBuilder<PaymentInDropDownBloc,
-                          PaymentInDropDownState>(
-                        builder: (context, state) {
-                          if (state is AgenciesLoadedInState) {
-                            return PaymentOutCustomDropDown(
-                              value: state.agencies[0].agencyId,
-                              list: state.agencies
-                                  .map((e) => DropdownMenuItem(
-                                        value: e.agencyId,
-                                        child: SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4, // Set a specific width here
-                                          child: Text(
-                                            e.agencyName!,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ))
-                                  .toList(),
-                              onChanged: (val) {
-                                val != state.agencies[0].agencyId
+                                val != state.agencies[0].sId
                                     ? context.read<PaymentInDropDownBloc>().add(
                                         AgencyValueInChanged(agencyId: val!))
                                     : {};
                               },
                               // ignore: body_might_complete_normally_nullable
                               validator: (val) {
-                                if (val == state.agencies[0].agencyId) {
+                                if (val == state.agencies[0].sId) {
                                   return 'Please select one of the names!';
                                 }
                               },
@@ -145,6 +123,39 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         },
                       ),
                       Gap(20.h),
+                      GestureDetector(
+                        onTap: () {
+                          _selectDate(context);
+                        },
+                        child: Container(
+                          height: 50.h,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.w, vertical: 15.h),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: grey),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              BlocBuilder<PaymentInDropDownBloc,
+                                  PaymentInDropDownState>(
+                                builder: (context, state) {
+                                  final String formattedDate =
+                                      DateFormat.yMMMd().format(state.date);
+                                  return Text("Date: $formattedDate");
+                                },
+                              ),
+                              Icon(
+                                Icons.calendar_month,
+                                color: theme.canvasColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Gap(20.h),
+
                       MyCustomTextFormField(
                         controller: _priceInController,
                         hintText: "Payment In",
@@ -163,19 +174,19 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                           }
                         },
                       ),
-                      Gap(15.h),
-                      MyCustomTextFormField(
-                        controller: _descriptionController,
-                        hintText: "Description",
-                        maxLines: 3,
-                        textInputType: TextInputType.name,
-                        // ignore: body_might_complete_normally_nullable
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter description!';
-                          }
-                        },
-                      ),
+                      // Gap(15.h),
+                      // MyCustomTextFormField(
+                      //   controller: _descriptionController,
+                      //   hintText: "Description",
+                      //   maxLines: 3,
+                      //   textInputType: TextInputType.name,
+                      //   // ignore: body_might_complete_normally_nullable
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter description!';
+                      //     }
+                      //   },
+                      // ),
                       Gap(30.h),
                       BlocListener<PaymentInDropDownBloc,
                           PaymentInDropDownState>(
@@ -205,11 +216,11 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                 onPressed: () async {
                                   if (formPaymentInKey.currentState!
                                       .validate()) {
-                                    context.read<PaymentInDropDownBloc>().add(
-                                        AddPaymentInTransaction(
-                                            amount: _priceInController.text,
-                                            description:
-                                                _descriptionController.text));
+                                    context
+                                        .read<PaymentInDropDownBloc>()
+                                        .add(AddPaymentInTransaction(
+                                          amount: _priceInController.text,
+                                        ));
                                     context
                                         .read<TotalPaymentOutBloc>()
                                         .add(FetchTotalPaymentOut());
@@ -491,9 +502,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
               style: const TextStyle(
                   color: white, fontWeight: FontWeight.w500, fontSize: 15),
               onPressed: () {
-                context
-                    .read<PaymentInDropDownBloc>()
-                    .add(FetchProjectsInEvent());
+                context.read<PaymentInDropDownBloc>().add(FetchAgencyInEvent());
                 _showPaymentInDialog(theme: theme);
               },
             ),

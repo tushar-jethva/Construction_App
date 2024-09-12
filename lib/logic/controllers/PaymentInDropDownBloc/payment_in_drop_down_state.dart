@@ -2,84 +2,49 @@
 part of 'payment_in_drop_down_bloc.dart';
 
 class PaymentInDropDownState {
-  final String projectDropDownValue;
   final String agencyDropDownValue;
-  final List<ProjectModel> projects;
-  final List<DropDownAgencyModel> agencies;
-
+  final List<BillingPartyModel> agencies;
+  final DateTime date;
   PaymentInDropDownState({
-    this.projectDropDownValue = '',
     this.agencyDropDownValue = '',
-    this.projects = const [],
     this.agencies = const [],
+    required this.date,
   });
 
   PaymentInDropDownState copyWith({
-    String? projectDropDownValue,
     String? agencyDropDownValue,
-    List<ProjectModel>? projects,
-    List<DropDownAgencyModel>? agencies,
+    List<BillingPartyModel>? agencies,
+    DateTime? date
   }) {
     return PaymentInDropDownState(
-      projectDropDownValue: projectDropDownValue ?? this.projectDropDownValue,
       agencyDropDownValue: agencyDropDownValue ?? this.agencyDropDownValue,
-      projects: projects ?? this.projects,
       agencies: agencies ?? this.agencies,
+      date: date ?? this.date
     );
   }
 }
 
-class ProjectsLoadingInState extends PaymentInDropDownState {
-  ProjectsLoadingInState(
-      {required super.projectDropDownValue,
-      required super.agencyDropDownValue,
-      required super.projects,
-      required super.agencies});
-}
-
-class ProjectsLoadedInState extends PaymentInDropDownState {
-  ProjectsLoadedInState(
-      {required super.projectDropDownValue,
-      required super.agencyDropDownValue,
-      required super.projects,
-      required super.agencies});
-}
-
 class AgenciesLoadingInState extends PaymentInDropDownState {
   AgenciesLoadingInState(
-      {required super.projectDropDownValue,
-      required super.agencyDropDownValue,
-      required super.projects,
-      required super.agencies});
+      {required super.agencyDropDownValue, required super.agencies, required super.date});
 }
 
 class AgenciesLoadedInState extends PaymentInDropDownState {
   AgenciesLoadedInState(
-      {required super.projectDropDownValue,
-      required super.agencyDropDownValue,
-      required super.projects,
-      required super.agencies});
+      {required super.agencyDropDownValue, required super.agencies, required super.date});
 }
 
-
-class PaymentInAddLoading extends PaymentInDropDownState{
+class PaymentInAddLoading extends PaymentInDropDownState {
   PaymentInAddLoading(
-      {required super.projectDropDownValue,
-      required super.agencyDropDownValue,
-      required super.projects,
-      required super.agencies});
+      {required super.agencyDropDownValue, required super.agencies, required super.date});
 }
-class PaymentInAddSuccess extends PaymentInDropDownState{
+
+class PaymentInAddSuccess extends PaymentInDropDownState {
   PaymentInAddSuccess(
-      {required super.projectDropDownValue,
-      required super.agencyDropDownValue,
-      required super.projects,
-      required super.agencies});
+      {required super.agencyDropDownValue, required super.agencies, required super.date});
 }
-class PaymentInAddFailure extends PaymentInDropDownState{
+
+class PaymentInAddFailure extends PaymentInDropDownState {
   PaymentInAddFailure(
-      {required super.projectDropDownValue,
-      required super.agencyDropDownValue,
-      required super.projects,
-      required super.agencies});
+      {required super.agencyDropDownValue, required super.agencies, required super.date});
 }
