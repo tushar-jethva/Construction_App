@@ -1,4 +1,3 @@
-
 import 'package:construction_mate/core/pdf/pdf_generate.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:flutter/material.dart';

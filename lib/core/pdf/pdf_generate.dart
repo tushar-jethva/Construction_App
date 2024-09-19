@@ -1,5 +1,7 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
@@ -20,31 +22,147 @@ class PDFGenerator {
     return data.buffer.asUint8List();
   }
 
+  List<Items> dummyItems = [
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description: "Tower1 TJ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description:
+          "Tower1 TJkjaklfj klajkljakljfklajfkljafklja klfkjfakljfdkl ajfkl jaklfj klajfklajfkljkafls jkljakl ",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+    Items(
+      hSNCode: "ASD123",
+      description:
+          "Tower1 TJajkjasjflk;jas; klfjklajdfklajdflk jakl fjlkjafkljkal jfkljakljfdklaj fkljaklfja kfjklajfklj aklfjkljaskljf klaj fklj asklfjklajfkljakflj klajfklajklfj aklj",
+      squreFeet: 2000,
+      rate: 10,
+    ),
+  ];
+
+  int getTotalSquareFeet({required List<Items> items}) {
+    int totalSquareFeet = 0;
+    for (var item in items) {
+      totalSquareFeet += item.squreFeet!;
+    }
+    return totalSquareFeet;
+  }
+
   Future<Uint8List> createInvoicePDF({required BillModel bill}) async {
     final pdf = pw.Document();
     final Uint8List imageData = await _loadAssetImage('assets/logos/s2p.jpeg');
     final String formattedDate =
         DateFormat.yMMMd().format(DateTime.parse(bill.date!));
+
+    final List<Items> listOfItems = List.from(bill.items!)
+      ..add(
+        Items(amount: "---------------------"),
+      )
+      ..add(Items(amount: "Net Amount: ${bill.netAmount}"))
+      ..add(Items(
+          description: "SGST",
+          rate: bill.sGST,
+          amount: bill.sGSTAmount.toString(),
+          per: "%")) // Add SGST item
+      ..add(Items(
+          description: "CGST",
+          rate: bill.cGST,
+          amount: bill.cGSTAmount.toString(),
+          per: "%"))
+      ..add(Items(
+          description: "Total",
+          squreFeet: getTotalSquareFeet(items: bill.items!),
+          amount: "Total Amount: ${bill.totalAmount}",
+          per: ""));
     pdf.addPage(
       pw.MultiPage(
+        margin:
+            const pw.EdgeInsets.only(left: 15, right: 15, top: 30, bottom: 30),
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
           return [
-            pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Text('TAX INVOICE', style: pw.TextStyle(fontSize: 14)),
-                pw.SizedBox(height: 20),
-                _buildHeader(imageData: imageData, date: formattedDate),
-                pw.SizedBox(height: 20),
-                _buildBillingAndSupplyDetails(bill: bill),
-                pw.SizedBox(height: 20),
-                _buildItemsTable(),
-                pw.SizedBox(height: 20),
-                _buildItemsTable(),
-                _buildTotalAmountSection(),
-              ],
-            )
+            pw.Text('TAX INVOICE', style: const pw.TextStyle(fontSize: 14)),
+            pw.SizedBox(height: 20),
+            _buildHeader(imageData: imageData, date: formattedDate),
+            pw.SizedBox(height: 20),
+            _buildBillingAndSupplyDetails(bill: bill),
+            pw.SizedBox(height: 20),
+            _buildItemsTable(items: listOfItems),
+            pw.SizedBox(height: 20),
+            _buildTaxableTable(bill: bill),
+            pw.SizedBox(height: 20),
+            _buildTotalAmountSection(bill: bill)
           ];
         },
       ),
@@ -270,15 +388,162 @@ class PDFGenerator {
     ]);
   }
 
-  // Table of items
-  pw.Widget _buildItemsTable() {
-    return pw.Wrap(
+  // Define the `toElement` helper function to map `Items` to a List<String>
+  List<String> toElement(Items item, int index) {
+    return [
+      item.description == null ? "" : (index + 1).toString(),
+      item.description ?? "",
+      item.hSNCode ?? "",
+      item.squreFeet == null ? "" : item.squreFeet.toString(),
+      item.rate == null ? "" : item.rate.toString(),
+      item.description != "Total" && item.description != null
+          ? item.per == "%"
+              ? "%"
+              : "Sq."
+          : "",
+      item.amount.toString()
+    ];
+  }
+
+// Building the items table section
+  pw.Widget _buildItemsTable({required List<Items> items}) {
+    // Define the header for the table
+    const tableHeaders = [
+      'Sr No.',
+      'Description',
+      'HSN',
+      'Quantity',
+      'Rate',
+      'Per',
+      'Amount'
+    ];
+
+    return pw.TableHelper.fromTextArray(
+      cellDecoration: (index, data, rowNum) {
+        return const pw.BoxDecoration(
+            border: pw.Border.new(
+                left: pw.BorderSide(color: PdfColors.black, width: 1),
+                right: pw.BorderSide(color: PdfColors.black, width: 1)));
+      },
+      headerCellDecoration: const pw.BoxDecoration(
+          border: pw.Border.new(
+              left: pw.BorderSide(color: PdfColors.black, width: 1),
+              right: pw.BorderSide(color: PdfColors.black, width: 1))),
+      border: const pw.TableBorder(
+        left: pw.BorderSide(color: PdfColors.black, width: 1),
+        right: pw.BorderSide(color: PdfColors.black, width: 1),
+        bottom: pw.BorderSide(color: PdfColors.black, width: 1),
+      ),
+      headerAlignment: pw.Alignment.center,
+      headerDecoration: pw.BoxDecoration(
+        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(2)),
+        border: pw.Border.all(color: PdfColors.black, width: 1),
+      ),
+      headerHeight: 25,
+      cellPadding: const pw.EdgeInsets.all(10),
+      columnWidths: const {
+        0: pw.FlexColumnWidth(0.2),
+        1: pw.FlexColumnWidth(1),
+        2: pw.FlexColumnWidth(0.34),
+        3: pw.FlexColumnWidth(0.4),
+        4: pw.FlexColumnWidth(0.3),
+        5: pw.FlexColumnWidth(0.2),
+        6: pw.FlexColumnWidth(0.6)
+      },
+      headerStyle: pw.TextStyle(
+        color: PdfColors.black,
+        fontSize: 10,
+        fontWeight: pw.FontWeight.bold,
+      ),
+      cellStyle: const pw.TextStyle(
+        color: PdfColors.black,
+        fontSize: 10,
+      ),
+      headers: List<String>.generate(
+        tableHeaders.length,
+        (col) => tableHeaders[col],
+      ),
+      data: List<List<String>>.generate(
+        items.length,
+        (index) => toElement(
+            items[index], index), // Map each `Items` object to table row
+      ),
+    );
+  }
+
+  pw.Widget _buildTaxableTable({required BillModel bill}) {
+    return pw.Table(
+      border: pw.TableBorder.all(),
+      columnWidths: {
+        0: pw.FlexColumnWidth(2), // HSN/SAC column
+        1: pw.FlexColumnWidth(2), // Taxable Value column
+        2: pw.FlexColumnWidth(1), // CGST Rate column
+        3: pw.FlexColumnWidth(2), // CGST Amount column
+        4: pw.FlexColumnWidth(1), // SGST/UGST Rate column
+        5: pw.FlexColumnWidth(2), // SGST/UGST Amount column
+        6: pw.FlexColumnWidth(2), // Total Tax Amount column
+      },
       children: [
-        pw.Table(
-          border: pw.TableBorder.all(),
+        // Header Row
+        pw.TableRow(
           children: [
-            pw.TableRow(children: []),
-            // Add more table rows...
+            pw.Text('HSN/SAC',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text('Taxable Value',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text('CGST',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text('Amount',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text('SGST/UGST',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text('Amount',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text('Total Tax Amount',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+          ],
+        ),
+        // Sub-header Row
+        pw.TableRow(
+          children: [
+            pw.Text(''),
+            pw.Text(''),
+            pw.Text('Rate',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text(''),
+            pw.Text('Rate',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text(''),
+            pw.Text(''),
+          ],
+        ),
+        // Data Rows
+        pw.TableRow(
+          children: [
+            pw.Text(bill.items![0].hashCode.toString()),
+            pw.Text(bill.netAmount.toString()),
+            pw.Text(bill.cGST.toString()),
+            pw.Text(bill.cGSTAmount.toString()),
+            pw.Text(bill.sGST.toString()),
+            pw.Text(bill.sGSTAmount.toString()),
+            pw.Text(bill.totalAmount.toString()),
+          ],
+        ),
+        // Total Row
+        pw.TableRow(
+          children: [
+            pw.Text('Total',
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text(bill.netAmount.toString(),
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text(''),
+            pw.Text(bill.cGSTAmount.toString(),
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text(''),
+            pw.Text(bill.sGSTAmount.toString(),
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Text(bill.totalAmount.toString(),
+                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
           ],
         ),
       ],
@@ -286,19 +551,19 @@ class PDFGenerator {
   }
 
   // Total amount section
-  pw.Widget _buildTotalAmountSection() {
+  pw.Widget _buildTotalAmountSection({required BillModel bill}) {
     return pw.Container(
       padding: const pw.EdgeInsets.all(8),
       decoration: pw.BoxDecoration(border: pw.Border.all()),
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          _buildAmountRow('Work Bill Amount', '18,42,138.00'),
-          _buildAmountRow('SGST (9%)', '1,65,792.42'),
-          _buildAmountRow('CGST (9%)', '1,65,792.42'),
-          _buildAmountRow('Round Off', ' 0.16'),
+          _buildAmountRow('Work Bill Amount', bill.netAmount.toString()),
+          _buildAmountRow('SGST (${bill.sGST}%)', bill.sGSTAmount.toString()),
+          _buildAmountRow('CGST (${bill.cGST}%)', bill.cGSTAmount.toString()),
           pw.SizedBox(height: 10),
-          _buildAmountRow('TOTAL AMOUNT', '21,73,723.00', isBold: true),
+          _buildAmountRow('TOTAL AMOUNT', bill.totalAmount.toString(),
+              isBold: true),
         ],
       ),
     );

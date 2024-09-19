@@ -166,10 +166,11 @@ class PartieId {
 class Items {
   String? hSNCode;
   String? description;
-  int? amount;
+  String? amount;
   int? rate;
   int? squreFeet;
   String? sId;
+  String? per;
 
   Items(
       {this.hSNCode,
@@ -177,12 +178,13 @@ class Items {
       this.amount,
       this.rate,
       this.squreFeet,
-      this.sId});
+      this.sId,
+      this.per});
 
   Items.fromJson(Map<String, dynamic> json) {
     hSNCode = json['HSNCode'];
     description = json['Description'];
-    amount = json['Amount'];
+    amount = json['Amount'].toString();
     rate = json['Rate'];
     squreFeet = json['SqureFeet'];
     sId = json['_id'];

@@ -25,13 +25,7 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
         .add(BillingPartyParticularLoadBills(partyId: widget.partyId));
   }
 
-  void _generatePDF({required BillModel bill}) async {
-    final pdfGenerator = PDFGenerator();
-    final pdfData = await pdfGenerator.createInvoicePDF(bill: bill);
 
-    // Share the generated PDF
-    await pdfGenerator.sharePDF(pdfData);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +55,7 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
                 DataCell(Text(bill.tDSAmount.toString())),
                 DataCell(Text("${bill.cGSTAmount! + bill.sGSTAmount!}")),
                 DataCell(IconButton(
-                  icon: Icon(Icons.download),
+                  icon: const Icon(Icons.download),
                   onPressed: () {
                     context.pushNamed(RoutesName.pdfPreviewScreen, extra: bill);
                   },
