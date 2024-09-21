@@ -76,7 +76,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: Size(double.infinity,
-                ReusableFunctions.getHeight(context: context, height: 0.22)),
+                ReusableFunctions.getHeight(context: context, height: 0.19)),
             child: const MyBillScreenAppBarWidget()),
         body: RefreshIndicator(
           color: purple,

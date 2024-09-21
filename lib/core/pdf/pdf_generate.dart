@@ -22,7 +22,6 @@ class PDFGenerator {
     return data.buffer.asUint8List();
   }
 
-
   int getTotalSquareFeet({required List<Items> items}) {
     int totalSquareFeet = 0;
     for (var item in items) {
@@ -284,17 +283,6 @@ class PDFGenerator {
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
           ]),
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Invoice No."),
-                      pw.Text("SRLAT7856/24",
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-          ])
         ]),
       )
     ]);
