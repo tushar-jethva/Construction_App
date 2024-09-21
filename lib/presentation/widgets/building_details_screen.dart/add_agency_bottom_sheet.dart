@@ -106,19 +106,11 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
             key: formKey,
             child: Column(
               children: [
-                Container(
-                  height: 7.w,
-                  width: 50.w,
-                  margin: EdgeInsets.only(bottom: 12.h),
-                  decoration: BoxDecoration(
-                      color: grey, borderRadius: BorderRadius.circular(8)),
-                ),
                 Row(
                   children: [
                     Text(
                       "Work Type: ",
-                      style:
-                          theme.textTheme.titleLarge!.copyWith(fontSize: 16.5),
+                      style: theme.textTheme.titleLarge!.copyWith(fontSize: 16),
                     ),
                     Expanded(
                       child: BlocBuilder<AddAgencyDropDownsBloc,
@@ -151,8 +143,7 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   children: [
                     Text(
                       "Name of Agency: ",
-                      style:
-                          theme.textTheme.titleLarge!.copyWith(fontSize: 16.5),
+                      style: theme.textTheme.titleLarge!.copyWith(fontSize: 16),
                     ),
                     Expanded(
                       child: BlocBuilder<AddAgencyDropDownsBloc,

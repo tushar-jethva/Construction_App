@@ -99,147 +99,318 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
     final theme = Theme.of(context);
 
     List<BillItemModel> billItems = [];
-    return Padding(
-      padding: mediaQueryData.viewInsets,
-      child: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          decoration: BoxDecoration(
-              color: theme.scaffoldBackgroundColor,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15.r),
-                  topRight: Radius.circular(15.r))),
-          child: Column(
-            children: [
-              Container(
-                height: 5.w,
-                width: 50.w,
-                margin: EdgeInsets.symmetric(vertical: 15.h),
-                decoration: BoxDecoration(
-                    color: grey, borderRadius: BorderRadius.circular(8)),
-              ),
-              BlocBuilder<AddBillBloc, AddBillState>(builder: (context, state) {
-                if (!state.isLoadingParties) {
-                  return CustomDropDown(items: selectParties);
-                }
-                return PaymentOutCustomDropDown(
-                    value: state.selecteParty[0].sId,
-                    list: state.selecteParty
-                        .map((e) => DropdownMenuItem(
-                              value: e.sId,
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width *
-                                    0.4, // Set a specific width here
-                                child: Text(
-                                  e.name!,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+    return FractionallySizedBox(
+      heightFactor: 0.9,
+      child: Padding(
+        padding: mediaQueryData.viewInsets,
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            decoration: BoxDecoration(
+                color: theme.scaffoldBackgroundColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15.r),
+                    topRight: Radius.circular(15.r))),
+            child: Column(
+              children: [
+                BlocBuilder<AddBillBloc, AddBillState>(
+                    builder: (context, state) {
+                  if (!state.isLoadingParties) {
+                    return CustomDropDown(items: selectParties);
+                  }
+                  return PaymentOutCustomDropDown(
+                      value: state.selecteParty[0].sId,
+                      list: state.selecteParty
+                          .map((e) => DropdownMenuItem(
+                                value: e.sId,
+                                child: SizedBox(
+                                  width: MediaQuery.of(context).size.width *
+                                      0.4, // Set a specific width here
+                                  child: Text(
+                                    e.name!,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
+                              ))
+                          .toList(),
+                      onChanged: (val) {
+                        context
+                            .read<AddBillBloc>()
+                            .add(BillPartyNameChanged(partyId: val));
+                      },
+                      validator: (val) {
+                        if (val == state.selecteParty[0].sId) {
+                          return 'Please select one of the party!';
+                        }
+                      });
+                }),
+                Gap(10.h),
+                BlocBuilder<AddBillBloc, AddBillState>(
+                  builder: (context, state) {
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.billItems.length,
+                      itemBuilder: (context, index) {
+                        BillItemModel bill = state.billItems[index];
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: greyELight),
+                              color: theme.scaffoldBackgroundColor),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "HSN Code : ${bill.hashCode}",
+                                style: theme.textTheme.titleMedium,
                               ),
-                            ))
-                        .toList(),
-                    onChanged: (val) {
-                      context
-                          .read<AddBillBloc>()
-                          .add(BillPartyNameChanged(partyId: val));
-                    },
-                    validator: (val) {
-                      if (val == state.selecteParty[0].sId) {
-                        return 'Please select one of the party!';
-                      }
-                    });
-              }),
-              Gap(10.h),
-              BlocBuilder<AddBillBloc, AddBillState>(
-                builder: (context, state) {
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: state.billItems.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        color: black,
-                        child: Text(state.billItems[index].HSNCode),
-                      );
-                    },
-                  );
-                },
-              ),
-              Form(
-                key: _billFormKey,
-                child: Column(
-                  children: [
-                    Form(
-                      key: _innerItemFormKey,
-                      child: Column(
+                              Text(
+                                "Sqare Feet : ${bill.squareFeet}",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              Text(
+                                "Rate : ${bill.rate}",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              Text(
+                                "Total Amount : ${bill.amount}",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                              Text(
+                                "Description : ${bill.itemDescription}",
+                                style: theme.textTheme.titleMedium,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+                Gap(10),
+                Form(
+                  key: _billFormKey,
+                  child: Column(
+                    children: [
+                      Form(
+                        key: _innerItemFormKey,
+                        child: Column(
+                          children: [
+                            MyCustomTextFormField(
+                              controller: _hsnCodeController,
+                              hintText: "HSN code",
+                              maxLines: 1,
+                              textInputType: TextInputType.name,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please add HSN Code!';
+                                }
+                              },
+                            ),
+                            Gap(10.h),
+                            MyCustomTextFormField(
+                              controller: _itemDescriptionController,
+                              hintText: "Description",
+                              maxLines: 2,
+                              textInputType: TextInputType.name,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please add description!';
+                                }
+                              },
+                            ),
+                            Gap(10.h),
+                            MyCustomTextFormField(
+                              controller: _squareFeetController,
+                              hintText: "Square feet",
+                              maxLines: 1,
+                              onChanged: (value) {
+                                getTotalAmount();
+                              },
+                              textInputType: TextInputType.number,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please add foot per floor!';
+                                }
+                                if (double.tryParse(value) == null) {
+                                  return 'Please enter valid digit!';
+                                }
+                                if (value.startsWith('-')) {
+                                  return 'Please enter valid digit!';
+                                }
+                              },
+                            ),
+                            Gap(10.h),
+                            MyCustomTextFormField(
+                              controller: _rateController,
+                              hintText: "Rate",
+                              maxLines: 1,
+                              textInputType: TextInputType.number,
+                              onChanged: (value) {
+                                getTotalAmount();
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please add rate!';
+                                }
+                                if (double.tryParse(value) == null) {
+                                  return 'Please enter valid digit!';
+                                }
+                                if (value.startsWith('-')) {
+                                  return 'Please enter valid digit!';
+                                }
+                              },
+                            ),
+                            Gap(10.h),
+                            Container(
+                              height: 50,
+                              alignment: Alignment.centerLeft,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: grey, width: 1),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Text(totalAmount.toString()),
+                              ),
+                            ),
+                            Gap(10.h),
+                            MyCustomButton(
+                              buttonName: "Add Item",
+                              color: green,
+                              style: theme.textTheme.titleMedium!
+                                  .copyWith(color: white),
+                              onPressed: () {
+                                if (_innerItemFormKey.currentState!
+                                    .validate()) {
+                                  BillItemModel billItem = BillItemModel(
+                                      HSNCode: _hsnCodeController.text,
+                                      itemDescription:
+                                          _itemDescriptionController.text,
+                                      squareFeet: double.parse(
+                                          _squareFeetController.text),
+                                      rate: double.parse(_rateController.text),
+                                      amount: totalAmount);
+                                  context.read<AddBillBloc>().add(
+                                      BillItemAddedEvent(billItem: billItem));
+                                  print("Done");
+
+                                  _hsnCodeController.clear();
+                                  _itemDescriptionController.clear();
+                                  _squareFeetController.clear();
+                                  _rateController.clear();
+                                  totalAmount = 0;
+                                  setState(() {});
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Gap(20.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          MyCustomTextFormField(
-                            controller: _hsnCodeController,
-                            hintText: "HSN code",
-                            maxLines: 1,
-                            textInputType: TextInputType.name,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please add HSN Code!';
-                              }
-                            },
+                          Expanded(
+                            flex: 1,
+                            child: MyCustomTextFormField(
+                              controller: _sgstController,
+                              hintText: "SGST",
+                              maxLines: 1,
+                              textInputType: TextInputType.number,
+                              onChanged: (value) {
+                                context.read<AddBillBloc>().add(
+                                    BillSGSTChangedEvent(
+                                        sgst: double.parse(
+                                            _sgstController.text)));
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please add SGST!';
+                                }
+                                if (int.tryParse(value) == null) {
+                                  return 'Please enter valid digit!';
+                                }
+                                if (value.startsWith('-')) {
+                                  return 'Please enter valid digit!';
+                                }
+                              },
+                            ),
                           ),
-                          Gap(10.h),
-                          MyCustomTextFormField(
-                            controller: _itemDescriptionController,
-                            hintText: "Description",
-                            maxLines: 2,
-                            textInputType: TextInputType.name,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please add description!';
-                              }
-                            },
+                          Gap(10.w),
+                          Expanded(
+                            flex: 1,
+                            child: MyCustomTextFormField(
+                              controller: _cgstController,
+                              hintText: "CGST",
+                              maxLines: 1,
+                              textInputType: TextInputType.number,
+                              onChanged: (value) {
+                                context.read<AddBillBloc>().add(
+                                    BillCGSTChangedEvent(
+                                        cgst: double.parse(
+                                            _cgstController.text)));
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please add CGST!';
+                                }
+                                if (int.tryParse(value) == null) {
+                                  return 'Please enter valid digit!';
+                                }
+                                if (value.startsWith('-')) {
+                                  return 'Please enter valid digit!';
+                                }
+                              },
+                            ),
                           ),
-                          Gap(10.h),
-                          MyCustomTextFormField(
-                            controller: _squareFeetController,
-                            hintText: "Square feet",
-                            maxLines: 1,
-                            onChanged: (value) {
-                              getTotalAmount();
-                            },
-                            textInputType: TextInputType.number,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please add foot per floor!';
-                              }
-                              if (double.tryParse(value) == null) {
-                                return 'Please enter valid digit!';
-                              }
-                              if (value.startsWith('-')) {
-                                return 'Please enter valid digit!';
-                              }
-                            },
+                          Gap(10.w),
+                          Expanded(
+                            flex: 1,
+                            child: MyCustomTextFormField(
+                              controller: _tdsController,
+                              hintText: "TDS",
+                              maxLines: 1,
+                              textInputType: TextInputType.number,
+                              onChanged: (value) {
+                                context.read<AddBillBloc>().add(
+                                    BillTDSChangedEvent(
+                                        tds:
+                                            double.parse(_tdsController.text)));
+                              },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please add TDS!';
+                                }
+                                if (int.tryParse(value) == null) {
+                                  return 'Please enter valid digit!';
+                                }
+                                if (value.startsWith('-')) {
+                                  return 'Please enter valid digit!';
+                                }
+                              },
+                            ),
                           ),
-                          Gap(10.h),
-                          MyCustomTextFormField(
-                            controller: _rateController,
-                            hintText: "Rate",
-                            maxLines: 1,
-                            textInputType: TextInputType.number,
-                            onChanged: (value) {
-                              getTotalAmount();
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please add rate!';
-                              }
-                              if (double.tryParse(value) == null) {
-                                return 'Please enter valid digit!';
-                              }
-                              if (value.startsWith('-')) {
-                                return 'Please enter valid digit!';
-                              }
-                            },
-                          ),
-                          Gap(10.h),
-                          Container(
+                        ],
+                      ),
+                      Gap(10.h),
+                      Gap(10.h),
+                      BlocBuilder<AddBillBloc, AddBillState>(
+                        builder: (context, state) {
+                          double netAmount = 0;
+                          double totalAmount = 0;
+                          for (int i = 0; i < state.billItems.length; i++) {
+                            totalAmount += state.billItems[i].amount;
+                          }
+                          double SGSTAmount = totalAmount * state.sgst / 100;
+                          double CGSTAmount = totalAmount * state.cgst / 100;
+                          netAmount = totalAmount + SGSTAmount + CGSTAmount;
+
+                          return Container(
                             height: 50,
                             alignment: Alignment.centerLeft,
                             width: double.infinity,
@@ -248,202 +419,76 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(totalAmount.toString()),
+                              child: Text(netAmount.toString()),
                             ),
-                          ),
-                          Gap(10.h),
-                          MyCustomButton(
-                            buttonName: "Add Item",
-                            color: green,
-                            style: TextStyle(),
-                            onPressed: () {
-                              if (_innerItemFormKey.currentState!.validate()) {
-                                BillItemModel billItem = BillItemModel(
-                                    HSNCode: _hsnCodeController.text,
-                                    itemDescription:
-                                        _itemDescriptionController.text,
-                                    squareFeet: double.parse(
-                                        _squareFeetController.text),
-                                    rate: double.parse(_rateController.text),
-                                    amount: totalAmount);
-                                context.read<AddBillBloc>().add(
-                                    BillItemAddedEvent(billItem: billItem));
-                                print("Done");
-                              }
-                            },
-                          ),
-                        ],
+                          );
+                        },
                       ),
-                    ),
-                    Gap(10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: MyCustomTextFormField(
-                            controller: _sgstController,
-                            hintText: "SGST",
-                            maxLines: 1,
-                            textInputType: TextInputType.number,
-                            onChanged: (value) {
-                              context.read<AddBillBloc>().add(
-                                  BillSGSTChangedEvent(
-                                      sgst:
-                                          double.parse(_sgstController.text)));
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please add SGST!';
-                              }
-                              if (int.tryParse(value) == null) {
-                                return 'Please enter valid digit!';
-                              }
-                              if (value.startsWith('-')) {
-                                return 'Please enter valid digit!';
-                              }
-                            },
-                          ),
-                        ),
-                        Gap(10.w),
-                        Expanded(
-                          flex: 1,
-                          child: MyCustomTextFormField(
-                            controller: _cgstController,
-                            hintText: "CGST",
-                            maxLines: 1,
-                            textInputType: TextInputType.number,
-                            onChanged: (value) {
-                              context.read<AddBillBloc>().add(
-                                  BillCGSTChangedEvent(
-                                      cgst:
-                                          double.parse(_cgstController.text)));
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please add CGST!';
-                              }
-                              if (int.tryParse(value) == null) {
-                                return 'Please enter valid digit!';
-                              }
-                              if (value.startsWith('-')) {
-                                return 'Please enter valid digit!';
-                              }
-                            },
-                          ),
-                        ),
-                        Gap(10.w),
-                        Expanded(
-                          flex: 1,
-                          child: MyCustomTextFormField(
-                            controller: _tdsController,
-                            hintText: "TDS",
-                            maxLines: 1,
-                            textInputType: TextInputType.number,
-                            onChanged: (value) {
-                              context.read<AddBillBloc>().add(
-                                  BillTDSChangedEvent(
-                                      tds: double.parse(_tdsController.text)));
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please add TDS!';
-                              }
-                              if (int.tryParse(value) == null) {
-                                return 'Please enter valid digit!';
-                              }
-                              if (value.startsWith('-')) {
-                                return 'Please enter valid digit!';
-                              }
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Gap(10.h),
-                    Gap(10.h),
-                    BlocBuilder<AddBillBloc, AddBillState>(
-                      builder: (context, state) {
-                        double netAmount = 0;
-                        double totalAmount = 0;
-                        for (int i = 0; i < state.billItems.length; i++) {
-                          totalAmount += state.billItems[i].amount;
-                        }
-                        double SGSTAmount = totalAmount * state.sgst / 100;
-                        double CGSTAmount = totalAmount * state.cgst / 100;
-                        netAmount = totalAmount + SGSTAmount + CGSTAmount;
-
-                        return Container(
-                          height: 50,
-                          alignment: Alignment.centerLeft,
-                          width: double.infinity,
+                      Gap(10.h),
+                      GestureDetector(
+                        onTap: () {
+                          _selectDate(context);
+                        },
+                        child: Container(
+                          height: 50.h,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.w, vertical: 15.h),
                           decoration: BoxDecoration(
-                              border: Border.all(color: grey, width: 1),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 15.0),
-                            child: Text(netAmount.toString()),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: grey),
                           ),
-                        );
-                      },
-                    ),
-                    Gap(10.h),
-                    GestureDetector(
-                      onTap: () {
-                        _selectDate(context);
-                      },
-                      child: Container(
-                        height: 50.h,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 15.h),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: grey),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            BlocBuilder<AddBillBloc, AddBillState>(
-                              builder: (context, state) {
-                                final String formattedDate =
-                                    DateFormat.yMMMd().format(state.date);
-                                return Text("Date: $formattedDate");
-                              },
-                            ),
-                            Icon(
-                              Icons.calendar_month,
-                              color: theme.canvasColor,
-                            ),
-                          ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              BlocBuilder<AddBillBloc, AddBillState>(
+                                builder: (context, state) {
+                                  final String formattedDate =
+                                      DateFormat.yMMMd().format(state.date);
+                                  return Text("Date: $formattedDate");
+                                },
+                              ),
+                              Icon(
+                                Icons.calendar_month,
+                                color: theme.canvasColor,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                    Gap(10.h),
-                    BlocConsumer<AddBillBloc, AddBillState>(
-                      listener: (context, state) {
-                        // TODO: implement listener
-                      },
-                      builder: (context, state) {
-                        return MyCustomButtonWidget(
-                          widget: state.isAddedBill == 1
-                              ? ReusableFunctions.loader()
-                              : Text("Add Bill"),
-                          color: green,
-                          onPressed: () {
-                            if (_billFormKey.currentState!.validate()) {
-                              context
-                                  .read<AddBillBloc>()
-                                  .add(BillAddBillEvent());
-                            }
-                          },
-                        );
-                      },
-                    ),
-                    Gap(10.h),
-                  ],
-                ),
-              )
-            ],
+                      Gap(10.h),
+                      BlocConsumer<AddBillBloc, AddBillState>(
+                        listener: (context, state) {
+                          // TODO: implement listener
+                          if (state.isAddedBill == 2) {
+                            Navigator.pop(context);
+                          }
+                        },
+                        builder: (context, state) {
+                          return MyCustomButtonWidget(
+                            widget: state.isAddedBill == 1
+                                ? ReusableFunctions.loader()
+                                : Text(
+                                    "Add Bill",
+                                    style: theme.textTheme.titleMedium!
+                                        .copyWith(color: white),
+                                  ),
+                            color: green,
+                            onPressed: () {
+                              if (_billFormKey.currentState!.validate()) {
+                                context
+                                    .read<AddBillBloc>()
+                                    .add(BillAddBillEvent());
+                              }
+                            },
+                          );
+                        },
+                      ),
+                      Gap(10.h),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

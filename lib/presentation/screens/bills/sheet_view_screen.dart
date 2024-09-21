@@ -6,10 +6,13 @@ import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 class MySheetViewScreen extends StatefulWidget {
   final String partyId;
-  const MySheetViewScreen({super.key, required this.partyId});
+  final String partyName;
+  const MySheetViewScreen(
+      {super.key, required this.partyId, required this.partyName});
 
   @override
   State<MySheetViewScreen> createState() => _MySheetViewScreenState();
@@ -25,15 +28,17 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
         .add(BillingPartyParticularLoadBills(partyId: widget.partyId));
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
-        title: const Text("Sheet View"),
+        iconTheme: IconThemeData(color: theme.canvasColor),
+        title: Text(
+          widget.partyName,
+          style: theme.textTheme.titleLarge,
+        ),
       ),
       body:
           BlocBuilder<BillingPartyParticularBloc, BillingPartyParticularState>(
@@ -46,16 +51,22 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
             );
           } else if (state is BillingPartyParticularLoaded) {
             final List<BillModel> bills = state.bills;
-
             final rows = bills.map((bill) {
+              String formattedDate =
+                  DateFormat.yMMMd().format(DateTime.parse(bill.date!));
+
               return DataRow(cells: [
-                const DataCell(Text("1")),
+                DataCell(Text(bill.billNumber.toString())),
+                DataCell(Text(formattedDate)),
                 DataCell(Text(bill.netAmount.toString())),
                 DataCell(Text(bill.totalAmount.toString())),
                 DataCell(Text(bill.tDSAmount.toString())),
                 DataCell(Text("${bill.cGSTAmount! + bill.sGSTAmount!}")),
                 DataCell(IconButton(
-                  icon: const Icon(Icons.download),
+                  icon: Icon(
+                    Icons.download,
+                    color: theme.canvasColor,
+                  ),
                   onPressed: () {
                     context.pushNamed(RoutesName.pdfPreviewScreen, extra: bill);
                   },
@@ -65,18 +76,50 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
 
             return SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: DataTable(columns: const [
-                DataColumn(label: Text("Bill No.")),
-                DataColumn(label: Text("Net Amount")),
-                DataColumn(label: Text("Total Amount")),
-                DataColumn(label: Text("TDS")),
-                DataColumn(label: Text("GST")),
-                DataColumn(label: Text("PDF")),
+              child: DataTable(columns: [
+                DataColumn(
+                    label: Text(
+                  "Bill No.",
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                )),
+                DataColumn(
+                    label: Text(
+                  "Date",
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                )),
+                DataColumn(
+                    label: Text(
+                  "Net Amount",
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                )),
+                DataColumn(
+                    label: Text(
+                  "Total Amount",
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                )),
+                DataColumn(
+                    label: Text(
+                  "TDS",
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                )),
+                DataColumn(
+                    label: Text(
+                  "GST",
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                )),
+                DataColumn(
+                    label: Text(
+                  "PDF",
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                )),
               ], rows: rows),
             );
           } else {
-            return const Center(
-              child: Text("Something went wrong!"),
+            return Center(
+              child: Text(
+                "Something went wrong!",
+                style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
+              ),
             );
           }
         },

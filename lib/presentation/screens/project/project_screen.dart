@@ -38,11 +38,14 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
 
   Future<void> _refreshProjects() async {
     _projectBloc.add(LoadProjects());
+    _totalPaymentOutBloc.add(FetchTotalPaymentOut());
   }
 
   openBottomSheet({required BuildContext context}) {
     showModalBottomSheet(
         isScrollControlled: true,
+        showDragHandle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
           return const MyProjectAddBottomSheet();
@@ -52,6 +55,8 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
   openBottomSheetOfMaterial({required BuildContext context}) {
     showModalBottomSheet(
         isScrollControlled: true,
+        showDragHandle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
           return BlocProvider(

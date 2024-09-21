@@ -6,8 +6,8 @@ class MyCustomTextFormField extends StatelessWidget {
   final String hintText;
   final int maxLines;
   final int? maxLength;
-  final TextInputType textInputType;
-  final String? Function(String? value) validator;
+  final TextInputType? textInputType;
+  final String? Function(String? value)? validator;
   final String? Function(String? value)? onChanged;
   final String? label;
   const MyCustomTextFormField(
@@ -15,8 +15,8 @@ class MyCustomTextFormField extends StatelessWidget {
       required this.controller,
       required this.hintText,
       required this.maxLines,
-      required this.textInputType,
-      required this.validator,
+       this.textInputType,
+       this.validator,
       this.maxLength,
       this.onChanged,
       this.label});
@@ -34,8 +34,12 @@ class MyCustomTextFormField extends StatelessWidget {
         maxLines: maxLines,
         keyboardType: textInputType,
         style: theme.textTheme.titleMedium,
+        cursorColor: purple,
         decoration: InputDecoration(
-          label: Text(hintText),
+          label: Text(
+            hintText,
+            style: theme.textTheme.titleMedium!.copyWith(color: grey),
+          ),
           hintText: hintText,
           hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
           border: OutlineInputBorder(

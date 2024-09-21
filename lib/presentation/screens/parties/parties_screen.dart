@@ -53,6 +53,8 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
   openBottomSheet({required BuildContext context}) {
     showModalBottomSheet(
         isScrollControlled: true,
+        showDragHandle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
           return BlocProvider(

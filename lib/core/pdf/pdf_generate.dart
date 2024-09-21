@@ -22,94 +22,6 @@ class PDFGenerator {
     return data.buffer.asUint8List();
   }
 
-  List<Items> dummyItems = [
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description: "Tower1 TJ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description:
-          "Tower1 TJkjaklfj klajkljakljfklajfkljafklja klfkjfakljfdkl ajfkl jaklfj klajfklajfkljkafls jkljakl ",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-    Items(
-      hSNCode: "ASD123",
-      description:
-          "Tower1 TJajkjasjflk;jas; klfjklajdfklajdflk jakl fjlkjafkljkal jfkljakljfdklaj fkljaklfja kfjklajfklj aklfjkljaskljf klaj fklj asklfjklajfkljakflj klajfklajklfj aklj",
-      squreFeet: 2000,
-      rate: 10,
-    ),
-  ];
 
   int getTotalSquareFeet({required List<Items> items}) {
     int totalSquareFeet = 0;
@@ -487,63 +399,149 @@ class PDFGenerator {
         // Header Row
         pw.TableRow(
           children: [
-            pw.Text('HSN/SAC',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text('Taxable Value',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text('CGST',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text('Amount',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text('SGST/UGST',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text('Amount',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text('Total Tax Amount',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('Total',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('Taxable Value',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: pw.EdgeInsets.all(5),
+              child: pw.Text('CGST',
+                  style: pw.TextStyle(
+                    fontWeight: pw.FontWeight.bold,
+                  )),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('Amount',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('SGST/UGST',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('Amount',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('Total Tax Amount',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
           ],
         ),
         // Sub-header Row
         pw.TableRow(
           children: [
-            pw.Text(''),
-            pw.Text(''),
-            pw.Text('Rate',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text(''),
-            pw.Text('Rate',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text(''),
-            pw.Text(''),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(''),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(''),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('Rate',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(''),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('Rate',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(''),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(''),
+            ),
           ],
         ),
         // Data Rows
         pw.TableRow(
           children: [
-            pw.Text(bill.items![0].hashCode.toString()),
-            pw.Text(bill.netAmount.toString()),
-            pw.Text(bill.cGST.toString()),
-            pw.Text(bill.cGSTAmount.toString()),
-            pw.Text(bill.sGST.toString()),
-            pw.Text(bill.sGSTAmount.toString()),
-            pw.Text(bill.totalAmount.toString()),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(''),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.netAmount.toString()),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.cGST.toString()),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.cGSTAmount.toString()),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.sGST.toString()),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.sGSTAmount.toString()),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.totalAmount.toString()),
+            ),
           ],
         ),
         // Total Row
         pw.TableRow(
           children: [
-            pw.Text('Total',
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text(bill.netAmount.toString(),
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text(''),
-            pw.Text(bill.cGSTAmount.toString(),
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text(''),
-            pw.Text(bill.sGSTAmount.toString(),
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-            pw.Text(bill.totalAmount.toString(),
-                style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text('Total',
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.netAmount.toString(),
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(''),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.cGSTAmount.toString(),
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(''),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.sGSTAmount.toString(),
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
+            pw.Padding(
+              padding: const pw.EdgeInsets.all(8),
+              child: pw.Text(bill.totalAmount.toString(),
+                  style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+            ),
           ],
         ),
       ],
@@ -577,11 +575,11 @@ class PDFGenerator {
         pw.Text(title,
             style: isBold
                 ? pw.TextStyle(fontWeight: pw.FontWeight.bold)
-                : pw.TextStyle()),
+                : const pw.TextStyle()),
         pw.Text(value,
             style: isBold
                 ? pw.TextStyle(fontWeight: pw.FontWeight.bold)
-                : pw.TextStyle()),
+                : const pw.TextStyle()),
       ],
     );
   }

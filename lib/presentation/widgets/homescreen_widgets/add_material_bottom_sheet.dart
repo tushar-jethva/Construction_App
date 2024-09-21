@@ -69,13 +69,6 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
           ),
           child: Column(
             children: [
-              Container(
-                height: 5.w,
-                width: 50.w,
-                margin: EdgeInsets.symmetric(vertical: 15.h),
-                decoration: BoxDecoration(
-                    color: grey, borderRadius: BorderRadius.circular(8)),
-              ),
               Form(
                 key: _formKeyMaterial,
                 child: Column(

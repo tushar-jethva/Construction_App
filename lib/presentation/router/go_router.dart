@@ -191,12 +191,15 @@ class Routes {
       path: RoutesName.sheetViewScreen,
       name: RoutesName.sheetViewScreen,
       builder: (context, state) {
-        final String partyId = state.extra as String;
+        final args = state.extra as Map<String, dynamic>;
+        final String partyId = args['partyId'] as String;
+        final String partyName = args['partyName'] as String;
         return BlocProvider(
           create: (context) => BillingPartyParticularBloc(
               billsRepository: BillsRepositoryImpl()),
           child: MySheetViewScreen(
             partyId: partyId,
+            partyName: partyName,
           ),
         );
       },
@@ -206,7 +209,9 @@ class Routes {
       name: RoutesName.pdfPreviewScreen,
       builder: (context, state) {
         final BillModel bill = state.extra as BillModel;
-        return  MyPdfPreview(bill: bill,);
+        return MyPdfPreview(
+          bill: bill,
+        );
       },
     ),
   ]);

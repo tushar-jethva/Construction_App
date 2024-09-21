@@ -31,6 +31,8 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
   openBottomSheet({required BuildContext context}) {
     showModalBottomSheet(
         isScrollControlled: true,
+        showDragHandle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
           return BlocProvider(

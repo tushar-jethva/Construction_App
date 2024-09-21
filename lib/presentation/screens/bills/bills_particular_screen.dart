@@ -117,6 +117,7 @@ class _MyBillsParticularPartyScreenState
                                           },
                                           icon: Icon(
                                             Icons.download,
+                                            color: theme.canvasColor,
                                           ))
                                     ],
                                   ),
@@ -141,8 +142,10 @@ class _MyBillsParticularPartyScreenState
         ),
         floatingActionButton: GestureDetector(
           onTap: () {
-            context.pushNamed(RoutesName.sheetViewScreen,
-                extra: widget.party.sId);
+            context.pushNamed(RoutesName.sheetViewScreen, extra: {
+              "partyId": widget.party.sId,
+              "partyName": widget.party.name
+            });
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),

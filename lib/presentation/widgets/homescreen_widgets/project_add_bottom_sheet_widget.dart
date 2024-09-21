@@ -20,7 +20,7 @@ class MyProjectAddBottomSheet extends StatefulWidget {
 }
 
 class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
-  final TextEditingController _projectNameController = TextEditingController();   
+  final TextEditingController _projectNameController = TextEditingController();
 
   final TextEditingController _descriptionController = TextEditingController();
 
@@ -65,13 +65,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
           ),
           child: Column(
             children: [
-              Container(
-                height: 5.w,
-                width: 50.w,
-                margin: EdgeInsets.symmetric(vertical: 15.h),
-                decoration: BoxDecoration(
-                    color: grey, borderRadius: BorderRadius.circular(8)),
-              ),
+             
               Form(
                 key: _formKey,
                 child: Column(
@@ -105,7 +99,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                 ),
               ),
               Gap(15.h),
-              MyCustomTextField(
+              MyCustomTextFormField(
                 controller: _descriptionController,
                 hintText: 'Project Description',
                 maxLines: 3,
