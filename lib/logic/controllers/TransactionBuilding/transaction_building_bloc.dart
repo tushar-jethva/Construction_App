@@ -16,6 +16,9 @@ class TransactionBuildingBloc
       try {
         List<TransactionModel> listOfTransactions = await transactionRepository
             .getAllTransactionsByProjectId(projectId: event.projectId);
+
+        print(
+            "-----------------------------projects $listOfTransactions -----------------");
         _originalTransactions = listOfTransactions;
         emit(
             TransactionBuildingSuccess(listOfTransactions: listOfTransactions));

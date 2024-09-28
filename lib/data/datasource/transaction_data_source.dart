@@ -97,6 +97,8 @@ class TransactionDataSourceImpl extends TransactionDataSource {
       print(response.body);
       final transactions = jsonDecode(response.body);
       for (var transaction in transactions["data"]) {
+        print(
+            "---------------------------list $listOfTransactions---------------");
         listOfTransactions.add(TransactionModel.fromMap(transaction));
       }
     } catch (e) {

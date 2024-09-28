@@ -1,6 +1,7 @@
 import 'package:construction_mate/data/datasource/bills_data_source.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
+import 'package:construction_mate/logic/models/financial_model.dart';
 
 abstract class BillsRepository {
   void addBill(
@@ -11,6 +12,8 @@ abstract class BillsRepository {
       required String tds,
       required String partyId});
   Future<List<BillModel>> allBiilsByParticularParty({required String partyId});
+  Future<FinancialModel> getFinancial();
+  Future<FinancialModel> getFinancialByPartyId({required String partyId});
 }
 
 class BillsRepositoryImpl extends BillsRepository {
@@ -46,5 +49,30 @@ class BillsRepositoryImpl extends BillsRepository {
       print(e.toString());
     }
     return bills;
+  }
+
+  @override
+  Future<FinancialModel> getFinancial() async {
+    FinancialModel financialModel = FinancialModel("0", "0", "0", "0");
+    try {
+      financialModel = await billsDataSource.getFinancial();
+    } catch (e) {
+      print(e.toString());
+    }
+    return financialModel;
+  }
+
+  @override
+  Future<FinancialModel> getFinancialByPartyId(
+      {required String partyId}) async {
+    FinancialModel financialModel = FinancialModel("0", "0", "0", "0");
+    try {
+      financialModel =
+          await billsDataSource.getFinancialByPartyId(partyId: partyId);
+      print(financialModel);
+    } catch (e) {
+      print(e.toString());
+    }
+    return financialModel;
   }
 }

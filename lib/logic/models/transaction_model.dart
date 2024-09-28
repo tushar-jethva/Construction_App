@@ -39,15 +39,21 @@ class TransactionModel {
     sId = json['_id'];
     description = json['description'];
     date = json['date'];
-    buildingId = json['buildingId']?['_id'] ?? '';
-    agencyId = json['agencyId']['_id'];
-    amount = json['amount'].toString();
+    if (json['buildingId'] != null) {
+      buildingId = json['buildingId']?['_id'] ?? '';
+    }
+    if (json['agencyId'] != null) {
+      agencyId = json['agencyId']?['_id'] ?? '';
+    }
+    amount = (json['amount'] as dynamic).toString();
     entryType = json['entryType'];
     isCompleted = json['isCompleted'];
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    name = json['agencyId']['Name'];
+    if (json['agencyId'] != null) {
+      name = json['agencyId']['Name'];
+    }
     iV = json['__v'];
   }
 

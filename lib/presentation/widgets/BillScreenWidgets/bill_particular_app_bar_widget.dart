@@ -1,25 +1,27 @@
-import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/FinancialByParty/financialy_by_party_bloc.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/custom_top_bill_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class MyBillScreenAppBarWidget extends StatefulWidget {
-  final bool? isdetailScreen;
-  const MyBillScreenAppBarWidget({super.key, this.isdetailScreen = false});
+class MyBillScreenParticularAppBarWidget extends StatefulWidget {
+  final String partyId;
+  const MyBillScreenParticularAppBarWidget({super.key, required this.partyId});
 
   @override
-  State<MyBillScreenAppBarWidget> createState() =>
-      _MyBillScreenAppBarWidgetState();
+  State<MyBillScreenParticularAppBarWidget> createState() =>
+      _MyBillScreenParticularAppBarWidgetState();
 }
 
-class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
+class _MyBillScreenParticularAppBarWidgetState
+    extends State<MyBillScreenParticularAppBarWidget> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<FinancialBloc>().add(FinancialEvent.fetchFinancials());
+    context.read<FinancialyByPartyBloc>().add(
+        FinancialyByPartyEvent.fetchFinancialsByParty(partyId: widget.partyId));
   }
 
   @override
@@ -31,22 +33,20 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
       padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
       decoration: BoxDecoration(
           color: theme.cardColor, borderRadius: BorderRadius.circular(10.r)),
-      child: BlocBuilder<FinancialBloc, FinancialState>(
+      child: BlocBuilder<FinancialyByPartyBloc, FinancialyByPartyState>(
         builder: (context, state) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              widget.isdetailScreen!
-                  ? IconButton(
-                      onPressed: () {
-                        context.pop();
-                      },
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: theme.canvasColor,
-                      ))
-                  : const SizedBox(),
+              IconButton(
+                  onPressed: () {
+                    context.pop();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back,
+                    color: theme.canvasColor,
+                  )),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

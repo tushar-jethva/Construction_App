@@ -1,9 +1,11 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
+import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
 import 'package:construction_mate/presentation/screens/bills/sheet_view_screen.dart';
+import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_particular_app_bar_widget.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_screen_app_bar_widet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +28,6 @@ class _MyBillsParticularPartyScreenState
     extends State<MyBillsParticularPartyScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context
         .read<BillingPartyParticularBloc>()
@@ -42,6 +43,7 @@ class _MyBillsParticularPartyScreenState
     context
         .read<BillingPartyParticularBloc>()
         .add(BillingPartyParticularLoadBills(partyId: widget.party.sId!));
+    context.read<FinancialBloc>().add(const FinancialEvent.fetchFinancials());
   }
 
   @override
@@ -51,8 +53,8 @@ class _MyBillsParticularPartyScreenState
         appBar: PreferredSize(
             preferredSize: Size(double.infinity,
                 ReusableFunctions.getHeight(context: context, height: 0.19)),
-            child: const MyBillScreenAppBarWidget(
-              isdetailScreen: true,
+            child: MyBillScreenParticularAppBarWidget(
+              partyId: widget.party.sId!,
             )),
         body: RefreshIndicator(
           color: purple,

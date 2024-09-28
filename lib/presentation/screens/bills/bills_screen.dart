@@ -8,6 +8,8 @@ import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
+import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_bill_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_billing_party_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_screen_app_bar_widet.dart';
@@ -50,10 +52,17 @@ class _MyBillScreenState extends State<MyBillScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
-          return BlocProvider(
-            create: (context) => AddBillBloc(
-                billingPartyRepository: BillingRepositoryImpl(),
-                billsRepository: BillsRepositoryImpl()),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => AddBillBloc(
+                    billingPartyRepository: BillingRepositoryImpl(),
+                    billsRepository: BillsRepositoryImpl()),
+              ),
+              BlocProvider(
+                create: (context) => SwitchBloc(),
+              ),
+            ],
             child: const MyAddBillBottomSheet(),
           );
         });
@@ -68,6 +77,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
 
   Future<void> onRefreshIndicatorCalled() async {
     context.read<BillingPartiesHomeBloc>().add(BillingPartiesLoadEvent());
+    context.read<FinancialBloc>().add(const FinancialEvent.fetchFinancials());
   }
 
   @override

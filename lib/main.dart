@@ -6,6 +6,7 @@ import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
+import 'package:construction_mate/data/repository/bills_repository.dart';
 import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
@@ -17,11 +18,14 @@ import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billi
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
+import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
@@ -112,7 +116,11 @@ class MyMultiBlocProviders extends StatelessWidget {
                     ProjectRepositoryImpl(ProjectDataSourceImpl()))),
         BlocProvider(
             create: (_) => BillingPartiesHomeBloc(
-                billingPartyRepository: BillingRepositoryImpl()))
+                billingPartyRepository: BillingRepositoryImpl())),
+        BlocProvider(
+            create: (_) =>
+                FinancialBloc(billsRepository: BillsRepositoryImpl())),
+        BlocProvider(create: (_) => PaymentOutOtherExpenseBloc())
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

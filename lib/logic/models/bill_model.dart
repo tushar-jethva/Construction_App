@@ -4,16 +4,16 @@ class BillModel {
   PartieId? partieId;
   String? date;
   List<Items>? items;
-  int? netAmount;
-  int? totalAmount;
-  int? receivableAmount;
+  String? netAmount;
+  String? totalAmount;
+  String? receivableAmount;
   String? billNumber;
-  int? sGST;
-  int? sGSTAmount;
-  int? cGST;
-  int? cGSTAmount;
-  int? tDS;
-  int? tDSAmount;
+  String? sGST;
+  String? sGSTAmount;
+  String? cGST;
+  String? cGSTAmount;
+  String? tDS;
+  String? tDSAmount;
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
@@ -52,15 +52,15 @@ class BillModel {
       });
     }
     billNumber = json["BillNumber"];
-    netAmount = json['NetAmount'];
-    totalAmount = json['TotalAmount'];
-    receivableAmount = json['ReceivableAmount'];
-    sGST = json['SGST'];
-    sGSTAmount = json['SGSTAmount'];
-    cGST = json['CGST'];
-    cGSTAmount = json['CGSTAmount'];
-    tDS = json['TDS'];
-    tDSAmount = json['TDSAmount'];
+    netAmount = (json['NetAmount'] as dynamic).toString();
+    totalAmount = (json['TotalAmount'] as dynamic).toString();
+    receivableAmount = (json['ReceivableAmount'] as dynamic).toString();
+    sGST = (json['SGST'] as dynamic).toString();
+    sGSTAmount = (json['SGSTAmount'] as dynamic).toString();
+    cGST = (json['CGST'] as dynamic).toString();
+    cGSTAmount = (json['CGSTAmount'] as dynamic).toString();
+    tDS = (json['TDS'] as dynamic).toString();
+    tDSAmount = (json['TDSAmount'] as dynamic).toString();
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -102,8 +102,8 @@ class PartieId {
   String? contactNumber;
   String? shippingAddress;
   String? billingAddress;
-  int? receivableAmount;
-  int? receivedAmount;
+  String? receivableAmount;
+  String? receivedAmount;
   String? gSTnumber;
   bool? isDeleted;
   String? createdAt;
@@ -134,8 +134,8 @@ class PartieId {
     contactNumber = json['ContactNumber'];
     shippingAddress = json['ShippingAddress'];
     billingAddress = json['BillingAddress'];
-    receivableAmount = json['ReceivableAmount'];
-    receivedAmount = json['ReceivedAmount'];
+    receivableAmount = (json['ReceivableAmount'] as dynamic).toString();
+    receivedAmount = (json['ReceivedAmount'] as dynamic).toString();
     gSTnumber = json['GSTnumber'];
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
@@ -167,7 +167,7 @@ class Items {
   String? hSNCode;
   String? description;
   String? amount;
-  int? rate;
+  String? rate;
   int? squreFeet;
   String? sId;
   String? per;
@@ -184,8 +184,8 @@ class Items {
   Items.fromJson(Map<String, dynamic> json) {
     hSNCode = json['HSNCode'];
     description = json['Description'];
-    amount = json['Amount'].toString();
-    rate = json['Rate'];
+    amount = (json['Amount'] as dynamic).toString();
+    rate = (json['Rate'] as dynamic).toString();
     squreFeet = json['SqureFeet'];
     sId = json['_id'];
   }

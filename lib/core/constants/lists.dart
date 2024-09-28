@@ -15,3 +15,9 @@ List<String> nameOfAgency = ["--Select Agency--"];
 List<String> selectBuilding = ["--Select Building--"];
 List<String> selectProject = ["--Select Project--"];
 List<String> selectParties = ["--Select Party--"];
+
+List<String> otherExpenses = [
+  "GST",
+  "TDS",
+  "OTHER"
+];

@@ -5,8 +5,8 @@ class BillingPartyModel {
   String? contactNumber;
   String? shippingAddress;
   String? billingAddress;
-  int? receivableAmount;
-  int? receivedAmount;
+  String? receivableAmount;
+  String? receivedAmount;
   String? gSTnumber;
   bool? isDeleted;
   String? sId;
@@ -37,8 +37,8 @@ class BillingPartyModel {
     contactNumber = json['ContactNumber'];
     shippingAddress = json['ShippingAddress'];
     billingAddress = json['BillingAddress'];
-    receivableAmount = json['ReceivableAmount'];
-    receivedAmount = json['ReceivedAmount'];
+    receivableAmount = (json['ReceivableAmount'] as dynamic).toString();
+    receivedAmount = (json['ReceivedAmount'] as dynamic).toString();
     gSTnumber = json['GSTnumber'];
     isDeleted = json['isDeleted'];
     sId = json['_id'];
@@ -53,8 +53,8 @@ class BillingPartyModel {
     contactNumber = json['ContactNumber'];
     shippingAddress = json['ShippingAddress'];
     billingAddress = json['BillingAddress'];
-    receivableAmount = json['ReceivableAmount'];
-    receivedAmount = json['ReceivedAmount'];
+    receivableAmount = (json['ReceivableAmount'] as dynamic).toString();
+    receivedAmount = (json['ReceivedAmount'] as dynamic).toString();
     gSTnumber = json['GSTnumber'];
     isDeleted = json['isDeleted'];
     sId = json['_id'];

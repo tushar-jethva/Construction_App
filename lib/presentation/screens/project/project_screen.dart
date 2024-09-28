@@ -78,12 +78,12 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
             onRefresh: _refreshProjects,
             child: CustomScrollView(
               slivers: [
-                SliverAppBar(
-                  floating: true,
-                  surfaceTintColor: Colors.transparent,
-                  backgroundColor: theme.scaffoldBackgroundColor,
-                  flexibleSpace: const MyHomeScreenAppBar(),
-                ),
+                  SliverAppBar(
+                    floating: true,
+                    surfaceTintColor: Colors.transparent,
+                    backgroundColor: theme.scaffoldBackgroundColor,
+                    flexibleSpace: const MyHomeScreenAppBar(),
+                  ),
                 const TransactionTopWidget(),
                 SliverAppBar(
                   toolbarHeight: ReusableFunctions.getHeight(

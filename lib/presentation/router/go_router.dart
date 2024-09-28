@@ -5,6 +5,7 @@ import 'package:construction_mate/data/repository/bills_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
+import 'package:construction_mate/logic/controllers/FinancialByParty/financialy_by_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
@@ -178,9 +179,15 @@ class Routes {
       name: RoutesName.billingPartyPaticularScreen,
       builder: (context, state) {
         final BillingPartyModel party = state.extra as BillingPartyModel;
-        return BlocProvider(
-          create: (context) => BillingPartyParticularBloc(
-              billsRepository: BillsRepositoryImpl()),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+                create: (context) => FinancialyByPartyBloc(
+                    billsRepository: BillsRepositoryImpl())),
+            BlocProvider(
+                create: (context) => BillingPartyParticularBloc(
+                    billsRepository: BillsRepositoryImpl()))
+          ],
           child: MyBillsParticularPartyScreen(
             party: party,
           ),

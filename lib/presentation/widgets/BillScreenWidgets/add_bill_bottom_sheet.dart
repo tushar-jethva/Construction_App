@@ -2,6 +2,8 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
+import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
@@ -456,9 +458,46 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                         ),
                       ),
                       Gap(10.h),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Others",
+                              style: theme.textTheme.titleMedium,
+                            ),
+                            Gap(10.w),
+                            GestureDetector(
+                              onTap: () {
+                                context
+                                    .read<SwitchBloc>()
+                                    .add(SwitchEvent.switched());
+                              },
+                              child: BlocBuilder<SwitchBloc, SwitchState>(
+                                builder: (context, state) {
+                                  return Container(
+                                    padding: const EdgeInsets.all(7),
+                                    decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color.fromARGB(34, 97, 97, 97),
+                                    ),
+                                    child: Icon(
+                                      state.isSwitched
+                                          ? Icons.cancel
+                                          : Icons.add,
+                                      color: theme.canvasColor,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Gap(10.h),
                       BlocConsumer<AddBillBloc, AddBillState>(
                         listener: (context, state) {
-                          // TODO: implement listener
                           if (state.isAddedBill == 2) {
                             Navigator.pop(context);
                           }
@@ -478,6 +517,8 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                 context
                                     .read<AddBillBloc>()
                                     .add(BillAddBillEvent());
+                                context.read<FinancialBloc>().add(
+                                    const FinancialEvent.fetchFinancials());
                               }
                             },
                           );

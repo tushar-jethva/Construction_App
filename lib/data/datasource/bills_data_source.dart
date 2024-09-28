@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
+import 'package:construction_mate/logic/models/financial_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 
@@ -14,6 +15,9 @@ abstract class BillsDataSource {
       required String partyId});
 
   Future<List<BillModel>> allBiilsByParticularParty({required String partyId});
+
+  Future<FinancialModel> getFinancial();
+  Future<FinancialModel> getFinancialByPartyId({required String partyId});
 }
 
 class BillsDataSourceImpl extends BillsDataSource {
@@ -65,5 +69,41 @@ class BillsDataSourceImpl extends BillsDataSource {
       print(e.toString());
     }
     return billsList;
+  }
+
+  @override
+  Future<FinancialModel> getFinancial() async {
+    FinancialModel financialModel = FinancialModel("0", "0", "0", "0");
+    try {
+      http.Response res = await http
+          .get(Uri.parse(API.GET_FINACIALS), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      });
+
+      financialModel = FinancialModel.fromMap(jsonDecode(res.body)["data"]);
+      print(financialModel);
+    } catch (e) {
+      print(e.toString());
+    }
+    return financialModel;
+  }
+
+  @override
+  Future<FinancialModel> getFinancialByPartyId(
+      {required String partyId}) async {
+    FinancialModel financialModel = FinancialModel("0", "0", "0", "0");
+    try {
+      http.Response res = await http.get(
+          Uri.parse("${API.GET_FINACIALS}/$partyId"),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          });
+
+      financialModel = FinancialModel.fromMap(jsonDecode(res.body)["data"]);
+      print(financialModel);
+    } catch (e) {
+      print(e.toString());
+    }
+    return financialModel;
   }
 }
