@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
+import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/financial_model.dart';
 import 'package:http/http.dart' as http;
@@ -12,7 +13,8 @@ abstract class BillsDataSource {
       required String sgst,
       required String cgst,
       required String tds,
-      required String partyId});
+      required String partyId,
+      required OtherDetailsBillModel model});
 
   Future<List<BillModel>> allBiilsByParticularParty({required String partyId});
 
@@ -28,7 +30,8 @@ class BillsDataSourceImpl extends BillsDataSource {
       required String sgst,
       required String cgst,
       required String tds,
-      required String partyId}) async {
+      required String partyId,
+      required OtherDetailsBillModel model}) async {
     try {
       http.Response res = await http.post(
         Uri.parse(API.ADD_BILL),
@@ -38,7 +41,8 @@ class BillsDataSourceImpl extends BillsDataSource {
           'SGST': sgst,
           'CGST': cgst,
           'TDS': tds,
-          'PartieId': partyId
+          'PartieId': partyId,
+          'MoreDetails': model.toJson()
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

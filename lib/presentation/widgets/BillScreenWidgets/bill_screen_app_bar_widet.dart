@@ -52,11 +52,14 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
                 children: [
                   MyCustomTopBillWidget(
                     title: "TDS",
-                    amount: state.financialModel.totalTds!,
+                    amount: double.parse(state.financialModel.totalTds!)
+                        .toStringAsFixed(2),
                   ),
                   MyCustomTopBillWidget(
                     title: "Received",
-                    amount: state.financialModel.totalReceivedAmount!,
+                    amount:
+                        double.parse(state.financialModel.totalReceivedAmount!)
+                            .toStringAsFixed(2),
                   )
                 ],
               ),
@@ -65,11 +68,14 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
                 children: [
                   MyCustomTopBillWidget(
                     title: "GST",
-                    amount: state.financialModel.totalGst!,
+                    amount: double.parse(state.financialModel.totalGst!)
+                        .toStringAsFixed(2),
                   ),
                   MyCustomTopBillWidget(
                     title: "Receivable",
-                    amount: state.financialModel.totalReceivableAmount!,
+                    amount: double.parse(
+                            state.financialModel.totalReceivableAmount!)
+                        .toStringAsFixed(2),
                   )
                 ],
               )

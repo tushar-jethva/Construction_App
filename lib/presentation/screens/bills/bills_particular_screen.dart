@@ -96,13 +96,17 @@ class _MyBillsParticularPartyScreenState
                                       MyRichTextForPopUp(
                                         theme: theme,
                                         leftText: "Total Amount: ",
-                                        rightText: bill.totalAmount.toString(),
+                                        rightText: double.parse(
+                                                bill.totalAmount.toString())
+                                            .toStringAsFixed(2),
                                       ),
                                       MyRichTextForPopUp(
                                         theme: theme,
                                         leftText: "Receivable Amount: ",
-                                        rightText:
-                                            bill.receivableAmount.toString(),
+                                        rightText: double.parse(bill
+                                                .receivableAmount
+                                                .toString())
+                                            .toStringAsFixed(2),
                                       ),
                                     ],
                                   ),

@@ -2,8 +2,11 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
+import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/OtherDetailsBillBloc/other_details_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
+import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
@@ -496,10 +499,103 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                         ),
                       ),
                       Gap(10.h),
+                      BlocBuilder<SwitchBloc, SwitchState>(
+                        builder: (context, state) {
+                          return state.isSwitched
+                              ? Column(children: [
+                                  MyCustomTextFormField(
+                                    hintText: "Delivery Note",
+                                    maxLines: 2,
+                                    onChanged: (value) {
+                                      print(
+                                          "---------------------textfield--------------");
+                                      context.read<AddBillBloc>().add(
+                                          BillDeliveryNoteChanged(
+                                              value: value!));
+                                    },
+                                  ),
+                                  Gap(10.h),
+                                  MyCustomTextFormField(
+                                    hintText: "Mode of Payment",
+                                    maxLines: 1,
+                                    onChanged: (value) {
+                                      context.read<AddBillBloc>().add(
+                                          BillModeOfPaymentChanged(
+                                              value: value!));
+                                    },
+                                  ),
+                                  Gap(10.h),
+                                  MyCustomTextFormField(
+                                    hintText: "Reference No.",
+                                    maxLines: 1,
+                                    onChanged: (value) {
+                                      context.read<AddBillBloc>().add(
+                                          BillreferenceNoChanged(
+                                              value: value!));
+                                    },
+                                  ),
+                                  Gap(10.h),
+                                  MyCustomTextFormField(
+                                    hintText: "Other references",
+                                    maxLines: 1,
+                                    onChanged: (value) {
+                                      context.read<AddBillBloc>().add(
+                                          BillOtherReferencesChanged(
+                                              value: value!));
+                                    },
+                                  ),
+                                  Gap(10.h),
+                                  MyCustomTextFormField(
+                                    hintText: "Buyers's Order No.",
+                                    maxLines: 1,
+                                    onChanged: (value) {
+                                      context.read<AddBillBloc>().add(
+                                          BillBuyersOrderNoChanged(
+                                              value: value!));
+                                    },
+                                  ),
+                                  Gap(10.h),
+                                  MyCustomTextFormField(
+                                    hintText: "Dispatch doc No.",
+                                    maxLines: 1,
+                                    onChanged: (value) {
+                                      context.read<AddBillBloc>().add(
+                                          BillDispatchDocNoChanged(
+                                              value: value!));
+                                    },
+                                  ),
+                                  Gap(10.h),
+                                  MyCustomTextFormField(
+                                    hintText: "Dispatched through",
+                                    maxLines: 1,
+                                    onChanged: (value) {
+                                      context.read<AddBillBloc>().add(
+                                          BillDispatchedThroughChanged(
+                                              value: value!));
+                                    },
+                                  ),
+                                  Gap(10.h),
+                                  MyCustomTextFormField(
+                                    hintText: "Destination",
+                                    maxLines: 2,
+                                    onChanged: (value) {
+                                      context.read<AddBillBloc>().add(
+                                          BillDestinationChanged(
+                                              value: value!));
+                                    },
+                                  ),
+                                ])
+                              : const SizedBox();
+                        },
+                      ),
+                      Gap(10.h),
                       BlocConsumer<AddBillBloc, AddBillState>(
                         listener: (context, state) {
                           if (state.isAddedBill == 2) {
                             Navigator.pop(context);
+                            context
+                                .read<BillingPartiesHomeBloc>()
+                                .add(BillingPartiesLoadEvent());
                           }
                         },
                         builder: (context, state) {
@@ -514,11 +610,22 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                             color: green,
                             onPressed: () {
                               if (_billFormKey.currentState!.validate()) {
-                                context
-                                    .read<AddBillBloc>()
-                                    .add(BillAddBillEvent());
-                                context.read<FinancialBloc>().add(
-                                    const FinancialEvent.fetchFinancials());
+                                final state = context.read<SwitchBloc>().state;
+                                if (state.isSwitched) {
+                                  print(
+                                      "------------------switch ${state.isSwitched}------------------------");
+                                  context
+                                      .read<AddBillBloc>()
+                                      .add(BillAddBillEvent());
+                                  context.read<FinancialBloc>().add(
+                                      const FinancialEvent.fetchFinancials());
+                                } else {
+                                  context
+                                      .read<AddBillBloc>()
+                                      .add(BillAddBillEvent());
+                                  context.read<FinancialBloc>().add(
+                                      const FinancialEvent.fetchFinancials());
+                                }
                               }
                             },
                           );

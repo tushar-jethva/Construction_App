@@ -1,4 +1,5 @@
 import 'package:construction_mate/data/datasource/bills_data_source.dart';
+import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/financial_model.dart';
@@ -6,6 +7,7 @@ import 'package:construction_mate/logic/models/financial_model.dart';
 abstract class BillsRepository {
   void addBill(
       {required String date,
+      required OtherDetailsBillModel model,
       required List<BillItemModel> billItems,
       required String sgst,
       required String cgst,
@@ -22,6 +24,7 @@ class BillsRepositoryImpl extends BillsRepository {
   void addBill(
       {required String date,
       required List<BillItemModel> billItems,
+      required OtherDetailsBillModel model,
       required String sgst,
       required String cgst,
       required String tds,
@@ -33,7 +36,8 @@ class BillsRepositoryImpl extends BillsRepository {
           sgst: sgst,
           cgst: cgst,
           tds: tds,
-          partyId: partyId);
+          partyId: partyId,
+          model: model);
     } catch (e) {
       print(e.toString());
     }

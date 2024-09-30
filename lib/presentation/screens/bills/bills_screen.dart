@@ -9,6 +9,7 @@ import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.da
 import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/OtherDetailsBillBloc/other_details_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_bill_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_billing_party_bottom_sheet.dart';
@@ -170,7 +171,9 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                                     .textTheme.titleMedium!
                                                     .copyWith(fontSize: 14)),
                                             TextSpan(
-                                                text: "${party.receivedAmount}",
+                                                text: double.parse(
+                                                        party.receivedAmount!)
+                                                    .toStringAsFixed(2),
                                                 style: theme
                                                     .textTheme.titleMedium!
                                                     .copyWith(
@@ -186,8 +189,9 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                                     .textTheme.titleMedium!
                                                     .copyWith(fontSize: 14)),
                                             TextSpan(
-                                                text:
-                                                    "${party.receivableAmount}",
+                                                text: double.parse(
+                                                        party.receivableAmount!)
+                                                    .toStringAsFixed(2),
                                                 style: theme
                                                     .textTheme.titleMedium!
                                                     .copyWith(

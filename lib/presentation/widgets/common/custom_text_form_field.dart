@@ -2,7 +2,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class MyCustomTextFormField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hintText;
   final int maxLines;
   final int? maxLength;
@@ -12,7 +12,7 @@ class MyCustomTextFormField extends StatelessWidget {
   final String? label;
   const MyCustomTextFormField(
       {super.key,
-      required this.controller,
+       this.controller,
       required this.hintText,
       required this.maxLines,
        this.textInputType,
