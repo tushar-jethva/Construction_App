@@ -19,6 +19,9 @@ import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
+import 'package:construction_mate/presentation/screens/authentication/signin/sign_in_screen.dart';
+import 'package:construction_mate/presentation/screens/authentication/signup/sign_up_screen.dart';
+import 'package:construction_mate/presentation/screens/authentication/signup/widgets/sign_up_step_2.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_particular_screen.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/bills/pdf_preview.dart';
@@ -32,6 +35,7 @@ import 'package:construction_mate/presentation/screens/project/inidividual_trans
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
+import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/floors_and_foot_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,6 +47,26 @@ class Routes {
     GoRoute(
       path: RoutesName.initialLocation,
       name: RoutesName.initialLocation,
+      builder: (contex, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: RoutesName.signUpScreen,
+      name: RoutesName.signUpScreen,
+      builder: (contex, state) =>  SignUpScreen(),
+    ),
+    GoRoute(
+      path: RoutesName.signUpScreen2,
+      name: RoutesName.signUpScreen2,
+      builder: (contex, state) => const SignUpStep2(),
+    ),
+    GoRoute(
+      path: RoutesName.signInScreen,
+      name: RoutesName.signInScreen,
+      builder: (contex, state) =>  SignInScreen(),
+    ),
+    GoRoute(
+      path: RoutesName.bottomBar,
+      name: RoutesName.bottomBar,
       builder: (contex, state) => const MyBottomBar(),
     ),
     GoRoute(

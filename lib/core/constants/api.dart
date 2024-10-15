@@ -56,4 +56,14 @@ class API {
 
   //--------------------------- Financials ------------------------------------------------------------------------------------
   static const GET_FINACIALS = "$BASE_URL/Bill/GetFinancials";
+
+  //------------- Authentication--------------
+  static const REQUEST_OTP = "$BASE_URL/Company/RequestOtp";
+  static const VERIFY_OTP = "$BASE_URL/Company/VerifyOtp";
+  static const SIGN_UP_API = "$BASE_URL/Company/SetCredentials";
+  static const LOGIN_API = "$BASE_URL/Company/Login";
+
+
+
+
 }

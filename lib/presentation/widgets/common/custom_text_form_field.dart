@@ -10,16 +10,18 @@ class MyCustomTextFormField extends StatelessWidget {
   final String? Function(String? value)? validator;
   final String? Function(String? value)? onChanged;
   final String? label;
+  final Widget? suffixIcon;
   const MyCustomTextFormField(
       {super.key,
-       this.controller,
+      this.controller,
       required this.hintText,
       required this.maxLines,
-       this.textInputType,
-       this.validator,
+      this.textInputType,
+      this.validator,
       this.maxLength,
       this.onChanged,
-      this.label});
+      this.label,
+      this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class MyCustomTextFormField extends StatelessWidget {
         style: theme.textTheme.titleMedium,
         cursorColor: purple,
         decoration: InputDecoration(
+          suffixIcon: suffixIcon,
           label: Text(
             hintText,
             style: theme.textTheme.titleMedium!.copyWith(color: grey),

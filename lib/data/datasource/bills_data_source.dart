@@ -33,6 +33,17 @@ class BillsDataSourceImpl extends BillsDataSource {
       required String partyId,
       required OtherDetailsBillModel model}) async {
     try {
+      final data = jsonEncode({
+        'date': date,
+        'Items': billItems.map((e) => e.toJson()).toList(),
+        'SGST': sgst,
+        'CGST': cgst,
+        'TDS': tds,
+        'PartieId': partyId,
+        'MoreDetails': model.toMap()
+      });
+
+      print(data);
       http.Response res = await http.post(
         Uri.parse(API.ADD_BILL),
         body: jsonEncode({
@@ -42,7 +53,7 @@ class BillsDataSourceImpl extends BillsDataSource {
           'CGST': cgst,
           'TDS': tds,
           'PartieId': partyId,
-          'MoreDetails': model.toJson()
+          'MoreDetails': model.toMap()
         }),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

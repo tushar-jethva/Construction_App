@@ -83,6 +83,16 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [assets];
 }
 
+class $AssetsJsonGen {
+  const $AssetsJsonGen();
+
+  /// File path: assets/json/construction_anim.json
+  String get constructionAnim => 'assets/json/construction_anim.json';
+
+  /// List of all assets
+  List<String> get values => [constructionAnim];
+}
+
 class $AssetsLogosGen {
   const $AssetsLogosGen();
 
@@ -192,6 +202,7 @@ class Assets {
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsLogosGen logos = $AssetsLogosGen();
 }
 

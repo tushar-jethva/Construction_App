@@ -16,3 +16,5 @@ final Color textColor = Color(0xff212121);
 final Color darkTextColor = Color(0xffe0e0e0);
 final Color darkCardColor = Color(0xff1f1f1f);
 final Color darkShimmerColor = Color(0xff2E2E2E);
+final  Color otpbackColor = const Color.fromARGB(102, 205, 212, 245);
+

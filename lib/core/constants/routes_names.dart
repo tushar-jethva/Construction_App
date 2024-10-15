@@ -1,5 +1,6 @@
 class RoutesName {
   static String initialLocation = '/';
+  static String bottomBar = '/bottomBar';
   static String partiesScreen = '/homeScreen';
   static String projectScreen = '/projectScreen';
   static String billsScreen = '/billsScreen';
@@ -14,4 +15,8 @@ class RoutesName {
   static String billingPartyPaticularScreen = '/billingPartyParticularScreen';
   static String sheetViewScreen = "/sheetView";
   static String pdfPreviewScreen = "/pdfPreviewScreen";
+  static String signInScreen = "/signIn";
+  static String signUpScreen = "/signUp";
+  static String signUpScreen2 = "/signUpStep2";
+
 }
