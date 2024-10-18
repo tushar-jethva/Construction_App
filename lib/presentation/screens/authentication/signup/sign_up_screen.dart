@@ -4,10 +4,15 @@ import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/extension/sized_box_extension.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
+import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
+import 'package:construction_mate/main.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
+import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -42,16 +47,21 @@ class SignUpScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Column(
                     children: [
-                      const MyCustomTextFormField(
-                          hintText: "Email", maxLines: 1),
-                      25.hx,
-                      MyCustomButtonWidget(
-                          widget: Text(
-                            "Next",
-                            style: theme.textTheme.bodyMedium,
-                          ),
-                          color: purple,
-                          onPressed: () {
+                      CustomTextFormField(
+                          isValidate: true,
+                          textInputType: TextInputType.emailAddress,
+                          textFieldType: TextFieldType.email,
+                          onChanged: (value) {
+                            context
+                                .read<SignUpBloc>()
+                                .add(SignUpEvent.emailOnChanged(value));
+                          },
+                          hintText: "Email",
+                          maxLines: 1),
+                      10.hx,
+                      BlocConsumer<SignUpBloc, SignUpState>(
+                        listener: (context, state) {
+                          if (state.state.isLoaded) {
                             showDialog(
                               context: context,
                               builder: (context) {
@@ -60,7 +70,32 @@ class SignUpScreen extends StatelessWidget {
                               barrierColor: Colors.transparent.withOpacity(0.6),
                               barrierDismissible: false,
                             );
-                          }),
+                          } else if (state.state.isError) {
+                            ReusableFunctions.showSnackBar(
+                                context: context,
+                                content: "User already exist!");
+                          }
+                        },
+                        builder: (context, state) {
+                          return BlocBuilder<SignUpBloc, SignUpState>(
+                            builder: (context, state) {
+                              return CustomElevatedButton(
+                                isLoading: state.state.isLoading,
+                                label: "Next",
+                                backgroundColor: purple,
+                                labelColor: white,
+                                borderColor: Colors.transparent,
+                                onTap: () {
+                                  if (formKey.currentState!.validate()) {
+                                    context.read<SignUpBloc>().add(
+                                        const SignUpEvent.checkIsEmailExist());
+                                  }
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
                       5.hx,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
