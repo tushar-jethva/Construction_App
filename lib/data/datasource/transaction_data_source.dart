@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/transaction_model.dart';
-import 'package:http/http.dart' as http;
+import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 
 abstract class TransactionDataSource {
   Future<void> addPaymentOutTransaction(
@@ -24,15 +23,17 @@ abstract class TransactionDataSource {
   Future<List<TransactionModel>> getAllTransactionsByAgencyId(
       {required String agencyId});
 
-  Future<String> getTotalPaymentOut();
+  Future<String?> getTotalPaymentOut();
   Future<String> getTotalPaymentOutProject({required String projectId});
-  Future<String> getTotalPaymentIn();
+  Future<String?> getTotalPaymentIn();
   Future<String> getTotalPaymentInProject({required String projectId});
   Future<List<TransactionModel>> getAllTransactionByIndividualAgency(
       {required String agencyId, required String projectId});
 }
 
 class TransactionDataSourceImpl extends TransactionDataSource {
+  final dio = BaseDataCenter().dio.dio;
+
   @override
   Future<void> addPaymentOutTransaction(
       {required String description,
@@ -50,14 +51,11 @@ class TransactionDataSourceImpl extends TransactionDataSource {
           taskId: "",
           entryType: "Debit");
       print("$description $agencyId $projectId $buildingId");
-      http.Response response = await http.post(
-        Uri.parse(API.ADD_PAYMENT_OUT),
-        body: transactionModel.toJson(),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final response = await dio.post(
+        API.ADD_PAYMENT_OUT,
+        data: transactionModel.toJson(),
       );
-      print(response.body);
+      print(response.data);
     } catch (e) {
       print(e.toString());
     }
@@ -69,15 +67,12 @@ class TransactionDataSourceImpl extends TransactionDataSource {
       required String agencyId,
       required String amount}) async {
     try {
-      http.Response response = await http.post(
-        Uri.parse(API.ADD_PAYMENT_IN),
-        body:
+      final response = await dio.post(
+        API.ADD_PAYMENT_IN,
+        data:
             jsonEncode({"PartieId": agencyId, "date": date, "Amount": amount}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
       );
-      print(response.body);
+      print(response.data);
     } catch (e) {
       print(e.toString());
     }
@@ -88,14 +83,11 @@ class TransactionDataSourceImpl extends TransactionDataSource {
       {required String projectId}) async {
     List<TransactionModel> listOfTransactions = [];
     try {
-      http.Response response = await http.get(
-        Uri.parse("${API.GET_ALL_TRANSACTION_BY_PROJECT_ID}/${projectId}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final response = await dio.get(
+        "${API.GET_ALL_TRANSACTION_BY_PROJECT_ID}/$projectId",
       );
-      print(response.body);
-      final transactions = jsonDecode(response.body);
+      print(response.data);
+      final transactions = response.data;
       for (var transaction in transactions["data"]) {
         print(
             "---------------------------list $listOfTransactions---------------");
@@ -113,13 +105,9 @@ class TransactionDataSourceImpl extends TransactionDataSource {
     List<TransactionModel> listOfTransactionsAgency = [];
 
     try {
-      http.Response response = await http.get(
-        Uri.parse("${API.GET_TRANSACTOIN_BY_AGENCY_ID}/${agencyId}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
-      final transactions = jsonDecode(response.body);
+      final response =
+          await dio.get("${API.GET_TRANSACTOIN_BY_AGENCY_ID}/${agencyId}");
+      final transactions = response.data;
       for (var transaction in transactions["data"]) {
         print(transaction);
         listOfTransactionsAgency.add(TransactionModel.fromMap(transaction));
@@ -131,17 +119,14 @@ class TransactionDataSourceImpl extends TransactionDataSource {
   }
 
   @override
-  Future<String> getTotalPaymentOut() async {
+  Future<String?> getTotalPaymentOut() async {
     String total = "0";
     try {
-      http.Response response = await http.get(
-        Uri.parse("${API.GET_TOTAL_PAYMENT_OUT}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final response = await dio.get(
+        API.GET_TOTAL_PAYMENT_OUT,
       );
 
-      final map = jsonDecode(response.body);
+      final map = response.data;
       total = map["TotalPayOut"].toString();
     } catch (e) {
       print(e.toString());
@@ -153,14 +138,11 @@ class TransactionDataSourceImpl extends TransactionDataSource {
   Future<String> getTotalPaymentOutProject({required String projectId}) async {
     String total = "0";
     try {
-      http.Response response = await http.get(
-        Uri.parse("${API.GET_TOTAL_PAYMENT_OUT_PROJECT}/$projectId"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final response = await dio.get(
+        "${API.GET_TOTAL_PAYMENT_OUT_PROJECT}/$projectId",
       );
 
-      final map = jsonDecode(response.body);
+      final map = response.data;
       total = map["ProjectPayOut"].toString();
     } catch (e) {
       print(e.toString());
@@ -169,16 +151,14 @@ class TransactionDataSourceImpl extends TransactionDataSource {
   }
 
   @override
-  Future<String> getTotalPaymentIn() async {
+  Future<String?> getTotalPaymentIn() async {
     String total = "0";
     try {
-      http.Response response = await http.get(
-        Uri.parse("${API.GET_TOTAL_PAYMENT_IN}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final response = await dio.get(
+        API.GET_TOTAL_PAYMENT_IN,
       );
-      final map = jsonDecode(response.body);
+
+      final map = response.data;
       total = map["PayIn"].toString();
     } catch (e) {
       print(e.toString());
@@ -190,14 +170,11 @@ class TransactionDataSourceImpl extends TransactionDataSource {
   Future<String> getTotalPaymentInProject({required String projectId}) async {
     String total = "0";
     try {
-      http.Response response = await http.get(
-        Uri.parse("${API.GET_TOTAL_PAYMENT_IN}/$projectId"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final response = await dio.get(
+        "${API.GET_TOTAL_PAYMENT_IN}/$projectId",
       );
 
-      final map = jsonDecode(response.body);
+      final map = response.data;
       total = map["PayIn"].toString();
     } catch (e) {
       print(e.toString());
@@ -210,15 +187,12 @@ class TransactionDataSourceImpl extends TransactionDataSource {
       {required String agencyId, required String projectId}) async {
     List<TransactionModel> transactionsOfIndividualAgency = [];
     try {
-      http.Response response = await http.post(
-        Uri.parse(API.GET_TRANSACTION_BY_INDIVIDUAL_AGENCIES),
-        body: jsonEncode({"agencyId": agencyId, "projectId": projectId}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final response = await dio.post(
+        API.GET_TRANSACTION_BY_INDIVIDUAL_AGENCIES,
+        data: jsonEncode({"agencyId": agencyId, "projectId": projectId}),
       );
-      print(response.body);
-      final map = jsonDecode(response.body);
+      print(response.data);
+      final map = response.data;
       for (var agency in map["data"]) {
         transactionsOfIndividualAgency.add(TransactionModel.fromMap(agency));
       }

@@ -6,6 +6,11 @@ sealed class AgencyWorkTypesSelectionEvent {}
 
 class FetchWorkTypePartiesEvent extends AgencyWorkTypesSelectionEvent {}
 
+class OnMessageChanged extends AgencyWorkTypesSelectionEvent {
+  final String message;
+  OnMessageChanged({required this.message});
+}
+
 class ToggleWorkTypeSelection extends AgencyWorkTypesSelectionEvent {
   final int index;
 
@@ -28,5 +33,4 @@ class OnAddAgencyPartiesButtonPressed extends AgencyWorkTypesSelectionEvent {
     required this.name,
     required this.description,
   });
-
 }

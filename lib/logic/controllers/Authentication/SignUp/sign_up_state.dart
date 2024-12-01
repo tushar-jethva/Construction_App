@@ -7,7 +7,7 @@ class SignUpState with _$SignUpState {
     required RequestState state1,
     required RequestState state2,
     required RequestState state3,
-
+    required int screenState,
     required String message,
     required String companyName,
     required String email,
@@ -21,6 +21,7 @@ class SignUpState with _$SignUpState {
         state1: RequestState.empty,
         state2: RequestState.empty,
         state3: RequestState.empty,
+        screenState: -1,
         message: '',
         email: '',
         companyName: "",

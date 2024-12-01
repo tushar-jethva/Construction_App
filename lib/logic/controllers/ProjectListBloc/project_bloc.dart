@@ -19,19 +19,23 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   }
 
   void _onAddProject(AddProject event, Emitter<ProjectState> emit) async {
-    try {
-      emit(ProjectAddLoading());
-      await projectRepository.addProject(
-          projectName: event.projectName,
-          address: event.projectAddress,
-          description: event.projectDescription);
-      // await Future.delayed(Duration(seconds: 5), () {
-      //   emit(ProjectAddSuccess());
-      // });
+    emit(ProjectAddLoading());
+    final res = event.isUpdate
+        ? await projectRepository.updateProject(
+            project: ProjectModel(
+                name: event.projectName,
+                address: event.projectAddress,
+                description: event.projectDescription,
+                sId: event.projectId))
+        : await projectRepository.addProject(
+            projectName: event.projectName,
+            address: event.projectAddress,
+            description: event.projectDescription);
+    res.fold((l) {
+      emit(ProjectAddFailure(message: l.message));
+    }, (r) {
       emit(ProjectAddSuccess());
       add(LoadProjects());
-    } catch (e) {
-      emit(ProjectAddFailure());
-    }
+    });
   }
 }

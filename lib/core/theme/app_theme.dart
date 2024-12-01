@@ -6,6 +6,7 @@ class AppTheme {
       scaffoldBackgroundColor: white,
       cardColor: greyLight,
       hoverColor: highlightColor,
+      primaryColor: purple,
       textTheme: TextTheme(
           bodyMedium: TextStyle(
               fontFamily: 'Montserrat',
@@ -25,12 +26,17 @@ class AppTheme {
       scaffoldBackgroundColor: blackBackgroundColor,
       cardColor: darkCardColor,
       hoverColor: darkShimmerColor,
+      primaryColor: purple,
       canvasColor: white,
-      textTheme:  TextTheme(
+      textTheme: TextTheme(
           bodyMedium: TextStyle(
-              fontFamily: 'Montserrat', fontWeight: FontWeight.w500, color: darkTextColor),
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w500,
+              color: darkTextColor),
           titleLarge: TextStyle(
-              fontFamily: 'Montserrat', fontWeight: FontWeight.w700, color: darkTextColor),
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w700,
+              color: darkTextColor),
           titleMedium: TextStyle(
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w400,

@@ -3,16 +3,22 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
+import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
+import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class MyProjectAddBottomSheet extends StatefulWidget {
-  const MyProjectAddBottomSheet({super.key});
+  final bool? isUpdate;
+  final ProjectModel project;
+  const MyProjectAddBottomSheet(
+      {super.key, this.isUpdate, required this.project});
 
   @override
   State<MyProjectAddBottomSheet> createState() =>
@@ -32,17 +38,41 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
       ProjectRepositoryImpl(ProjectDataSourceImpl());
 
   @override
+  void initState() {
+    super.initState();
+    widget.isUpdate == true ? setController() : ();
+  }
+
+  @override
   dispose() {
     super.dispose();
     _projectNameController.dispose();
     _descriptionController.dispose();
+    _addressController.dispose();
   }
 
   void addProject() async {
     context.read<ProjectBloc>().add(AddProject(
         projectAddress: _addressController.text,
         projectName: _projectNameController.text,
-        projectDescription: _descriptionController.text));
+        projectDescription: _descriptionController.text,
+        projectId: "",
+        isUpdate: false));
+  }
+
+  void updateProject({required String projectId}) async {
+    context.read<ProjectBloc>().add(AddProject(
+        projectAddress: _addressController.text,
+        projectName: _projectNameController.text,
+        projectDescription: _descriptionController.text,
+        projectId: projectId,
+        isUpdate: true));
+  }
+
+  setController() {
+    _projectNameController.text = widget.project.name ?? "";
+    _descriptionController.text = widget.project.description ?? "";
+    _addressController.text = widget.project.address ?? "";
   }
 
   @override
@@ -65,7 +95,6 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
           ),
           child: Column(
             children: [
-             
               Form(
                 key: _formKey,
                 child: Column(
@@ -109,26 +138,31 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                 listener: (context, state) {
                   if (state is ProjectAddSuccess) {
                     Navigator.pop(context);
-                    ReusableFunctions.showSnackBar(
-                        context: context, content: "Project add successfully!");
+                    widget.isUpdate == true
+                        ? "Project updated!".showToast(
+                            context: context,
+                            typeOfToast: ShortToastType.success)
+                        : "Project Added".showToast(
+                            context: context,
+                            typeOfToast: ShortToastType.success);
+                  } else if (state is ProjectAddFailure) {
+                    "Something went wrong!".showToast(context: context);
                   }
                 },
                 child: BlocBuilder<ProjectBloc, ProjectState>(
                   builder: (context, state) {
                     return Padding(
                       padding: EdgeInsets.only(bottom: 10.h),
-                      child: MyCustomButtonWidget(
-                        widget: state is ProjectAddLoading
-                            ? ReusableFunctions.loader(color: white)
-                            : const Text(
-                                'Add Project',
-                                style: TextStyle(
-                                    color: white, fontWeight: FontWeight.w500),
-                              ),
-                        color: green,
-                        onPressed: () async {
+                      child: CustomElevatedButton(
+                        isLoading: state is ProjectAddLoading,
+                        label:
+                            widget.isUpdate == true ? 'Update' : 'Add Project',
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            addProject();
+                            widget.isUpdate == true
+                                ? updateProject(
+                                    projectId: widget.project.sId ?? "")
+                                : addProject();
                           }
                         },
                       ),

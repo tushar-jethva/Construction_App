@@ -12,11 +12,13 @@ class TotalPaymentOutBloc
       : super(TotalPaymentOutState()) {
     on<FetchTotalPaymentOut>((event, emit) async {
       try {
-        String totalPaymentOut =
+        final totalPaymentOut =
             await transactionRepository.getTotalPaymentOut();
-        String totalPaymentIn = await transactionRepository.getTotalPaymentIn();
+        print("------------------------- pay $totalPaymentOut ---------------");
+        final totalPaymentIn =
+            await transactionRepository.getTotalPaymentIn();
         emit(state.copyWith(
-            paymentOut: totalPaymentOut, paymentIn: totalPaymentIn));
+            paymentOut: totalPaymentOut ?? "0.00", paymentIn: totalPaymentIn ?? "0.00"));
       } catch (e) {}
     });
   }

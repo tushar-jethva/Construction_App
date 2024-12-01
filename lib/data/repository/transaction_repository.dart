@@ -21,9 +21,9 @@ abstract class TransactionRepository {
   Future<List<TransactionModel>> getAllTransactionsByAgencyId(
       {required String agencyId});
 
-  Future<String> getTotalPaymentOut();
+  Future<String?> getTotalPaymentOut();
   Future<String> getTotalPaymentOutProject({required String projectId});
-  Future<String> getTotalPaymentIn();
+  Future<String?> getTotalPaymentIn();
   Future<String> getTotalPaymentInProject({required String projectId});
   Future<List<TransactionModel>> getAllTransactionByIndividualAgency(
       {required String agencyId, required String projectId});
@@ -94,8 +94,8 @@ class TransactionRepositoryImpl extends TransactionRepository {
   }
 
   @override
-  Future<String> getTotalPaymentOut() async {
-    String total = "0";
+  Future<String?> getTotalPaymentOut() async {
+    String? total = "0";
     try {
       total = await transactionDataSource.getTotalPaymentOut();
     } catch (e) {
@@ -129,8 +129,8 @@ class TransactionRepositoryImpl extends TransactionRepository {
   }
 
   @override
-  Future<String> getTotalPaymentIn() async {
-    String total = "0";
+  Future<String?> getTotalPaymentIn() async {
+    String? total = "0";
     try {
       total = await transactionDataSource.getTotalPaymentIn();
     } catch (e) {

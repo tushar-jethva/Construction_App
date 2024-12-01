@@ -27,6 +27,8 @@ mixin _$SignUpEvent {
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,6 +42,8 @@ mixin _$SignUpEvent {
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,6 +57,8 @@ mixin _$SignUpEvent {
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -68,6 +74,8 @@ mixin _$SignUpEvent {
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +89,8 @@ mixin _$SignUpEvent {
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -94,6 +104,8 @@ mixin _$SignUpEvent {
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -176,6 +188,8 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return initial();
   }
@@ -192,6 +206,8 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return initial?.call();
   }
@@ -208,6 +224,8 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -229,6 +247,8 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return initial(this);
   }
@@ -245,6 +265,8 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return initial?.call(this);
   }
@@ -261,6 +283,8 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -362,6 +386,8 @@ class _$EmailOnChangedImpl
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return emailOnChanged(email);
   }
@@ -378,6 +404,8 @@ class _$EmailOnChangedImpl
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return emailOnChanged?.call(email);
   }
@@ -394,6 +422,8 @@ class _$EmailOnChangedImpl
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (emailOnChanged != null) {
@@ -415,6 +445,8 @@ class _$EmailOnChangedImpl
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return emailOnChanged(this);
   }
@@ -431,6 +463,8 @@ class _$EmailOnChangedImpl
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return emailOnChanged?.call(this);
   }
@@ -447,6 +481,8 @@ class _$EmailOnChangedImpl
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (emailOnChanged != null) {
@@ -557,6 +593,8 @@ class _$CompanyNameChangedImpl
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return companyNameChanged(companyName);
   }
@@ -573,6 +611,8 @@ class _$CompanyNameChangedImpl
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return companyNameChanged?.call(companyName);
   }
@@ -589,6 +629,8 @@ class _$CompanyNameChangedImpl
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (companyNameChanged != null) {
@@ -610,6 +652,8 @@ class _$CompanyNameChangedImpl
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return companyNameChanged(this);
   }
@@ -626,6 +670,8 @@ class _$CompanyNameChangedImpl
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return companyNameChanged?.call(this);
   }
@@ -642,6 +688,8 @@ class _$CompanyNameChangedImpl
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (companyNameChanged != null) {
@@ -753,6 +801,8 @@ class _$PasswordOnChangedImpl
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return passwordChanged(password);
   }
@@ -769,6 +819,8 @@ class _$PasswordOnChangedImpl
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return passwordChanged?.call(password);
   }
@@ -785,6 +837,8 @@ class _$PasswordOnChangedImpl
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -806,6 +860,8 @@ class _$PasswordOnChangedImpl
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return passwordChanged(this);
   }
@@ -822,6 +878,8 @@ class _$PasswordOnChangedImpl
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return passwordChanged?.call(this);
   }
@@ -838,6 +896,8 @@ class _$PasswordOnChangedImpl
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (passwordChanged != null) {
@@ -951,6 +1011,8 @@ class _$ConfirmPasswordOnChangedImpl
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return confPasswordChanged(confPassword);
   }
@@ -967,6 +1029,8 @@ class _$ConfirmPasswordOnChangedImpl
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return confPasswordChanged?.call(confPassword);
   }
@@ -983,6 +1047,8 @@ class _$ConfirmPasswordOnChangedImpl
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (confPasswordChanged != null) {
@@ -1004,6 +1070,8 @@ class _$ConfirmPasswordOnChangedImpl
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return confPasswordChanged(this);
   }
@@ -1020,6 +1088,8 @@ class _$ConfirmPasswordOnChangedImpl
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return confPasswordChanged?.call(this);
   }
@@ -1036,6 +1106,8 @@ class _$ConfirmPasswordOnChangedImpl
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (confPasswordChanged != null) {
@@ -1143,6 +1215,8 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return otpOnChanged(otp);
   }
@@ -1159,6 +1233,8 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return otpOnChanged?.call(otp);
   }
@@ -1175,6 +1251,8 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (otpOnChanged != null) {
@@ -1196,6 +1274,8 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return otpOnChanged(this);
   }
@@ -1212,6 +1292,8 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return otpOnChanged?.call(this);
   }
@@ -1228,6 +1310,8 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (otpOnChanged != null) {
@@ -1308,6 +1392,8 @@ class _$CheckIsEmailExistImpl
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return checkIsEmailExist();
   }
@@ -1324,6 +1410,8 @@ class _$CheckIsEmailExistImpl
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return checkIsEmailExist?.call();
   }
@@ -1340,6 +1428,8 @@ class _$CheckIsEmailExistImpl
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (checkIsEmailExist != null) {
@@ -1361,6 +1451,8 @@ class _$CheckIsEmailExistImpl
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return checkIsEmailExist(this);
   }
@@ -1377,6 +1469,8 @@ class _$CheckIsEmailExistImpl
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return checkIsEmailExist?.call(this);
   }
@@ -1393,6 +1487,8 @@ class _$CheckIsEmailExistImpl
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (checkIsEmailExist != null) {
@@ -1462,6 +1558,8 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return verifyOtp();
   }
@@ -1478,6 +1576,8 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return verifyOtp?.call();
   }
@@ -1494,6 +1594,8 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
@@ -1515,6 +1617,8 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return verifyOtp(this);
   }
@@ -1531,6 +1635,8 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return verifyOtp?.call(this);
   }
@@ -1547,6 +1653,8 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (verifyOtp != null) {
@@ -1616,6 +1724,8 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
     required TResult Function() checkIsEmailExist,
     required TResult Function() verifyOtp,
     required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
   }) {
     return addUser();
   }
@@ -1632,6 +1742,8 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
     TResult? Function()? checkIsEmailExist,
     TResult? Function()? verifyOtp,
     TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
   }) {
     return addUser?.call();
   }
@@ -1648,6 +1760,8 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
     TResult Function()? checkIsEmailExist,
     TResult Function()? verifyOtp,
     TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
     required TResult orElse(),
   }) {
     if (addUser != null) {
@@ -1669,6 +1783,8 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
     required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
     required TResult Function(_VerifyOTP value) verifyOtp,
     required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
   }) {
     return addUser(this);
   }
@@ -1685,6 +1801,8 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
     TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult? Function(_VerifyOTP value)? verifyOtp,
     TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
   }) {
     return addUser?.call(this);
   }
@@ -1701,6 +1819,8 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
     TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
     TResult Function(_VerifyOTP value)? verifyOtp,
     TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
     required TResult orElse(),
   }) {
     if (addUser != null) {
@@ -1715,11 +1835,350 @@ abstract class _AddUser implements SignUpEvent {
 }
 
 /// @nodoc
+abstract class _$$SignInUserAfterSignUpImplCopyWith<$Res> {
+  factory _$$SignInUserAfterSignUpImplCopyWith(
+          _$SignInUserAfterSignUpImpl value,
+          $Res Function(_$SignInUserAfterSignUpImpl) then) =
+      __$$SignInUserAfterSignUpImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignInUserAfterSignUpImplCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$SignInUserAfterSignUpImpl>
+    implements _$$SignInUserAfterSignUpImplCopyWith<$Res> {
+  __$$SignInUserAfterSignUpImplCopyWithImpl(_$SignInUserAfterSignUpImpl _value,
+      $Res Function(_$SignInUserAfterSignUpImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SignInUserAfterSignUpImpl
+    with DiagnosticableTreeMixin
+    implements _SignInUserAfterSignUp {
+  const _$SignInUserAfterSignUpImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'SignUpEvent.signIn()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'SignUpEvent.signIn'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignInUserAfterSignUpImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String email) emailOnChanged,
+    required TResult Function(String companyName) companyNameChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confPassword) confPasswordChanged,
+    required TResult Function(String otp) otpOnChanged,
+    required TResult Function() checkIsEmailExist,
+    required TResult Function() verifyOtp,
+    required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
+  }) {
+    return signIn();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String email)? emailOnChanged,
+    TResult? Function(String companyName)? companyNameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confPassword)? confPasswordChanged,
+    TResult? Function(String otp)? otpOnChanged,
+    TResult? Function()? checkIsEmailExist,
+    TResult? Function()? verifyOtp,
+    TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
+  }) {
+    return signIn?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String email)? emailOnChanged,
+    TResult Function(String companyName)? companyNameChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confPassword)? confPasswordChanged,
+    TResult Function(String otp)? otpOnChanged,
+    TResult Function()? checkIsEmailExist,
+    TResult Function()? verifyOtp,
+    TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
+    required TResult orElse(),
+  }) {
+    if (signIn != null) {
+      return signIn();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_initials value) initial,
+    required TResult Function(_EmailOnChanged value) emailOnChanged,
+    required TResult Function(_CompanyNameChanged value) companyNameChanged,
+    required TResult Function(_PasswordOnChanged value) passwordChanged,
+    required TResult Function(_ConfirmPasswordOnChanged value)
+        confPasswordChanged,
+    required TResult Function(_OtpOnChanged value) otpOnChanged,
+    required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
+    required TResult Function(_VerifyOTP value) verifyOtp,
+    required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
+  }) {
+    return signIn(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_initials value)? initial,
+    TResult? Function(_EmailOnChanged value)? emailOnChanged,
+    TResult? Function(_CompanyNameChanged value)? companyNameChanged,
+    TResult? Function(_PasswordOnChanged value)? passwordChanged,
+    TResult? Function(_ConfirmPasswordOnChanged value)? confPasswordChanged,
+    TResult? Function(_OtpOnChanged value)? otpOnChanged,
+    TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
+    TResult? Function(_VerifyOTP value)? verifyOtp,
+    TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
+  }) {
+    return signIn?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_initials value)? initial,
+    TResult Function(_EmailOnChanged value)? emailOnChanged,
+    TResult Function(_CompanyNameChanged value)? companyNameChanged,
+    TResult Function(_PasswordOnChanged value)? passwordChanged,
+    TResult Function(_ConfirmPasswordOnChanged value)? confPasswordChanged,
+    TResult Function(_OtpOnChanged value)? otpOnChanged,
+    TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
+    TResult Function(_VerifyOTP value)? verifyOtp,
+    TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
+    required TResult orElse(),
+  }) {
+    if (signIn != null) {
+      return signIn(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SignInUserAfterSignUp implements SignUpEvent {
+  const factory _SignInUserAfterSignUp() = _$SignInUserAfterSignUpImpl;
+}
+
+/// @nodoc
+abstract class _$$SetScreenStateImplCopyWith<$Res> {
+  factory _$$SetScreenStateImplCopyWith(_$SetScreenStateImpl value,
+          $Res Function(_$SetScreenStateImpl) then) =
+      __$$SetScreenStateImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SetScreenStateImplCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$SetScreenStateImpl>
+    implements _$$SetScreenStateImplCopyWith<$Res> {
+  __$$SetScreenStateImplCopyWithImpl(
+      _$SetScreenStateImpl _value, $Res Function(_$SetScreenStateImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SetScreenStateImpl
+    with DiagnosticableTreeMixin
+    implements _SetScreenState {
+  const _$SetScreenStateImpl();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'SignUpEvent.setScreenState()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('type', 'SignUpEvent.setScreenState'));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SetScreenStateImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(String email) emailOnChanged,
+    required TResult Function(String companyName) companyNameChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confPassword) confPasswordChanged,
+    required TResult Function(String otp) otpOnChanged,
+    required TResult Function() checkIsEmailExist,
+    required TResult Function() verifyOtp,
+    required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function() setScreenState,
+  }) {
+    return setScreenState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(String email)? emailOnChanged,
+    TResult? Function(String companyName)? companyNameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confPassword)? confPasswordChanged,
+    TResult? Function(String otp)? otpOnChanged,
+    TResult? Function()? checkIsEmailExist,
+    TResult? Function()? verifyOtp,
+    TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function()? setScreenState,
+  }) {
+    return setScreenState?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(String email)? emailOnChanged,
+    TResult Function(String companyName)? companyNameChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confPassword)? confPasswordChanged,
+    TResult Function(String otp)? otpOnChanged,
+    TResult Function()? checkIsEmailExist,
+    TResult Function()? verifyOtp,
+    TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function()? setScreenState,
+    required TResult orElse(),
+  }) {
+    if (setScreenState != null) {
+      return setScreenState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_initials value) initial,
+    required TResult Function(_EmailOnChanged value) emailOnChanged,
+    required TResult Function(_CompanyNameChanged value) companyNameChanged,
+    required TResult Function(_PasswordOnChanged value) passwordChanged,
+    required TResult Function(_ConfirmPasswordOnChanged value)
+        confPasswordChanged,
+    required TResult Function(_OtpOnChanged value) otpOnChanged,
+    required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
+    required TResult Function(_VerifyOTP value) verifyOtp,
+    required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_SetScreenState value) setScreenState,
+  }) {
+    return setScreenState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_initials value)? initial,
+    TResult? Function(_EmailOnChanged value)? emailOnChanged,
+    TResult? Function(_CompanyNameChanged value)? companyNameChanged,
+    TResult? Function(_PasswordOnChanged value)? passwordChanged,
+    TResult? Function(_ConfirmPasswordOnChanged value)? confPasswordChanged,
+    TResult? Function(_OtpOnChanged value)? otpOnChanged,
+    TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
+    TResult? Function(_VerifyOTP value)? verifyOtp,
+    TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_SetScreenState value)? setScreenState,
+  }) {
+    return setScreenState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_initials value)? initial,
+    TResult Function(_EmailOnChanged value)? emailOnChanged,
+    TResult Function(_CompanyNameChanged value)? companyNameChanged,
+    TResult Function(_PasswordOnChanged value)? passwordChanged,
+    TResult Function(_ConfirmPasswordOnChanged value)? confPasswordChanged,
+    TResult Function(_OtpOnChanged value)? otpOnChanged,
+    TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
+    TResult Function(_VerifyOTP value)? verifyOtp,
+    TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_SetScreenState value)? setScreenState,
+    required TResult orElse(),
+  }) {
+    if (setScreenState != null) {
+      return setScreenState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetScreenState implements SignUpEvent {
+  const factory _SetScreenState() = _$SetScreenStateImpl;
+}
+
+/// @nodoc
 mixin _$SignUpState {
   RequestState get state => throw _privateConstructorUsedError;
   RequestState get state1 => throw _privateConstructorUsedError;
   RequestState get state2 => throw _privateConstructorUsedError;
   RequestState get state3 => throw _privateConstructorUsedError;
+  int get screenState => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   String get companyName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -1745,6 +2204,7 @@ abstract class $SignUpStateCopyWith<$Res> {
       RequestState state1,
       RequestState state2,
       RequestState state3,
+      int screenState,
       String message,
       String companyName,
       String email,
@@ -1772,6 +2232,7 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
     Object? state1 = null,
     Object? state2 = null,
     Object? state3 = null,
+    Object? screenState = null,
     Object? message = null,
     Object? companyName = null,
     Object? email = null,
@@ -1796,6 +2257,10 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
           ? _value.state3
           : state3 // ignore: cast_nullable_to_non_nullable
               as RequestState,
+      screenState: null == screenState
+          ? _value.screenState
+          : screenState // ignore: cast_nullable_to_non_nullable
+              as int,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1837,6 +2302,7 @@ abstract class _$$SignUpFormStateImplCopyWith<$Res>
       RequestState state1,
       RequestState state2,
       RequestState state3,
+      int screenState,
       String message,
       String companyName,
       String email,
@@ -1862,6 +2328,7 @@ class __$$SignUpFormStateImplCopyWithImpl<$Res>
     Object? state1 = null,
     Object? state2 = null,
     Object? state3 = null,
+    Object? screenState = null,
     Object? message = null,
     Object? companyName = null,
     Object? email = null,
@@ -1886,6 +2353,10 @@ class __$$SignUpFormStateImplCopyWithImpl<$Res>
           ? _value.state3
           : state3 // ignore: cast_nullable_to_non_nullable
               as RequestState,
+      screenState: null == screenState
+          ? _value.screenState
+          : screenState // ignore: cast_nullable_to_non_nullable
+              as int,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1924,6 +2395,7 @@ class _$SignUpFormStateImpl
       required this.state1,
       required this.state2,
       required this.state3,
+      required this.screenState,
       required this.message,
       required this.companyName,
       required this.email,
@@ -1940,6 +2412,8 @@ class _$SignUpFormStateImpl
   @override
   final RequestState state3;
   @override
+  final int screenState;
+  @override
   final String message;
   @override
   final String companyName;
@@ -1954,7 +2428,7 @@ class _$SignUpFormStateImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState(state: $state, state1: $state1, state2: $state2, state3: $state3, message: $message, companyName: $companyName, email: $email, password: $password, confirmPassword: $confirmPassword, otp: $otp)';
+    return 'SignUpState(state: $state, state1: $state1, state2: $state2, state3: $state3, screenState: $screenState, message: $message, companyName: $companyName, email: $email, password: $password, confirmPassword: $confirmPassword, otp: $otp)';
   }
 
   @override
@@ -1966,6 +2440,7 @@ class _$SignUpFormStateImpl
       ..add(DiagnosticsProperty('state1', state1))
       ..add(DiagnosticsProperty('state2', state2))
       ..add(DiagnosticsProperty('state3', state3))
+      ..add(DiagnosticsProperty('screenState', screenState))
       ..add(DiagnosticsProperty('message', message))
       ..add(DiagnosticsProperty('companyName', companyName))
       ..add(DiagnosticsProperty('email', email))
@@ -1983,6 +2458,8 @@ class _$SignUpFormStateImpl
             (identical(other.state1, state1) || other.state1 == state1) &&
             (identical(other.state2, state2) || other.state2 == state2) &&
             (identical(other.state3, state3) || other.state3 == state3) &&
+            (identical(other.screenState, screenState) ||
+                other.screenState == screenState) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.companyName, companyName) ||
                 other.companyName == companyName) &&
@@ -1996,7 +2473,7 @@ class _$SignUpFormStateImpl
 
   @override
   int get hashCode => Object.hash(runtimeType, state, state1, state2, state3,
-      message, companyName, email, password, confirmPassword, otp);
+      screenState, message, companyName, email, password, confirmPassword, otp);
 
   /// Create a copy of SignUpState
   /// with the given fields replaced by the non-null parameter values.
@@ -2014,6 +2491,7 @@ abstract class _SignUpFormState implements SignUpState {
       required final RequestState state1,
       required final RequestState state2,
       required final RequestState state3,
+      required final int screenState,
       required final String message,
       required final String companyName,
       required final String email,
@@ -2029,6 +2507,8 @@ abstract class _SignUpFormState implements SignUpState {
   RequestState get state2;
   @override
   RequestState get state3;
+  @override
+  int get screenState;
   @override
   String get message;
   @override

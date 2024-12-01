@@ -3,8 +3,9 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/models/agency_work_type_selection_model.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -59,7 +60,6 @@ class _MyAddAgencyBottomSheetPartiesState
                   topRight: Radius.circular(15.r))),
           child: Column(
             children: [
-              
               Form(
                 key: _formKey,
                 child: Column(
@@ -96,40 +96,44 @@ class _MyAddAgencyBottomSheetPartiesState
                       if (state.isLoading) {
                         return ReusableFunctions.loader();
                       }
-                      return Container(
-                        height: 200.h,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 1, color: grey),
-                            borderRadius: BorderRadius.circular(10)),
-                        child: ListView.builder(
-                            itemCount: state.agencyWorkTypeSelectedList.length,
-                            itemBuilder: ((context, index) {
-                              final AgencyWorkTypeSelectModel
-                                  agencyWorkTypeSelectModel =
-                                  state.agencyWorkTypeSelectedList[index];
-                              return Row(
-                                children: [
-                                  Checkbox(
-                                      side: const BorderSide(color: grey),
-                                      value:
-                                          agencyWorkTypeSelectModel.isSelected,
-                                      onChanged: (val) {
-                                        context
-                                            .read<
-                                                AgencyWorkTypesSelectionBloc>()
-                                            .add(ToggleWorkTypeSelection(
-                                                index: index));
-                                      }),
-                                  Text(agencyWorkTypeSelectModel.name!)
-                                ],
-                              );
-                            })),
-                      );
+                      return state.agencyWorkTypeSelectedList.isEmpty
+                          ? const SizedBox.shrink()
+                          : Container(
+                              height: 200.h,
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 1, color: grey),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListView.builder(
+                                  itemCount:
+                                      state.agencyWorkTypeSelectedList.length,
+                                  itemBuilder: ((context, index) {
+                                    final AgencyWorkTypeSelectModel
+                                        agencyWorkTypeSelectModel =
+                                        state.agencyWorkTypeSelectedList[index];
+                                    return Row(
+                                      children: [
+                                        Checkbox(
+                                            side: const BorderSide(color: grey),
+                                            value: agencyWorkTypeSelectModel
+                                                .isSelected,
+                                            onChanged: (val) {
+                                              context
+                                                  .read<
+                                                      AgencyWorkTypesSelectionBloc>()
+                                                  .add(ToggleWorkTypeSelection(
+                                                      index: index));
+                                            }),
+                                        Text(agencyWorkTypeSelectModel.name!)
+                                      ],
+                                    );
+                                  })),
+                            );
                     })),
                     Gap(15.h),
                     Row(
                       children: [
                         Expanded(
+                          flex: 3,
                           child: MyCustomTextFormField(
                             controller: _workTypeAddController,
                             hintText: 'Add New Work',
@@ -140,28 +144,36 @@ class _MyAddAgencyBottomSheetPartiesState
                           ),
                         ),
                         Gap(10.w),
-                        MyCustomButtonWidget(
-                            widget: const Text(
-                              "Add",
-                              style: TextStyle(
-                                  color: white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            color: green,
-                            onPressed: () {
-                              if (_workTypeAddController.text.isNotEmpty) {
-                                context
-                                    .read<AgencyWorkTypesSelectionBloc>()
-                                    .add(OnAddWorkTypeButtonPressed(
-                                        name: _workTypeAddController.text));
-                                _workTypeAddController.clear();
-                              } else {
-                                ReusableFunctions.showSnackBar(
-                                    context: context, content: "Add Some");
-                              }
-                            })
+                        Expanded(
+                          child: CustomElevatedButton(
+                              label: "Add",
+                              onTap: () {
+                                if (_workTypeAddController.text.isNotEmpty) {
+                                  context
+                                      .read<AgencyWorkTypesSelectionBloc>()
+                                      .add(OnAddWorkTypeButtonPressed(
+                                          name: _workTypeAddController.text));
+                                  _workTypeAddController.clear();
+                                } else {
+                                  ReusableFunctions.showSnackBar(
+                                      context: context, content: "Add Some");
+                                }
+                              }),
+                        )
                       ],
+                    ),
+                    3.hx,
+                    BlocBuilder<AgencyWorkTypesSelectionBloc,
+                        AgencyWorkTypesSelectionState>(
+                      builder: (context, state) {
+                        return state.message.isNotEmpty
+                            ? Text(
+                                state.message,
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: red),
+                              )
+                            : const SizedBox();
+                      },
                     ),
                     Gap(15.h),
                     BlocListener<AgencyWorkTypesSelectionBloc,
@@ -169,6 +181,9 @@ class _MyAddAgencyBottomSheetPartiesState
                       listener: (context, state) {
                         if (state.isAddedAgency == 2) {
                           Navigator.pop(context);
+                          context
+                              .read<TotalAgenciesBloc>()
+                              .add(LoadTotalAgencies());
                           ReusableFunctions.showSnackBar(
                               context: context,
                               content: "Agency added successfully!");
@@ -177,27 +192,35 @@ class _MyAddAgencyBottomSheetPartiesState
                       child: BlocBuilder<AgencyWorkTypesSelectionBloc,
                           AgencyWorkTypesSelectionState>(
                         builder: (context, state) {
-                          return MyCustomButtonWidget(
-                              widget: state.isAddedAgency == 1
-                                  ? ReusableFunctions.loader(color: white)
-                                  : const Text(
-                                      "Add Agency",
-                                      style: TextStyle(
-                                          color: white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                              color: green,
-                              onPressed: () {
-                                context
-                                    .read<AgencyWorkTypesSelectionBloc>()
-                                    .add(OnAddAgencyPartiesButtonPressed(
-                                        name: _agencyNameController.text,
-                                        description:
-                                            _descriptionController.text));
-                                context
-                                    .read<TotalAgenciesBloc>()
-                                    .add(LoadTotalAgencies());
+                          return CustomElevatedButton(
+                              isLoading: state.isAddedAgency == 1,
+                              label: "Add Agency",
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (state.agencyWorkTypeSelectedList
+                                      .where((element) =>
+                                          element.isSelected == true)
+                                      .map((e) => e.sId!)
+                                      .toList()
+                                      .isEmpty) {
+                                    print("Hi");
+                                    context
+                                        .read<AgencyWorkTypesSelectionBloc>()
+                                        .add(OnMessageChanged(
+                                            message:
+                                                "Please add work type and select at least one."));
+                                  } else {
+                                    context
+                                        .read<AgencyWorkTypesSelectionBloc>()
+                                        .add(OnAddAgencyPartiesButtonPressed(
+                                            name: _agencyNameController.text,
+                                            description:
+                                                _descriptionController.text));
+                                    context
+                                        .read<TotalAgenciesBloc>()
+                                        .add(LoadTotalAgencies());
+                                  }
+                                }
                               });
                         },
                       ),

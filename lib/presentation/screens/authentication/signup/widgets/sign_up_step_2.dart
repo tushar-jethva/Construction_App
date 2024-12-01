@@ -1,6 +1,8 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/extension/sized_box_extension.dart';
+import 'package:construction_mate/presentation/router/go_router.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
 import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_eye_bloc.dart';
@@ -11,6 +13,7 @@ import 'package:construction_mate/presentation/widgets/common/custom_text_form_f
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class SignUpStep2 extends StatelessWidget {
@@ -26,6 +29,7 @@ class SignUpStep2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              100.hx,
               SizedBox(
                 height:
                     ReusableFunctions.getHeight(context: context, height: 0.3),
@@ -47,11 +51,21 @@ class SignUpStep2 extends StatelessWidget {
                             textInputType: TextInputType.text,
                             textFieldType: TextFieldType.text,
                             hintText: "Company Name",
+                            onChanged: (value) {
+                              context
+                                  .read<SignUpBloc>()
+                                  .add(SignUpEvent.companyNameChanged(value));
+                            },
                             maxLines: 1),
-                        15.hx,
+                        10.hx,
                         BlocBuilder<VisibilityEyeBloc, VisibilityEyeState>(
                           builder: (context, state) {
                             return CustomTextFormField(
+                              onChanged: (value) {
+                                context
+                                    .read<SignUpBloc>()
+                                    .add(SignUpEvent.passwordChanged(value));
+                              },
                               isValidate: true,
                               textInputType: TextInputType.text,
                               textFieldType: TextFieldType.password,
@@ -71,17 +85,20 @@ class SignUpStep2 extends StatelessWidget {
                             );
                           },
                         ),
-                        15.hx,
+                        10.hx,
                         BlocBuilder<VisibilityEyeBloc, VisibilityEyeState>(
                           builder: (context, state) {
                             return CustomTextFormField(
+                                onChanged: (value) {
+                                  context.read<SignUpBloc>().add(
+                                      SignUpEvent.confPasswordChanged(value));
+                                },
                                 isValidate: true,
                                 textInputType: TextInputType.text,
                                 textFieldType: TextFieldType.password,
                                 hintText: "Confirm Password",
                                 maxLines: 1,
                                 obscureText: state.isConfPasswordShow,
-                                onChanged: (value) {},
                                 suffixIcon: GestureDetector(
                                   onTap: () {
                                     context.read<VisibilityEyeBloc>().add(
@@ -95,27 +112,37 @@ class SignUpStep2 extends StatelessWidget {
                           },
                         ),
                         25.hx,
-                        BlocBuilder<SignUpBloc, SignUpState>(
+                        BlocConsumer<SignUpBloc, SignUpState>(
+                          listener: (context, state) {
+                            if (state.state2.isLoaded) {
+                              context.replace(RoutesName.bottomBar);
+                            }
+                          },
                           builder: (context, state) {
-                            return CustomElevatedButton(
-                              isLoading: state.state2.isLoading,
-                              label: "Sign Up",
-                              backgroundColor: purple,
-                              labelColor: white,
-                              borderColor: Colors.transparent,
-                              onTap: () {
-                                if (formKey.currentState!.validate()) {
-                                  if (state.password != state.confirmPassword) {
-                                    ReusableFunctions.showSnackBar(
-                                        context: context,
-                                        content:
-                                            "Password and confirm password must be same!");
-                                  } else {
-                                    context
-                                        .read<SignUpBloc>()
-                                        .add(const SignUpEvent.addUser());
-                                  }
-                                }
+                            return BlocBuilder<SignUpBloc, SignUpState>(
+                              builder: (context, state) {
+                                return CustomElevatedButton(
+                                  isLoading: state.state2.isLoading,
+                                  label: "Sign Up",
+                                  backgroundColor: purple,
+                                  labelColor: white,
+                                  borderColor: Colors.transparent,
+                                  onTap: () {
+                                    if (formKey.currentState!.validate()) {
+                                      if (state.password !=
+                                          state.confirmPassword) {
+                                        ReusableFunctions.showSnackBar(
+                                            context: context,
+                                            content:
+                                                "Password and confirm password must be same!");
+                                      } else {
+                                        context
+                                            .read<SignUpBloc>()
+                                            .add(const SignUpEvent.addUser());
+                                      }
+                                    }
+                                  },
+                                );
                               },
                             );
                           },
@@ -126,11 +153,19 @@ class SignUpStep2 extends StatelessWidget {
                           children: [
                             const Text("Already hava an account?"),
                             5.wx,
-                            const Text(
-                              "Sign In",
-                              style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: white),
+                            InkWell(
+                              onTap: () {
+                                context.goNamed(RoutesName.signInScreen);
+                                context
+                                    .read<VisibilityEyeBloc>()
+                                    .add(const VisibilityEyeEvent.initialize());
+                              },
+                              child: const Text(
+                                "Sign In",
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: white),
+                              ),
                             )
                           ],
                         )

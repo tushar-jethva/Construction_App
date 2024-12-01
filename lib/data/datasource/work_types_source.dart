@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:construction_mate/core/constants/api.dart';
-import 'package:http/http.dart' as http;
+import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:construction_mate/logic/models/work_type_model.dart';
 
 abstract class WorkTypesDataSource {
@@ -10,18 +10,18 @@ abstract class WorkTypesDataSource {
 }
 
 class WorkTypesDataSourceImpl extends WorkTypesDataSource {
+    final dio = BaseDataCenter().dio.dio;
+
   @override
   Future<List<WorkTypeModel>> getAllWorkTypes() async {
     List<WorkTypeModel> allWorkTypeList = [];
     try {
-      http.Response res = await http.get(
-        Uri.parse(API.GET_ALL_WORK_TYPES),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final res = await dio.get(
+        API.GET_ALL_WORK_TYPES,
+      
       );
 
-      final workTypes = jsonDecode(res.body);
+      final workTypes = res.data;
       for (var workType in workTypes["data"]) {
         allWorkTypeList.add(WorkTypeModel.fromJson(workType));
       }
@@ -32,25 +32,19 @@ class WorkTypesDataSourceImpl extends WorkTypesDataSource {
   }
 
   @override
-  Future<String> addWorkType({required String workTypeName}) async{
+  Future<String> addWorkType({required String workTypeName}) async {
     String strRes = "";
-    try{
-      http.Response res = await http.post(
-        Uri.parse(API.ADD_WORK_TYPE),
-        body: jsonEncode({
-          "Name" : workTypeName.toUpperCase()
-        }),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+    try {
+      final res = await dio.post(
+        API.ADD_WORK_TYPE,
+        data: jsonEncode({"Name": workTypeName.toUpperCase()}),
+      
       );
 
-      final map = jsonDecode(res.body);
+      final map = res.data;
       strRes = map["message"];
-    }
-    catch(e){
+    } catch (e) {
       print(e.toString());
-      
     }
     return strRes;
   }

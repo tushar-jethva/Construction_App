@@ -20,18 +20,21 @@ mixin _$VisibilityEyeEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() isPasswordShowChanged,
     required TResult Function() isConfirmPasswordShowChanged,
+    required TResult Function() initialize,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? isPasswordShowChanged,
     TResult? Function()? isConfirmPasswordShowChanged,
+    TResult? Function()? initialize,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? isPasswordShowChanged,
     TResult Function()? isConfirmPasswordShowChanged,
+    TResult Function()? initialize,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -41,6 +44,7 @@ mixin _$VisibilityEyeEvent {
         isPasswordShowChanged,
     required TResult Function(_IsConfirmPasswordShowChanged value)
         isConfirmPasswordShowChanged,
+    required TResult Function(_Initialize value) initialize,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -48,6 +52,7 @@ mixin _$VisibilityEyeEvent {
     TResult? Function(_IsPasswordShowChanged value)? isPasswordShowChanged,
     TResult? Function(_IsConfirmPasswordShowChanged value)?
         isConfirmPasswordShowChanged,
+    TResult? Function(_Initialize value)? initialize,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +60,7 @@ mixin _$VisibilityEyeEvent {
     TResult Function(_IsPasswordShowChanged value)? isPasswordShowChanged,
     TResult Function(_IsConfirmPasswordShowChanged value)?
         isConfirmPasswordShowChanged,
+    TResult Function(_Initialize value)? initialize,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -126,6 +132,7 @@ class _$IsPasswordShowChangedImpl implements _IsPasswordShowChanged {
   TResult when<TResult extends Object?>({
     required TResult Function() isPasswordShowChanged,
     required TResult Function() isConfirmPasswordShowChanged,
+    required TResult Function() initialize,
   }) {
     return isPasswordShowChanged();
   }
@@ -135,6 +142,7 @@ class _$IsPasswordShowChangedImpl implements _IsPasswordShowChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? isPasswordShowChanged,
     TResult? Function()? isConfirmPasswordShowChanged,
+    TResult? Function()? initialize,
   }) {
     return isPasswordShowChanged?.call();
   }
@@ -144,6 +152,7 @@ class _$IsPasswordShowChangedImpl implements _IsPasswordShowChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? isPasswordShowChanged,
     TResult Function()? isConfirmPasswordShowChanged,
+    TResult Function()? initialize,
     required TResult orElse(),
   }) {
     if (isPasswordShowChanged != null) {
@@ -159,6 +168,7 @@ class _$IsPasswordShowChangedImpl implements _IsPasswordShowChanged {
         isPasswordShowChanged,
     required TResult Function(_IsConfirmPasswordShowChanged value)
         isConfirmPasswordShowChanged,
+    required TResult Function(_Initialize value) initialize,
   }) {
     return isPasswordShowChanged(this);
   }
@@ -169,6 +179,7 @@ class _$IsPasswordShowChangedImpl implements _IsPasswordShowChanged {
     TResult? Function(_IsPasswordShowChanged value)? isPasswordShowChanged,
     TResult? Function(_IsConfirmPasswordShowChanged value)?
         isConfirmPasswordShowChanged,
+    TResult? Function(_Initialize value)? initialize,
   }) {
     return isPasswordShowChanged?.call(this);
   }
@@ -179,6 +190,7 @@ class _$IsPasswordShowChangedImpl implements _IsPasswordShowChanged {
     TResult Function(_IsPasswordShowChanged value)? isPasswordShowChanged,
     TResult Function(_IsConfirmPasswordShowChanged value)?
         isConfirmPasswordShowChanged,
+    TResult Function(_Initialize value)? initialize,
     required TResult orElse(),
   }) {
     if (isPasswordShowChanged != null) {
@@ -240,6 +252,7 @@ class _$IsConfirmPasswordShowChangedImpl
   TResult when<TResult extends Object?>({
     required TResult Function() isPasswordShowChanged,
     required TResult Function() isConfirmPasswordShowChanged,
+    required TResult Function() initialize,
   }) {
     return isConfirmPasswordShowChanged();
   }
@@ -249,6 +262,7 @@ class _$IsConfirmPasswordShowChangedImpl
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? isPasswordShowChanged,
     TResult? Function()? isConfirmPasswordShowChanged,
+    TResult? Function()? initialize,
   }) {
     return isConfirmPasswordShowChanged?.call();
   }
@@ -258,6 +272,7 @@ class _$IsConfirmPasswordShowChangedImpl
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? isPasswordShowChanged,
     TResult Function()? isConfirmPasswordShowChanged,
+    TResult Function()? initialize,
     required TResult orElse(),
   }) {
     if (isConfirmPasswordShowChanged != null) {
@@ -273,6 +288,7 @@ class _$IsConfirmPasswordShowChangedImpl
         isPasswordShowChanged,
     required TResult Function(_IsConfirmPasswordShowChanged value)
         isConfirmPasswordShowChanged,
+    required TResult Function(_Initialize value) initialize,
   }) {
     return isConfirmPasswordShowChanged(this);
   }
@@ -283,6 +299,7 @@ class _$IsConfirmPasswordShowChangedImpl
     TResult? Function(_IsPasswordShowChanged value)? isPasswordShowChanged,
     TResult? Function(_IsConfirmPasswordShowChanged value)?
         isConfirmPasswordShowChanged,
+    TResult? Function(_Initialize value)? initialize,
   }) {
     return isConfirmPasswordShowChanged?.call(this);
   }
@@ -293,6 +310,7 @@ class _$IsConfirmPasswordShowChangedImpl
     TResult Function(_IsPasswordShowChanged value)? isPasswordShowChanged,
     TResult Function(_IsConfirmPasswordShowChanged value)?
         isConfirmPasswordShowChanged,
+    TResult Function(_Initialize value)? initialize,
     required TResult orElse(),
   }) {
     if (isConfirmPasswordShowChanged != null) {
@@ -305,6 +323,121 @@ class _$IsConfirmPasswordShowChangedImpl
 abstract class _IsConfirmPasswordShowChanged implements VisibilityEyeEvent {
   const factory _IsConfirmPasswordShowChanged() =
       _$IsConfirmPasswordShowChangedImpl;
+}
+
+/// @nodoc
+abstract class _$$InitializeImplCopyWith<$Res> {
+  factory _$$InitializeImplCopyWith(
+          _$InitializeImpl value, $Res Function(_$InitializeImpl) then) =
+      __$$InitializeImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InitializeImplCopyWithImpl<$Res>
+    extends _$VisibilityEyeEventCopyWithImpl<$Res, _$InitializeImpl>
+    implements _$$InitializeImplCopyWith<$Res> {
+  __$$InitializeImplCopyWithImpl(
+      _$InitializeImpl _value, $Res Function(_$InitializeImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of VisibilityEyeEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InitializeImpl implements _Initialize {
+  const _$InitializeImpl();
+
+  @override
+  String toString() {
+    return 'VisibilityEyeEvent.initialize()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InitializeImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() isPasswordShowChanged,
+    required TResult Function() isConfirmPasswordShowChanged,
+    required TResult Function() initialize,
+  }) {
+    return initialize();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? isPasswordShowChanged,
+    TResult? Function()? isConfirmPasswordShowChanged,
+    TResult? Function()? initialize,
+  }) {
+    return initialize?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? isPasswordShowChanged,
+    TResult Function()? isConfirmPasswordShowChanged,
+    TResult Function()? initialize,
+    required TResult orElse(),
+  }) {
+    if (initialize != null) {
+      return initialize();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_IsPasswordShowChanged value)
+        isPasswordShowChanged,
+    required TResult Function(_IsConfirmPasswordShowChanged value)
+        isConfirmPasswordShowChanged,
+    required TResult Function(_Initialize value) initialize,
+  }) {
+    return initialize(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_IsPasswordShowChanged value)? isPasswordShowChanged,
+    TResult? Function(_IsConfirmPasswordShowChanged value)?
+        isConfirmPasswordShowChanged,
+    TResult? Function(_Initialize value)? initialize,
+  }) {
+    return initialize?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_IsPasswordShowChanged value)? isPasswordShowChanged,
+    TResult Function(_IsConfirmPasswordShowChanged value)?
+        isConfirmPasswordShowChanged,
+    TResult Function(_Initialize value)? initialize,
+    required TResult orElse(),
+  }) {
+    if (initialize != null) {
+      return initialize(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Initialize implements VisibilityEyeEvent {
+  const factory _Initialize() = _$InitializeImpl;
 }
 
 /// @nodoc

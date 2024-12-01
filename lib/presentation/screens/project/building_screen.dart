@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/logic/controllers/FloorNameAndFeet/floor_name_and_feet_bloc.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -27,6 +28,7 @@ import 'package:construction_mate/presentation/widgets/details_screen_widgets/bu
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/building_screen_list_shimmer.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class BuildingsScreen extends StatefulWidget {
   final ProjectModel project;
@@ -195,17 +197,10 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                           builder: (context, state) {
                             return Padding(
                               padding: EdgeInsets.only(bottom: 10.h),
-                              child: MyCustomButtonWidget(
-                                widget: state is PaymentInAddLoading
-                                    ? ReusableFunctions.loader(color: white)
-                                    : const Text(
-                                        'PaymentIn',
-                                        style: TextStyle(
-                                            color: white,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                color: green,
-                                onPressed: () async {
+                              child: CustomElevatedButton(
+                                isLoading: state is PaymentInAddLoading,
+                                label: 'PaymentIn',
+                                onTap: () async {
                                   if (formPaymentInKey.currentState!
                                       .validate()) {
                                     context
@@ -405,15 +400,10 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                         child: BlocBuilder<PaymentOutDropDownBloc,
                             PaymentOutDropDownState>(
                           builder: (context, state) {
-                            return MyCustomButtonWidget(
-                                widget: state is PaymentOutAddLoading
-                                    ? ReusableFunctions.loader(color: white)
-                                    : const Text(
-                                        "Payment Out",
-                                        style: TextStyle(color: white),
-                                      ),
-                                color: green,
-                                onPressed: () async {
+                            return CustomElevatedButton(
+                                isLoading: state is PaymentOutAddLoading,
+                                label: "Payment Out",
+                                onTap: () async {
                                   if (formPaymentOutKey.currentState!
                                       .validate()) {
                                     context.read<PaymentOutDropDownBloc>().add(
@@ -469,22 +459,30 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                 builder: (context, state) {
               if (state is BuildingsInitial || state is BuildingAddLoading) {
                 return Expanded(
-                  child: Shimmer(
-                    gradient: LinearGradient(
-                        colors: [theme.hoverColor, theme.cardColor],
-                        stops: const [0.1, 0.8]),
+                  child: Skeletonizer(
+                    enabled: true,
                     child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         itemCount: 6,
                         itemBuilder: (context, index) {
-                          return const MyBuildingListShimmerWidget();
+                          return MyBuildingListWidget(
+                              building: BuildingModel(
+                            name: "Name",
+                            totalFloor: 10,
+                          ));
                         }),
                   ),
                 );
               } else if (state is BuildingsLoadSuccess) {
                 return state.buildings.isEmpty
-                    ? const Expanded(
-                        child: Center(child: Text("No building founds")))
+                    ? Expanded(
+                        child: ListView(children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.6,
+                              child:
+                                  Center(child: Text("No building founds!"))),
+                        ]),
+                      )
                     : Expanded(
                         child: ListView.builder(
                             scrollDirection: Axis.vertical,

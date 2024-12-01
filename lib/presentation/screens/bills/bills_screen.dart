@@ -36,13 +36,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
-          return BlocProvider(
-            create: (context) => AddBillingPartyBloc(
-                projectRepository:
-                    ProjectRepositoryImpl(ProjectDataSourceImpl()),
-                billingPartyRepository: BillingRepositoryImpl()),
-            child: const MyAddBillingPartyBottomSheet(),
-          );
+          return const MyAddBillingPartyBottomSheet();
         });
   }
 
@@ -130,82 +124,100 @@ class _MyBillScreenState extends State<MyBillScreen> {
                     );
                   } else if (state is BillingPartiesHomeLoaded) {
                     return Expanded(
-                        child: ListView.builder(
-                            itemCount: state.billingParties.length,
-                            itemBuilder: (context, index) {
-                              final party = state.billingParties[index];
-                              return GestureDetector(
-                                onTap: () {
-                                  context.pushNamed(
-                                      RoutesName.billingPartyPaticularScreen,
-                                      extra: party);
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.all(8),
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: theme.cardColor,
-                                    borderRadius: BorderRadius.circular(12.r),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
+                        child: state.billingParties.isNotEmpty
+                            ? ListView.builder(
+                                itemCount: state.billingParties.length,
+                                itemBuilder: (context, index) {
+                                  final party = state.billingParties[index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      context.pushNamed(
+                                          RoutesName
+                                              .billingPartyPaticularScreen,
+                                          extra: party);
+                                    },
+                                    child: Container(
+                                      margin: const EdgeInsets.all(8),
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: theme.cardColor,
+                                        borderRadius:
+                                            BorderRadius.circular(12.r),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            party.name!,
-                                            style: theme.textTheme.titleMedium,
+                                          Column(
+                                            children: [
+                                              Text(
+                                                party.name!,
+                                                style:
+                                                    theme.textTheme.titleMedium,
+                                              )
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              RichText(
+                                                  text: TextSpan(children: [
+                                                TextSpan(
+                                                    text: "Received: ",
+                                                    style: theme
+                                                        .textTheme.titleMedium!
+                                                        .copyWith(
+                                                            fontSize: 14)),
+                                                TextSpan(
+                                                    text: double.parse(party
+                                                            .receivedAmount!)
+                                                        .toStringAsFixed(2),
+                                                    style: theme
+                                                        .textTheme.titleMedium!
+                                                        .copyWith(
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))
+                                              ])),
+                                              RichText(
+                                                  text: TextSpan(children: [
+                                                TextSpan(
+                                                    text: "Receivable: ",
+                                                    style: theme
+                                                        .textTheme.titleMedium!
+                                                        .copyWith(
+                                                            fontSize: 14)),
+                                                TextSpan(
+                                                    text: double.parse(party
+                                                            .receivableAmount!)
+                                                        .toStringAsFixed(2),
+                                                    style: theme
+                                                        .textTheme.titleMedium!
+                                                        .copyWith(
+                                                            fontSize: 15,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))
+                                              ]))
+                                            ],
                                           )
                                         ],
                                       ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        children: [
-                                          RichText(
-                                              text: TextSpan(children: [
-                                            TextSpan(
-                                                text: "Received: ",
-                                                style: theme
-                                                    .textTheme.titleMedium!
-                                                    .copyWith(fontSize: 14)),
-                                            TextSpan(
-                                                text: double.parse(
-                                                        party.receivedAmount!)
-                                                    .toStringAsFixed(2),
-                                                style: theme
-                                                    .textTheme.titleMedium!
-                                                    .copyWith(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold))
-                                          ])),
-                                          RichText(
-                                              text: TextSpan(children: [
-                                            TextSpan(
-                                                text: "Receivable: ",
-                                                style: theme
-                                                    .textTheme.titleMedium!
-                                                    .copyWith(fontSize: 14)),
-                                            TextSpan(
-                                                text: double.parse(
-                                                        party.receivableAmount!)
-                                                    .toStringAsFixed(2),
-                                                style: theme
-                                                    .textTheme.titleMedium!
-                                                    .copyWith(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold))
-                                          ]))
-                                        ],
-                                      )
-                                    ],
+                                    ),
+                                  );
+                                })
+                            : SingleChildScrollView(
+                                physics:
+                                    const AlwaysScrollableScrollPhysics(), // Ensures scrollability
+                                child: SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.55, // Ensure enough height
+                                  child: const Center(
+                                    child: Text('No parties found!'),
                                   ),
-                                ),
-                              );
-                            }));
+                                )));
                   } else {
                     return const Center(
                       child: Text("Something went wrong!"),

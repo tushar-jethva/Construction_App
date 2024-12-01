@@ -1,12 +1,16 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class MyHomeScreenAppBar extends StatelessWidget {
-  const MyHomeScreenAppBar({super.key});
+  final Function()? onTap;
+  const MyHomeScreenAppBar({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +23,25 @@ class MyHomeScreenAppBar extends StatelessWidget {
         children: [
           Row(
             children: [
-              const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/assets.png'),
+              BlocConsumer<SignInBloc, SignInState>(
+                listener: (context, state) {
+                  if (state.state1.isLoaded) {
+                    context.replaceNamed(RoutesName.signInScreen);
+                  }
+                },
+                builder: (context, state) {
+                  return BlocBuilder<SignInBloc, SignInState>(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: onTap,
+                        child: const CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/images/assets.png'),
+                        ),
+                      );
+                    },
+                  );
+                },
               ),
               Gap(10.w),
               Text(

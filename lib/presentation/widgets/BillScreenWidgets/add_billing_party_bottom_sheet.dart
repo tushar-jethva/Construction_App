@@ -1,7 +1,10 @@
+import 'package:construction_mate/common/enter_otp_widget.dart';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
+import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_drop_down_agency.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
@@ -13,6 +16,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class MyAddBillingPartyBottomSheet extends StatefulWidget {
   const MyAddBillingPartyBottomSheet({super.key});
@@ -40,6 +44,7 @@ class _MyAddBillingPartyBottomSheetState
     // TODO: implement initState
     super.initState();
     context.read<AddBillingPartyBloc>().add(LoadProjectsBillingEvent());
+    context.read<AddBillingPartyBloc>().add(Initialize());
   }
 
   @override
@@ -127,13 +132,16 @@ class _MyAddBillingPartyBottomSheetState
                       textInputType: TextInputType.number,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please add foot per floor!';
+                          return 'Please add GST!';
                         }
                         if (int.tryParse(value) == null) {
                           return 'Please enter valid digit!';
                         }
                         if (value.startsWith('-')) {
                           return 'Please enter valid digit!';
+                        }
+                        if (value.length < 15) {
+                          return 'Please enter correct GST number';
                         }
                       },
                     ),
@@ -147,6 +155,11 @@ class _MyAddBillingPartyBottomSheetState
                         if (value == null || value.isEmpty) {
                           return 'Please add email address!';
                         }
+                        final emailRegex = RegExp(
+                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+                        if (!emailRegex.hasMatch(value)) {
+                          return 'Please enter a valid email address!';
+                        }
                       },
                     ),
                     Gap(10.h),
@@ -159,6 +172,9 @@ class _MyAddBillingPartyBottomSheetState
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please add contact no.!';
+                        }
+                        if (value.length < 10) {
+                          return 'Please enter correct Mobile Number';
                         }
                       },
                     ),
@@ -202,27 +218,30 @@ class _MyAddBillingPartyBottomSheetState
                     BlocConsumer<AddBillingPartyBloc, AddBillingPartyState>(
                       listener: (context, state) {
                         if (state.isAdded == 2) {
-                          Navigator.pop(context);
+                          context
+                              .read<BillingPartiesHomeBloc>()
+                              .add(BillingPartiesLoadEvent());
+                          Navigator.of(context).pop();
                         }
                       },
                       builder: (context, state) {
-                        return MyCustomButtonWidget(
-                            widget: state.isAdded == 1
-                                ? ReusableFunctions.loader()
-                                : Text("Add Party"),
-                            color: green,
-                            onPressed: () {
-                              context.read<AddBillingPartyBloc>().add(
-                                  AddBillingParty(
-                                      partyName:
-                                          _billingPartyNameController.text,
-                                      email: _emailController.text,
-                                      gstNo: _gstNoController.text,
-                                      contactNo: _contactNoController.text,
-                                      shippingAddress:
-                                          _shippingAddressController.text,
-                                      billingAddress:
-                                          _billingAddressController.text));
+                        return CustomElevatedButton(
+                            label: "Add Party",
+                            isLoading: state.isAdded == 1,
+                            onTap: () {
+                              if (_billingFormKey.currentState!.validate()) {
+                                context.read<AddBillingPartyBloc>().add(
+                                    AddBillingParty(
+                                        partyName:
+                                            _billingPartyNameController.text,
+                                        email: _emailController.text,
+                                        gstNo: _gstNoController.text,
+                                        contactNo: _contactNoController.text,
+                                        shippingAddress:
+                                            _shippingAddressController.text,
+                                        billingAddress:
+                                            _billingAddressController.text));
+                              }
                             });
                       },
                     ),

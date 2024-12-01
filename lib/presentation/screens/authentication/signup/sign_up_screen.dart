@@ -2,7 +2,8 @@ import 'package:construction_mate/common/enter_otp_widget.dart';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/extension/sized_box_extension.dart';
+import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_eye_bloc.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
 import 'package:construction_mate/main.dart';
@@ -62,18 +63,25 @@ class SignUpScreen extends StatelessWidget {
                       BlocConsumer<SignUpBloc, SignUpState>(
                         listener: (context, state) {
                           if (state.state.isLoaded) {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const EnterOptwidget();
-                              },
-                              barrierColor: Colors.transparent.withOpacity(0.6),
-                              barrierDismissible: false,
-                            );
+                            if (state.screenState == 0) {
+                              context.goNamed(RoutesName.signInScreen);
+                            } else if (state.screenState == 1) {
+                              context.goNamed(RoutesName.signUpScreen2);
+                            } else if (state.screenState == 2) {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const EnterOptwidget();
+                                },
+                                barrierColor:
+                                    Colors.transparent.withOpacity(0.6),
+                                barrierDismissible: false,
+                              );
+                            }
                           } else if (state.state.isError) {
                             ReusableFunctions.showSnackBar(
                                 context: context,
-                                content: "User already exist!");
+                                content: "Something went wrong!");
                           }
                         },
                         builder: (context, state) {
@@ -105,6 +113,9 @@ class SignUpScreen extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               context.goNamed(RoutesName.signInScreen);
+                              context
+                                  .read<VisibilityEyeBloc>()
+                                  .add(const VisibilityEyeEvent.initialize());
                             },
                             child: const Text(
                               "Sign In",

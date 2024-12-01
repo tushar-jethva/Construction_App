@@ -15,4 +15,7 @@ class ProjectAddLoading extends ProjectState {}
 
 class ProjectAddSuccess extends ProjectState {}
 
-class ProjectAddFailure extends ProjectState {}
+class ProjectAddFailure extends ProjectState {
+  final String message;
+  ProjectAddFailure({required this.message});
+}

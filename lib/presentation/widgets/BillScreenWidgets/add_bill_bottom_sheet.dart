@@ -8,6 +8,7 @@ import 'package:construction_mate/logic/controllers/OtherDetailsBillBloc/other_d
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
@@ -170,7 +171,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "HSN Code : ${bill.hashCode}",
+                                "HSN Code : ${bill.HSNCode}",
                                 style: theme.textTheme.titleMedium,
                               ),
                               Text(
@@ -284,12 +285,9 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               ),
                             ),
                             Gap(10.h),
-                            MyCustomButton(
-                              buttonName: "Add Item",
-                              color: green,
-                              style: theme.textTheme.titleMedium!
-                                  .copyWith(color: white),
-                              onPressed: () {
+                            CustomElevatedButton(
+                              label: "Add Item",
+                              onTap: () {
                                 if (_innerItemFormKey.currentState!
                                     .validate()) {
                                   BillItemModel billItem = BillItemModel(
@@ -424,7 +422,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
                               padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(netAmount.toString()),
+                              child: Text(netAmount.toStringAsFixed(2)),
                             ),
                           );
                         },
@@ -592,23 +590,19 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                       BlocConsumer<AddBillBloc, AddBillState>(
                         listener: (context, state) {
                           if (state.isAddedBill == 2) {
-                            Navigator.pop(context);
                             context
                                 .read<BillingPartiesHomeBloc>()
                                 .add(BillingPartiesLoadEvent());
+                            // Navigator.pop(context);
                           }
                         },
                         builder: (context, state) {
-                          return MyCustomButtonWidget(
-                            widget: state.isAddedBill == 1
-                                ? ReusableFunctions.loader()
-                                : Text(
-                                    "Add Bill",
-                                    style: theme.textTheme.titleMedium!
-                                        .copyWith(color: white),
-                                  ),
-                            color: green,
-                            onPressed: () {
+                          print(
+                              "----------- state ${state.isAddedBill} -----------");
+                          return CustomElevatedButton(
+                            isLoading: state.isAddedBill == 1,
+                            label: "Add Bill",
+                            onTap: () {
                               if (_billFormKey.currentState!.validate()) {
                                 final state = context.read<SwitchBloc>().state;
                                 if (state.isSwitched) {

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/repository/authentication_repository.dart';
+import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
+import 'package:construction_mate/utilities/shared_preference_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'sign_up_event.dart';
@@ -9,7 +11,8 @@ part 'sign_up_bloc.freezed.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationRepository repository;
-  SignUpBloc({required this.repository}) : super(SignUpState.initial()) {
+  SignUpBloc({required this.repository})
+      : super(SignUpState.initial()) {
     on<SignUpEvent>((event, emit) async {
       await event.map(
         initial: (value) {
@@ -32,12 +35,13 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         },
         otpOnChanged: (_OtpOnChanged value) {
           emit(state.copyWith(
-            otp: value.otp,
-            state: RequestState.empty,
-          ));
+              otp: value.otp,
+              state: RequestState.empty,
+              state1: RequestState.empty));
         },
         verifyOtp: (value) async {
-          emit(state.copyWith(state1: RequestState.loading));
+          emit(state.copyWith(
+              state1: RequestState.loading, state: RequestState.empty));
           final response =
               await repository.verifyOtp(email: state.email, otp: state.otp);
           if (response) {
@@ -49,21 +53,38 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         checkIsEmailExist: (_CheckIsEmailExist value) async {
           emit(state.copyWith(state: RequestState.loading));
           final userExist = await repository.isUserExist(email: state.email);
-          if (userExist) {
+          if (userExist == 3) {
             emit(state.copyWith(state: RequestState.error));
           } else {
-            emit(state.copyWith(state: RequestState.loaded));
+            emit(state.copyWith(
+                state: RequestState.loaded, screenState: userExist));
           }
         },
         addUser: (_AddUser value) async {
           emit(state.copyWith(state2: RequestState.loading));
-          final userExist = await repository.signUp(
+          final res = await repository.signUp(
               email: state.email,
               password: state.password,
               companyName: state.companyName);
-          emit(state.copyWith(state2: RequestState.error));
+
+          await res.fold((l) {
+            emit(state.copyWith(state: RequestState.error, message: l.message));
+          }, (r) async {
+            final token = await repository.signIn(
+                email: state.email, password: state.password);
+            await token.fold((l) {
+              emit(state.copyWith(
+                  state: RequestState.error, message: l.message));
+            }, (r) async {
+              await SharedPreferenceHelper().storedata("token", r);
+            });
+            emit(state.copyWith(state2: RequestState.loaded));
+          });
         },
+        signIn: (value) {},
+        setScreenState: (value) {},
       );
     });
   }
+
 }

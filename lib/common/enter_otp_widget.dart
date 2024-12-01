@@ -38,8 +38,7 @@ class EnterOptwidget extends StatelessWidget {
             context.read<SignUpBloc>().add(const SignUpEvent.verifyOtp());
           },
           enterOtpText: "Enter OTP",
-          otpMessage:
-              "A verification codes has been sent to jethvatushar87@gmail.com",
+          otpMessage: "A verification codes has been sent to ${state.email}",
           didNotRecieveText: "Didn’t receive the code?",
           resendText: "Resend",
           verifyButtonText: "Verify",

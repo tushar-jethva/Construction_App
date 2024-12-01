@@ -20,51 +20,53 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
     on<BillItemAddedEvent>((event, emit) {
       List<BillItemModel> listOfBillItems = List.from(state.billItems)
         ..add(event.billItem);
-      emit(state.copyWith(billItems: listOfBillItems));
+      emit(state.copyWith(billItems: listOfBillItems, isAddedBill: 0));
     });
 
     on<BillSGSTChangedEvent>((event, emit) {
-      emit(state.copyWith(sgst: event.sgst));
+      emit(state.copyWith(sgst: event.sgst, isAddedBill: 0));
     });
 
     on<BillCGSTChangedEvent>((event, emit) {
-      emit(state.copyWith(cgst: event.cgst));
+      emit(state.copyWith(cgst: event.cgst, isAddedBill: 0));
     });
 
     on<BillTDSChangedEvent>((event, emit) {
-      emit(state.copyWith(tds: event.tds));
+      emit(state.copyWith(tds: event.tds, isAddedBill: 0));
     });
     on<BillDateChangedEvent>((event, emit) {
-      emit(state.copyWith(date: event.dateTime));
+      emit(state.copyWith(date: event.dateTime, isAddedBill: 0));
     });
     on<BillDeliveryNoteChanged>((event, emit) {
-      emit(state.copyWith(deliveryNote: event.value));
+      emit(state.copyWith(deliveryNote: event.value, isAddedBill: 0));
     });
     on<BillModeOfPaymentChanged>((event, emit) {
-      emit(state.copyWith(modeOfPayment: event.value));
+      emit(state.copyWith(modeOfPayment: event.value, isAddedBill: 0));
     });
     on<BillreferenceNoChanged>((event, emit) {
-      emit(state.copyWith(referenceNo: event.value));
+      emit(state.copyWith(referenceNo: event.value, isAddedBill: 0));
     });
     on<BillOtherReferencesChanged>((event, emit) {
-      emit(state.copyWith(otherReferences: event.value));
+      emit(state.copyWith(otherReferences: event.value, isAddedBill: 0));
     });
     on<BillBuyersOrderNoChanged>((event, emit) {
-      emit(state.copyWith(buyersOrderNo: event.value));
+      emit(state.copyWith(buyersOrderNo: event.value, isAddedBill: 0));
     });
     on<BillDispatchDocNoChanged>((event, emit) {
-      emit(state.copyWith(dispatchDocNo: event.value));
+      emit(state.copyWith(dispatchDocNo: event.value, isAddedBill: 0));
     });
     on<BillDispatchedThroughChanged>((event, emit) {
-      emit(state.copyWith(dispatchedThrough: event.value));
+      emit(state.copyWith(dispatchedThrough: event.value, isAddedBill: 0));
     });
     on<BillDestinationChanged>((event, emit) {
-      emit(state.copyWith(destination: event.value));
+      emit(state.copyWith(destination: event.value, isAddedBill: 0));
     });
     on<BillGetAllPartiesEvent>((event, emit) async {
       try {
         emit(state.copyWith(
-            isLoadingParties: false, partyValue: state.partyValue));
+            isLoadingParties: false,
+            partyValue: state.partyValue,
+            isAddedBill: 0));
         List<BillingPartyModel> parties =
             await billingPartyRepository.getAllParties();
         parties.insert(
@@ -72,14 +74,15 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
         emit(state.copyWith(
             selecteParty: parties,
             isLoadingParties: true,
-            partyValue: state.partyValue));
+            partyValue: state.partyValue,
+            isAddedBill: 0));
       } catch (e) {}
     });
     on<BillPartyNameChanged>((event, emit) {
-      emit(state.copyWith(partyValue: event.partyId));
+      emit(state.copyWith(partyValue: event.partyId, isAddedBill: 0));
     });
 
-    on<BillAddBillEvent>((event, emit) {
+    on<BillAddBillEvent>((event, emit) async{
       try {
         print("-----------------------enter");
         emit(state.copyWith(isAddedBill: 1));
@@ -95,7 +98,7 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
         emit(state.copyWith(otherDetailsMode: model));
         print(
             "-------------------------- ${state.otherDetailsMode!.deliveryNote} --------------------------------");
-        billsRepository.addBill(
+       await billsRepository.addBill(
             model: state.otherDetailsMode!,
             date: state.date.toString(),
             billItems: state.billItems,

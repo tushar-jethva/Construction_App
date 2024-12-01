@@ -7,16 +7,19 @@ import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
+import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/work_type_model.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_drop_down_agency.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_drop_down_form_fields.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -105,6 +108,7 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
           child: Form(
             key: formKey,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
@@ -182,11 +186,9 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   },
                 ),
                 Gap(15.h),
-                MyCustomButton(
-                  buttonName: 'Select Floors',
-                  color: green,
-                  style: const TextStyle(color: white),
-                  onPressed: () {
+                CustomElevatedButton(
+                  label: 'Select Floors',
+                  onTap: () {
                     for (int i = 0; i < 1; i++) {
                       if (formKey.currentState!.validate()) {
                         final dropDown =
@@ -207,6 +209,18 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                         }
                       }
                     }
+                  },
+                ),
+                3.hx,
+                BlocBuilder<SelectFloorsBloc, SelectFloorsState>(
+                  builder: (context, state) {
+                    return state.message.isNotEmpty
+                        ? Text(
+                            state.message,
+                            style: theme.textTheme.titleMedium
+                                ?.copyWith(color: red),
+                          )
+                        : const SizedBox();
                   },
                 ),
                 Gap(15.h),
@@ -237,27 +251,29 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                     builder: (context, state) {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10.0),
-                        child: MyCustomButtonWidget(
-                          widget: state is AddAgencyLoadingState
-                              ? ReusableFunctions.loader(color: white)
-                              : const Text(
-                                  'Add Agency',
-                                  style: TextStyle(color: white),
-                                ),
-                          color: green,
-                          onPressed: () {
+                        child: CustomElevatedButton(
+                          isLoading: state is AddAgencyLoadingState,
+                          label: 'Add Agency',
+                          onTap: () {
                             if (formKey.currentState!.validate()) {
                               final selectedFloors =
                                   context.read<SelectFloorsBloc>().state;
 
-                              context.read<AddAgencyDropDownsBloc>().add(
-                                  AddAgencyOfDropDownEvent(
-                                      floors: selectedFloors.floorList,
-                                      buildingId: buildingModel.sId!,
-                                      projectId: projectModel.sId!,
-                                      description: descriptionController.text,
-                                      pricePerFeet: double.parse(
-                                          pricePerFeetController.text)));
+                              if (selectedFloors.selectedFloorList.isEmpty) {
+                                context.read<SelectFloorsBloc>().add(
+                                    OnMessageChangedFloors(
+                                        message:
+                                            "Please select one of the floor!"));
+                              } else {
+                                context.read<AddAgencyDropDownsBloc>().add(
+                                    AddAgencyOfDropDownEvent(
+                                        floors: selectedFloors.floorList,
+                                        buildingId: buildingModel.sId!,
+                                        projectId: projectModel.sId!,
+                                        description: descriptionController.text,
+                                        pricePerFeet: double.parse(
+                                            pricePerFeetController.text)));
+                              }
                             }
                           },
                         ),

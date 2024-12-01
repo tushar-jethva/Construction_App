@@ -90,7 +90,11 @@ class AgencyWorkTypesSelectionBloc
               .map((e) => e.sId!)
               .toList());
       emit(state.copyWith(isAddedAgency: 2));
-      
+    });
+
+    on<OnMessageChanged>((event, emit)  {
+      print("----------------- state ${state.message}");
+      emit(state.copyWith(message: event.message));
     });
   }
 }

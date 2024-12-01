@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:construction_mate/core/constants/api.dart';
-import 'package:http/http.dart' as http;
 
 import 'package:construction_mate/logic/models/floor_site_model.dart';
+import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 
 abstract class SiteProgressDataSource {
   Future<List<FloorSiteModel>> getFloorsOfSite(
@@ -22,20 +22,19 @@ abstract class SiteProgressDataSource {
 }
 
 class SiteProgressDataSourceImpl extends SiteProgressDataSource {
+  final dio = BaseDataCenter().dio.dio;
+
   @override
   Future<List<FloorSiteModel>> getFloorsOfSite(
       {required String projectId, required String buildingId}) async {
     List<FloorSiteModel> floorsOfSiteList = [];
     try {
-      http.Response res = await http.post(
-        Uri.parse("${API.GET_FLOORS}"),
-        body: jsonEncode(
+      final res = await dio.post(
+        "${API.GET_FLOORS}",
+        data: jsonEncode(
             {"projectId": "$projectId", "buildingId": "$buildingId"}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
       );
-      final floors = jsonDecode(res.body);
+      final floors = res.data;
       print(floors);
       for (var floor in floors["data"]) {
         floorsOfSiteList.add(FloorSiteModel.fromJson(floor));
@@ -55,20 +54,17 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
     try {
       print("$projectId $buildingId");
       print(floorIndex);
-      http.Response res = await http.post(
-        Uri.parse("${API.GET_FLOOR_BY_FLOOR_INDEX}"),
-        body: jsonEncode({
+      final res = await dio.post(
+        "${API.GET_FLOOR_BY_FLOOR_INDEX}",
+        data: jsonEncode({
           "projectId": projectId,
           "buildingId": buildingId,
           "floorName": floorIndex
         }),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
       );
 
-      print("Floorofsite ${res.body}");
-      final floors = jsonDecode(res.body);
+      print("Floorofsite ${res.data}");
+      final floors = res.data;
       floorsOfSite = FloorSiteModel.fromJson(floors["data"][0]);
     } catch (e) {
       print(e.toString());
@@ -84,19 +80,16 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
       required String floorIndex}) async {
     try {
       print("$projectId $buildingId $floorIndex $workTypeIds");
-      http.Response res = await http.post(
-        Uri.parse("${API.SITE_PROGRESS_UPDATE_AGENCY}"),
-        body: jsonEncode({
+      final res = await dio.post(
+        "${API.SITE_PROGRESS_UPDATE_AGENCY}",
+        data: jsonEncode({
           "ProjectId": projectId,
           "BuildingId": buildingId,
           "WokTypeArray": workTypeIds,
           "floorName": floorIndex
         }),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
       );
-      print(res.body);
+      print(res.data);
     } catch (e) {
       print(e.toString());
     }

@@ -4,9 +4,7 @@ import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/b
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
-import 'package:construction_mate/presentation/screens/bills/sheet_view_screen.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_particular_app_bar_widget.dart';
-import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_screen_app_bar_widet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -184,27 +182,34 @@ class _MyBillsParticularPartyScreenState
                     MyRichTextForPopUp(
                         theme: theme,
                         leftText: "TDS:  ",
-                        rightText: bill.tDSAmount.toString()),
+                        rightText: double.parse(bill.tDSAmount.toString())
+                            .toStringAsFixed(2)),
                     MyRichTextForPopUp(
                         theme: theme,
                         leftText: "sGST:  ",
-                        rightText: bill.sGSTAmount.toString()),
+                        rightText: double.parse(bill.sGSTAmount.toString())
+                            .toStringAsFixed(2)),
                     MyRichTextForPopUp(
                         theme: theme,
                         leftText: "cGST:  ",
-                        rightText: bill.cGSTAmount.toString()),
+                        rightText: double.parse(bill.cGSTAmount.toString())
+                            .toStringAsFixed(2)),
                     MyRichTextForPopUp(
                         theme: theme,
                         leftText: "Total Amount:  ",
-                        rightText: bill.totalAmount.toString()),
+                        rightText: double.parse(bill.totalAmount.toString())
+                            .toStringAsFixed(2)),
                     MyRichTextForPopUp(
                         theme: theme,
                         leftText: "Net Amount:  ",
-                        rightText: bill.netAmount.toString()),
+                        rightText: double.parse(bill.netAmount.toString())
+                            .toStringAsFixed(2)),
                     MyRichTextForPopUp(
                         theme: theme,
                         leftText: "Receivable Amount:  ",
-                        rightText: bill.receivableAmount.toString()),
+                        rightText:
+                            double.parse(bill.receivableAmount.toString())
+                                .toStringAsFixed(2)),
                   ],
                 ),
               ));

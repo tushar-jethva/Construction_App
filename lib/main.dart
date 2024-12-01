@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/datasource/authentication_datasource.dart';
 import 'package:construction_mate/data/datasource/building_data_source.dart';
@@ -14,8 +16,11 @@ import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
+import 'package:construction_mate/injections/injection.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
+import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
+import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
@@ -28,18 +33,36 @@ import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payme
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
-import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_eye_bloc.dart';
+import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart';
+import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc.dart';
+import 'package:construction_mate/logic/controllers/network/network_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
+import 'package:construction_mate/utilities/app_bloc_observer.dart';
+import 'package:construction_mate/utilities/logger.dart';
+import 'package:construction_mate/utilities/shared_preference_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:construction_mate/injections/injection.dart' as di;
 
 void main() {
-  runApp(const MyApp());
+  logger.runLogging(
+    () => runZonedGuarded(
+      () async {
+        WidgetsFlutterBinding.ensureInitialized();
+        Bloc.observer = const AppBlocObserver();
+        // await ErrorStack.init();
+        configureDependencies();
+        await SharedPreferenceHelper().init();
+        runApp(const MyApp());
+      },
+      logger.logZoneError,
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -48,7 +71,7 @@ class MyApp extends StatelessWidget {
       GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return MyMultiBlocProviders();
+    return const MyMultiBlocProviders();
   }
 }
 
@@ -61,6 +84,8 @@ class MyMultiBlocProviders extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_) => NetworkBloc()),
+        BlocProvider(create: (_) => AuthenticatorWatcherBloc()),
         BlocProvider(
           create: (_) => BottomBarBloc(),
         ),
@@ -115,10 +140,6 @@ class MyMultiBlocProviders extends StatelessWidget {
                     agencyDataSource: AgencyDataSourceDataSourceImpl()))),
         BlocProvider(create: (_) => ThemeBloc()),
         BlocProvider(
-            create: (_) => AddMaterialBloc(
-                projectRepository:
-                    ProjectRepositoryImpl(ProjectDataSourceImpl()))),
-        BlocProvider(
             create: (_) => BillingPartiesHomeBloc(
                 billingPartyRepository: BillingRepositoryImpl())),
         BlocProvider(
@@ -130,6 +151,19 @@ class MyMultiBlocProviders extends StatelessWidget {
                 repository: AuthenticationRepositoryImpl(
                     AuthenticationDatasourceImpl()))),
         BlocProvider(create: (_) => VisibilityEyeBloc()),
+        BlocProvider(
+          create: (_) => SignInBloc(
+              authenticationRepository:
+                  AuthenticationRepositoryImpl(AuthenticationDatasourceImpl())),
+        ),
+        BlocProvider(
+          create: (context) => AddBillingPartyBloc(
+              projectRepository: ProjectRepositoryImpl(ProjectDataSourceImpl()),
+              billingPartyRepository: BillingRepositoryImpl()),
+        ),
+        BlocProvider(create: (_) => di.locator<AddMaterialBloc>()),
+        BlocProvider(create: (_) => di.locator<BottomsheetBloc>()),
+
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

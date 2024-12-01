@@ -2,10 +2,10 @@ import 'dart:convert';
 
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
-import 'package:http/http.dart' as http;
+import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 
 abstract class BillingPartyDataSource {
-  void addBillingParty(
+  Future<void> addBillingParty(
       {required String projectId,
       required String partyName,
       required String gstNo,
@@ -18,8 +18,10 @@ abstract class BillingPartyDataSource {
 }
 
 class BillingPartyImpl extends BillingPartyDataSource {
+  final dio = BaseDataCenter().dio.dio;
+
   @override
-  void addBillingParty(
+  Future<void> addBillingParty(
       {required String projectId,
       required String partyName,
       required String gstNo,
@@ -37,12 +39,9 @@ class BillingPartyImpl extends BillingPartyDataSource {
           shippingAddress: shippingAddress,
           billingAddress: billingAddress);
 
-      await http.post(
-        Uri.parse(API.ADD_BILLING_PARTY),
-        body: jsonEncode(billingPartyModel.toJson()),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      await dio.post(
+        API.ADD_BILLING_PARTY,
+        data: jsonEncode(billingPartyModel.toJson()),
       );
     } catch (e) {
       print(e.toString());
@@ -53,14 +52,9 @@ class BillingPartyImpl extends BillingPartyDataSource {
   Future<List<BillingPartyModel>> getAllParties() async {
     List<BillingPartyModel> billingParties = [];
     try {
-      http.Response res = await http.get(
-        Uri.parse(API.GET_ALL_PARTIES),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
+      final res = await dio.get(API.GET_ALL_PARTIES);
 
-      final parties = jsonDecode(res.body);
+      final parties = res.data;
       for (var party in parties["data"]) {
         billingParties.add(BillingPartyModel.fromJson2(party));
       }

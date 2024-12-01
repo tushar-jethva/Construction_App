@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDropDown extends StatelessWidget {
-  const CustomDropDown({super.key, required this.items});
+  const CustomDropDown({super.key, required this.items, this.onChanged, this.initialValue});
 
   final List<String> items;
+  final Function(String?)? onChanged;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -15,25 +17,19 @@ class CustomDropDown extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(7),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            10.r,
-          ),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: grey),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            5.r,
-          ),
+          borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: grey),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(
-            10.r,
-          ),
-          borderSide:  BorderSide(color: purple),
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: purple),
         ),
       ),
-      value: items[0],
+      value: initialValue ?? items[0],
       items: items
           .map((e) => DropdownMenuItem(
                 value: e,
@@ -48,7 +44,7 @@ class CustomDropDown extends StatelessWidget {
                 ),
               ))
           .toList(),
-      onChanged: (val) {},
+      onChanged: onChanged,
       // ignore: body_might_complete_normally_nullable
       validator: (value) {
         if (value == items[0]) {

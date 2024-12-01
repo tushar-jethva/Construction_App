@@ -19,4 +19,9 @@ class SignUpEvent with _$SignUpEvent {
   const factory SignUpEvent.verifyOtp() = _VerifyOTP;
 
   const factory SignUpEvent.addUser() = _AddUser;
+
+  const factory SignUpEvent.signIn() = _SignInUserAfterSignUp;
+
+  const factory SignUpEvent.setScreenState() = _SetScreenState;
+
 }

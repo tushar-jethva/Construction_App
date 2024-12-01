@@ -19,6 +19,13 @@ class FetchSelectedFloorsEvent extends SelectFloorsEvent {
   final String buildingId;
   final String workTypeId;
 
-  FetchSelectedFloorsEvent({required this.projectId, required this.buildingId, required this.workTypeId});
- 
+  FetchSelectedFloorsEvent(
+      {required this.projectId,
+      required this.buildingId,
+      required this.workTypeId});
+}
+
+class OnMessageChangedFloors extends SelectFloorsEvent {
+  final String message;
+  OnMessageChangedFloors({required this.message});
 }

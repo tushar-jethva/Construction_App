@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -9,7 +10,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.labelLoading,
     this.backgroundColor,
     this.borderColor,
-    this.labelColor = Colors.black,
+    this.labelColor = Colors.white,
     this.child,
     this.isLoading = false,
     this.width = double.infinity,
@@ -40,7 +41,6 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Container(
       width: width,
       height: height,

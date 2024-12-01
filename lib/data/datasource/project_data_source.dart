@@ -1,34 +1,40 @@
 import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ProjectDataSource {
-  Future<void> addProject(
+  Future<String> addProject(
       {required String projectName,
       required String address,
       required String description});
+
+  Future<String> updateProject({required ProjectModel project});
 
   Future<List<ProjectModel>> allProjects();
 }
 
 class ProjectDataSourceImpl extends ProjectDataSource {
+  final dio = BaseDataCenter().dio.dio;
+
   @override
-  Future<void> addProject(
+  Future<String> addProject(
       {required String projectName,
       required String address,
       required String description}) async {
     try {
       ProjectModel projectModel = ProjectModel(
           name: projectName, address: address, description: description);
-      await http.post(
-        Uri.parse(API.ADD_PROJECT_URL),
-        body: projectModel.toJson(),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      await dio.post(
+        API.ADD_PROJECT_URL,
+        data: projectModel.toJson(),
       );
-    } catch (e) {}
+
+      return "Project added successfully";
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
@@ -36,13 +42,10 @@ class ProjectDataSourceImpl extends ProjectDataSource {
     List<ProjectModel> allProjectList = [];
     try {
       print("Hello");
-      http.Response res = await http.get(
-        Uri.parse(API.GET_PROJECT_URL),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final res = await dio.get(
+        API.GET_PROJECT_URL,
       );
-      final projects = jsonDecode(res.body);
+      final projects = res.data;
       for (var project in projects["data"]) {
         allProjectList.add(ProjectModel.fromJson(project));
       }
@@ -50,5 +53,15 @@ class ProjectDataSourceImpl extends ProjectDataSource {
       print("All Projects: ${e.toString()}");
     }
     return allProjectList;
+  }
+
+  @override
+  Future<String> updateProject({required ProjectModel project}) async {
+    try {
+      await dio.put("${API.UPDATE_PROJECT_URL}/${project.sId}", data: project.toJson());
+      return "Project added successfully";
+    } catch (e) {
+      rethrow;
+    }
   }
 }

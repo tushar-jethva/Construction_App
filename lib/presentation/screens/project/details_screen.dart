@@ -7,6 +7,7 @@ import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agenc
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
+import 'package:construction_mate/presentation/screens/project/material_screen.dart';
 import 'package:construction_mate/presentation/screens/project/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/project/transaction_screen.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
     final theme = Theme.of(context);
     return DefaultTabController(
       initialIndex: 1,
-      length: 3,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(color: theme.canvasColor),
@@ -88,18 +89,25 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
               ],
             ),
           ),
-          bottom: TabBar(
-            onTap: (index) {},
-            labelColor: purple,
-            unselectedLabelColor: greyELight,
-            dividerColor: theme.canvasColor,
-            indicatorColor: purple,
-            overlayColor: const MaterialStatePropertyAll(Colors.transparent),
-            tabs: const [
-              Tab(text: 'Parties'),
-              Tab(text: 'Buildings'),
-              Tab(text: 'Transactions'),
-            ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(kToolbarHeight),
+            child: TabBar(
+              isScrollable: true,
+              onTap: (index) {},
+              labelColor: purple,
+              unselectedLabelColor: greyELight,
+              dividerColor: theme.canvasColor,
+              indicatorColor: purple,
+              overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+              tabs: const [
+                Tab(text: 'Parties'),
+                Tab(text: 'Buildings'),
+                Tab(
+                  text: 'Material',
+                ),
+                Tab(text: 'Transactions'),
+              ],
+            ),
           ),
         ),
         body: TabBarView(
@@ -115,6 +123,9 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
             BuildingsScreen(
               project: widget.projectModel,
               bloc: _paymentTotalProjectBloc,
+            ),
+             MaterialScreen(
+              project: widget.projectModel,
             ),
             MultiBlocProvider(
               providers: [

@@ -6,6 +6,7 @@ class API {
   //--------------------------- Project ------------------------------------------------------------------------------------
   static const ADD_PROJECT_URL = "$BASE_URL/Project/AddProject";
   static const GET_PROJECT_URL = "$BASE_URL/Project/GetProject";
+  static const UPDATE_PROJECT_URL = "$BASE_URL/Project/UpdateProject";
 
   //--------------------------- Building ------------------------------------------------------------------------------------
   static const ADD_BUILDING_URL = "$BASE_URL/Building/AddBuilding";
@@ -63,7 +64,8 @@ class API {
   static const SIGN_UP_API = "$BASE_URL/Company/SetCredentials";
   static const LOGIN_API = "$BASE_URL/Company/Login";
 
-
-
-
+  //---------------------------- Material ------------------------------------------------------
+  static const ADD_MATERIAL = "$BASE_URL/Material/AddMaterial";
+  static const GET_MATERIAL = "$BASE_URL/Material/GetMaterial";
+  static const UPDATE_MATERIAL = "$BASE_URL/Material/UpdateMaterial";
 }

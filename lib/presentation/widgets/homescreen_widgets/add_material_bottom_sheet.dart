@@ -1,20 +1,29 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
+import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
+import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
+import 'package:go_router/go_router.dart';
 
 class MyMaterialAddBottomSheet extends StatefulWidget {
-  const MyMaterialAddBottomSheet({super.key});
+  final String projectId;
+  final MaterialModel material;
+  final bool? isUpdate;
+  const MyMaterialAddBottomSheet(
+      {super.key,
+      required this.projectId,
+      required this.material,
+      this.isUpdate = false});
 
   @override
   State<MyMaterialAddBottomSheet> createState() =>
@@ -22,11 +31,15 @@ class MyMaterialAddBottomSheet extends StatefulWidget {
 }
 
 class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
-  final TextEditingController _materialNameController = TextEditingController();
+  //Textform fields
+  late final TextEditingController _materialNameController =
+      TextEditingController();
+  final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
-  final _formKeyMaterial = GlobalKey<FormState>();
+  String dropDownValue = units[0];
 
+  final _formKeyMaterial = GlobalKey<FormState>();
   Future<void> _selectDate(BuildContext context) async {
     DateTime initialDate = DateTime.now();
     final DateTime? pickedDate = await showDatePicker(
@@ -37,21 +50,34 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
     );
 
     if (pickedDate != null) {
-      // ignore: use_build_context_synchronously
       context.read<DateBlocBloc>().add(DateChanged(dateTime: pickedDate));
+      context
+          .read<AddMaterialBloc>()
+          .add(AddMaterialEvent.onDateChanged(date: pickedDate.toString()));
     }
   }
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _materialNameController.dispose();
-    _descriptionController.dispose();
+  void initState() {
+    super.initState();
+    widget.isUpdate == true ? setController() : ();
+  }
+
+  //Set controller text
+  setController() {
+    _materialNameController.text = widget.material.materialName;
+    _quantityController.text = widget.material.quantity;
+    _descriptionController.text = widget.material.description;
+    context.read<AddMaterialBloc>().add(
+        AddMaterialEvent.onDateChanged(date: widget.material.date.toString()));
+    context
+        .read<AddMaterialBloc>()
+        .add(AddMaterialEvent.onUnitChanged(unit: widget.material.unit));
   }
 
   @override
   Widget build(BuildContext context) {
+    final material = widget.material;
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     final theme = Theme.of(context);
     return Padding(
@@ -67,134 +93,120 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
               topRight: Radius.circular(15.r),
             ),
           ),
-          child: Column(
-            children: [
-              Form(
-                key: _formKeyMaterial,
-                child: Column(
-                  children: [
-                    BlocBuilder<AddMaterialBloc, AddMaterialState>(
-                        builder: (context, state) {
-                      print(state.isLoading);
-                      if (state.isLoading) {
-                        return CustomDropDown(items: selectProject);
-                      }
-                      return Column(
+          child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Form(
+                    key: _formKeyMaterial,
+                    child: Column(
+                      children: [
+                        CustomTextFormField(
+                          controller: _materialNameController,
+                          hintText: 'Material Name',
+                          maxLines: 1,
+                          textInputType: TextInputType.name,
+                          customvalidation: "Add material name!",
+                        ),
+                        15.hx,
+                        CustomTextFormField(
+                          controller: _quantityController,
+                          hintText: 'Project Quantity',
+                          maxLines: 1,
+                          textFieldType: TextFieldType.number,
+                        ),
+                        15.hx,
+                        CustomDropDown(
+                          initialValue:
+                              widget.isUpdate == true ? state.unit : null,
+                          items: units,
+                          onChanged: (val) {
+                            context.read<AddMaterialBloc>().add(
+                                AddMaterialEvent.onUnitChanged(
+                                    unit: val ?? ""));
+                          },
+                        ),
+                        15.hx,
+                        CustomTextFormField(
+                          controller: _descriptionController,
+                          hintText: 'Project Description',
+                          maxLines: 3,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Gap(15.h),
+                  GestureDetector(
+                    onTap: () {
+                      _selectDate(context);
+                    },
+                    child: Container(
+                      height: 50.h,
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.w, vertical: 15.h),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: grey),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          PaymentOutCustomDropDown(
-                            value: state.projectValue.isNotEmpty
-                                ? state.projectValue
-                                : state.projects[0].sId,
-                            list: state.projects
-                                .map((e) => DropdownMenuItem(
-                                      value: e.sId,
-                                      child: SizedBox(
-                                        width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                            0.4, // Set a specific width here
-                                        child: Text(
-                                          e.name!,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ))
-                                .toList(),
-                            onChanged: (val) {
-                              context.read<AddMaterialBloc>().add(
-                                  OnProjectValueChangedEvent(projectId: val!));
-                            },
-                            // ignore: body_might_complete_normally_nullable
+                          Text(
+                              "Date: ${ReusableFunctions().getFormattedDate(state.date)}"),
+                          Icon(
+                            Icons.calendar_month,
+                            color: theme.canvasColor,
                           ),
                         ],
-                      );
-                    }),
-                    Gap(15.h),
-                    MyCustomTextFormField(
-                      controller: _materialNameController,
-                      hintText: 'Material Name',
-                      maxLines: 1,
-                      textInputType: TextInputType.name,
-                      // ignore: body_might_complete_normally_nullable
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter material name!';
-                        }
+                      ),
+                    ),
+                  ),
+                  Gap(20.h),
+                  BlocListener<AddMaterialBloc, AddMaterialState>(
+                    listener: (context, state) {
+                      if (state.state.isLoaded) {
+                        context.pop();
+                        context.read<AddMaterialBloc>().add(
+                            AddMaterialEvent.fetchAllMaterial(
+                                projectId: widget.projectId));
+                      }
+                    },
+                    child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
+                      builder: (context, state) {
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 10.h),
+                          child: CustomElevatedButton(
+                            isLoading: state.state.isLoading,
+                            label: widget.isUpdate == true
+                                ? 'Update'
+                                : 'Add Material',
+                            onTap: () async {
+                              if (_formKeyMaterial.currentState!.validate()) {
+                                context.read<AddMaterialBloc>().add(
+                                    AddMaterialEvent.onAddMaterialTap(
+                                        materialId: material.id ?? "",
+                                        isUpdate: widget.isUpdate ?? false,
+                                        projectId: widget.projectId,
+                                        materialName:
+                                            _materialNameController.text,
+                                        quantity: _quantityController.text,
+                                        description:
+                                            _descriptionController.text));
+                              }
+                            },
+                          ),
+                        );
                       },
                     ),
-                    Gap(15.h),
-                    MyCustomTextField(
-                      controller: _descriptionController,
-                      hintText: 'Project Description',
-                      maxLines: 3,
-                    ),
-                  ],
-                ),
-              ),
-              Gap(15.h),
-              GestureDetector(
-                onTap: () {
-                  _selectDate(context);
-                },
-                child: Container(
-                  height: 50.h,
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: grey),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      BlocBuilder<DateBlocBloc, DateBlocState>(
-                        builder: (context, state) {
-                          final String formattedDate =
-                              DateFormat.yMMMd().format(state.selectedDate);
-                          return Text("Date: $formattedDate");
-                        },
-                      ),
-                      Icon(
-                        Icons.calendar_month,
-                        color: theme.canvasColor,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Gap(20.h),
-              BlocListener<AddMaterialBloc, AddMaterialState>(
-                listener: (context, state) {
-                  // if (state is ProjectAddSuccess) {
-                  //   Navigator.pop(context);
-                  //   ReusableFunctions.showSnackBar(
-                  //       context: context, content: "Project add successfully!");
-                  // }
-                },
-                child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
-                  builder: (context, state) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 10.h),
-                      child: MyCustomButtonWidget(
-                        widget: const Text(
-                          'Add Material',
-                          style: TextStyle(
-                              color: white, fontWeight: FontWeight.w500),
-                        ),
-                        color: green,
-                        onPressed: () async {
-                          if (_formKeyMaterial.currentState!.validate()) {}
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         ),
       ),
     );
   }
 }
+
+List<String> units = ["-- Select Unit --", "bags", "liter"];

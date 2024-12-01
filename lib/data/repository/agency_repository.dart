@@ -43,7 +43,6 @@ abstract class AgencyRepository {
 
 class AgencyRepositoryImpl extends AgencyRepository {
   final AgencyDataSource agencyDataSource;
-
   AgencyRepositoryImpl({required this.agencyDataSource});
 
   @override

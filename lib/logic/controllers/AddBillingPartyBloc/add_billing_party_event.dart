@@ -26,3 +26,7 @@ class AddBillingParty extends AddBillingPartyEvent {
       required this.shippingAddress,
       required this.billingAddress});
 }
+
+class Initialize extends AddBillingPartyEvent{
+  
+}

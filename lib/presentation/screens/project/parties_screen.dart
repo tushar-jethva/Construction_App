@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
+import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +12,7 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class MyPartiesProjectScreen extends StatefulWidget {
   final ProjectModel project;
@@ -93,33 +96,15 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
               builder: (context, state) {
             if (state is AgencyWorksProjectsInitial) {
               return Expanded(
-                child: Shimmer(
-                  gradient: LinearGradient(
-                      colors: [theme.hoverColor, theme.cardColor],
-                      stops: const [0.1, 0.8]),
+                child: Skeletonizer(
+                  enabled: true,
                   child: ListView.builder(
                       itemCount: 5,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                              left: 15.0, right: 15, bottom: 10),
-                          child: Container(
-                            height: ReusableFunctions.getHeight(
-                                context: context, height: 0.08),
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              color: theme.cardColor,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ShimmerBox(height: 10, width: 150),
-                                ShimmerBox(height: 10, width: 50)
-                              ],
-                            ),
-                          ),
-                        );
+                        return agencyWidget(
+                            theme,
+                            TotalAgencyModel(
+                                name: "Agency", totalAccount: "1000"));
                       }),
                 ),
               );
@@ -129,8 +114,13 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                   child: RefreshIndicator(
                 onRefresh: _refreshTotalAgencies,
                 child: state.totalAgencies.isEmpty
-                    ? const Center(
-                        child: Text('No agencies found!'),
+                    ? Expanded(
+                        child: ListView(children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.6,
+                              child: const Center(
+                                  child: Text("No agencies founds!"))),
+                        ]),
                       )
                     : ListView.builder(
                         itemCount: state.totalAgencies.length,
@@ -146,35 +136,7 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                                     "agencyName": agency.name
                                   });
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 15.0, right: 15, bottom: 10),
-                              child: Container(
-                                padding: const EdgeInsets.all(20),
-                                decoration: BoxDecoration(
-                                  color: theme.cardColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(agency.name!),
-                                    Text(
-                                      agency.totalAccount!.startsWith('-')
-                                          ? agency.totalAccount!.substring(
-                                              1, agency.totalAccount!.length)
-                                          : agency.totalAccount.toString(),
-                                      style: TextStyle(
-                                          color: agency.totalAccount!
-                                                  .startsWith('-')
-                                              ? red
-                                              : green),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                            child: agencyWidget(theme, agency),
                           );
                         }),
               ));
@@ -185,6 +147,33 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
             ));
           })
         ],
+      ),
+    );
+  }
+
+  Padding agencyWidget(ThemeData theme, TotalAgencyModel agency) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: theme.cardColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(agency.name!),
+            Text(
+              agency.totalAccount!.startsWith('-')
+                  ? agency.totalAccount!
+                      .substring(1, agency.totalAccount!.length)
+                  : agency.totalAccount.toString(),
+              style: TextStyle(
+                  color: agency.totalAccount!.startsWith('-') ? red : green),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,9 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -17,6 +15,7 @@ import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/transaction_model.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class MyTransactionScreen extends StatefulWidget {
   final ProjectModel project;
@@ -212,7 +211,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                             MyCustomButton(
                               buttonName: 'Filter',
                               color: green,
-                              style: TextStyle(color: white),
+                              style: const TextStyle(color: white),
                               onPressed: () {
                                 final state =
                                     context.read<StartAndEndDateBloc>().state;
@@ -255,50 +254,34 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                 builder: ((context, state) {
               if (state is TransactionBuildingLoading) {
                 return Expanded(
-                  child: Shimmer(
-                      gradient: LinearGradient(
-                          colors: [theme.hoverColor, theme.cardColor],
-                          stops: const [0.1, 0.8]),
+                  child: Skeletonizer(
+                      enabled: true,
                       child: ListView.builder(
                         itemCount: 5,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.0.w, vertical: 10.h),
-                            child: Container(
-                              padding: const EdgeInsets.all(20),
-                              height: ReusableFunctions.getHeight(
-                                  context: context, height: 0.09),
-                              decoration: BoxDecoration(
-                                  color: theme.cardColor,
-                                  borderRadius: BorderRadius.circular(15.r)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      const ShimmerBox(height: 10, width: 250),
-                                      Gap(5.h),
-                                      const ShimmerBox(height: 10, width: 160),
-                                    ],
-                                  ),
-                                  const ShimmerBox(height: 3, width: 5),
-                                ],
+                          return transactionWidget(
+                              context,
+                              TransactionModel(
+                                sId: "#8098809812",
+                                amount: "1000",
+                                isCompleted: false,
                               ),
-                            ),
-                          );
+                              theme,
+                              "");
                         },
                       )),
                 );
               } else if (state is TransactionBuildingSuccess) {
                 return Expanded(
                   child: state.listOfTransactions.isEmpty
-                      ? const Center(
-                          child: Text("No transactions found!"),
+                      ? Expanded(
+                          child: ListView(children: [
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.6,
+                                child: const Center(
+                                    child: Text("No transactions founds!"))),
+                          ]),
                         )
                       : ListView.builder(
                           itemCount: state.listOfTransactions.length,
@@ -308,56 +291,8 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                             String formattedDate =
                                 DateFormat('dd-MM-yyyy  hh:mm')
                                     .format(DateTime.parse(transaction.date!));
-                            return GestureDetector(
-                              onTap: () {
-                                ReusableFunctions.showSnackBar(
-                                    context: context,
-                                    content: transaction.description!);
-                              },
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.0.w, vertical: 10.h),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: theme.cardColor,
-                                      borderRadius:
-                                          BorderRadius.circular(15.r)),
-                                  child: ListTile(
-                                    title: Row(
-                                      children: [
-                                        Text(
-                                          "${transaction.name}",
-                                          style: theme.textTheme.titleMedium,
-                                        ),
-                                        Gap(5.w),
-                                        transaction.isCompleted!
-                                            ? Icon(
-                                                Icons
-                                                    .check_circle_outline_outlined,
-                                                color: green,
-                                                size: 20,
-                                              )
-                                            : SizedBox()
-                                      ],
-                                    ),
-                                    subtitle: Text(
-                                      formattedDate,
-                                      style: theme.textTheme.titleMedium!
-                                          .copyWith(color: grey, fontSize: 14),
-                                    ),
-                                    trailing: Text(
-                                      "${transaction.amount}",
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          color:
-                                              transaction.entryType == 'Credit'
-                                                  ? green
-                                                  : red),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
+                            return transactionWidget(
+                                context, transaction, theme, formattedDate);
                           },
                         ),
                 );
@@ -365,6 +300,53 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
               return const Text("No Transaction Found");
             }))
           ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector transactionWidget(BuildContext context,
+      TransactionModel transaction, ThemeData theme, String formattedDate) {
+    return GestureDetector(
+      onTap: () {
+        ReusableFunctions.showSnackBar(
+            context: context, content: transaction.description!);
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
+        child: Container(
+          decoration: BoxDecoration(
+              color: theme.cardColor,
+              borderRadius: BorderRadius.circular(15.r)),
+          child: ListTile(
+            title: Row(
+              children: [
+                Text(
+                  "${transaction.sId}",
+                  style: theme.textTheme.titleMedium,
+                ),
+                Gap(5.w),
+                transaction.isCompleted!
+                    ? Icon(
+                        Icons.check_circle_outline_outlined,
+                        color: green,
+                        size: 20,
+                      )
+                    : const SizedBox()
+              ],
+            ),
+            subtitle: Text(
+              formattedDate,
+              style: theme.textTheme.titleMedium!
+                  .copyWith(color: grey, fontSize: 14),
+            ),
+            trailing: Text(
+              "${transaction.amount}",
+              style: TextStyle(
+                  fontSize: 13,
+                  color: transaction.entryType == 'Credit' ? green : red),
+            ),
+          ),
         ),
       ),
     );

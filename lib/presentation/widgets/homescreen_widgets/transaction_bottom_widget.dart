@@ -4,7 +4,7 @@ import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_oth
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -205,17 +205,10 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                           builder: (context, state) {
                             return Padding(
                               padding: EdgeInsets.only(bottom: 10.h),
-                              child: MyCustomButtonWidget(
-                                widget: state is PaymentInAddLoading
-                                    ? ReusableFunctions.loader(color: white)
-                                    : const Text(
-                                        'PaymentIn',
-                                        style: TextStyle(
-                                            color: white,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                color: green,
-                                onPressed: () async {
+                              child: CustomElevatedButton(
+                                isLoading: state is PaymentInAddLoading,
+                                label: 'PaymentIn',
+                                onTap: () async {
                                   if (formPaymentInKey.currentState!
                                       .validate()) {
                                     context
@@ -584,17 +577,10 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                         return Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 15.0.w, vertical: 10.h),
-                          child: MyCustomButtonWidget(
-                            widget: state is PaymentOutAddLoading
-                                ? ReusableFunctions.loader(color: white)
-                                : const Text(
-                                    'Payment Out',
-                                    style: TextStyle(
-                                        color: white,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                            color: green,
-                            onPressed: () async {
+                          child: CustomElevatedButton(
+                            isLoading: state is PaymentOutAddLoading,
+                            label: 'Payment Out',
+                            onTap: () async {
                               if (formPaymentOutKey.currentState!.validate()) {
                                 context.read<PaymentOutDropDownBloc>().add(
                                     AddPaymentOutTransaction(

@@ -34,7 +34,7 @@ class TransactionsTotalWidget extends StatelessWidget {
                   builder: (context, state) {
                     return TransactionStatusWidget(
                       upperText: "Total +ve",
-                      belowText: state.paymentIn,
+                      belowText: state.paymentIn ?? "",
                       upperTextStyle:
                           theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                       belowTextStyle: theme.textTheme.titleLarge!

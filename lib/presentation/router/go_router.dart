@@ -38,212 +38,215 @@ import 'package:construction_mate/presentation/screens/project/working_agency_de
 import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/floors_and_foot_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class Routes {
-  static final routes =
-      GoRouter(initialLocation: RoutesName.initialLocation, routes: [
-    GoRoute(
-      path: RoutesName.initialLocation,
-      name: RoutesName.initialLocation,
-      builder: (contex, state) => const SplashScreen(),
-    ),
-    GoRoute(
-      path: RoutesName.signUpScreen,
-      name: RoutesName.signUpScreen,
-      builder: (contex, state) =>  SignUpScreen(),
-    ),
-    GoRoute(
-      path: RoutesName.signUpScreen2,
-      name: RoutesName.signUpScreen2,
-      builder: (contex, state) => const SignUpStep2(),
-    ),
-    GoRoute(
-      path: RoutesName.signInScreen,
-      name: RoutesName.signInScreen,
-      builder: (contex, state) =>  SignInScreen(),
-    ),
-    GoRoute(
-      path: RoutesName.bottomBar,
-      name: RoutesName.bottomBar,
-      builder: (contex, state) => const MyBottomBar(),
-    ),
-    GoRoute(
-      path: RoutesName.partiesScreen,
-      name: RoutesName.partiesScreen,
-      builder: (contex, state) => const MyPartiesScreen(),
-    ),
-    GoRoute(
-      path: RoutesName.projectScreen,
-      name: RoutesName.projectScreen,
-      builder: (contex, state) => const MyProjectScreen(),
-    ),
-    GoRoute(
-      path: RoutesName.billsScreen,
-      name: RoutesName.billsScreen,
-      builder: (contex, state) => const MyBillScreen(),
-    ),
-    GoRoute(
-      path: RoutesName.projectDetailsScreen,
-      name: RoutesName.projectDetailsScreen,
-      builder: (contex, state) {
-        final ProjectModel project = state.extra as ProjectModel;
-        return BlocProvider(
-          create: (context) => PaymentTotalProjectBloc(
-              transactionRepository: TransactionRepositoryImpl(
-                  transactionDataSource: TransactionDataSourceImpl())),
-          child: MyProjectDetailsScreen(
-            projectModel: project,
-          ),
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.buildingDetailsScreen,
-      name: RoutesName.buildingDetailsScreen,
-      builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>;
-        final buildingModel = args['buildingModel'] as BuildingModel;
-        final projectModel = args["projectModel"] as ProjectModel;
-        return MyBuildingDetailsScreen(
-          buildingModel: buildingModel,
-          projectModel: projectModel,
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.selectFloorsScreen,
-      name: RoutesName.selectFloorsScreen,
-      builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>;
-        final buildingModel = args['buildingModel'] as BuildingModel;
-        final selectFloorsBloc = args['bloc'] as SelectFloorsBloc;
-        final workTypeId = args['workTypeId'] as String;
-        final projectModel = args['projectModel'] as ProjectModel;
-        return MySelectFloorsScreen(
-          buildingModel: buildingModel,
-          selectFloorsBloc: selectFloorsBloc,
-          projectModel: projectModel,
-          workTypeId: workTypeId,
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.workingAgencyDetailsScreen,
-      name: RoutesName.workingAgencyDetailsScreen,
-      builder: (context, state) {
-        final PerBuildingAgencyModel perBuildingAgencyModel =
-            state.extra as PerBuildingAgencyModel;
-        return MyWorkingAgencyDetailsScreen(
-          perBuildingAgency: perBuildingAgencyModel,
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.siteProgressDeailsScreen,
-      name: RoutesName.siteProgressDeailsScreen,
-      builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>;
-        final floorSiteModel = args['floorSiteModel'] as FloorSiteModel;
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-        return BlocProvider(
-          create: (context) => SiteProgressAgencyUpdateBloc(
-              siteProgressRepository: SiteProgressRepositoryImpl(
-                  siteProgressDataSource: SiteProgressDataSourceImpl())),
-          child: MySiteProgressDetailsWidget(
-            floorSiteModel: floorSiteModel,
-          ),
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.transactionOfAgencyPartiesScreen,
-      name: RoutesName.transactionOfAgencyPartiesScreen,
-      builder: (context, state) {
-        final TotalAgencyModel totalAgencyModel =
-            state.extra as TotalAgencyModel;
-        return BlocProvider(
-          create: (context) => TransactionByAgencyBloc(
-              transactionRepository: TransactionRepositoryImpl(
-                  transactionDataSource: TransactionDataSourceImpl())),
-          child: MyTransactionPartiesScreen(agency: totalAgencyModel),
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.transactionIndividualScreen,
-      name: RoutesName.transactionIndividualScreen,
-      builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>;
-        final agencyId = args['agencyId'] as String;
-        final projectId = args['projectId'] as String;
-        final agencyName = args['agencyName'] as String;
-        return BlocProvider(
-          create: (context) => TransactionsIndividualAgencyBloc(
-              transactionRepository: TransactionRepositoryImpl(
-                  transactionDataSource: TransactionDataSourceImpl())),
-          child: MyTransactionIndividualScreen(
-              agencyId: agencyId, projectId: projectId, agencyName: agencyName),
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.footAndFloorScreen,
-      name: RoutesName.footAndFloorScreen,
-      builder: (context, state) {
-        final FloorNameAndFeetBloc bloc = state.extra as FloorNameAndFeetBloc;
-        return MyFootAndFloorScreen(
-          floorNameAndFeetBloc: bloc,
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.billingPartyPaticularScreen,
-      name: RoutesName.billingPartyPaticularScreen,
-      builder: (context, state) {
-        final BillingPartyModel party = state.extra as BillingPartyModel;
-        return MultiBlocProvider(
-          providers: [
-            BlocProvider(
-                create: (context) => FinancialyByPartyBloc(
-                    billsRepository: BillsRepositoryImpl())),
-            BlocProvider(
-                create: (context) => BillingPartyParticularBloc(
-                    billsRepository: BillsRepositoryImpl()))
-          ],
-          child: MyBillsParticularPartyScreen(
-            party: party,
-          ),
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.sheetViewScreen,
-      name: RoutesName.sheetViewScreen,
-      builder: (context, state) {
-        final args = state.extra as Map<String, dynamic>;
-        final String partyId = args['partyId'] as String;
-        final String partyName = args['partyName'] as String;
-        return BlocProvider(
-          create: (context) => BillingPartyParticularBloc(
-              billsRepository: BillsRepositoryImpl()),
-          child: MySheetViewScreen(
-            partyId: partyId,
-            partyName: partyName,
-          ),
-        );
-      },
-    ),
-    GoRoute(
-      path: RoutesName.pdfPreviewScreen,
-      name: RoutesName.pdfPreviewScreen,
-      builder: (context, state) {
-        final BillModel bill = state.extra as BillModel;
-        return MyPdfPreview(
-          bill: bill,
-        );
-      },
-    ),
-  ]);
+class Routes {
+  static final GoRouter routes = GoRouter(
+      navigatorKey: navigatorKey,
+      initialLocation: RoutesName.initialLocation,
+      routes: [
+        GoRoute(
+          path: RoutesName.initialLocation,
+          name: RoutesName.initialLocation,
+          builder: (contex, state) => const SplashScreen(),
+        ),
+        GoRoute(
+          path: RoutesName.signUpScreen,
+          name: RoutesName.signUpScreen,
+          builder: (contex, state) => SignUpScreen(),
+        ),
+        GoRoute(
+          path: RoutesName.signUpScreen2,
+          name: RoutesName.signUpScreen2,
+          builder: (contex, state) => const SignUpStep2(),
+        ),
+        GoRoute(
+          path: RoutesName.signInScreen,
+          name: RoutesName.signInScreen,
+          builder: (contex, state) => SignInScreen(),
+        ),
+        GoRoute(
+          path: RoutesName.bottomBar,
+          name: RoutesName.bottomBar,
+          builder: (contex, state) => const MyBottomBar(),
+        ),
+        GoRoute(
+          path: RoutesName.partiesScreen,
+          name: RoutesName.partiesScreen,
+          builder: (contex, state) => const MyPartiesScreen(),
+        ),
+        GoRoute(
+          path: RoutesName.billsScreen,
+          name: RoutesName.billsScreen,
+          builder: (contex, state) => const MyBillScreen(),
+        ),
+        GoRoute(
+          path: RoutesName.projectDetailsScreen,
+          name: RoutesName.projectDetailsScreen,
+          builder: (contex, state) {
+            final ProjectModel project = state.extra as ProjectModel;
+            return BlocProvider(
+              create: (context) => PaymentTotalProjectBloc(
+                  transactionRepository: TransactionRepositoryImpl(
+                      transactionDataSource: TransactionDataSourceImpl())),
+              child: MyProjectDetailsScreen(
+                projectModel: project,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.buildingDetailsScreen,
+          name: RoutesName.buildingDetailsScreen,
+          builder: (context, state) {
+            final args = state.extra as Map<String, dynamic>;
+            final buildingModel = args['buildingModel'] as BuildingModel;
+            final projectModel = args["projectModel"] as ProjectModel;
+            return MyBuildingDetailsScreen(
+              buildingModel: buildingModel,
+              projectModel: projectModel,
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.selectFloorsScreen,
+          name: RoutesName.selectFloorsScreen,
+          builder: (context, state) {
+            final args = state.extra as Map<String, dynamic>;
+            final buildingModel = args['buildingModel'] as BuildingModel;
+            final selectFloorsBloc = args['bloc'] as SelectFloorsBloc;
+            final workTypeId = args['workTypeId'] as String;
+            final projectModel = args['projectModel'] as ProjectModel;
+            return MySelectFloorsScreen(
+              buildingModel: buildingModel,
+              selectFloorsBloc: selectFloorsBloc,
+              projectModel: projectModel,
+              workTypeId: workTypeId,
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.workingAgencyDetailsScreen,
+          name: RoutesName.workingAgencyDetailsScreen,
+          builder: (context, state) {
+            final PerBuildingAgencyModel perBuildingAgencyModel =
+                state.extra as PerBuildingAgencyModel;
+            return MyWorkingAgencyDetailsScreen(
+              perBuildingAgency: perBuildingAgencyModel,
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.siteProgressDeailsScreen,
+          name: RoutesName.siteProgressDeailsScreen,
+          builder: (context, state) {
+            final args = state.extra as Map<String, dynamic>;
+            final floorSiteModel = args['floorSiteModel'] as FloorSiteModel;
+
+            return BlocProvider(
+              create: (context) => SiteProgressAgencyUpdateBloc(
+                  siteProgressRepository: SiteProgressRepositoryImpl(
+                      siteProgressDataSource: SiteProgressDataSourceImpl())),
+              child: MySiteProgressDetailsWidget(
+                floorSiteModel: floorSiteModel,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.transactionOfAgencyPartiesScreen,
+          name: RoutesName.transactionOfAgencyPartiesScreen,
+          builder: (context, state) {
+            final TotalAgencyModel totalAgencyModel =
+                state.extra as TotalAgencyModel;
+            return BlocProvider(
+              create: (context) => TransactionByAgencyBloc(
+                  transactionRepository: TransactionRepositoryImpl(
+                      transactionDataSource: TransactionDataSourceImpl())),
+              child: MyTransactionPartiesScreen(agency: totalAgencyModel),
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.transactionIndividualScreen,
+          name: RoutesName.transactionIndividualScreen,
+          builder: (context, state) {
+            final args = state.extra as Map<String, dynamic>;
+            final agencyId = args['agencyId'] as String;
+            final projectId = args['projectId'] as String;
+            final agencyName = args['agencyName'] as String;
+            return BlocProvider(
+              create: (context) => TransactionsIndividualAgencyBloc(
+                  transactionRepository: TransactionRepositoryImpl(
+                      transactionDataSource: TransactionDataSourceImpl())),
+              child: MyTransactionIndividualScreen(
+                  agencyId: agencyId,
+                  projectId: projectId,
+                  agencyName: agencyName),
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.footAndFloorScreen,
+          name: RoutesName.footAndFloorScreen,
+          builder: (context, state) {
+            final FloorNameAndFeetBloc bloc =
+                state.extra as FloorNameAndFeetBloc;
+            return MyFootAndFloorScreen(
+              floorNameAndFeetBloc: bloc,
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.billingPartyPaticularScreen,
+          name: RoutesName.billingPartyPaticularScreen,
+          builder: (context, state) {
+            final BillingPartyModel party = state.extra as BillingPartyModel;
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                    create: (context) => FinancialyByPartyBloc(
+                        billsRepository: BillsRepositoryImpl())),
+                BlocProvider(
+                    create: (context) => BillingPartyParticularBloc(
+                        billsRepository: BillsRepositoryImpl()))
+              ],
+              child: MyBillsParticularPartyScreen(
+                party: party,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.sheetViewScreen,
+          name: RoutesName.sheetViewScreen,
+          builder: (context, state) {
+            final args = state.extra as Map<String, dynamic>;
+            final String partyId = args['partyId'] as String;
+            final String partyName = args['partyName'] as String;
+            return BlocProvider(
+              create: (context) => BillingPartyParticularBloc(
+                  billsRepository: BillsRepositoryImpl()),
+              child: MySheetViewScreen(
+                partyId: partyId,
+                partyName: partyName,
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.pdfPreviewScreen,
+          name: RoutesName.pdfPreviewScreen,
+          builder: (context, state) {
+            final BillModel bill = state.extra as BillModel;
+            return MyPdfPreview(
+              bill: bill,
+            );
+          },
+        ),
+      ]);
 }

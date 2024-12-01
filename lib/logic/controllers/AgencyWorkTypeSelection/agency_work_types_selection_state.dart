@@ -6,24 +6,26 @@ class AgencyWorkTypesSelectionState {
   final bool selectAll;
   final bool isLoading;
   final int isAddedAgency;
+   String message;
   AgencyWorkTypesSelectionState(
       {this.agencyWorkTypeSelectedList = const [],
       this.isLoading = true,
       this.selectAll = false,
-      this.isAddedAgency = 0});
+      this.isAddedAgency = 0,
+      this.message = ""});
 
   AgencyWorkTypesSelectionState copyWith(
       {List<AgencyWorkTypeSelectModel>? agencyWorkTypeSelectedList,
       bool? selectAll,
       bool? isLoading,
-      int? isAddedAgency}) {
+      int? isAddedAgency,
+      String? message}) {
     return AgencyWorkTypesSelectionState(
         agencyWorkTypeSelectedList:
             agencyWorkTypeSelectedList ?? this.agencyWorkTypeSelectedList,
         selectAll: selectAll ?? this.selectAll,
         isLoading: isLoading ?? this.isLoading,
-        isAddedAgency: isAddedAgency ?? this.isAddedAgency);
+        isAddedAgency: isAddedAgency ?? this.isAddedAgency,
+        message: message ?? this.message);
   }
 }
-
-

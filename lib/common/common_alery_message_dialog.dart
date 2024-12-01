@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,7 @@ class CommonAlertMessageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).cardColor,
       surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -42,26 +43,35 @@ class CommonAlertMessageDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          IconCircleWidget(
+            backgroundColor: const Color.fromARGB(255, 196, 228, 254),
+            radius: 50,
+            isSvg: true,
+            svgpath: icon,
+            size: const Size(100, 100),
+            svgColor: purple,
+          ),
+          const SizedBox(height: 20),
           Text(title,
               textAlign: TextAlign.center,
-              style: theme.textTheme.headlineMedium
+              style: theme.textTheme.titleLarge
                   ?.copyWith(fontSize: 24, letterSpacing: 1.1)),
           const SizedBox(height: 15),
           Text(description,
               textAlign: TextAlign.center,
-              style: theme.textTheme.titleLarge
-                  ?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
+              style: theme.textTheme.titleMedium?.copyWith(fontSize: 14)),
           const SizedBox(height: 20),
           isBackButtonShow
               ? MyCustomButton(
                   buttonName: cancelText ?? "Cancel",
-                  color: Colors.white,
+                  color: theme.cardColor,
                   borderColor: purple,
                   onPressed: cancelAction,
                 )
               : const SizedBox(),
           SizedBox(height: isBackButtonShow ? 10 : 0),
           MyCustomButton(
+            color: purple,
             isLoading: isLoading,
             buttonName: buttonText ?? "Okay",
             onPressed: action,

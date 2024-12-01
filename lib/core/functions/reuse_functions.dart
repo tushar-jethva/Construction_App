@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class ReusableFunctions {
   static double getHeight(
@@ -70,5 +71,9 @@ class ReusableFunctions {
 
         break;
     }
+  }
+
+  String getFormattedDate(String date) {
+    return DateFormat.yMMMd().format(DateTime.parse(date));
   }
 }

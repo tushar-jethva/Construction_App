@@ -15,6 +15,7 @@ class PaymentTotalProjectBloc
       try {
         String totalPaymentOut = await transactionRepository
             .getTotalPaymentOutProject(projectId: event.projectId);
+        print("----------------- out ${totalPaymentOut} --------------------");
         String totalPaymentIn = await transactionRepository
             .getTotalPaymentInProject(projectId: event.projectId);
         emit(state.copyWith(

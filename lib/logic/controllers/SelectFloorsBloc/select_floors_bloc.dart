@@ -17,7 +17,8 @@ class SelectFloorsBloc extends Bloc<SelectFloorsEvent, SelectFloorsState> {
     });
 
     on<RemoveFloorEvent>((event, emit) {
-      final updatedList = List<String>.from(state.floorList)..remove(event.floor);
+      final updatedList = List<String>.from(state.floorList)
+        ..remove(event.floor);
       emit(state.copyWith(floorList: updatedList));
     });
 
@@ -31,6 +32,10 @@ class SelectFloorsBloc extends Bloc<SelectFloorsEvent, SelectFloorsState> {
             workTypeId: event.workTypeId);
         emit(state.copyWith(selectedFloorList: floors, isLoading: false));
       } catch (e) {}
+    });
+
+    on<OnMessageChangedFloors>((event, emit) {
+      emit(state.copyWith(message: event.message));
     });
   }
 }

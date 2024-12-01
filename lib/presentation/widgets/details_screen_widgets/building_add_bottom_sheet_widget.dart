@@ -2,12 +2,11 @@
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/FloorNameAndFeet/floor_name_and_feet_bloc.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/data/datasource/building_data_source.dart';
 import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
@@ -121,66 +120,6 @@ class _MyBuildingAddBottomSheetWidgetState
                         }
                       },
                     ),
-                    // Gap(15.h),
-                    // Container(
-                    //   height: 50.h,
-                    //   padding: EdgeInsets.symmetric(
-                    //       horizontal: 10.w, vertical: 15.h),
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       border: Border.all(
-                    //         color: grey,
-                    //       )),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       BlocBuilder<StartAndEndDateBloc,
-                    //           StartAndEndDateState>(
-                    //         builder: (context, state) {
-                    //           final String formattedDate =
-                    //               DateFormat.yMMMd().format(state.startDate);
-                    //           return Text("Start Date: $formattedDate");
-                    //         },
-                    //       ),
-                    //       InkWell(
-                    //           onTap: () {
-                    //             _selectDateStart(context);
-                    //           },
-                    //           child: const Icon(Icons.calendar_month))
-                    //     ],
-                    //   ),
-                    // ),
-                    // Gap(15.h),
-                    // Container(
-                    //   height: 50.h,
-                    //   padding: EdgeInsets.symmetric(
-                    //       horizontal: 10.w, vertical: 15.h),
-                    //   decoration: BoxDecoration(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       border: Border.all(
-                    //         color: grey,
-                    //       )),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       BlocBuilder<StartAndEndDateBloc,
-                    //           StartAndEndDateState>(
-                    //         builder: (context, state) {
-                    //           final String formattedDate =
-                    //               DateFormat.yMMMd().format(state.endDate);
-                    //           return Text(
-                    //             "End Date: $formattedDate",
-                    //           );
-                    //         },
-                    //       ),
-                    //       InkWell(
-                    //           onTap: () {
-                    //             _selectDateEnd(context);
-                    //           },
-                    //           child: const Icon(Icons.calendar_month))
-                    //     ],
-                    //   ),
-                    // ),
                     Gap(15.h),
                     MyCustomTextFormField(
                       controller: _floorController,
@@ -275,15 +214,10 @@ class _MyBuildingAddBottomSheetWidgetState
                   builder: (context, state) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
-                      child: MyCustomButtonWidget(
-                        widget: state is BuildingAddLoading
-                            ? ReusableFunctions.loader(color: white)
-                            : const Text(
-                                'Add Building',
-                                style: TextStyle(color: white),
-                              ),
-                        color: green,
-                        onPressed: () async {
+                      child: CustomElevatedButton(
+                        isLoading: state is BuildingAddLoading,
+                        label: 'Add Building',
+                        onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             await addBuilding();
                             // ignore: use_build_context_synchronously

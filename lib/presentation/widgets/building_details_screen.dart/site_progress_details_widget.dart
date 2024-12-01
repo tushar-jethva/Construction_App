@@ -5,6 +5,7 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
+import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
@@ -125,15 +126,11 @@ class _MySiteProgressDetailsWidgetState
                   builder: (context, state) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10.0),
-                      child: MyCustomButtonWidget(
-                        widget: state is SiteProgressAgencyUpdateLoadingState
-                            ? ReusableFunctions.loader(color: white)
-                            : const Text(
-                                'Update',
-                                style: TextStyle(color: white),
-                              ),
-                        color: green,
-                        onPressed: () {
+                      child: CustomElevatedButton(
+                        isLoading:
+                            state is SiteProgressAgencyUpdateLoadingState,
+                        label: 'Update',
+                        onTap: () {
                           final currentSelectedAgencies = context
                               .read<SiteProgressAgencyUpdateBloc>()
                               .state

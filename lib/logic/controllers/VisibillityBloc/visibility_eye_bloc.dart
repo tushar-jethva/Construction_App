@@ -14,6 +14,8 @@ class VisibilityEyeBloc extends Bloc<VisibilityEyeEvent, VisibilityEyeState> {
         emit(state.copyWith(isPasswordShow: !state.isPasswordShow));
       }, isConfirmPasswordShowChanged: (value) {
         emit(state.copyWith(isConfPasswordShow: !state.isConfPasswordShow));
+      }, initialize: (_Initialize value) {
+        emit(VisibilityEyeState.initial());
       });
     });
   }

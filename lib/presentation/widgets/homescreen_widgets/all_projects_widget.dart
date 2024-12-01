@@ -3,7 +3,9 @@ import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/pop_up_menu_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/project_add_bottom_sheet_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +15,17 @@ import 'package:shimmer/shimmer.dart';
 
 class AllProjectsWidget extends StatelessWidget {
   const AllProjectsWidget({super.key});
+
+  openBottomSheet({required BuildContext context,required ProjectModel project}) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        showDragHandle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        context: context,
+        builder: (context) {
+          return  MyProjectAddBottomSheet(isUpdate: true,project: project,);
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,151 +94,83 @@ class AllProjectsWidget extends StatelessWidget {
             ),
           );
         } else if (state is ProjectLoadSuccess) {
-          return SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (_, int index) {
-                ProjectModel project = state.projects[index];
-                return GestureDetector(
-                  onTap: () {
-                    context.pushNamed(RoutesName.projectDetailsScreen,
-                        extra: project);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      padding:
-                          const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-                      decoration: BoxDecoration(
-                          color: theme.cardColor,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                project.name!,
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              PopupMenuButton(
-                                color: theme.scaffoldBackgroundColor,
-                                itemBuilder: (context) => [
-                                  PopupMenuItem(
-                                      child: TextButton(
-                                          onPressed: () {},
-                                          child: Text(
-                                            "Update",
-                                            style: theme.textTheme.titleMedium!
-                                                .copyWith(fontSize: 14),
-                                          ))),
-                                  PopupMenuItem(
-                                      child: TextButton(
-                                          onPressed: () {
-                                            //   showDialog(
-                                            //       context: context,
-                                            //       builder: (context) {
-                                            //         return SimpleDialog(
-                                            //           backgroundColor: white,
-                                            //           children: [
-                                            //             SizedBox(
-                                            //               height: 130.h,
-                                            //               child: Column(
-                                            //                 children: [
-                                            //                   const Center(
-                                            //                     child: Text(
-                                            //                       "Are you sure?",
-                                            //                       style: TextStyle(
-                                            //                           color:
-                                            //                               black,
-                                            //                           fontWeight:
-                                            //                               FontWeight
-                                            //                                   .bold,
-                                            //                           fontSize:
-                                            //                               16),
-                                            //                     ),
-                                            //                   ),
-                                            //                   const Center(
-                                            //                     child: Text(
-                                            //                         "Do you want to delete it?"),
-                                            //                   ),
-                                            //                   Row(
-                                            //                     mainAxisAlignment:
-                                            //                         MainAxisAlignment
-                                            //                             .spaceBetween,
-                                            //                     children: [
-                                            //                       MyCustomButton(
-                                            //                           buttonName:
-                                            //                               'Delete',
-                                            //                           color: red,
-                                            //                           style: const TextStyle(
-                                            //                               color:
-                                            //                                   white),
-                                            //                           onPressed:
-                                            //                               () {}),
-                                            //                       MyCustomButton(
-                                            //                           buttonName:
-                                            //                               'Cancel',
-                                            //                           color:
-                                            //                               green,
-                                            //                           style: const TextStyle(
-                                            //                               color:
-                                            //                                   white),
-                                            //                           onPressed:
-                                            //                               () {}),
-                                            //                     ],
-                                            //                   ),
-                                            //                 ],
-                                            //               ),
-                                            //             ),
-                                            //           ],
-                                            //         );
-                                            //       });
-                                          },
-                                          child: Text(
-                                            "Delete",
-                                            style: theme.textTheme.titleMedium!
-                                                .copyWith(fontSize: 14),
-                                          )))
-                                ],
-                                icon: Icon(
-                                  Icons.more_vert_rounded,
-                                  color: theme.canvasColor,
+          return state.projects.isNotEmpty
+              ? SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (_, int index) {
+                      ProjectModel project = state.projects[index];
+                      return GestureDetector(
+                        onTap: () {
+                          context.pushNamed(RoutesName.projectDetailsScreen,
+                              extra: project);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            padding: const EdgeInsets.only(
+                                left: 20, top: 20, bottom: 20),
+                            decoration: BoxDecoration(
+                                color: theme.cardColor,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      project.name!,
+                                      style: theme.textTheme.titleMedium,
+                                    ),
+                                    PopUpMenuWidget(
+                                      theme: theme,
+                                      onUpdateButtonPressed: () {
+                                        openBottomSheet(context: context,project: project);
+                                      },
+                                    )
+                                  ],
                                 ),
-                                padding: EdgeInsets.zero,
-                              )
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              SizedBox(
-                                height: 6,
-                                width: ReusableFunctions.getwidth(
-                                    context: context, width: 0.73),
-                                child: LinearProgressIndicator(
-                                  borderRadius: BorderRadius.circular(10),
-                                  value: 0.2,
-                                  backgroundColor: Colors.white,
-                                  valueColor:
-                                      AlwaysStoppedAnimation<Color>(purple),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      height: 6,
+                                      width: ReusableFunctions.getwidth(
+                                          context: context, width: 0.73),
+                                      child: LinearProgressIndicator(
+                                        borderRadius: BorderRadius.circular(10),
+                                        value: 0.2,
+                                        backgroundColor: Colors.white,
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                purple),
+                                      ),
+                                    ),
+                                    Gap(10.w),
+                                    Text(
+                                      '${(0.2 * 100).toStringAsFixed(1)}%',
+                                      style: theme.textTheme.titleMedium!
+                                          .copyWith(fontSize: 14),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Gap(10.w),
-                              Text(
-                                '${(0.2 * 100).toStringAsFixed(1)}%',
-                                style: theme.textTheme.titleMedium!
-                                    .copyWith(fontSize: 14),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ],
-                      ),
+                        ),
+                      );
+                    },
+                    childCount: state.projects.length,
+                  ),
+                )
+              : SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height *
+                        0.5, // Take full screen height
+                    child: const Center(
+                      child: Text('No projects found!'),
                     ),
                   ),
                 );
-              },
-              childCount: state.projects.length,
-            ),
-          );
         } else {
           return const SliverToBoxAdapter(
             child: Center(child: Text('Failed to load projects')),

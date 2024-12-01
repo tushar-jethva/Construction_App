@@ -7,7 +7,7 @@ import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/financial_model.dart';
 
 abstract class BillsRepository {
-  void addBill(
+  Future<void> addBill(
       {required String date,
       required OtherDetailsBillModel model,
       required List<BillItemModel> billItems,
@@ -23,7 +23,7 @@ abstract class BillsRepository {
 class BillsRepositoryImpl extends BillsRepository {
   final BillsDataSource billsDataSource = BillsDataSourceImpl();
   @override
-  void addBill(
+  Future<void> addBill(
       {required String date,
       required List<BillItemModel> billItems,
       required OtherDetailsBillModel model,

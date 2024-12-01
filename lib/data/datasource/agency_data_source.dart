@@ -1,12 +1,13 @@
 import 'dart:convert';
-
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
 import 'package:construction_mate/logic/models/floor_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
-import 'package:http/http.dart' as http;
+import 'package:construction_mate/utilities/dio_config/api_service.dart';
+import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
+import 'package:dio/dio.dart' as dio;
 
 abstract class AgencyDataSource {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
@@ -49,27 +50,27 @@ abstract class AgencyDataSource {
 }
 
 class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
+  final dio = BaseDataCenter().dio.dio;
+
   @override
   Future<List<AgencyModel>> getAgencyByWorkType(
       {required String workTypeId}) async {
-    List<AgencyModel> allAgencyByWorkTypeList = [];
     try {
+      List<AgencyModel> allAgencyByWorkTypeList = [];
+
       print("AgencyWorkTypee");
-      http.Response res = await http.get(
-        Uri.parse("${API.GET_AGENCY_BY_WORK_TYPE}/${workTypeId}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final res = await dio.get(
+        "${API.GET_AGENCY_BY_WORK_TYPE}/$workTypeId",
       );
-      print(res.body);
-      final agencies = jsonDecode(res.body);
+      print(res.data);
+      final agencies = res.data;
       for (var agency in agencies["data"]) {
         allAgencyByWorkTypeList.add(AgencyModel.fromJson(agency));
       }
+      return allAgencyByWorkTypeList;
     } catch (e) {
-      print(e.toString());
+      rethrow;
     }
-    return allAgencyByWorkTypeList;
   }
 
   @override
@@ -80,19 +81,16 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
     List<FloorModel> floorList = [];
     try {
       print("$projectId $buildingId $workTypeId");
-      http.Response res = await http.post(
-        Uri.parse(API.GET_FLOORS_BY_WORK_TYPE),
-        body: jsonEncode({
+      final res = await dio.post(
+        API.GET_FLOORS_BY_WORK_TYPE,
+        data: jsonEncode({
           "ProjectId": projectId,
           "BuildingId": buildingId,
           "WorkTypeId": workTypeId
         }),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
       );
-      print("hello ${res.body}");
-      final floors = jsonDecode(res.body);
+      print("hello ${res.data}");
+      final floors = res.data;
       for (var floor in floors["data"]) {
         floorList.add(FloorModel.fromJson(floor));
       }
@@ -115,9 +113,9 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       required String description}) async {
     try {
       print(floors);
-      http.Response res = await http.post(
-        Uri.parse("${API.ADD_TASK_URL}"),
-        body: jsonEncode({
+      final res = await dio.post(
+        "${API.ADD_TASK_URL}",
+        data: jsonEncode({
           "Name": name,
           "AgencyId": agencyId,
           "ProjectId": projectId,
@@ -127,12 +125,9 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
           "Description": description,
           "BuildingId": buildingId
         }),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
       );
 
-      print(res.body);
+      print(res.data);
     } catch (e) {
       print(e.toString());
     }
@@ -143,14 +138,10 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       {required String buildingId}) async {
     List<AgencyModel> allAgencyByBuildingIdList = [];
     try {
-      http.Response res = await http.get(
-        Uri.parse("${API.GET_AGENCY_BY_BUILDING_ID}/${buildingId}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
+      final res =
+          await dio.get("${API.GET_AGENCY_BY_BUILDING_ID}/${buildingId}");
 
-      final agencies = jsonDecode(res.body);
+      final agencies = res.data;
       for (var agency in agencies["data"]) {
         allAgencyByBuildingIdList.add(AgencyModel.fromJson(agency));
       }
@@ -165,17 +156,12 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       {required String buildingId, required String projectId}) async {
     List<PerBuildingAgencyModel> allAgencyWorkingInBuildingIdList = [];
     try {
-      http.Response res = await http.post(
-        Uri.parse("${API.GET_AGENCY_WORKING_IN_BUILDING_ID}"),
-        body: jsonEncode(
-            {"ProjectId": "$projectId", "BuildingId": "$buildingId"}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
+      final res = await dio.post("${API.GET_AGENCY_WORKING_IN_BUILDING_ID}",
+          data: jsonEncode(
+              {"ProjectId": "$projectId", "BuildingId": "$buildingId"}));
 
-      final agencies = jsonDecode(res.body);
-      print("newage: ${res.body}");
+      final agencies = res.data;
+      print("newage: ${res.data}");
       for (var agency in agencies["data"]) {
         allAgencyWorkingInBuildingIdList
             .add(PerBuildingAgencyModel.fromMap(agency));
@@ -191,16 +177,13 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       {required String buildingId, required String projectId}) async {
     List<DropDownAgencyModel> allAgencyWorkingInBuildingIdList = [];
     try {
-      http.Response res = await http.post(
-        Uri.parse("${API.GET_AGENCY_FOR_DROPDOWN}"),
-        body: jsonEncode(
+      final res = await dio.post(
+        "${API.GET_AGENCY_FOR_DROPDOWN}",
+        data: jsonEncode(
             {"ProjectId": "$projectId", "BuildingId": "$buildingId"}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
       );
 
-      final agencies = jsonDecode(res.body);
+      final agencies = res.data;
       for (var agency in agencies["data"]) {
         allAgencyWorkingInBuildingIdList
             .add(DropDownAgencyModel.fromJson(agency));
@@ -215,14 +198,10 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   Future<List<TotalAgencyModel>> getTotalAgencies() async {
     List<TotalAgencyModel> totalAgenciesList = [];
     try {
-      http.Response res = await http.get(
-        Uri.parse("${API.GET_TOTAL_AGENCIES}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
-      print(res.body);
-      final agencies = jsonDecode(res.body);
+      final res = await dio.get("${API.GET_TOTAL_AGENCIES}");
+
+      print(res.data);
+      final agencies = res.data;
       for (var agency in agencies["data"]) {
         totalAgenciesList.add(TotalAgencyModel.fromJson(agency));
       }
@@ -237,15 +216,12 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       {required String projectId}) async {
     List<TotalAgencyModel> totalAgenciesList = [];
     try {
-      http.Response res = await http.post(
-        Uri.parse("${API.GET_AGENCY_BY_PROJECT}"),
-        body: jsonEncode({"ProjectId": projectId}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      final res = await dio.post(
+        "${API.GET_AGENCY_BY_PROJECT}",
+        data: jsonEncode({"ProjectId": projectId}),
       );
-      print(res.body);
-      final agencies = jsonDecode(res.body);
+      print(res.data);
+      final agencies = res.data;
       for (var agency in agencies["data"]) {
         totalAgenciesList.add(TotalAgencyModel.fromJson(agency));
       }
@@ -261,16 +237,13 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       required String description,
       required List<String> workTypeIds}) async {
     try {
-      await http.post(
-        Uri.parse("${API.ADD_AGENCY}"),
-        body: jsonEncode({
+      await dio.post(
+        "${API.ADD_AGENCY}",
+        data: jsonEncode({
           "Name": name,
           "Description": description,
           "WorkType": workTypeIds
         }),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
       );
     } catch (e) {
       print(e.toString());
@@ -281,14 +254,9 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   Future<List<DropDownAgencyModel>> getPaymentInAgency() async {
     List<DropDownAgencyModel> listOfPayInAgency = [];
     try {
-      http.Response res = await http.get(
-        Uri.parse("${API.GET_PAYMENT_IN_AGENCY}"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
+      final res = await dio.get("${API.GET_PAYMENT_IN_AGENCY}");
 
-      final agencies = jsonDecode(res.body);
+      final agencies = res.data;
       for (var agency in agencies["data"]) {
         listOfPayInAgency.add(DropDownAgencyModel.fromJson(agency));
       }

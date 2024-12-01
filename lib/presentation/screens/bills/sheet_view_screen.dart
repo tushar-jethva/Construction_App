@@ -58,10 +58,14 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
               return DataRow(cells: [
                 DataCell(Text(bill.billNumber.toString())),
                 DataCell(Text(formattedDate)),
-                DataCell(Text(bill.netAmount.toString())),
-                DataCell(Text(bill.totalAmount.toString())),
-                DataCell(Text(bill.tDSAmount.toString())),
-                DataCell(Text("${bill.cGSTAmount! + bill.sGSTAmount!}")),
+                DataCell(Text(double.parse(bill.netAmount.toString())
+                    .toStringAsFixed(2))),
+                DataCell(Text(double.parse(bill.totalAmount.toString())
+                    .toStringAsFixed(2))),
+                DataCell(Text(double.parse(bill.tDSAmount.toString())
+                    .toStringAsFixed(2))),
+                DataCell(Text(
+                    "${double.parse(bill.cGSTAmount ?? "0") + double.parse(bill.sGSTAmount ?? "0")}")),
                 DataCell(IconButton(
                   icon: Icon(
                     Icons.download,
