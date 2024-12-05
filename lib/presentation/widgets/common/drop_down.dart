@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDropDown extends StatelessWidget {
-  const CustomDropDown({super.key, required this.items, this.onChanged, this.initialValue});
+  const CustomDropDown(
+      {super.key, required this.items, this.onChanged, this.initialValue});
 
   final List<String> items;
   final Function(String?)? onChanged;
@@ -40,6 +41,7 @@ class CustomDropDown extends StatelessWidget {
                     e,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
+                    style: theme.textTheme.titleMedium,
                   ),
                 ),
               ))

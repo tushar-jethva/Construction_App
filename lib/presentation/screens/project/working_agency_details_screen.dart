@@ -40,8 +40,9 @@ class _MyWorkingAgencyDetailsScreenState
                   style: theme.textTheme.titleLarge!.copyWith(fontSize: 17),
                 ),
                 Text(
-                  "${perBuildingAgency.pricePerFeet!} \$",
-                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w400),
+                  "₹ ${perBuildingAgency.pricePerFeet!}",
+                  style: const TextStyle(
+                      fontSize: 17, fontWeight: FontWeight.w400),
                 ),
               ],
             ),

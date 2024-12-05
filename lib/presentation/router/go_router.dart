@@ -36,6 +36,7 @@ import 'package:construction_mate/presentation/screens/project/project_screen.da
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
 import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:construction_mate/presentation/screens/subscription/subscription_screen.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/floors_and_foot_screen.dart';
 import 'package:flutter/material.dart';
@@ -245,6 +246,16 @@ class Routes {
             final BillModel bill = state.extra as BillModel;
             return MyPdfPreview(
               bill: bill,
+            );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.subscriptionScreen,
+          name: RoutesName.subscriptionScreen,
+          builder: (context, state) {
+            final bool isExpired = state.extra as bool;
+            return SubscriptionScreen(
+              isExpired: isExpired,
             );
           },
         ),

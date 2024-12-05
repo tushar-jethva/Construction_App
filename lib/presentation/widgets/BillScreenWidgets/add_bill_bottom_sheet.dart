@@ -1,22 +1,19 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/lists.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
-import 'package:construction_mate/logic/controllers/OtherDetailsBillBloc/other_details_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
-import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
+import 'package:construction_mate/presentation/screens/authentication/signin/sign_in_screen.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
+import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
+import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -161,7 +158,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                       itemBuilder: (context, index) {
                         BillItemModel bill = state.billItems[index];
                         return Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 15, vertical: 10),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -197,7 +194,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                     );
                   },
                 ),
-                Gap(10),
+                10.hx,
                 Form(
                   key: _billFormKey,
                   child: Column(
@@ -206,28 +203,24 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                         key: _innerItemFormKey,
                         child: Column(
                           children: [
-                            MyCustomTextFormField(
+                            CustomTextFormField(
                               controller: _hsnCodeController,
                               hintText: "HSN code",
                               maxLines: 1,
-                              textInputType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please add HSN Code!';
-                                }
-                              },
+                              textInputType: TextInputType.text,
+                              textInputAction: TextInputAction.next,
+                              isValidate: true,
+                              customvalidation: "Please add HSN Code!",
                             ),
                             Gap(10.h),
-                            MyCustomTextFormField(
+                            CustomTextFormField(
                               controller: _itemDescriptionController,
                               hintText: "Description",
                               maxLines: 2,
                               textInputType: TextInputType.name,
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please add description!';
-                                }
-                              },
+                              textInputAction: TextInputAction.next,
+                              isValidate: true,
+                              customvalidation: 'Please add description!',
                             ),
                             Gap(10.h),
                             MyCustomTextFormField(
@@ -238,6 +231,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                 getTotalAmount();
                               },
                               textInputType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please add foot per floor!';
@@ -256,6 +250,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               hintText: "Rate",
                               maxLines: 1,
                               textInputType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
                               onChanged: (value) {
                                 getTotalAmount();
                               },
@@ -300,7 +295,6 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                       amount: totalAmount);
                                   context.read<AddBillBloc>().add(
                                       BillItemAddedEvent(billItem: billItem));
-                                  print("Done");
 
                                   _hsnCodeController.clear();
                                   _itemDescriptionController.clear();
@@ -325,6 +319,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               hintText: "SGST",
                               maxLines: 1,
                               textInputType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
                               onChanged: (value) {
                                 context.read<AddBillBloc>().add(
                                     BillSGSTChangedEvent(
@@ -352,6 +347,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               hintText: "CGST",
                               maxLines: 1,
                               textInputType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
                               onChanged: (value) {
                                 context.read<AddBillBloc>().add(
                                     BillCGSTChangedEvent(
@@ -379,6 +375,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               hintText: "TDS",
                               maxLines: 1,
                               textInputType: TextInputType.number,
+                              textInputAction: TextInputAction.next,
                               onChanged: (value) {
                                 context.read<AddBillBloc>().add(
                                     BillTDSChangedEvent(
@@ -504,6 +501,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   MyCustomTextFormField(
                                     hintText: "Delivery Note",
                                     maxLines: 2,
+                                    textInputAction: TextInputAction.newline,
                                     onChanged: (value) {
                                       print(
                                           "---------------------textfield--------------");
@@ -515,6 +513,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   Gap(10.h),
                                   MyCustomTextFormField(
                                     hintText: "Mode of Payment",
+                                    textInputAction: TextInputAction.next,
                                     maxLines: 1,
                                     onChanged: (value) {
                                       context.read<AddBillBloc>().add(
@@ -525,6 +524,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   Gap(10.h),
                                   MyCustomTextFormField(
                                     hintText: "Reference No.",
+                                    textInputAction: TextInputAction.next,
                                     maxLines: 1,
                                     onChanged: (value) {
                                       context.read<AddBillBloc>().add(
@@ -535,6 +535,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   Gap(10.h),
                                   MyCustomTextFormField(
                                     hintText: "Other references",
+                                    textInputAction: TextInputAction.next,
                                     maxLines: 1,
                                     onChanged: (value) {
                                       context.read<AddBillBloc>().add(
@@ -545,6 +546,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   Gap(10.h),
                                   MyCustomTextFormField(
                                     hintText: "Buyers's Order No.",
+                                    textInputAction: TextInputAction.next,
                                     maxLines: 1,
                                     onChanged: (value) {
                                       context.read<AddBillBloc>().add(
@@ -555,6 +557,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   Gap(10.h),
                                   MyCustomTextFormField(
                                     hintText: "Dispatch doc No.",
+                                    textInputAction: TextInputAction.next,
                                     maxLines: 1,
                                     onChanged: (value) {
                                       context.read<AddBillBloc>().add(
@@ -565,6 +568,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   Gap(10.h),
                                   MyCustomTextFormField(
                                     hintText: "Dispatched through",
+                                    textInputAction: TextInputAction.next,
                                     maxLines: 1,
                                     onChanged: (value) {
                                       context.read<AddBillBloc>().add(
@@ -575,6 +579,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   Gap(10.h),
                                   MyCustomTextFormField(
                                     hintText: "Destination",
+                                    textInputAction: TextInputAction.done,
                                     maxLines: 2,
                                     onChanged: (value) {
                                       context.read<AddBillBloc>().add(
@@ -593,7 +598,15 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                             context
                                 .read<BillingPartiesHomeBloc>()
                                 .add(BillingPartiesLoadEvent());
-                            // Navigator.pop(context);
+                            Navigator.of(context).pop();
+                            "Bill added!".showToast(
+                                context: context,
+                                typeOfToast: ShortToastType.success);
+                          } else if (state.isAddedBill == 3) {
+                            Navigator.of(context).pop();
+                            "Something went wrong! Try again".showToast(
+                                context: context,
+                                typeOfToast: ShortToastType.error);
                           }
                         },
                         builder: (context, state) {

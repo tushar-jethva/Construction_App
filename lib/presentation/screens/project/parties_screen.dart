@@ -1,17 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/routes_names.dart';
-import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
-import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class MyPartiesProjectScreen extends StatefulWidget {

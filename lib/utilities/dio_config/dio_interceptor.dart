@@ -64,7 +64,8 @@ class DioAuthInterceptor extends Interceptor {
       // ));
     } else if (err.response!.statusCode == 403) {
       print("------------- token expired -----------------");
-      Routes.routes.goNamed(RoutesName.signInScreen);
+      SharedPreferenceHelper().remove("token");
+      Routes.routes.goNamed(RoutesName.subscriptionScreen,extra: true);
       // navigatorKey.currentState?.pushReplacementNamed(RoutesName.signInScreen);
     } else if (err.response!.statusCode != 200 &&
         err.response!.statusCode != 404) {

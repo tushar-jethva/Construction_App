@@ -82,8 +82,11 @@ class $AssetsImagesGen {
   /// File path: assets/images/assets.png
   AssetGenImage get assets => const AssetGenImage('assets/images/assets.png');
 
+  /// File path: assets/images/crown.png
+  AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [assets];
+  List<AssetGenImage> get values => [assets, crown];
 }
 
 class $AssetsJsonGen {
@@ -92,8 +95,11 @@ class $AssetsJsonGen {
   /// File path: assets/json/construction_anim.json
   String get constructionAnim => 'assets/json/construction_anim.json';
 
+  /// File path: assets/json/subscription.json
+  String get subscription => 'assets/json/subscription.json';
+
   /// List of all assets
-  List<String> get values => [constructionAnim];
+  List<String> get values => [constructionAnim, subscription];
 }
 
 class $AssetsLogosGen {

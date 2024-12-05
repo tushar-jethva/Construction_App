@@ -3,10 +3,12 @@ import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
 import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_eye_bloc.dart';
+import 'package:construction_mate/presentation/screens/authentication/signup/sign_up_screen.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
+import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -47,6 +49,7 @@ class SignInScreen extends StatelessWidget {
                           isValidate: true,
                           textInputType: TextInputType.text,
                           textFieldType: TextFieldType.text,
+                          textInputAction: TextInputAction.next,
                           hintText: "Email",
                           maxLines: 1,
                           onChanged: (value) {
@@ -68,6 +71,7 @@ class SignInScreen extends StatelessWidget {
                               textInputType: TextInputType.text,
                               textFieldType: TextFieldType.password,
                               obscureText: state.isPasswordShow,
+                              textInputAction: TextInputAction.done,
                               hintText: "Password",
                               maxLines: 1,
                               suffixIcon: GestureDetector(
@@ -88,6 +92,13 @@ class SignInScreen extends StatelessWidget {
                           listener: (context, state) {
                             if (state.state.isLoaded) {
                               context.replace(RoutesName.bottomBar);
+                              "Login successful".showToast(
+                                  context: context,
+                                  typeOfToast: ShortToastType.success);
+                            } else if (state.state.isError) {
+                              "Email or Password is wrong!".showToast(
+                                  context: context,
+                                  typeOfToast: ShortToastType.warning);
                             }
                           },
                           builder: (context, state) {

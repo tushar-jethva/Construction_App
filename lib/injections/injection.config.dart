@@ -27,6 +27,8 @@ import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc
     as _i465;
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart'
     as _i681;
+import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart'
+    as _i660;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -45,6 +47,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i79.AuthenticatorWatcherBloc());
     gh.singleton<_i465.BottomsheetBloc>(() => _i465.BottomsheetBloc());
     gh.singleton<_i681.NetworkBloc>(() => _i681.NetworkBloc());
+    gh.singleton<_i660.SubsctiptionBoxBloc>(() => _i660.SubsctiptionBoxBloc());
     gh.lazySingleton<_i548.MaterialDataSource>(
         () => _i548.MaterialDataSourceImpl());
     gh.lazySingleton<_i339.AuthenticationDatasource>(

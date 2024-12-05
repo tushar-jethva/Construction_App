@@ -116,8 +116,20 @@ Widget drawer({required BuildContext context}) {
             "Profile",
             style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
           ),
+          onTap: () {},
+        ),
+        ListTile(
+          leading: Image.asset(
+            Assets.images.crown.path,
+            height: 25,
+          ),
+          title: Text(
+            "Upgrade",
+            style: theme.textTheme.bodyMedium
+                ?.copyWith(fontSize: 16, color: Colors.yellow.shade800),
+          ),
           onTap: () {
-            Navigator.pop(context); // Close the drawer
+            context.pushNamed(RoutesName.subscriptionScreen, extra: false);
           },
         ),
         ListTile(

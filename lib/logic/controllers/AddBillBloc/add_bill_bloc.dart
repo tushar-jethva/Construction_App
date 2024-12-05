@@ -6,11 +6,13 @@ import 'package:construction_mate/logic/controllers/OtherDetailsBillBloc/other_d
 import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'add_bill_event.dart';
 part 'add_bill_state.dart';
 
+@singleton
 class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
   final BillingPartyRepository billingPartyRepository;
   final BillsRepository billsRepository;
@@ -82,7 +84,7 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
       emit(state.copyWith(partyValue: event.partyId, isAddedBill: 0));
     });
 
-    on<BillAddBillEvent>((event, emit) async{
+    on<BillAddBillEvent>((event, emit) async {
       try {
         print("-----------------------enter");
         emit(state.copyWith(isAddedBill: 1));
@@ -98,7 +100,7 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
         emit(state.copyWith(otherDetailsMode: model));
         print(
             "-------------------------- ${state.otherDetailsMode!.deliveryNote} --------------------------------");
-       await billsRepository.addBill(
+        final res = await billsRepository.addBill(
             model: state.otherDetailsMode!,
             date: state.date.toString(),
             billItems: state.billItems,
@@ -106,7 +108,12 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
             cgst: state.cgst.toString(),
             tds: state.tds.toString(),
             partyId: state.partyValue);
-        emit(state.copyWith(isAddedBill: 2));
+
+        res.fold((l) {
+          emit(state.copyWith(isAddedBill: 3));
+        }, (r) {
+          emit(state.copyWith(isAddedBill: 2));
+        });
       } catch (e) {}
     });
   }

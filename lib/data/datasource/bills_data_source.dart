@@ -5,9 +5,11 @@ import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/financial_model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
+import 'package:construction_mate/utilities/error_handling/failure.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class BillsDataSource {
-  Future<void> addBill(
+  Future<String> addBill(
       {required String date,
       required List<BillItemModel> billItems,
       required String sgst,
@@ -26,7 +28,7 @@ class BillsDataSourceImpl extends BillsDataSource {
   final dio = BaseDataCenter().dio.dio;
 
   @override
-  Future<void> addBill(
+  Future<String> addBill(
       {required String date,
       required List<BillItemModel> billItems,
       required String sgst,
@@ -45,7 +47,6 @@ class BillsDataSourceImpl extends BillsDataSource {
         'MoreDetails': model.toMap()
       });
 
-      print(data);
       final res = await dio.post(
         API.ADD_BILL,
         data: jsonEncode({
@@ -58,10 +59,9 @@ class BillsDataSourceImpl extends BillsDataSource {
           'MoreDetails': model.toMap()
         }),
       );
-
-      print(res.data);
+      return "";
     } catch (e) {
-      print(e.toString());
+      rethrow;
     }
   }
 

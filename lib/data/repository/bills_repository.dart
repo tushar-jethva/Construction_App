@@ -5,9 +5,12 @@ import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/financial_model.dart';
+import 'package:construction_mate/utilities/error_handling/error_handler.dart';
+import 'package:construction_mate/utilities/error_handling/failure.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class BillsRepository {
-  Future<void> addBill(
+  Future<Either<Failure, String>> addBill(
       {required String date,
       required OtherDetailsBillModel model,
       required List<BillItemModel> billItems,
@@ -23,7 +26,7 @@ abstract class BillsRepository {
 class BillsRepositoryImpl extends BillsRepository {
   final BillsDataSource billsDataSource = BillsDataSourceImpl();
   @override
-  Future<void> addBill(
+  Future<Either<Failure, String>> addBill(
       {required String date,
       required List<BillItemModel> billItems,
       required OtherDetailsBillModel model,
@@ -31,18 +34,14 @@ class BillsRepositoryImpl extends BillsRepository {
       required String cgst,
       required String tds,
       required String partyId}) async {
-    try {
-      billsDataSource.addBill(
-          date: date,
-          billItems: billItems,
-          sgst: sgst,
-          cgst: cgst,
-          tds: tds,
-          partyId: partyId,
-          model: model);
-    } catch (e) {
-      print(e.toString());
-    }
+   return handleErrors(() => billsDataSource.addBill(
+        date: date,
+        billItems: billItems,
+        sgst: sgst,
+        cgst: cgst,
+        tds: tds,
+        partyId: partyId,
+        model: model));
   }
 
   @override

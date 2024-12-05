@@ -51,9 +51,8 @@ class TransactionModel {
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    if (json['agencyId'] != null) {
-      name = json['agencyId']['Name'];
-    }
+    name = json['Name'];
+
     iV = json['__v'];
   }
 

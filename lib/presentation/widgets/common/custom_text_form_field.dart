@@ -7,6 +7,7 @@ class MyCustomTextFormField extends StatelessWidget {
   final int maxLines;
   final int? maxLength;
   final TextInputType? textInputType;
+  final TextInputAction? textInputAction;
   final String? Function(String? value)? validator;
   final String? Function(String? value)? onChanged;
   final String? label;
@@ -21,7 +22,8 @@ class MyCustomTextFormField extends StatelessWidget {
       this.maxLength,
       this.onChanged,
       this.label,
-      this.suffixIcon});
+      this.suffixIcon,
+      this.textInputAction});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class MyCustomTextFormField extends StatelessWidget {
         maxLines: maxLines,
         keyboardType: textInputType,
         style: theme.textTheme.titleMedium,
+        textInputAction: textInputAction,
         cursorColor: purple,
         decoration: InputDecoration(
           suffixIcon: suffixIcon,

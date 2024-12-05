@@ -322,7 +322,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
             title: Row(
               children: [
                 Text(
-                  "${transaction.sId}",
+                  "${transaction.name}",
                   style: theme.textTheme.titleMedium,
                 ),
                 Gap(5.w),

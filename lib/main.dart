@@ -33,6 +33,7 @@ import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payme
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
+import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
@@ -163,7 +164,7 @@ class MyMultiBlocProviders extends StatelessWidget {
         ),
         BlocProvider(create: (_) => di.locator<AddMaterialBloc>()),
         BlocProvider(create: (_) => di.locator<BottomsheetBloc>()),
-
+        BlocProvider(create: (_) => di.locator<SubsctiptionBoxBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),
