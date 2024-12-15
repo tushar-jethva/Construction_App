@@ -2,9 +2,22 @@ part of 'payment_out_other_expense_bloc.dart';
 
 @freezed
 class PaymentOutOtherExpenseEvent with _$PaymentOutOtherExpenseEvent {
-  factory PaymentOutOtherExpenseEvent.getOtherExpenseValue(
-      {required String value}) = _GetOtherExpenseValue;
+  //Initialize
+  factory PaymentOutOtherExpenseEvent.initialize() = _Initialize;
 
-  factory PaymentOutOtherExpenseEvent.addPaymentOUt(
-      {required String paymentOut}) = _AddPaymentOut;
+  //amount changed
+  factory PaymentOutOtherExpenseEvent.onAmountChanged({required String amount}) =
+      _OnAmountChanged;
+
+  //Transaction Type changed
+  factory PaymentOutOtherExpenseEvent.onTransactionTypeChanged(
+      {required Transaction transationType}) = _OnTransactionTypeChanged;
+  
+
+  //Description changed
+  factory PaymentOutOtherExpenseEvent.onDescriptionChanged({required String description}) =
+      _OnDescriptionChanged;
+
+  //add payment
+  factory PaymentOutOtherExpenseEvent.addOtherPaymentOUt() = _AddPaymentOut;
 }

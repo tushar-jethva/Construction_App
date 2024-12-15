@@ -1,7 +1,9 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
+import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_projects_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
@@ -12,11 +14,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../logic/controllers/Tds/tds_bloc.dart';
+
 /* Created By: Tushar Jethva
 */
 class MyProjectScreen extends StatefulWidget {
   final Function()? onTapProfile;
-  const MyProjectScreen({super.key,required this.onTapProfile});
+  const MyProjectScreen({super.key, required this.onTapProfile});
 
   @override
   State<MyProjectScreen> createState() => _MyProjectScreenState();
@@ -33,6 +37,11 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     _totalPaymentOutBloc = BlocProvider.of<TotalPaymentOutBloc>(context);
     _totalPaymentOutBloc.add(FetchTotalPaymentOut());
     _projectBloc.add(LoadProjects());
+    context.read<TdsBloc>().add(const TdsEvent.fetchTds());
+    context.read<GstBloc>().add(const GstEvent.fetchGst());
+    context
+        .read<OtherExpenseBloc>()
+        .add(const OtherExpenseEvent.fetchOtherExpenses());
   }
 
   Future<void> _refreshProjects() async {
@@ -111,5 +120,3 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     );
   }
 }
-
-

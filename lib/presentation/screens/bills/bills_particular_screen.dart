@@ -76,56 +76,58 @@ class _MyBillsParticularPartyScreenState
                             onTap: () {
                               showDialogBoxBill(context, theme, bill);
                             },
-                            child: Container(
-                              margin: const EdgeInsets.all(8),
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  color: theme.cardColor),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      MyRichTextForPopUp(
-                                        theme: theme,
-                                        leftText: "Total Amount: ",
-                                        rightText: double.parse(
-                                                bill.totalAmount.toString())
-                                            .toStringAsFixed(2),
-                                      ),
-                                      MyRichTextForPopUp(
-                                        theme: theme,
-                                        leftText: "Receivable Amount: ",
-                                        rightText: double.parse(bill
-                                                .receivableAmount
-                                                .toString())
-                                            .toStringAsFixed(2),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                          "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}"),
-                                      IconButton(
-                                          onPressed: () {
-                                            context.pushNamed(
-                                                RoutesName.pdfPreviewScreen,
-                                                extra: bill);
-                                          },
-                                          icon: Icon(
-                                            Icons.download,
-                                            color: theme.canvasColor,
-                                          ))
-                                    ],
-                                  ),
-                                ],
+                            child: Card(
+                              elevation: 3,
+                              margin: const EdgeInsets.all(15),
+                              color: theme.hintColor,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        MyRichTextForPopUp(
+                                          theme: theme,
+                                          leftText: "Total Amount: ",
+                                          rightText: double.parse(
+                                                  bill.totalAmount.toString())
+                                              .toStringAsFixed(2),
+                                        ),
+                                        MyRichTextForPopUp(
+                                          theme: theme,
+                                          leftText: "Receivable Amount: ",
+                                          rightText: double.parse(bill
+                                                  .receivableAmount
+                                                  .toString())
+                                              .toStringAsFixed(2),
+                                        ),
+                                      ],
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                            "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}"),
+                                        IconButton(
+                                            onPressed: () {
+                                              context.pushNamed(
+                                                  RoutesName.pdfPreviewScreen,
+                                                  extra: bill);
+                                            },
+                                            icon: Icon(
+                                              Icons.download,
+                                              color: theme.canvasColor,
+                                            ))
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

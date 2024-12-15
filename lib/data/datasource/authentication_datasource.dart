@@ -90,6 +90,8 @@ class AuthenticationDatasourceImpl extends AuthenticationDatasource {
         data: jsonEncode({"Email": email, "Password": password}),
       );
 
+      print("--------- signin ${res.data} ----------");
+
       final data = res.data;
       return data['token'];
     } catch (e) {

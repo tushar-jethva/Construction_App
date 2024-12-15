@@ -47,8 +47,8 @@ class SignInScreen extends StatelessWidget {
                       children: [
                         CustomTextFormField(
                           isValidate: true,
-                          textInputType: TextInputType.text,
-                          textFieldType: TextFieldType.text,
+                          textInputType: TextInputType.emailAddress,
+                          textFieldType: TextFieldType.email,
                           textInputAction: TextInputAction.next,
                           hintText: "Email",
                           maxLines: 1,
@@ -110,6 +110,7 @@ class SignInScreen extends StatelessWidget {
                               borderColor: Colors.transparent,
                               onTap: () {
                                 if (formKey.currentState!.validate()) {
+                                  
                                   context
                                       .read<SignInBloc>()
                                       .add(const SignInEvent.loginUser());

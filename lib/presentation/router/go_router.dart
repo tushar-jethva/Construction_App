@@ -29,6 +29,10 @@ import 'package:construction_mate/presentation/screens/bills/sheet_view_screen.d
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
+import 'package:construction_mate/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
+import 'package:construction_mate/presentation/screens/profile/gst/gst_screen.dart';
+import 'package:construction_mate/presentation/screens/profile/other_expense.dart/other_expense_screen.dart';
+import 'package:construction_mate/presentation/screens/profile/tds/tds_screen.dart';
 import 'package:construction_mate/presentation/screens/project/building_details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/inidividual_transaction_screen.dart';
@@ -257,6 +261,34 @@ class Routes {
             return SubscriptionScreen(
               isExpired: isExpired,
             );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.tdsScreen,
+          name: RoutesName.tdsScreen,
+          builder: (context, state) {
+            return TdsScreen();
+          },
+        ),
+        GoRoute(
+          path: RoutesName.gstScreen,
+          name: RoutesName.gstScreen,
+          builder: (context, state) {
+            return const GstScreen();
+          },
+        ),
+        GoRoute(
+          path: RoutesName.otherExpensesScreen,
+          name: RoutesName.otherExpensesScreen,
+          builder: (context, state) {
+            return const OtherExpenseScreen();
+          },
+        ),
+        GoRoute(
+          path: RoutesName.editProfileScreen,
+          name: RoutesName.editProfileScreen,
+          builder: (context, state) {
+            return const EditProfileScreen();
           },
         ),
       ]);

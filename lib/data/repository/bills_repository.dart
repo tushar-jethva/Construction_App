@@ -8,6 +8,7 @@ import 'package:construction_mate/logic/models/financial_model.dart';
 import 'package:construction_mate/utilities/error_handling/error_handler.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class BillsRepository {
   Future<Either<Failure, String>> addBill(
@@ -23,6 +24,7 @@ abstract class BillsRepository {
   Future<FinancialModel> getFinancialByPartyId({required String partyId});
 }
 
+@LazySingleton(as: BillsRepository)
 class BillsRepositoryImpl extends BillsRepository {
   final BillsDataSource billsDataSource = BillsDataSourceImpl();
   @override

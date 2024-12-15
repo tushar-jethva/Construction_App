@@ -49,6 +49,12 @@ dependencies:
   skeletonizer: ^1.4.2
   flutter_svg: ^2.0.16
   dotted_line: ^3.2.3
+  animated_custom_dropdown: ^3.1.1
+  cloudinary_public: ^0.23.1
+  image_picker: ^1.1.2
+  device_info_plus: ^11.2.0
+  permission_handler: ^11.3.1
+  cached_network_image: ^3.4.1
 
 
 

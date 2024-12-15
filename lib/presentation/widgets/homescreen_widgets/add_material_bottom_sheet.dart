@@ -152,7 +152,7 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                              "Date: ${ReusableFunctions().getFormattedDate(state.date)}"),
+                              "Date: ${ReusableFunctions.getFormattedDate(state.date)}"),
                           Icon(
                             Icons.calendar_month,
                             color: theme.canvasColor,

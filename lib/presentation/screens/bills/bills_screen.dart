@@ -136,74 +136,73 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                               .billingPartyPaticularScreen,
                                           extra: party);
                                     },
-                                    child: Container(
-                                      margin: const EdgeInsets.all(8),
-                                      padding: const EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: theme.cardColor,
-                                        borderRadius:
-                                            BorderRadius.circular(12.r),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text(
-                                                party.name!,
-                                                style:
-                                                    theme.textTheme.titleMedium,
-                                              )
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              RichText(
-                                                  text: TextSpan(children: [
-                                                TextSpan(
-                                                    text: "Received: ",
-                                                    style: theme
-                                                        .textTheme.titleMedium!
-                                                        .copyWith(
-                                                            fontSize: 14)),
-                                                TextSpan(
-                                                    text: double.parse(party
-                                                            .receivedAmount!)
-                                                        .toStringAsFixed(2),
-                                                    style: theme
-                                                        .textTheme.titleMedium!
-                                                        .copyWith(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold))
-                                              ])),
-                                              RichText(
-                                                  text: TextSpan(children: [
-                                                TextSpan(
-                                                    text: "Receivable: ",
-                                                    style: theme
-                                                        .textTheme.titleMedium!
-                                                        .copyWith(
-                                                            fontSize: 14)),
-                                                TextSpan(
-                                                    text: double.parse(party
-                                                            .receivableAmount!)
-                                                        .toStringAsFixed(2),
-                                                    style: theme
-                                                        .textTheme.titleMedium!
-                                                        .copyWith(
-                                                            fontSize: 15,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold))
-                                              ]))
-                                            ],
-                                          )
-                                        ],
+                                    child: Card(
+                                      elevation: 2,
+                                      margin: const EdgeInsets.all(16),
+                                      color: theme.hintColor,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  party.name!,
+                                                  style: theme
+                                                      .textTheme.titleMedium,
+                                                )
+                                              ],
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                RichText(
+                                                    text: TextSpan(children: [
+                                                  TextSpan(
+                                                      text: "Received: ",
+                                                      style: theme.textTheme
+                                                          .titleMedium!
+                                                          .copyWith(
+                                                              fontSize: 14)),
+                                                  TextSpan(
+                                                      text: double.parse(party
+                                                              .receivedAmount!)
+                                                          .toStringAsFixed(2),
+                                                      style: theme.textTheme
+                                                          .titleMedium!
+                                                          .copyWith(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold))
+                                                ])),
+                                                RichText(
+                                                    text: TextSpan(children: [
+                                                  TextSpan(
+                                                      text: "Receivable: ",
+                                                      style: theme.textTheme
+                                                          .titleMedium!
+                                                          .copyWith(
+                                                              fontSize: 14)),
+                                                  TextSpan(
+                                                      text: double.parse(party
+                                                              .receivableAmount!)
+                                                          .toStringAsFixed(2),
+                                                      style: theme.textTheme
+                                                          .titleMedium!
+                                                          .copyWith(
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold))
+                                                ]))
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );

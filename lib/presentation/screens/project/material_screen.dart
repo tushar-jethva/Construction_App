@@ -175,7 +175,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
               ),
               10.hx,
               Text(
-                ReusableFunctions().getFormattedDate(material.date),
+                ReusableFunctions.getFormattedDate(material.date),
                 style: theme.textTheme.bodyMedium,
               )
             ],

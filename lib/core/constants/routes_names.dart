@@ -19,6 +19,8 @@ class RoutesName {
   static String signUpScreen = "/signUp";
   static String signUpScreen2 = "/signUpStep2";
   static String subscriptionScreen = "/subscription";
-
-
+  static String tdsScreen = "/tdsScreen";
+  static String gstScreen = "/gstScreen";
+  static String otherExpensesScreen = "/otherExpensesScreen";
+  static String editProfileScreen = "/editProfileScreen";
 }

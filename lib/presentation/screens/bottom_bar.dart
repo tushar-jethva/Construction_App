@@ -14,6 +14,7 @@ import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class MyBottomBar extends StatefulWidget {
   const MyBottomBar({super.key});
@@ -108,20 +109,12 @@ Widget drawer({required BuildContext context}) {
           ),
         ),
         ListTile(
-          leading: Icon(
-            Icons.account_circle,
-            color: theme.canvasColor,
-          ),
-          title: Text(
-            "Profile",
-            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
-          ),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Image.asset(
-            Assets.images.crown.path,
-            height: 25,
+          leading: Lottie.asset(
+            height: 50,
+            width: 35,
+            Assets.json.subscription,
+            fit: BoxFit.cover,
+            repeat: true,
           ),
           title: Text(
             "Upgrade",
@@ -130,6 +123,58 @@ Widget drawer({required BuildContext context}) {
           ),
           onTap: () {
             context.pushNamed(RoutesName.subscriptionScreen, extra: false);
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.account_circle,
+            color: theme.canvasColor,
+          ),
+          title: Text(
+            "Profile",
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+          ),
+          onTap: () {
+            context.pushNamed(RoutesName.editProfileScreen);
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.book,
+            color: theme.canvasColor,
+          ),
+          title: Text(
+            "TDS",
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+          ),
+          onTap: () {
+            context.pushNamed(RoutesName.tdsScreen);
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.book,
+            color: theme.canvasColor,
+          ),
+          title: Text(
+            "GST",
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+          ),
+          onTap: () {
+            context.pushNamed(RoutesName.gstScreen);
+          },
+        ),
+        ListTile(
+          leading: Icon(
+            Icons.book,
+            color: theme.canvasColor,
+          ),
+          title: Text(
+            "Other expense",
+            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+          ),
+          onTap: () {
+            context.pushNamed(RoutesName.otherExpensesScreen);
           },
         ),
         ListTile(

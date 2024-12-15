@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class ReusableFunctions {
@@ -73,7 +75,18 @@ class ReusableFunctions {
     }
   }
 
-  String getFormattedDate(String date) {
+  static String getFormattedDate(String date) {
     return DateFormat.yMMMd().format(DateTime.parse(date));
+  }
+
+  static Future<String> uploadToCloudinary(XFile image) async {
+    final cloudinary = CloudinaryPublic("diarrqynw", "tgqozbcc");
+
+    CloudinaryResponse res = await cloudinary.uploadFile(
+        CloudinaryFile.fromFile(image.path, folder: "User Profile"));
+
+    debugPrint('----------- ${res.secureUrl} ------------');
+
+    return res.secureUrl;
   }
 }

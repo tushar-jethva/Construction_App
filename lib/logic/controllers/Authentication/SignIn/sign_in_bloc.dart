@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 
 part 'sign_in_event.dart';
 part 'sign_in_state.dart';
-part 'sign_in_bloc.freezed.dart'; 
+part 'sign_in_bloc.freezed.dart';
 
 @singleton
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
@@ -32,10 +32,11 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         },
         loginUser: (_LoginUser value) async {
           emit(state.copyWith(state: RequestState.loading));
+          print("--------- in bloc ${state.email} ${state.password}");
+
           final token = await authenticationRepository.signIn(
               email: state.email, password: state.password);
-
-          await token.fold((l) {
+         await token.fold((l) {
             emit(state.copyWith(state: RequestState.error, message: l.message));
           }, (r) async {
             await SharedPreferenceHelper().storedata("token", r);

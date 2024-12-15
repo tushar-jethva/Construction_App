@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 class API {
-  static const BASE_URL = "https://constructionmate-backend.onrender.com";
+  static const BASE_URL = "https://constructionmate-backend-04f2.onrender.com";
 
   //--------------------------- Project ------------------------------------------------------------------------------------
   static const ADD_PROJECT_URL = "$BASE_URL/Project/AddProject";
@@ -68,4 +68,18 @@ class API {
   static const ADD_MATERIAL = "$BASE_URL/Material/AddMaterial";
   static const GET_MATERIAL = "$BASE_URL/Material/GetMaterial";
   static const UPDATE_MATERIAL = "$BASE_URL/Material/UpdateMaterial";
+
+  //-------------------- Transaction --------------
+  static const ADD_OTHER_TRANSACTIONS =
+      "$BASE_URL/Transaction/AddOtherTransaction";
+
+  static const GET_TDS_TRANSACTIONS = "$BASE_URL/Company/TotalTds";
+
+  static const GET_GST_TRANSACTIONS = "$BASE_URL/Company/TotalGst";
+
+  static const GET_OTHER_EXPENSE_TRANSACTIONS =
+      "$BASE_URL/Company/TotalOtherExpense";
+
+  //------------- Profile -----------
+  static const COMPLETE_PROFILE = "$BASE_URL/Company/CompleteProfile";
 }

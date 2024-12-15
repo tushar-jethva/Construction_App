@@ -1,6 +1,7 @@
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/utilities/extension/transaction_extension.dart';
 
 List<ProjectModel> projects = [];
 
@@ -16,8 +17,18 @@ List<String> selectBuilding = ["--Select Building--"];
 List<String> selectProject = ["--Select Project--"];
 List<String> selectParties = ["--Select Party--"];
 
-List<String> otherExpenses = [
-  "GST",
-  "TDS",
-  "OTHER"
+List<Map<String,dynamic>> otherExpenses = [
+  {
+    "name":"GST",
+    "value":Transaction.payGST
+  },
+  {
+    "name":"TDS",
+    "value":Transaction.payTDS,
+  },
+  {
+    "name":"OTHER",
+    "value":Transaction.otherExpense
+  }
+
 ];

@@ -1,5 +1,10 @@
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/logic/models/transaction_model.dart';
+import 'package:construction_mate/utilities/error_handling/error_handler.dart';
+import 'package:construction_mate/utilities/error_handling/failure.dart';
+import 'package:construction_mate/utilities/extension/transaction_extension.dart';
+import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class TransactionRepository {
   Future<void> addPaymentOutTransaction(
@@ -27,8 +32,15 @@ abstract class TransactionRepository {
   Future<String> getTotalPaymentInProject({required String projectId});
   Future<List<TransactionModel>> getAllTransactionByIndividualAgency(
       {required String agencyId, required String projectId});
+
+  Future<Either<Failure, String>> addOtherTransaction(
+      {required EntryType entryType,
+      required String amount,
+      required String description,
+      required Transaction transactionType});
 }
 
+@LazySingleton(as: TransactionRepository)
 class TransactionRepositoryImpl extends TransactionRepository {
   final TransactionDataSource transactionDataSource;
 
@@ -151,5 +163,18 @@ class TransactionRepositoryImpl extends TransactionRepository {
       print(e.toString());
     }
     return transactionsOfIndividualAgency;
+  }
+
+  @override
+  Future<Either<Failure, String>> addOtherTransaction(
+      {required EntryType entryType,
+      required String amount,
+      required String description,
+      required Transaction transactionType}) {
+    return handleErrors(() => transactionDataSource.addOtherTransaction(
+        entryType: entryType,
+        amount: amount,
+        description: description,
+        transactionType: transactionType));
   }
 }

@@ -115,11 +115,18 @@ class $AssetsLogosGen {
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
+  /// File path: assets/svg/bills_back.svg
+  SvgGenImage get billsBack => const SvgGenImage('assets/svg/bills_back.svg');
+
+  /// File path: assets/svg/bills_back_3.svg
+  SvgGenImage get billsBack3 =>
+      const SvgGenImage('assets/svg/bills_back_3.svg');
+
   /// File path: assets/svg/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/svg/logout.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [logout];
+  List<SvgGenImage> get values => [billsBack, billsBack3, logout];
 }
 
 class $AssetsFontsMonteserratGen {

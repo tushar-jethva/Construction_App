@@ -7,6 +7,7 @@ class AppTheme {
       cardColor: greyLight,
       hoverColor: highlightColor,
       primaryColor: purple,
+      hintColor: white,
       textTheme: TextTheme(
           bodyMedium: TextStyle(
               fontFamily: 'Montserrat',
@@ -28,6 +29,7 @@ class AppTheme {
       hoverColor: darkShimmerColor,
       primaryColor: purple,
       canvasColor: white,
+      hintColor: darkCardColor,
       textTheme: TextTheme(
           bodyMedium: TextStyle(
               fontFamily: 'Montserrat',

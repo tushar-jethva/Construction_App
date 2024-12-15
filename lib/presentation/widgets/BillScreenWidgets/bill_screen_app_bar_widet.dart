@@ -1,8 +1,10 @@
+import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/custom_top_bill_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class MyBillScreenAppBarWidget extends StatefulWidget {
@@ -46,7 +48,12 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
                         Icons.arrow_back,
                         color: theme.canvasColor,
                       ))
-                  : const SizedBox(),
+                  : Align(
+                      alignment: Alignment.bottomCenter,
+                      child: SvgPicture.asset(
+                        Assets.svg.billsBack3.path,
+                      ),
+                    ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

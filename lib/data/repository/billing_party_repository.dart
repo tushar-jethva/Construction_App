@@ -1,5 +1,6 @@
 import 'package:construction_mate/data/datasource/billing_party_data_source.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class BillingPartyRepository {
   Future<void> addBillingParty(
@@ -14,6 +15,7 @@ abstract class BillingPartyRepository {
   Future<List<BillingPartyModel>> getAllParties();
 }
 
+@LazySingleton(as:BillingPartyRepository)
 class BillingRepositoryImpl extends BillingPartyRepository {
   final BillingPartyDataSource billingPartyDataSource = BillingPartyImpl();
   @override

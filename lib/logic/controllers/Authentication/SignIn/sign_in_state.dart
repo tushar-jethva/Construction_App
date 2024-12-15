@@ -10,7 +10,7 @@ class SignInState with _$SignInState {
     required String password,
   }) = _SignInState;
 
-  factory SignInState.initial() => SignInState(
+  factory SignInState.initial() => const SignInState(
     state1: RequestState.empty,
       state: RequestState.empty, message: "", email: "", password: "");
 }

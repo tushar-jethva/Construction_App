@@ -18,39 +18,60 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PaymentOutOtherExpenseEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String value) getOtherExpenseValue,
-    required TResult Function(String paymentOut) addPaymentOUt,
+    required TResult Function() initialize,
+    required TResult Function(String amount) onAmountChanged,
+    required TResult Function(Transaction transationType)
+        onTransactionTypeChanged,
+    required TResult Function(String description) onDescriptionChanged,
+    required TResult Function() addOtherPaymentOUt,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String value)? getOtherExpenseValue,
-    TResult? Function(String paymentOut)? addPaymentOUt,
+    TResult? Function()? initialize,
+    TResult? Function(String amount)? onAmountChanged,
+    TResult? Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult? Function(String description)? onDescriptionChanged,
+    TResult? Function()? addOtherPaymentOUt,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String value)? getOtherExpenseValue,
-    TResult Function(String paymentOut)? addPaymentOUt,
+    TResult Function()? initialize,
+    TResult Function(String amount)? onAmountChanged,
+    TResult Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult Function(String description)? onDescriptionChanged,
+    TResult Function()? addOtherPaymentOUt,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetOtherExpenseValue value) getOtherExpenseValue,
-    required TResult Function(_AddPaymentOut value) addPaymentOUt,
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnAmountChanged value) onAmountChanged,
+    required TResult Function(_OnTransactionTypeChanged value)
+        onTransactionTypeChanged,
+    required TResult Function(_OnDescriptionChanged value) onDescriptionChanged,
+    required TResult Function(_AddPaymentOut value) addOtherPaymentOUt,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetOtherExpenseValue value)? getOtherExpenseValue,
-    TResult? Function(_AddPaymentOut value)? addPaymentOUt,
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnAmountChanged value)? onAmountChanged,
+    TResult? Function(_OnTransactionTypeChanged value)?
+        onTransactionTypeChanged,
+    TResult? Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult? Function(_AddPaymentOut value)? addOtherPaymentOUt,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetOtherExpenseValue value)? getOtherExpenseValue,
-    TResult Function(_AddPaymentOut value)? addPaymentOUt,
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnAmountChanged value)? onAmountChanged,
+    TResult Function(_OnTransactionTypeChanged value)? onTransactionTypeChanged,
+    TResult Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult Function(_AddPaymentOut value)? addOtherPaymentOUt,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -81,100 +102,80 @@ class _$PaymentOutOtherExpenseEventCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$GetOtherExpenseValueImplCopyWith<$Res> {
-  factory _$$GetOtherExpenseValueImplCopyWith(_$GetOtherExpenseValueImpl value,
-          $Res Function(_$GetOtherExpenseValueImpl) then) =
-      __$$GetOtherExpenseValueImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String value});
+abstract class _$$InitializeImplCopyWith<$Res> {
+  factory _$$InitializeImplCopyWith(
+          _$InitializeImpl value, $Res Function(_$InitializeImpl) then) =
+      __$$InitializeImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$GetOtherExpenseValueImplCopyWithImpl<$Res>
-    extends _$PaymentOutOtherExpenseEventCopyWithImpl<$Res,
-        _$GetOtherExpenseValueImpl>
-    implements _$$GetOtherExpenseValueImplCopyWith<$Res> {
-  __$$GetOtherExpenseValueImplCopyWithImpl(_$GetOtherExpenseValueImpl _value,
-      $Res Function(_$GetOtherExpenseValueImpl) _then)
+class __$$InitializeImplCopyWithImpl<$Res>
+    extends _$PaymentOutOtherExpenseEventCopyWithImpl<$Res, _$InitializeImpl>
+    implements _$$InitializeImplCopyWith<$Res> {
+  __$$InitializeImplCopyWithImpl(
+      _$InitializeImpl _value, $Res Function(_$InitializeImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of PaymentOutOtherExpenseEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? value = null,
-  }) {
-    return _then(_$GetOtherExpenseValueImpl(
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
-class _$GetOtherExpenseValueImpl implements _GetOtherExpenseValue {
-  _$GetOtherExpenseValueImpl({required this.value});
-
-  @override
-  final String value;
+class _$InitializeImpl implements _Initialize {
+  _$InitializeImpl();
 
   @override
   String toString() {
-    return 'PaymentOutOtherExpenseEvent.getOtherExpenseValue(value: $value)';
+    return 'PaymentOutOtherExpenseEvent.initialize()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GetOtherExpenseValueImpl &&
-            (identical(other.value, value) || other.value == value));
+        (other.runtimeType == runtimeType && other is _$InitializeImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, value);
-
-  /// Create a copy of PaymentOutOtherExpenseEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GetOtherExpenseValueImplCopyWith<_$GetOtherExpenseValueImpl>
-      get copyWith =>
-          __$$GetOtherExpenseValueImplCopyWithImpl<_$GetOtherExpenseValueImpl>(
-              this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String value) getOtherExpenseValue,
-    required TResult Function(String paymentOut) addPaymentOUt,
+    required TResult Function() initialize,
+    required TResult Function(String amount) onAmountChanged,
+    required TResult Function(Transaction transationType)
+        onTransactionTypeChanged,
+    required TResult Function(String description) onDescriptionChanged,
+    required TResult Function() addOtherPaymentOUt,
   }) {
-    return getOtherExpenseValue(value);
+    return initialize();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String value)? getOtherExpenseValue,
-    TResult? Function(String paymentOut)? addPaymentOUt,
+    TResult? Function()? initialize,
+    TResult? Function(String amount)? onAmountChanged,
+    TResult? Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult? Function(String description)? onDescriptionChanged,
+    TResult? Function()? addOtherPaymentOUt,
   }) {
-    return getOtherExpenseValue?.call(value);
+    return initialize?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String value)? getOtherExpenseValue,
-    TResult Function(String paymentOut)? addPaymentOUt,
+    TResult Function()? initialize,
+    TResult Function(String amount)? onAmountChanged,
+    TResult Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult Function(String description)? onDescriptionChanged,
+    TResult Function()? addOtherPaymentOUt,
     required TResult orElse(),
   }) {
-    if (getOtherExpenseValue != null) {
-      return getOtherExpenseValue(value);
+    if (initialize != null) {
+      return initialize();
     }
     return orElse();
   }
@@ -182,45 +183,545 @@ class _$GetOtherExpenseValueImpl implements _GetOtherExpenseValue {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetOtherExpenseValue value) getOtherExpenseValue,
-    required TResult Function(_AddPaymentOut value) addPaymentOUt,
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnAmountChanged value) onAmountChanged,
+    required TResult Function(_OnTransactionTypeChanged value)
+        onTransactionTypeChanged,
+    required TResult Function(_OnDescriptionChanged value) onDescriptionChanged,
+    required TResult Function(_AddPaymentOut value) addOtherPaymentOUt,
   }) {
-    return getOtherExpenseValue(this);
+    return initialize(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetOtherExpenseValue value)? getOtherExpenseValue,
-    TResult? Function(_AddPaymentOut value)? addPaymentOUt,
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnAmountChanged value)? onAmountChanged,
+    TResult? Function(_OnTransactionTypeChanged value)?
+        onTransactionTypeChanged,
+    TResult? Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult? Function(_AddPaymentOut value)? addOtherPaymentOUt,
   }) {
-    return getOtherExpenseValue?.call(this);
+    return initialize?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetOtherExpenseValue value)? getOtherExpenseValue,
-    TResult Function(_AddPaymentOut value)? addPaymentOUt,
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnAmountChanged value)? onAmountChanged,
+    TResult Function(_OnTransactionTypeChanged value)? onTransactionTypeChanged,
+    TResult Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult Function(_AddPaymentOut value)? addOtherPaymentOUt,
     required TResult orElse(),
   }) {
-    if (getOtherExpenseValue != null) {
-      return getOtherExpenseValue(this);
+    if (initialize != null) {
+      return initialize(this);
     }
     return orElse();
   }
 }
 
-abstract class _GetOtherExpenseValue implements PaymentOutOtherExpenseEvent {
-  factory _GetOtherExpenseValue({required final String value}) =
-      _$GetOtherExpenseValueImpl;
+abstract class _Initialize implements PaymentOutOtherExpenseEvent {
+  factory _Initialize() = _$InitializeImpl;
+}
 
-  String get value;
+/// @nodoc
+abstract class _$$OnAmountChangedImplCopyWith<$Res> {
+  factory _$$OnAmountChangedImplCopyWith(_$OnAmountChangedImpl value,
+          $Res Function(_$OnAmountChangedImpl) then) =
+      __$$OnAmountChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String amount});
+}
+
+/// @nodoc
+class __$$OnAmountChangedImplCopyWithImpl<$Res>
+    extends _$PaymentOutOtherExpenseEventCopyWithImpl<$Res,
+        _$OnAmountChangedImpl> implements _$$OnAmountChangedImplCopyWith<$Res> {
+  __$$OnAmountChangedImplCopyWithImpl(
+      _$OnAmountChangedImpl _value, $Res Function(_$OnAmountChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PaymentOutOtherExpenseEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? amount = null,
+  }) {
+    return _then(_$OnAmountChangedImpl(
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnAmountChangedImpl implements _OnAmountChanged {
+  _$OnAmountChangedImpl({required this.amount});
+
+  @override
+  final String amount;
+
+  @override
+  String toString() {
+    return 'PaymentOutOtherExpenseEvent.onAmountChanged(amount: $amount)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnAmountChangedImpl &&
+            (identical(other.amount, amount) || other.amount == amount));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, amount);
 
   /// Create a copy of PaymentOutOtherExpenseEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$GetOtherExpenseValueImplCopyWith<_$GetOtherExpenseValueImpl>
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnAmountChangedImplCopyWith<_$OnAmountChangedImpl> get copyWith =>
+      __$$OnAmountChangedImplCopyWithImpl<_$OnAmountChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String amount) onAmountChanged,
+    required TResult Function(Transaction transationType)
+        onTransactionTypeChanged,
+    required TResult Function(String description) onDescriptionChanged,
+    required TResult Function() addOtherPaymentOUt,
+  }) {
+    return onAmountChanged(amount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String amount)? onAmountChanged,
+    TResult? Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult? Function(String description)? onDescriptionChanged,
+    TResult? Function()? addOtherPaymentOUt,
+  }) {
+    return onAmountChanged?.call(amount);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String amount)? onAmountChanged,
+    TResult Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult Function(String description)? onDescriptionChanged,
+    TResult Function()? addOtherPaymentOUt,
+    required TResult orElse(),
+  }) {
+    if (onAmountChanged != null) {
+      return onAmountChanged(amount);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnAmountChanged value) onAmountChanged,
+    required TResult Function(_OnTransactionTypeChanged value)
+        onTransactionTypeChanged,
+    required TResult Function(_OnDescriptionChanged value) onDescriptionChanged,
+    required TResult Function(_AddPaymentOut value) addOtherPaymentOUt,
+  }) {
+    return onAmountChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnAmountChanged value)? onAmountChanged,
+    TResult? Function(_OnTransactionTypeChanged value)?
+        onTransactionTypeChanged,
+    TResult? Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult? Function(_AddPaymentOut value)? addOtherPaymentOUt,
+  }) {
+    return onAmountChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnAmountChanged value)? onAmountChanged,
+    TResult Function(_OnTransactionTypeChanged value)? onTransactionTypeChanged,
+    TResult Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult Function(_AddPaymentOut value)? addOtherPaymentOUt,
+    required TResult orElse(),
+  }) {
+    if (onAmountChanged != null) {
+      return onAmountChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnAmountChanged implements PaymentOutOtherExpenseEvent {
+  factory _OnAmountChanged({required final String amount}) =
+      _$OnAmountChangedImpl;
+
+  String get amount;
+
+  /// Create a copy of PaymentOutOtherExpenseEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnAmountChangedImplCopyWith<_$OnAmountChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnTransactionTypeChangedImplCopyWith<$Res> {
+  factory _$$OnTransactionTypeChangedImplCopyWith(
+          _$OnTransactionTypeChangedImpl value,
+          $Res Function(_$OnTransactionTypeChangedImpl) then) =
+      __$$OnTransactionTypeChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Transaction transationType});
+}
+
+/// @nodoc
+class __$$OnTransactionTypeChangedImplCopyWithImpl<$Res>
+    extends _$PaymentOutOtherExpenseEventCopyWithImpl<$Res,
+        _$OnTransactionTypeChangedImpl>
+    implements _$$OnTransactionTypeChangedImplCopyWith<$Res> {
+  __$$OnTransactionTypeChangedImplCopyWithImpl(
+      _$OnTransactionTypeChangedImpl _value,
+      $Res Function(_$OnTransactionTypeChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PaymentOutOtherExpenseEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? transationType = null,
+  }) {
+    return _then(_$OnTransactionTypeChangedImpl(
+      transationType: null == transationType
+          ? _value.transationType
+          : transationType // ignore: cast_nullable_to_non_nullable
+              as Transaction,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnTransactionTypeChangedImpl implements _OnTransactionTypeChanged {
+  _$OnTransactionTypeChangedImpl({required this.transationType});
+
+  @override
+  final Transaction transationType;
+
+  @override
+  String toString() {
+    return 'PaymentOutOtherExpenseEvent.onTransactionTypeChanged(transationType: $transationType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnTransactionTypeChangedImpl &&
+            (identical(other.transationType, transationType) ||
+                other.transationType == transationType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, transationType);
+
+  /// Create a copy of PaymentOutOtherExpenseEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnTransactionTypeChangedImplCopyWith<_$OnTransactionTypeChangedImpl>
+      get copyWith => __$$OnTransactionTypeChangedImplCopyWithImpl<
+          _$OnTransactionTypeChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String amount) onAmountChanged,
+    required TResult Function(Transaction transationType)
+        onTransactionTypeChanged,
+    required TResult Function(String description) onDescriptionChanged,
+    required TResult Function() addOtherPaymentOUt,
+  }) {
+    return onTransactionTypeChanged(transationType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String amount)? onAmountChanged,
+    TResult? Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult? Function(String description)? onDescriptionChanged,
+    TResult? Function()? addOtherPaymentOUt,
+  }) {
+    return onTransactionTypeChanged?.call(transationType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String amount)? onAmountChanged,
+    TResult Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult Function(String description)? onDescriptionChanged,
+    TResult Function()? addOtherPaymentOUt,
+    required TResult orElse(),
+  }) {
+    if (onTransactionTypeChanged != null) {
+      return onTransactionTypeChanged(transationType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnAmountChanged value) onAmountChanged,
+    required TResult Function(_OnTransactionTypeChanged value)
+        onTransactionTypeChanged,
+    required TResult Function(_OnDescriptionChanged value) onDescriptionChanged,
+    required TResult Function(_AddPaymentOut value) addOtherPaymentOUt,
+  }) {
+    return onTransactionTypeChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnAmountChanged value)? onAmountChanged,
+    TResult? Function(_OnTransactionTypeChanged value)?
+        onTransactionTypeChanged,
+    TResult? Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult? Function(_AddPaymentOut value)? addOtherPaymentOUt,
+  }) {
+    return onTransactionTypeChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnAmountChanged value)? onAmountChanged,
+    TResult Function(_OnTransactionTypeChanged value)? onTransactionTypeChanged,
+    TResult Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult Function(_AddPaymentOut value)? addOtherPaymentOUt,
+    required TResult orElse(),
+  }) {
+    if (onTransactionTypeChanged != null) {
+      return onTransactionTypeChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnTransactionTypeChanged
+    implements PaymentOutOtherExpenseEvent {
+  factory _OnTransactionTypeChanged(
+          {required final Transaction transationType}) =
+      _$OnTransactionTypeChangedImpl;
+
+  Transaction get transationType;
+
+  /// Create a copy of PaymentOutOtherExpenseEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnTransactionTypeChangedImplCopyWith<_$OnTransactionTypeChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnDescriptionChangedImplCopyWith<$Res> {
+  factory _$$OnDescriptionChangedImplCopyWith(_$OnDescriptionChangedImpl value,
+          $Res Function(_$OnDescriptionChangedImpl) then) =
+      __$$OnDescriptionChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String description});
+}
+
+/// @nodoc
+class __$$OnDescriptionChangedImplCopyWithImpl<$Res>
+    extends _$PaymentOutOtherExpenseEventCopyWithImpl<$Res,
+        _$OnDescriptionChangedImpl>
+    implements _$$OnDescriptionChangedImplCopyWith<$Res> {
+  __$$OnDescriptionChangedImplCopyWithImpl(_$OnDescriptionChangedImpl _value,
+      $Res Function(_$OnDescriptionChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PaymentOutOtherExpenseEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? description = null,
+  }) {
+    return _then(_$OnDescriptionChangedImpl(
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnDescriptionChangedImpl implements _OnDescriptionChanged {
+  _$OnDescriptionChangedImpl({required this.description});
+
+  @override
+  final String description;
+
+  @override
+  String toString() {
+    return 'PaymentOutOtherExpenseEvent.onDescriptionChanged(description: $description)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnDescriptionChangedImpl &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, description);
+
+  /// Create a copy of PaymentOutOtherExpenseEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnDescriptionChangedImplCopyWith<_$OnDescriptionChangedImpl>
+      get copyWith =>
+          __$$OnDescriptionChangedImplCopyWithImpl<_$OnDescriptionChangedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String amount) onAmountChanged,
+    required TResult Function(Transaction transationType)
+        onTransactionTypeChanged,
+    required TResult Function(String description) onDescriptionChanged,
+    required TResult Function() addOtherPaymentOUt,
+  }) {
+    return onDescriptionChanged(description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String amount)? onAmountChanged,
+    TResult? Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult? Function(String description)? onDescriptionChanged,
+    TResult? Function()? addOtherPaymentOUt,
+  }) {
+    return onDescriptionChanged?.call(description);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String amount)? onAmountChanged,
+    TResult Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult Function(String description)? onDescriptionChanged,
+    TResult Function()? addOtherPaymentOUt,
+    required TResult orElse(),
+  }) {
+    if (onDescriptionChanged != null) {
+      return onDescriptionChanged(description);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnAmountChanged value) onAmountChanged,
+    required TResult Function(_OnTransactionTypeChanged value)
+        onTransactionTypeChanged,
+    required TResult Function(_OnDescriptionChanged value) onDescriptionChanged,
+    required TResult Function(_AddPaymentOut value) addOtherPaymentOUt,
+  }) {
+    return onDescriptionChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnAmountChanged value)? onAmountChanged,
+    TResult? Function(_OnTransactionTypeChanged value)?
+        onTransactionTypeChanged,
+    TResult? Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult? Function(_AddPaymentOut value)? addOtherPaymentOUt,
+  }) {
+    return onDescriptionChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnAmountChanged value)? onAmountChanged,
+    TResult Function(_OnTransactionTypeChanged value)? onTransactionTypeChanged,
+    TResult Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult Function(_AddPaymentOut value)? addOtherPaymentOUt,
+    required TResult orElse(),
+  }) {
+    if (onDescriptionChanged != null) {
+      return onDescriptionChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnDescriptionChanged implements PaymentOutOtherExpenseEvent {
+  factory _OnDescriptionChanged({required final String description}) =
+      _$OnDescriptionChangedImpl;
+
+  String get description;
+
+  /// Create a copy of PaymentOutOtherExpenseEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnDescriptionChangedImplCopyWith<_$OnDescriptionChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -229,8 +730,6 @@ abstract class _$$AddPaymentOutImplCopyWith<$Res> {
   factory _$$AddPaymentOutImplCopyWith(
           _$AddPaymentOutImpl value, $Res Function(_$AddPaymentOutImpl) then) =
       __$$AddPaymentOutImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String paymentOut});
 }
 
 /// @nodoc
@@ -243,80 +742,64 @@ class __$$AddPaymentOutImplCopyWithImpl<$Res>
 
   /// Create a copy of PaymentOutOtherExpenseEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? paymentOut = null,
-  }) {
-    return _then(_$AddPaymentOutImpl(
-      paymentOut: null == paymentOut
-          ? _value.paymentOut
-          : paymentOut // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$AddPaymentOutImpl implements _AddPaymentOut {
-  _$AddPaymentOutImpl({required this.paymentOut});
-
-  @override
-  final String paymentOut;
+  _$AddPaymentOutImpl();
 
   @override
   String toString() {
-    return 'PaymentOutOtherExpenseEvent.addPaymentOUt(paymentOut: $paymentOut)';
+    return 'PaymentOutOtherExpenseEvent.addOtherPaymentOUt()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$AddPaymentOutImpl &&
-            (identical(other.paymentOut, paymentOut) ||
-                other.paymentOut == paymentOut));
+        (other.runtimeType == runtimeType && other is _$AddPaymentOutImpl);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, paymentOut);
-
-  /// Create a copy of PaymentOutOtherExpenseEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$AddPaymentOutImplCopyWith<_$AddPaymentOutImpl> get copyWith =>
-      __$$AddPaymentOutImplCopyWithImpl<_$AddPaymentOutImpl>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String value) getOtherExpenseValue,
-    required TResult Function(String paymentOut) addPaymentOUt,
+    required TResult Function() initialize,
+    required TResult Function(String amount) onAmountChanged,
+    required TResult Function(Transaction transationType)
+        onTransactionTypeChanged,
+    required TResult Function(String description) onDescriptionChanged,
+    required TResult Function() addOtherPaymentOUt,
   }) {
-    return addPaymentOUt(paymentOut);
+    return addOtherPaymentOUt();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String value)? getOtherExpenseValue,
-    TResult? Function(String paymentOut)? addPaymentOUt,
+    TResult? Function()? initialize,
+    TResult? Function(String amount)? onAmountChanged,
+    TResult? Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult? Function(String description)? onDescriptionChanged,
+    TResult? Function()? addOtherPaymentOUt,
   }) {
-    return addPaymentOUt?.call(paymentOut);
+    return addOtherPaymentOUt?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String value)? getOtherExpenseValue,
-    TResult Function(String paymentOut)? addPaymentOUt,
+    TResult Function()? initialize,
+    TResult Function(String amount)? onAmountChanged,
+    TResult Function(Transaction transationType)? onTransactionTypeChanged,
+    TResult Function(String description)? onDescriptionChanged,
+    TResult Function()? addOtherPaymentOUt,
     required TResult orElse(),
   }) {
-    if (addPaymentOUt != null) {
-      return addPaymentOUt(paymentOut);
+    if (addOtherPaymentOUt != null) {
+      return addOtherPaymentOUt();
     }
     return orElse();
   }
@@ -324,52 +807,58 @@ class _$AddPaymentOutImpl implements _AddPaymentOut {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_GetOtherExpenseValue value) getOtherExpenseValue,
-    required TResult Function(_AddPaymentOut value) addPaymentOUt,
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnAmountChanged value) onAmountChanged,
+    required TResult Function(_OnTransactionTypeChanged value)
+        onTransactionTypeChanged,
+    required TResult Function(_OnDescriptionChanged value) onDescriptionChanged,
+    required TResult Function(_AddPaymentOut value) addOtherPaymentOUt,
   }) {
-    return addPaymentOUt(this);
+    return addOtherPaymentOUt(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_GetOtherExpenseValue value)? getOtherExpenseValue,
-    TResult? Function(_AddPaymentOut value)? addPaymentOUt,
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnAmountChanged value)? onAmountChanged,
+    TResult? Function(_OnTransactionTypeChanged value)?
+        onTransactionTypeChanged,
+    TResult? Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult? Function(_AddPaymentOut value)? addOtherPaymentOUt,
   }) {
-    return addPaymentOUt?.call(this);
+    return addOtherPaymentOUt?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_GetOtherExpenseValue value)? getOtherExpenseValue,
-    TResult Function(_AddPaymentOut value)? addPaymentOUt,
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnAmountChanged value)? onAmountChanged,
+    TResult Function(_OnTransactionTypeChanged value)? onTransactionTypeChanged,
+    TResult Function(_OnDescriptionChanged value)? onDescriptionChanged,
+    TResult Function(_AddPaymentOut value)? addOtherPaymentOUt,
     required TResult orElse(),
   }) {
-    if (addPaymentOUt != null) {
-      return addPaymentOUt(this);
+    if (addOtherPaymentOUt != null) {
+      return addOtherPaymentOUt(this);
     }
     return orElse();
   }
 }
 
 abstract class _AddPaymentOut implements PaymentOutOtherExpenseEvent {
-  factory _AddPaymentOut({required final String paymentOut}) =
-      _$AddPaymentOutImpl;
-
-  String get paymentOut;
-
-  /// Create a copy of PaymentOutOtherExpenseEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AddPaymentOutImplCopyWith<_$AddPaymentOutImpl> get copyWith =>
-      throw _privateConstructorUsedError;
+  factory _AddPaymentOut() = _$AddPaymentOutImpl;
 }
 
 /// @nodoc
 mixin _$PaymentOutOtherExpenseState {
-  String get expenseValue => throw _privateConstructorUsedError;
-  String get paymentOut => throw _privateConstructorUsedError;
+  RequestState get state => throw _privateConstructorUsedError;
+  String get message => throw _privateConstructorUsedError;
+  EntryType get entryType => throw _privateConstructorUsedError;
+  Transaction get transactionType => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get amount => throw _privateConstructorUsedError;
 
   /// Create a copy of PaymentOutOtherExpenseState
   /// with the given fields replaced by the non-null parameter values.
@@ -386,7 +875,13 @@ abstract class $PaymentOutOtherExpenseStateCopyWith<$Res> {
       _$PaymentOutOtherExpenseStateCopyWithImpl<$Res,
           PaymentOutOtherExpenseState>;
   @useResult
-  $Res call({String expenseValue, String paymentOut});
+  $Res call(
+      {RequestState state,
+      String message,
+      EntryType entryType,
+      Transaction transactionType,
+      String description,
+      String amount});
 }
 
 /// @nodoc
@@ -405,17 +900,37 @@ class _$PaymentOutOtherExpenseStateCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? expenseValue = null,
-    Object? paymentOut = null,
+    Object? state = null,
+    Object? message = null,
+    Object? entryType = null,
+    Object? transactionType = null,
+    Object? description = null,
+    Object? amount = null,
   }) {
     return _then(_value.copyWith(
-      expenseValue: null == expenseValue
-          ? _value.expenseValue
-          : expenseValue // ignore: cast_nullable_to_non_nullable
+      state: null == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as RequestState,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
-      paymentOut: null == paymentOut
-          ? _value.paymentOut
-          : paymentOut // ignore: cast_nullable_to_non_nullable
+      entryType: null == entryType
+          ? _value.entryType
+          : entryType // ignore: cast_nullable_to_non_nullable
+              as EntryType,
+      transactionType: null == transactionType
+          ? _value.transactionType
+          : transactionType // ignore: cast_nullable_to_non_nullable
+              as Transaction,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -430,7 +945,13 @@ abstract class _$$PaymentOutOtherExpenseStateImplCopyWith<$Res>
       __$$PaymentOutOtherExpenseStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String expenseValue, String paymentOut});
+  $Res call(
+      {RequestState state,
+      String message,
+      EntryType entryType,
+      Transaction transactionType,
+      String description,
+      String amount});
 }
 
 /// @nodoc
@@ -448,17 +969,37 @@ class __$$PaymentOutOtherExpenseStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? expenseValue = null,
-    Object? paymentOut = null,
+    Object? state = null,
+    Object? message = null,
+    Object? entryType = null,
+    Object? transactionType = null,
+    Object? description = null,
+    Object? amount = null,
   }) {
     return _then(_$PaymentOutOtherExpenseStateImpl(
-      expenseValue: null == expenseValue
-          ? _value.expenseValue
-          : expenseValue // ignore: cast_nullable_to_non_nullable
+      state: null == state
+          ? _value.state
+          : state // ignore: cast_nullable_to_non_nullable
+              as RequestState,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
-      paymentOut: null == paymentOut
-          ? _value.paymentOut
-          : paymentOut // ignore: cast_nullable_to_non_nullable
+      entryType: null == entryType
+          ? _value.entryType
+          : entryType // ignore: cast_nullable_to_non_nullable
+              as EntryType,
+      transactionType: null == transactionType
+          ? _value.transactionType
+          : transactionType // ignore: cast_nullable_to_non_nullable
+              as Transaction,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      amount: null == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -469,16 +1010,29 @@ class __$$PaymentOutOtherExpenseStateImplCopyWithImpl<$Res>
 class _$PaymentOutOtherExpenseStateImpl
     implements _PaymentOutOtherExpenseState {
   const _$PaymentOutOtherExpenseStateImpl(
-      {required this.expenseValue, required this.paymentOut});
+      {required this.state,
+      required this.message,
+      required this.entryType,
+      required this.transactionType,
+      required this.description,
+      required this.amount});
 
   @override
-  final String expenseValue;
+  final RequestState state;
   @override
-  final String paymentOut;
+  final String message;
+  @override
+  final EntryType entryType;
+  @override
+  final Transaction transactionType;
+  @override
+  final String description;
+  @override
+  final String amount;
 
   @override
   String toString() {
-    return 'PaymentOutOtherExpenseState(expenseValue: $expenseValue, paymentOut: $paymentOut)';
+    return 'PaymentOutOtherExpenseState(state: $state, message: $message, entryType: $entryType, transactionType: $transactionType, description: $description, amount: $amount)';
   }
 
   @override
@@ -486,14 +1040,20 @@ class _$PaymentOutOtherExpenseStateImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PaymentOutOtherExpenseStateImpl &&
-            (identical(other.expenseValue, expenseValue) ||
-                other.expenseValue == expenseValue) &&
-            (identical(other.paymentOut, paymentOut) ||
-                other.paymentOut == paymentOut));
+            (identical(other.state, state) || other.state == state) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.entryType, entryType) ||
+                other.entryType == entryType) &&
+            (identical(other.transactionType, transactionType) ||
+                other.transactionType == transactionType) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.amount, amount) || other.amount == amount));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, expenseValue, paymentOut);
+  int get hashCode => Object.hash(runtimeType, state, message, entryType,
+      transactionType, description, amount);
 
   /// Create a copy of PaymentOutOtherExpenseState
   /// with the given fields replaced by the non-null parameter values.
@@ -508,13 +1068,25 @@ class _$PaymentOutOtherExpenseStateImpl
 abstract class _PaymentOutOtherExpenseState
     implements PaymentOutOtherExpenseState {
   const factory _PaymentOutOtherExpenseState(
-      {required final String expenseValue,
-      required final String paymentOut}) = _$PaymentOutOtherExpenseStateImpl;
+      {required final RequestState state,
+      required final String message,
+      required final EntryType entryType,
+      required final Transaction transactionType,
+      required final String description,
+      required final String amount}) = _$PaymentOutOtherExpenseStateImpl;
 
   @override
-  String get expenseValue;
+  RequestState get state;
   @override
-  String get paymentOut;
+  String get message;
+  @override
+  EntryType get entryType;
+  @override
+  Transaction get transactionType;
+  @override
+  String get description;
+  @override
+  String get amount;
 
   /// Create a copy of PaymentOutOtherExpenseState
   /// with the given fields replaced by the non-null parameter values.

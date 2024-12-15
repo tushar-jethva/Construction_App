@@ -35,8 +35,8 @@ class CommonAlertMessageDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Theme.of(context).cardColor,
-      surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      // surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -75,6 +75,7 @@ class CommonAlertMessageDialog extends StatelessWidget {
             isLoading: isLoading,
             buttonName: buttonText ?? "Okay",
             onPressed: action,
+            style: theme.textTheme.bodyMedium?.copyWith(color: white),
           )
         ],
       ),

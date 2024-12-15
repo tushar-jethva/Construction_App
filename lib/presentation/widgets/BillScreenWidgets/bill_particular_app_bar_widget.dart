@@ -44,7 +44,7 @@ class _MyBillScreenParticularAppBarWidgetState
                     context.pop();
                   },
                   icon: Icon(
-                    Icons.arrow_back,
+                    Icons.arrow_back_ios_new,
                     color: theme.canvasColor,
                   )),
               Column(

@@ -26,7 +26,9 @@ import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billi
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/EditProfileBloc/edit_profile_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
@@ -34,11 +36,13 @@ import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_buildi
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart';
+import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_eye_bloc.dart';
 import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart';
+import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc.dart';
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
@@ -146,7 +150,6 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(
             create: (_) =>
                 FinancialBloc(billsRepository: BillsRepositoryImpl())),
-        BlocProvider(create: (_) => PaymentOutOtherExpenseBloc()),
         BlocProvider(
             create: (_) => SignUpBloc(
                 repository: AuthenticationRepositoryImpl(
@@ -165,6 +168,11 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<AddMaterialBloc>()),
         BlocProvider(create: (_) => di.locator<BottomsheetBloc>()),
         BlocProvider(create: (_) => di.locator<SubsctiptionBoxBloc>()),
+        BlocProvider(create: (_) => di.locator<TdsBloc>()),
+        BlocProvider(create: (_) => di.locator<GstBloc>()),
+        BlocProvider(create: (_) => di.locator<OtherExpenseBloc>()),
+        BlocProvider(create: (_) => di.locator<EditProfileBloc>()),
+        BlocProvider(create: (_) => di.locator<PaymentOutOtherExpenseBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),
