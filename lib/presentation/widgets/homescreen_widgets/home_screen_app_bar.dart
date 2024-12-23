@@ -16,7 +16,8 @@ class MyHomeScreenAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      margin: EdgeInsets.only(left: 10.w, right: 10.w, top: 40.h),
+      padding:
+          EdgeInsets.only(left: 10.w, right: 10.w, top: 40.h, bottom: 10.h),
       color: theme.scaffoldBackgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,8 +46,9 @@ class MyHomeScreenAppBar extends StatelessWidget {
               ),
               Gap(10.w),
               Text(
-                "Tushar Jethva",
-                style: theme.textTheme.titleMedium,
+                "Hello, Tushar",
+                style: theme.textTheme.titleMedium
+                    ?.copyWith(fontWeight: FontWeight.bold),
               )
             ],
           ),

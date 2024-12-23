@@ -11,12 +11,15 @@ class AddMaterialEvent with _$AddMaterialEvent {
       _onDateChanged;
 
   //Button
-  const factory AddMaterialEvent.onAddMaterialTap({required String projectId,required String materialName,required String quantity, required String description,required bool isUpdate, String? materialId}) =
-      _OnAddMaterialTap;
+  const factory AddMaterialEvent.onAddMaterialTap(
+      {required String projectId,
+      required String materialName,
+      required String quantity,
+      required String description,
+      required bool isUpdate,
+      String? materialId}) = _OnAddMaterialTap;
 
   //Get material list
-  const factory AddMaterialEvent.fetchAllMaterial({required String projectId}) = _FetchAllMaterial;
-
-  
-
-} 
+  const factory AddMaterialEvent.fetchAllMaterial({required String projectId}) =
+      _FetchAllMaterial;
+}

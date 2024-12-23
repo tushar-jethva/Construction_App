@@ -5,11 +5,15 @@ import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
+import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
+import 'package:construction_mate/presentation/widgets/common/transaction_total_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_projects_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/project_add_bottom_sheet_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_top_widget.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,57 +70,76 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: theme.cardColor,
       resizeToAvoidBottomInset: true,
+      appBar: PreferredSize(
+          preferredSize:
+              Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
+          child: MyHomeScreenAppBar(onTap: widget.onTapProfile)),
       body: Stack(
         children: [
-          RefreshIndicator(
-            onRefresh: _refreshProjects,
-            child: CustomScrollView(
-              slivers: [
-                SliverAppBar(
-                  floating: true,
-                  surfaceTintColor: Colors.transparent,
-                  backgroundColor: theme.scaffoldBackgroundColor,
-                  flexibleSpace: MyHomeScreenAppBar(
-                    onTap: widget.onTapProfile,
-                  ),
-                ),
-                const TransactionTopWidget(),
-                SliverAppBar(
-                  toolbarHeight: ReusableFunctions.getHeight(
-                      context: context, height: 0.015),
-                  surfaceTintColor: Colors.transparent,
-                  pinned: true,
-                  backgroundColor: theme.scaffoldBackgroundColor,
-                  flexibleSpace: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              openBottomSheet(context: context);
-                            },
-                            child: Text(
-                              "+ Add Project",
-                              style: theme.textTheme.titleLarge!
-                                  .copyWith(color: purple, fontSize: 16.5),
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-                const AllProjectsWidget(),
-                SliverToBoxAdapter(
-                  child: SizedBox(height: 50.h), // Spacer for bottom bar
-                ),
-              ],
-            ),
-          ),
+          const TransactionsTotalWidget(),
+          scrollableSheetWidget(context, theme),
           const TransactionBottomWidget(),
         ],
       ),
     );
+  }
+
+  DraggableScrollableSheetCommonComp scrollableSheetWidget(
+      BuildContext context, ThemeData theme) {
+    return DraggableScrollableSheetCommonComp(
+      draggableScrollableController: DraggableScrollableController(),
+      stops: const [0.73, 0.98],
+      initialSize: 0.73,
+      minChildSize: 0.73,
+      radius: 20,
+      widget: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: [
+            addProjectTextWidget(context, theme),
+            AllProjectsWidget(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  GestureDetector addProjectTextWidget(BuildContext context, ThemeData theme) {
+    return GestureDetector(
+        onTap: () {
+          openBottomSheet(context: context);
+        },
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                color: const Color.fromARGB(255, 17, 43, 173)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconCircleWidget(
+                  radius: 5,
+                  padding: const EdgeInsets.all(2),
+                  imagewidget: const Icon(
+                    Icons.add,
+                    size: 14,
+                    color: white,
+                  ),
+                  backgroundColor: greyLight,
+                ),
+                5.wx,
+                Text(
+                  " Project",
+                  style: theme.textTheme.titleLarge!
+                      .copyWith(color: white, fontSize: 12.5),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

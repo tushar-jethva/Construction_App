@@ -1,3 +1,5 @@
+import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 
 class TransactionStatusWidget extends StatelessWidget {
@@ -15,18 +17,35 @@ class TransactionStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          upperText,
-          style: upperTextStyle,
+    final theme = Theme.of(context);
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: theme.scaffoldBackgroundColor),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(
+              Icons.wallet_rounded,
+              color: theme.canvasColor,
+            ),
+            5.hx,
+            Text(
+              upperText,
+              style: upperTextStyle,
+            ),
+            40.hx,
+            Text(
+              belowText,
+              style: belowTextStyle,
+            )
+          ],
         ),
-        Text(
-          belowText,
-          style: belowTextStyle,
-        )
-      ],
+      ),
     );
   }
 }

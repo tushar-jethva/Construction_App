@@ -762,7 +762,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 5.h),
+        margin: EdgeInsets.only(left: 20.w, right: 20.w, bottom: 15.h),
         height: 50.h,
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -772,7 +772,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
           children: [
             Expanded(
               child: CustomElevatedButton(
-                label: "Payment In",
+                label: "You Got",
                 backgroundColor: green,
                 borderColor: transparent,
                 onTap: () {
@@ -786,7 +786,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
             30.wx,
             Expanded(
               child: CustomElevatedButton(
-                label: "Payment Out",
+                label: "You Gave",
                 backgroundColor: red,
                 borderColor: transparent,
                 onTap: () {
