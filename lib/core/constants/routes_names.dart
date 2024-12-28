@@ -23,4 +23,9 @@ class RoutesName {
   static String gstScreen = "/gstScreen";
   static String otherExpensesScreen = "/otherExpensesScreen";
   static String editProfileScreen = "/editProfileScreen";
+
+  //New details screen
+  static String NEW_DETAIL_SCREEN_PATH = "/newDetails";
+  static String NEW_DETAIL_SCREEN_NAME = "/newDetails";
+
 }

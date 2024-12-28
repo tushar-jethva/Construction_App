@@ -7,7 +7,7 @@ const Color black = Colors.black;
 const Color white = Colors.white;
 final Color purple = Colors.blue.shade400;
 const Color transparent = Colors.transparent;
-const Color greyLight = Color.fromARGB(82, 224, 224, 224);
+const Color greyLight = Color(0xffF5F6F7);
 final Color baseColor = Colors.grey.shade300;
 final Color highlightColor = Colors.grey.shade100;
 final Color greyELight = Colors.grey.shade400;
@@ -17,3 +17,6 @@ final Color darkTextColor = Color(0xffe0e0e0);
 final Color darkCardColor = Color(0xff1f1f1f);
 final Color darkShimmerColor = Color(0xff2E2E2E);
 final Color otpbackColor = const Color.fromARGB(102, 205, 212, 245);
+final Color gray500 = Color.fromRGBO(157, 164, 158, 1);
+
+final Color darkBlue = const Color.fromARGB(255, 17, 43, 173);

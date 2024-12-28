@@ -76,6 +76,7 @@ flutter:
     - assets/json/
     - assets/svg/
     - assets/fonts/monteserrat/
+    - assets/fonts/popins/
 
   fonts:
     - family: Roboto
@@ -116,6 +117,7 @@ flutter:
         - asset: assets/fonts/Roboto-BlackItalic.ttf
           weight: 900
           style: italic
+
     - family: Montserrat
       fonts:
         - asset: assets/fonts/monteserrat/Montserrat-Black.ttf
@@ -127,6 +129,21 @@ flutter:
         - asset: assets/fonts/monteserrat/Montserrat-Regular.ttf
           weight: 500
           style: normal
+
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/popins/Poppins-ExtraBold.ttf
+          weight: 700
+        - asset: assets/fonts/popins/Poppins-Bold.ttf
+          weight: 600
+        - asset: assets/fonts/popins/Poppins-SemiBold.ttf
+          weight: 500
+        - asset: assets/fonts/popins/Poppins-Medium.ttf
+          weight: 400
+        - asset: assets/fonts/popins/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/popins/Poppins-Light.ttf
+          weight: 300
 
 flutter_gen:
   integrations:

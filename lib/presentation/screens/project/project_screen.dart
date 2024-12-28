@@ -1,5 +1,4 @@
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
@@ -12,12 +11,9 @@ import 'package:construction_mate/presentation/widgets/homescreen_widgets/all_pr
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/project_add_bottom_sheet_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_top_widget.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../logic/controllers/Tds/tds_bloc.dart';
 
 /* Created By: Tushar Jethva
@@ -99,7 +95,8 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
         child: Column(
           children: [
             addProjectTextWidget(context, theme),
-            AllProjectsWidget(),
+            const AllProjectsWidget(),
+            90.hx,
           ],
         ),
       ),
@@ -116,8 +113,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: const Color.fromARGB(255, 17, 43, 173)),
+                borderRadius: BorderRadius.circular(14), color: darkBlue),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -127,7 +123,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
                   imagewidget: const Icon(
                     Icons.add,
                     size: 14,
-                    color: white,
+                    color: black,
                   ),
                   backgroundColor: greyLight,
                 ),

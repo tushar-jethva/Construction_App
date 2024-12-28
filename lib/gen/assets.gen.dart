@@ -58,6 +58,9 @@ class $AssetsFontsGen {
   $AssetsFontsMonteserratGen get monteserrat =>
       const $AssetsFontsMonteserratGen();
 
+  /// Directory path: assets/fonts/popins
+  $AssetsFontsPopinsGen get popins => const $AssetsFontsPopinsGen();
+
   /// List of all assets
   List<String> get values => [
         license,
@@ -220,6 +223,42 @@ class $AssetsFontsMonteserratGen {
         montserratSemiBoldItalic,
         montserratThin,
         montserratThinItalic
+      ];
+}
+
+class $AssetsFontsPopinsGen {
+  const $AssetsFontsPopinsGen();
+
+  /// File path: assets/fonts/popins/Poppins-Bold.ttf
+  String get poppinsBold => 'assets/fonts/popins/Poppins-Bold.ttf';
+
+  /// File path: assets/fonts/popins/Poppins-ExtraBold.ttf
+  String get poppinsExtraBold => 'assets/fonts/popins/Poppins-ExtraBold.ttf';
+
+  /// File path: assets/fonts/popins/Poppins-Light.ttf
+  String get poppinsLight => 'assets/fonts/popins/Poppins-Light.ttf';
+
+  /// File path: assets/fonts/popins/Poppins-Medium.ttf
+  String get poppinsMedium => 'assets/fonts/popins/Poppins-Medium.ttf';
+
+  /// File path: assets/fonts/popins/Poppins-Regular.ttf
+  String get poppinsRegular => 'assets/fonts/popins/Poppins-Regular.ttf';
+
+  /// File path: assets/fonts/popins/Poppins-SemiBold.ttf
+  String get poppinsSemiBold => 'assets/fonts/popins/Poppins-SemiBold.ttf';
+
+  /// File path: assets/fonts/popins/Poppins-Thin.ttf
+  String get poppinsThin => 'assets/fonts/popins/Poppins-Thin.ttf';
+
+  /// List of all assets
+  List<String> get values => [
+        poppinsBold,
+        poppinsExtraBold,
+        poppinsLight,
+        poppinsMedium,
+        poppinsRegular,
+        poppinsSemiBold,
+        poppinsThin
       ];
 }
 

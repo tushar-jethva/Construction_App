@@ -36,6 +36,7 @@ import 'package:construction_mate/presentation/screens/profile/tds/tds_screen.da
 import 'package:construction_mate/presentation/screens/project/building_details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/inidividual_transaction_screen.dart';
+import 'package:construction_mate/presentation/screens/project/project_details_n_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
@@ -289,6 +290,13 @@ class Routes {
           name: RoutesName.editProfileScreen,
           builder: (context, state) {
             return const EditProfileScreen();
+          },
+        ),
+        GoRoute(
+          path: RoutesName.NEW_DETAIL_SCREEN_PATH,
+          name: RoutesName.NEW_DETAIL_SCREEN_NAME,
+          builder: (context, state) {
+            return const ProjectDetailsNScreen();
           },
         ),
       ]);

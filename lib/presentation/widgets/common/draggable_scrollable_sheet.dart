@@ -4,19 +4,23 @@ class DraggableScrollableSheetCommonComp extends StatelessWidget {
   const DraggableScrollableSheetCommonComp(
       {super.key,
       required DraggableScrollableController draggableScrollableController,
-      required this.widget,
+      this.widget,
       required this.stops,
       this.minChildSize,
       this.initialSize,
-      this.radius})
+      this.isDraggerShow = true,
+      this.radius,
+      this.newWidget})
       : _draggableScrollableController = draggableScrollableController;
 
   final DraggableScrollableController _draggableScrollableController;
-  final Widget widget;
+  final Widget? widget;
   final List<double> stops;
   final double? initialSize;
   final double? minChildSize;
   final double? radius;
+  final bool isDraggerShow;
+  final Widget Function(BuildContext, ScrollController)? newWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -29,22 +33,25 @@ class DraggableScrollableSheetCommonComp extends StatelessWidget {
       expand: true,
       snap: true,
       snapSizes: stops,
-      builder: (BuildContext context, ScrollController scrollController) {
-        return Container(
-          decoration: BoxDecoration(
-              color: theme.scaffoldBackgroundColor,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(radius ?? 40),
-                  topRight: Radius.circular(radius ?? 40))),
-          child: ListView(
-            controller: scrollController,
-            children: [
-              const BottomSheetDraggerWidget(),
-              widget,
-            ],
-          ),
-        );
-      },
+      builder: newWidget ??
+          (BuildContext context, ScrollController scrollController) {
+            return Container(
+              decoration: BoxDecoration(
+                  color: theme.scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(radius ?? 40),
+                      topRight: Radius.circular(radius ?? 40))),
+              child: ListView(
+                controller: scrollController,
+                children: [
+                  isDraggerShow
+                      ? const BottomSheetDraggerWidget()
+                      : const SizedBox.shrink(),
+                  widget ?? SizedBox.shrink(),
+                ],
+              ),
+            );
+          },
     );
   }
 }

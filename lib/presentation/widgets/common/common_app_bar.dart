@@ -1,18 +1,21 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   final bool isCenterTitle;
   final bool isBackButtonShow;
   final Function()? onTap;
   final Color? backgroundColor;
+  final Widget? titleWidget;
   const CustomAppBar({
     super.key,
-    required this.title,
+    this.title,
     this.isCenterTitle = true,
     this.isBackButtonShow = true,
     this.backgroundColor,
     this.onTap,
+    this.titleWidget
   });
 
   @override
@@ -32,14 +35,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : const SizedBox(),
       centerTitle: isCenterTitle,
-      title: Text(
-        title,
-        style: theme.textTheme.titleLarge,
+      title: titleWidget ?? Text(
+        title ?? "",
+        style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
       ),
     );
   }
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => const Size(double.infinity, 60);
+  Size get preferredSize => const Size(double.infinity, 40);
 }

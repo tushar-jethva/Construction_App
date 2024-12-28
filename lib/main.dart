@@ -29,6 +29,7 @@ import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart
 import 'package:construction_mate/logic/controllers/EditProfileBloc/edit_profile_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
+import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
@@ -173,6 +174,8 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<OtherExpenseBloc>()),
         BlocProvider(create: (_) => di.locator<EditProfileBloc>()),
         BlocProvider(create: (_) => di.locator<PaymentOutOtherExpenseBloc>()),
+        BlocProvider(create: (_) => di.locator<MenuBloc>()),
+
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

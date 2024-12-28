@@ -45,6 +45,8 @@ import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc
 import 'package:construction_mate/logic/controllers/EditProfileBloc/edit_profile_bloc.dart'
     as _i503;
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart' as _i487;
+import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart'
+    as _i688;
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart'
     as _i681;
 import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_other_expense_bloc.dart'
@@ -73,6 +75,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i660.SubsctiptionBoxBloc>(() => _i660.SubsctiptionBoxBloc());
     gh.singleton<_i79.AuthenticatorWatcherBloc>(
         () => _i79.AuthenticatorWatcherBloc());
+    gh.singleton<_i688.MenuBloc>(() => _i688.MenuBloc());
     gh.lazySingleton<_i548.MaterialDataSource>(
         () => _i548.MaterialDataSourceImpl());
     gh.lazySingleton<_i740.TransactionDataSource>(

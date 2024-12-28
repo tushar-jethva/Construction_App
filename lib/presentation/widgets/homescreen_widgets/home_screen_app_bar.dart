@@ -56,7 +56,8 @@ class MyHomeScreenAppBar extends StatelessWidget {
             builder: (context, state) {
               return InkWell(
                 onTap: () {
-                  context.read<ThemeBloc>().add(OnThemeChangeEvent());
+                  // context.read<ThemeBloc>().add(OnThemeChangeEvent());
+                  context.pushNamed(RoutesName.NEW_DETAIL_SCREEN_NAME);
                 },
                 child: state.themeData.scaffoldBackgroundColor ==
                         blackBackgroundColor

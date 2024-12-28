@@ -98,6 +98,7 @@ class AllProjectsWidget extends StatelessWidget {
         } else if (state is ProjectLoadSuccess) {
           return state.projects.isNotEmpty
               ? ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: state.projects.length,
                   itemBuilder: (context, index) {
