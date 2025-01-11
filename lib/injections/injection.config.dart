@@ -8,6 +8,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:construction_mate/data/datasource/agency_data_source.dart'
+    as _i72;
 import 'package:construction_mate/data/datasource/authentication_datasource.dart'
     as _i339;
 import 'package:construction_mate/data/datasource/material_data_source.dart'
@@ -16,6 +18,8 @@ import 'package:construction_mate/data/datasource/profile_data_source.dart'
     as _i1040;
 import 'package:construction_mate/data/datasource/transaction_data_source.dart'
     as _i740;
+import 'package:construction_mate/data/repository/agency_repository.dart'
+    as _i993;
 import 'package:construction_mate/data/repository/authentication_repository.dart'
     as _i953;
 import 'package:construction_mate/data/repository/billing_party_repository.dart'
@@ -36,12 +40,16 @@ import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.da
     as _i865;
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart'
     as _i571;
+import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart'
+    as _i329;
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart'
     as _i938;
 import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart'
     as _i79;
 import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc.dart'
     as _i465;
+import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart'
+    as _i882;
 import 'package:construction_mate/logic/controllers/EditProfileBloc/edit_profile_bloc.dart'
     as _i503;
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart' as _i487;
@@ -53,9 +61,13 @@ import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_oth
     as _i847;
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart'
     as _i273;
+import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart'
+    as _i585;
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart'
     as _i660;
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart' as _i347;
+import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart'
+    as _i201;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
@@ -70,18 +82,21 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.singleton<_i882.BuildingByIdBloc>(() => _i882.BuildingByIdBloc());
+    gh.singleton<_i688.MenuBloc>(() => _i688.MenuBloc());
     gh.singleton<_i681.NetworkBloc>(() => _i681.NetworkBloc());
     gh.singleton<_i465.BottomsheetBloc>(() => _i465.BottomsheetBloc());
     gh.singleton<_i660.SubsctiptionBoxBloc>(() => _i660.SubsctiptionBoxBloc());
     gh.singleton<_i79.AuthenticatorWatcherBloc>(
         () => _i79.AuthenticatorWatcherBloc());
-    gh.singleton<_i688.MenuBloc>(() => _i688.MenuBloc());
     gh.lazySingleton<_i548.MaterialDataSource>(
         () => _i548.MaterialDataSourceImpl());
     gh.lazySingleton<_i740.TransactionDataSource>(
         () => _i740.TransactionDataSourceImpl());
     gh.lazySingleton<_i1040.ProfileDataSource>(
         () => _i1040.ProfileDataSourceImpl());
+    gh.lazySingleton<_i72.AgencyDataSource>(
+        () => _i72.AgencyDataSourceDataSourceImpl());
     gh.lazySingleton<_i339.AuthenticationDatasource>(
         () => _i339.AuthenticationDatasourceImpl());
     gh.lazySingleton<_i755.BillingPartyRepository>(
@@ -101,10 +116,20 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.lazySingleton<_i282.ProfileRepository>(
         () => _i282.ProfileRepositoryImpl(gh<_i1040.ProfileDataSource>()));
+    gh.lazySingleton<_i993.AgencyRepository>(() => _i993.AgencyRepositoryImpl(
+        agencyDataSource: gh<_i72.AgencyDataSource>()));
     gh.singleton<_i938.SignInBloc>(() => _i938.SignInBloc(
         authenticationRepository: gh<_i953.AuthenticationRepository>()));
+    gh.singleton<_i329.AgencyWorksProjectsBloc>(() =>
+        _i329.AgencyWorksProjectsBloc(
+            agencyRepository: gh<_i993.AgencyRepository>()));
     gh.factory<_i429.ProfileUsecase>(
         () => _i429.ProfileUsecase(gh<_i282.ProfileRepository>()));
+    gh.singleton<_i201.TotalPaymentOutBloc>(() => _i201.TotalPaymentOutBloc(
+        transactionRepository: gh<_i1072.TransactionRepository>()));
+    gh.singleton<_i585.PaymentTotalProjectBloc>(() =>
+        _i585.PaymentTotalProjectBloc(
+            transactionRepository: gh<_i1072.TransactionRepository>()));
     gh.factory<_i740.TransactionUsecase>(
         () => _i740.TransactionUsecase(gh<_i1072.TransactionRepository>()));
     gh.singleton<_i273.OtherExpenseBloc>(

@@ -1,4 +1,6 @@
+import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class PopUpMenuWidget extends StatelessWidget {
   final Function()? onUpdateButtonPressed;
@@ -33,10 +35,7 @@ class PopUpMenuWidget extends StatelessWidget {
                   style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
                 )))
       ],
-      icon: Icon(
-        Icons.more_vert_rounded,
-        color: theme.canvasColor,
-      ),
+      icon: SvgPicture.asset(Assets.svg.moreVert.path),
       padding: EdgeInsets.zero,
     );
   }

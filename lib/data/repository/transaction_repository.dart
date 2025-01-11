@@ -26,10 +26,16 @@ abstract class TransactionRepository {
   Future<List<TransactionModel>> getAllTransactionsByAgencyId(
       {required String agencyId});
 
-  Future<String?> getTotalPaymentOut();
-  Future<String> getTotalPaymentOutProject({required String projectId});
-  Future<String?> getTotalPaymentIn();
-  Future<String> getTotalPaymentInProject({required String projectId});
+  Future<Either<Failure, String?>> getTotalPaymentOut();
+
+  Future<Either<Failure, String?>> getTotalPaymentOutProject(
+      {required String projectId});
+
+  Future<Either<Failure, String?>> getTotalPaymentIn();
+
+  Future<Either<Failure, String?>> getTotalPaymentInProject(
+      {required String projectId});
+
   Future<List<TransactionModel>> getAllTransactionByIndividualAgency(
       {required String agencyId, required String projectId});
 
@@ -106,49 +112,27 @@ class TransactionRepositoryImpl extends TransactionRepository {
   }
 
   @override
-  Future<String?> getTotalPaymentOut() async {
-    String? total = "0";
-    try {
-      total = await transactionDataSource.getTotalPaymentOut();
-    } catch (e) {
-      print(e.toString());
-    }
-    return total;
+  Future<Either<Failure, String?>> getTotalPaymentOut() async {
+    return handleErrors(() => transactionDataSource.getTotalPaymentOut());
   }
 
   @override
-  Future<String> getTotalPaymentOutProject({required String projectId}) async {
-    String total = "0";
-    try {
-      total = await transactionDataSource.getTotalPaymentOutProject(
-          projectId: projectId);
-    } catch (e) {
-      print(e.toString());
-    }
-    return total;
+  Future<Either<Failure, String?>> getTotalPaymentOutProject(
+      {required String projectId}) async {
+    return handleErrors(() =>
+        transactionDataSource.getTotalPaymentOutProject(projectId: projectId));
   }
 
   @override
-  Future<String> getTotalPaymentInProject({required String projectId}) async {
-    String total = "0";
-    try {
-      total = await transactionDataSource.getTotalPaymentInProject(
-          projectId: projectId);
-    } catch (e) {
-      print(e.toString());
-    }
-    return total;
+  Future<Either<Failure, String?>> getTotalPaymentInProject(
+      {required String projectId}) async {
+    return handleErrors(() =>
+        transactionDataSource.getTotalPaymentInProject(projectId: projectId));
   }
 
   @override
-  Future<String?> getTotalPaymentIn() async {
-    String? total = "0";
-    try {
-      total = await transactionDataSource.getTotalPaymentIn();
-    } catch (e) {
-      print(e.toString());
-    }
-    return total;
+  Future<Either<Failure, String?>> getTotalPaymentIn() async {
+    return handleErrors(() => transactionDataSource.getTotalPaymentIn());
   }
 
   @override

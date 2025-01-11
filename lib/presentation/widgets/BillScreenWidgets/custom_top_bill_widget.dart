@@ -18,46 +18,30 @@ class MyCustomTopBillWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       width: ReusableFunctions.getwidth(context: context, width: 0.3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),
-        color: theme.cardColor,
+        color: theme.scaffoldBackgroundColor,
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  maxLines: 2,
-                  style: theme.textTheme.bodyMedium!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.start,
-                ),
-                Text(
-                  amount,
-                  style: theme.textTheme.bodyMedium!
-                      .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
-                )
-              ],
-            ),
+          Text(
+            title,
+            maxLines: 2,
+            style: theme.textTheme.bodyMedium!
+                .copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
           ),
-          Container(
-              width: 5,
-              height: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(10.r),
-                    bottomRight: Radius.circular(10.r)),
-                color: Colors.blue,
-              ))
+          Text(
+            amount,
+            style: theme.textTheme.bodyMedium!
+                .copyWith(fontSize: 14, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.start,
+          )
         ],
       ),
     );

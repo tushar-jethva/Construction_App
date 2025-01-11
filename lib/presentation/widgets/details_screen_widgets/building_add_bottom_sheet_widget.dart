@@ -1,8 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/FloorNameAndFeet/floor_name_and_feet_bloc.dart';
+import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
+import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,7 +61,7 @@ class _MyBuildingAddBottomSheetWidgetState
       lastDate: DateTime(2101),
     );
     if (picked != null && picked != DateTime.now()) {
-      dateBloc.add(DateDetailsStartChanged(startDate: picked));
+      dateBloc.add(StartAndEndDateEvent.onStartDateChanged(startDate: picked));
     }
   }
 
@@ -72,7 +75,7 @@ class _MyBuildingAddBottomSheetWidgetState
       lastDate: DateTime(2101),
     );
     if (picked != null && picked != DateTime.now()) {
-      dateBloc.add(DateDetailsEndChanged(endDate: picked));
+      dateBloc.add(StartAndEndDateEvent.onEndDateChanged(endDate: picked));
     }
   }
 
@@ -205,9 +208,7 @@ class _MyBuildingAddBottomSheetWidgetState
                 listener: (context, state) {
                   if (state is BuildingAddSuccess) {
                     Navigator.pop(context);
-                    ReusableFunctions.showSnackBar(
-                        context: context,
-                        content: "Building add successfully!");
+                    showTopSnackBar(context, "Building added");
                   }
                 },
                 child: BlocBuilder<BuildingsBloc, BuildingsState>(

@@ -7,13 +7,14 @@ class TransactionStatusWidget extends StatelessWidget {
   final String belowText;
   final TextStyle belowTextStyle;
   final TextStyle upperTextStyle;
-  const TransactionStatusWidget({
-    super.key,
-    required this.upperText,
-    required this.belowText,
-    required this.belowTextStyle,
-    required this.upperTextStyle,
-  });
+  final MainAxisSize? mainAxisSize;
+  const TransactionStatusWidget(
+      {super.key,
+      required this.upperText,
+      required this.belowText,
+      required this.belowTextStyle,
+      required this.upperTextStyle,
+      this.mainAxisSize = MainAxisSize.min});
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +26,23 @@ class TransactionStatusWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             color: theme.scaffoldBackgroundColor),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: mainAxisSize ?? MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              Icons.wallet_rounded,
-              color: theme.canvasColor,
-            ),
-            5.hx,
-            Text(
-              upperText,
-              style: upperTextStyle,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  Icons.wallet_rounded,
+                  color: theme.canvasColor,
+                ),
+                5.hx,
+                Text(
+                  upperText,
+                  style: upperTextStyle,
+                ),
+              ],
             ),
             40.hx,
             Text(

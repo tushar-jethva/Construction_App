@@ -4,6 +4,7 @@ import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
+import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
@@ -39,8 +40,8 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
     super.initState();
     _paymentTotalProjectBloc =
         BlocProvider.of<PaymentTotalProjectBloc>(context);
-    _paymentTotalProjectBloc
-        .add(FetchTotalPaymentOutProject(projectId: widget.projectModel.sId!));
+    _paymentTotalProjectBloc.add(PaymentTotalProjectEvent.fetchAllTotalPayments(
+        projectId: widget.projectModel.sId!));
   }
 
   @override
@@ -93,7 +94,11 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
             preferredSize: const Size.fromHeight(kToolbarHeight),
             child: TabBar(
               isScrollable: true,
-              onTap: (index) {},
+              onTap: (index) {
+                context
+                    .read<MenuBloc>()
+                    .add(MenuEvent.onIndexChanged(index: index));
+              },
               labelColor: purple,
               unselectedLabelColor: greyELight,
               dividerColor: theme.canvasColor,
@@ -122,9 +127,8 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
             ),
             BuildingsScreen(
               project: widget.projectModel,
-              bloc: _paymentTotalProjectBloc,
             ),
-             MaterialScreen(
+            MaterialScreen(
               project: widget.projectModel,
             ),
             MultiBlocProvider(

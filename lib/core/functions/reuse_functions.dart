@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 
 class ReusableFunctions {
   static double getHeight(
@@ -88,5 +89,37 @@ class ReusableFunctions {
     debugPrint('----------- ${res.secureUrl} ------------');
 
     return res.secureUrl;
+  }
+
+  //Show date picker
+  static Future<void> showDatePicker(
+      {required BuildContext context,
+      required void Function(dynamic event) onDateSelected,
+      DateTime? firstDate,
+      DateTime? lastDate,
+      DateTime? currentDate}) async {
+    final List<DateTime?>? selectedDates = await showCalendarDatePicker2Dialog(
+      context: context,
+      dialogBackgroundColor: white,
+      config: CalendarDatePicker2WithActionButtonsConfig(
+          calendarType: CalendarDatePicker2Type.single,
+          lastDate: lastDate ?? DateTime.now(),
+          firstDate: firstDate ?? DateTime(1900),
+          currentDate: currentDate ?? DateTime.now(),
+          cancelButtonTextStyle: Theme.of(context)
+              .textTheme
+              .titleLarge
+              ?.copyWith(fontSize: 14, color: purple),
+          okButtonTextStyle: Theme.of(context)
+              .textTheme
+              .titleLarge
+              ?.copyWith(fontSize: 14, color: purple),
+          selectedDayHighlightColor: purple),
+      dialogSize: const Size(325, 400),
+    );
+
+    if (selectedDates != null && selectedDates.first != null) {
+      onDateSelected(selectedDates.first);
+    }
   }
 }

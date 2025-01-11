@@ -30,7 +30,7 @@ class TransactionsTotalWidget extends StatelessWidget {
               builder: (context, state) {
                 return TransactionStatusWidget(
                   upperText: "Total +ve",
-                  belowText: state.paymentIn ?? "",
+                  belowText: "₹ ${state.paymentIn}",
                   upperTextStyle:
                       theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                   belowTextStyle: theme.textTheme.titleLarge!
@@ -43,7 +43,7 @@ class TransactionsTotalWidget extends StatelessWidget {
               builder: (context, state) {
                 return TransactionStatusWidget(
                   upperText: "Total -ve",
-                  belowText: state.paymentOut,
+                  belowText: "₹ ${state.paymentOut}",
                   upperTextStyle:
                       theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                   belowTextStyle: theme.textTheme.titleLarge!
@@ -56,9 +56,8 @@ class TransactionsTotalWidget extends StatelessWidget {
               builder: (context, state) {
                 return TransactionStatusWidget(
                   upperText: "Total",
-                  belowText: (double.parse(state.paymentIn) -
-                          double.parse(state.paymentOut))
-                      .toString(),
+                  belowText:
+                      "₹ ${(double.parse(state.paymentIn) - double.parse(state.paymentOut)).toString()}",
                   upperTextStyle:
                       theme.textTheme.titleMedium!.copyWith(fontSize: 15),
                   belowTextStyle:

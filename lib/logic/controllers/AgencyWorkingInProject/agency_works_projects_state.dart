@@ -1,16 +1,26 @@
 part of 'agency_works_projects_bloc.dart';
 
-@immutable
-sealed class AgencyWorksProjectsState {}
+@freezed
+class AgencyWorksProjectsState with _$AgencyWorksProjectsState {
+  const factory AgencyWorksProjectsState({
+    required RequestState state,
+    required String message,
+    required String query,
+    required List<TotalAgencyModel> totalAgencies,
+  }) = _AgencyWorksProjectsState;
 
-final class AgencyWorksProjectsInitial extends AgencyWorksProjectsState {}
-
-final class AgencyWorksProjectsSuccess extends AgencyWorksProjectsState {
-  final List<TotalAgencyModel> totalAgencies;
-  AgencyWorksProjectsSuccess({required this.totalAgencies});
+  factory AgencyWorksProjectsState.initial() => const AgencyWorksProjectsState(
+      state: RequestState.empty, message: '', query: '', totalAgencies: []);
 }
 
-final class AgencyWorksProjectsFailure extends AgencyWorksProjectsState {
-  final String message;
-  AgencyWorksProjectsFailure({required this.message});
-}
+// final class AgencyWorksProjectsInitial extends AgencyWorksProjectsState {}
+
+// final class AgencyWorksProjectsSuccess extends AgencyWorksProjectsState {
+//   final List<TotalAgencyModel> totalAgencies;
+//   AgencyWorksProjectsSuccess({required this.totalAgencies});
+// }
+
+// final class AgencyWorksProjectsFailure extends AgencyWorksProjectsState {
+//   final String message;
+//   AgencyWorksProjectsFailure({required this.message});
+// }

@@ -57,30 +57,56 @@ void showShortToast({
       iconI = icon ?? Icons.info;
       break;
   }
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Align(
-        alignment: Alignment.center, // Center the SnackBar content
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth:
-                MediaQuery.of(context).size.width * 0.8, // Max width constraint
-          ),
-          child: MyToastWidget(
-            backgroundColor: backgroundColor,
-            message: message,
-            iconBackgroundColor: iconBackgroundColor,
-            icon: iconI,
-            theme: theme,
-            style: style,
-          ),
-        ),
+
+  final overlay = Overlay.of(context);
+  late OverlayEntry overlayEntry;
+
+  overlayEntry = OverlayEntry(
+    builder: (context) => Positioned(
+      top: MediaQuery.of(context).padding.top + 10,
+      left: 20,
+      right: 20,
+      child: MyToastWidget(
+        backgroundColor: backgroundColor,
+        message: message,
+        iconBackgroundColor: iconBackgroundColor,
+        icon: iconI,
+        theme: theme,
+        style: style,
       ),
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
     ),
   );
+
+  overlay.insert(overlayEntry);
+
+  // Remove the snackbar after a delay
+  // Future.delayed(const Duration(seconds: 3), () {
+  //   overlayEntry.remove();
+  // });
+  // ScaffoldMessenger.of(context).showSnackBar(
+  //   SnackBar(
+  //     content: Align(
+  //       alignment: Alignment.center, // Center the SnackBar content
+  //       child: ConstrainedBox(
+  //         constraints: BoxConstraints(
+  //           maxWidth:
+  //               MediaQuery.of(context).size.width * 0.8, // Max width constraint
+  //         ),
+  //         child: MyToastWidget(
+  //           backgroundColor: backgroundColor,
+  //           message: message,
+  //           iconBackgroundColor: iconBackgroundColor,
+  //           icon: iconI,
+  //           theme: theme,
+  //           style: style,
+  //         ),
+  //       ),
+  //     ),
+  //     behavior: SnackBarBehavior.floating,
+  //     backgroundColor: Colors.transparent,
+  //     elevation: 0,
+  //   ),
+  // );
 }
 
 class MyToastWidget extends StatelessWidget {

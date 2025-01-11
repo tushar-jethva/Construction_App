@@ -35,7 +35,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     super.initState();
     _projectBloc = BlocProvider.of<ProjectBloc>(context);
     _totalPaymentOutBloc = BlocProvider.of<TotalPaymentOutBloc>(context);
-    _totalPaymentOutBloc.add(FetchTotalPaymentOut());
+    _totalPaymentOutBloc.add(TotalPaymentOutEvent.fetchTotalPayments());
     _projectBloc.add(LoadProjects());
     context.read<TdsBloc>().add(const TdsEvent.fetchTds());
     context.read<GstBloc>().add(const GstEvent.fetchGst());
@@ -46,7 +46,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
 
   Future<void> _refreshProjects() async {
     _projectBloc.add(LoadProjects());
-    _totalPaymentOutBloc.add(FetchTotalPaymentOut());
+    _totalPaymentOutBloc.add(TotalPaymentOutEvent.fetchTotalPayments());
   }
 
   openBottomSheet({required BuildContext context}) {
@@ -68,10 +68,6 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     return Scaffold(
       backgroundColor: theme.cardColor,
       resizeToAvoidBottomInset: true,
-      appBar: PreferredSize(
-          preferredSize:
-              Size(double.infinity, MediaQuery.of(context).size.height * 0.1),
-          child: MyHomeScreenAppBar(onTap: widget.onTapProfile)),
       body: Stack(
         children: [
           const TransactionsTotalWidget(),
@@ -103,39 +99,67 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     );
   }
 
-  GestureDetector addProjectTextWidget(BuildContext context, ThemeData theme) {
-    return GestureDetector(
+  Widget addProjectTextWidget(BuildContext context, ThemeData theme) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: CommonButton2(
+        buttonName: "Project",
         onTap: () {
           openBottomSheet(context: context);
         },
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14), color: darkBlue),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconCircleWidget(
-                  radius: 5,
-                  padding: const EdgeInsets.all(2),
-                  imagewidget: const Icon(
-                    Icons.add,
-                    size: 14,
-                    color: black,
-                  ),
-                  backgroundColor: greyLight,
-                ),
-                5.wx,
-                Text(
-                  " Project",
-                  style: theme.textTheme.titleLarge!
-                      .copyWith(color: white, fontSize: 12.5),
-                ),
-              ],
+      ),
+    );
+  }
+}
+
+class CommonButton2 extends StatelessWidget {
+  final String buttonName;
+  final Function()? onTap;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final Color? iconBackColor;
+  final Color? iconColor;
+  const CommonButton2(
+      {super.key,
+      required this.buttonName,
+      this.onTap,
+      this.backgroundColor,
+      this.textColor,
+      this.iconBackColor, this.iconColor});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            color: backgroundColor ?? purple),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconCircleWidget(
+              radius: 5,
+              padding: const EdgeInsets.all(2),
+              imagewidget:  Icon(
+                Icons.add,
+                size: 14,
+                color: iconColor ?? white,
+              ),
+              backgroundColor:
+                  iconBackColor ?? const Color.fromARGB(54, 245, 246, 247),
             ),
-          ),
-        ));
+            5.wx,
+            Text(
+              buttonName,
+              style: theme.textTheme.titleLarge!
+                  .copyWith(color: textColor ?? white, fontSize: 12.5),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

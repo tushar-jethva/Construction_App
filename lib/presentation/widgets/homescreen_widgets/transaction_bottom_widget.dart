@@ -235,9 +235,9 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                           .add(AddPaymentInTransaction(
                                             amount: _priceInController.text,
                                           ));
-                                      context
-                                          .read<TotalPaymentOutBloc>()
-                                          .add(FetchTotalPaymentOut());
+                                      context.read<TotalPaymentOutBloc>().add(
+                                          TotalPaymentOutEvent
+                                              .fetchTotalPayments());
 
                                       _descriptionController.clear();
                                       _priceInController.clear();
@@ -576,8 +576,8 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                                       context
                                                           .read<
                                                               TotalPaymentOutBloc>()
-                                                          .add(
-                                                              FetchTotalPaymentOut());
+                                                          .add(const TotalPaymentOutEvent
+                                                              .fetchTotalPayments());
 
                                                       _descriptionController
                                                           .clear();
@@ -733,8 +733,8 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                                       context
                                                           .read<
                                                               TotalPaymentOutBloc>()
-                                                          .add(
-                                                              FetchTotalPaymentOut());
+                                                          .add(TotalPaymentOutEvent
+                                                              .fetchTotalPayments());
                                                     }
                                                   },
                                                 ),

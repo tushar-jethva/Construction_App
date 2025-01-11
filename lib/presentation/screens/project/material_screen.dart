@@ -28,8 +28,8 @@ class _MaterialScreenState extends State<MaterialScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<AddMaterialBloc>().add(
-        AddMaterialEvent.fetchAllMaterial(projectId: widget.project.sId ?? ""));
+    // context.read<AddMaterialBloc>().add(
+    //     AddMaterialEvent.fetchAllMaterial(projectId: widget.project.sId ?? ""));
   }
 
   openBottomSheetOfMaterial(
@@ -65,43 +65,14 @@ class _MaterialScreenState extends State<MaterialScreen> {
       onRefresh: onRefresh,
       child: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Material",
-                  style: theme.textTheme.titleMedium!.copyWith(fontSize: 16),
-                ),
-                MyCustomButton(
-                    buttonName: '+ Add Material',
-                    color: transparent,
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: purple,
-                        fontWeight: FontWeight.bold),
-                    onPressed: () {
-                      openBottomSheetOfMaterial(
-                          context: context,
-                          isUpdate: false,
-                          material: MaterialModel(
-                              materialName: "",
-                              quantity: "",
-                              unit: "",
-                              description: "",
-                              date: ""));
-                    }),
-              ],
-            ),
-          ),
-          Expanded(child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
+          BlocBuilder<AddMaterialBloc, AddMaterialState>(
             builder: (context, state) {
               return state.state.isLoading
                   ? Skeletonizer(
                       enabled: true,
                       child: ListView.builder(
                           itemCount: 5,
+                          shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return materialWidget(
                                 theme,
@@ -115,79 +86,88 @@ class _MaterialScreenState extends State<MaterialScreen> {
                   : state.materialList.isNotEmpty
                       ? ListView.builder(
                           itemCount: state.materialList.length,
+                          shrinkWrap: true,
                           itemBuilder: (context, index) {
                             final material = state.materialList[index];
                             return materialWidget(theme, material);
                           })
-                      : Expanded(
+                      : SizedBox(
+                          height: MediaQuery.of(context).size.height,
                           child: ListView(children: [
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.6,
+                                    MediaQuery.of(context).size.height * 0.5,
                                 child: const Center(
                                     child: Text("No material added!"))),
                           ]),
                         );
             },
-          )),
+          ),
         ],
       ),
     );
   }
 
-  Container materialWidget(ThemeData theme, MaterialModel material) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  Widget materialWidget(ThemeData theme, MaterialModel material) {
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Align(
+            alignment: Alignment.topRight,
+            child: PopUpMenuWidget(
+              theme: theme,
+              onUpdateButtonPressed: () {
+                openBottomSheetOfMaterial(
+                    context: context, material: material, isUpdate: true);
+              },
+              onDeleteButtonPressed: () {},
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                material.materialName,
-                style: theme.textTheme.titleLarge?.copyWith(fontSize: 20),
-              ),
-              5.hx,
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Quantity:",
-                    style: theme.textTheme.titleMedium?.copyWith(fontSize: 14),
+                    material.materialName,
+                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 20),
+                  ),
+                  Text(
+                    material.description,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                        fontSize: 14, color: const Color(0xff6B7580)),
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Quantity: ",
+                        style: theme.textTheme.titleMedium
+                            ?.copyWith(fontSize: 14, color: theme.canvasColor),
+                      ),
+                      Text(
+                        material.quantity,
+                        style: theme.textTheme.titleLarge
+                            ?.copyWith(fontSize: 16, color: theme.canvasColor),
+                      ),
+                    ],
                   ),
                   10.wx,
                   Text(
-                    material.quantity,
-                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 14),
-                  )
+                    ReusableFunctions.getFormattedDate(material.date),
+                    style: theme.textTheme.bodyMedium?.copyWith(color: gray500),
+                  ),
                 ],
               ),
-              10.hx,
-              Text(
-                material.description,
-                style: theme.textTheme.titleMedium?.copyWith(fontSize: 14),
-              ),
-              10.hx,
-              Text(
-                ReusableFunctions.getFormattedDate(material.date),
-                style: theme.textTheme.bodyMedium,
-              )
             ],
           ),
-          PopUpMenuWidget(
-            theme: theme,
-            onUpdateButtonPressed: () {
-              openBottomSheetOfMaterial(
-                  context: context, material: material, isUpdate: true);
-            },
-            onDeleteButtonPressed: () {},
-          )
+          const Divider()
         ],
       ),
     );

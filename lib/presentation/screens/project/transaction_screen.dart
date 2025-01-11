@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:flutter/material.dart';
@@ -36,42 +37,8 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
   void initState() {
     super.initState();
     transactionBuildingBloc = BlocProvider.of<TransactionBuildingBloc>(context);
-    transactionBuildingBloc
-        .add(FetchAllTransactionByProjectId(projectId: widget.project.sId!));
-  }
-
-  Future<void> _selectStartDate(BuildContext context) async {
-    DateTime initialDate = DateTime.now();
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (pickedDate != null) {
-      // ignore: use_build_context_synchronously
-      context
-          .read<StartAndEndDateBloc>()
-          .add(DateDetailsStartChanged(startDate: pickedDate));
-    }
-  }
-
-  Future<void> _selectEndDate(BuildContext context) async {
-    DateTime initialDate = DateTime.now();
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
-    if (pickedDate != null) {
-      // ignore: use_build_context_synchronously
-      context
-          .read<StartAndEndDateBloc>()
-          .add(DateDetailsEndChanged(endDate: pickedDate));
-    }
+    // transactionBuildingBloc
+    //     .add(FetchAllTransactionByProjectId(projectId: widget.project.sId!));
   }
 
   @override
@@ -91,217 +58,56 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: _refreshTransactions,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding:
-                        EdgeInsets.only(top: 15.h, left: 10.w, bottom: 10.h),
-                    child: TextField(
-                      controller: _searchController,
-                      maxLines: 1,
-                      onChanged: (value) {
-                        context.read<TransactionBuildingBloc>().add(
-                            FetchTransactionByQuery(
-                                query: _searchController.text));
-                      },
-                      onTapOutside: (event) {
-                        FocusScope.of(context).unfocus();
-                      },
-                      style: theme.textTheme.titleMedium,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.search_rounded,
-                          color: grey,
-                        ),
-                        hintText: 'Search transactions',
-                        hintStyle:
-                            theme.textTheme.titleMedium!.copyWith(color: grey),
-                        contentPadding: EdgeInsets.symmetric(vertical: 5.h),
-                        border: InputBorder.none,
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide:
-                                const BorderSide(color: grey, width: 1)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide:
-                                const BorderSide(color: grey, width: 1)),
+    return RefreshIndicator(
+      color: purple,
+      onRefresh: _refreshTransactions,
+      child: BlocBuilder<TransactionBuildingBloc, TransactionBuildingState>(
+          builder: ((context, state) {
+        if (state is TransactionBuildingLoading) {
+          return Skeletonizer(
+              enabled: true,
+              child: ListView.builder(
+                itemCount: 5,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return transactionWidget(
+                      context,
+                      TransactionModel(
+                        sId: "#8098809812",
+                        amount: "1000",
+                        isCompleted: false,
                       ),
-                    ),
-                  ),
-                ),
-                PopupMenuButton<String>(
-                  onSelected: (String value) {},
-                  itemBuilder: (BuildContext context) => [
-                    PopupMenuItem<String>(
-                      value: 'Option 1',
-                      child: BlocProvider.value(
-                        value: BlocProvider.of<StartAndEndDateBloc>(context),
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                _selectStartDate(context);
-                              },
-                              child: Container(
-                                height: 50.h,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 15.h),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: grey),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    BlocBuilder<StartAndEndDateBloc,
-                                        StartAndEndDateState>(
-                                      builder: (context, state) {
-                                        final String formattedDate =
-                                            DateFormat.yMMMd()
-                                                .format(state.startDate);
-                                        return Text(
-                                            "Start Date: $formattedDate");
-                                      },
-                                    ),
-                                    const Icon(Icons.calendar_month),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Gap(15.h),
-                            GestureDetector(
-                              onTap: () {
-                                _selectEndDate(context);
-                              },
-                              child: Container(
-                                height: 50.h,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.w, vertical: 15.h),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: grey),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    BlocBuilder<StartAndEndDateBloc,
-                                        StartAndEndDateState>(
-                                      builder: (context, state) {
-                                        final String formattedDate =
-                                            DateFormat.yMMMd()
-                                                .format(state.endDate);
-                                        return Text("End Date: $formattedDate");
-                                      },
-                                    ),
-                                    const Icon(Icons.calendar_month),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Gap(10.h),
-                            MyCustomButton(
-                              buttonName: 'Filter',
-                              color: green,
-                              style: const TextStyle(color: white),
-                              onPressed: () {
-                                final state =
-                                    context.read<StartAndEndDateBloc>().state;
-                                context.read<TransactionBuildingBloc>().add(
-                                      FetchTransactionsByDates(
-                                        startDate: state.startDate,
-                                        endDate: state.endDate,
-                                      ),
-                                    );
-                                context.pop();
-                              },
-                            ),
-                            Gap(10.h),
-                            MyCustomButton(
-                              buttonName: 'Reset',
-                              color: greyLight,
-                              style: const TextStyle(color: black),
-                              onPressed: () {
-                                context
-                                    .read<StartAndEndDateBloc>()
-                                    .add(DateInitial());
-                                context
-                                    .read<TransactionBuildingBloc>()
-                                    .add(ResetAll());
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                  icon: Icon(
-                    Icons.filter_alt_outlined,
-                    color: theme.canvasColor,
-                  ),
+                      theme,
+                      "");
+                },
+              ));
+        } else if (state is TransactionBuildingSuccess) {
+          return state.listOfTransactions.isEmpty
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: ListView(children: [
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: const Center(
+                            child: Text("No transactions founds!"))),
+                  ]),
                 )
-              ],
-            ),
-            BlocBuilder<TransactionBuildingBloc, TransactionBuildingState>(
-                builder: ((context, state) {
-              if (state is TransactionBuildingLoading) {
-                return Expanded(
-                  child: Skeletonizer(
-                      enabled: true,
-                      child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return transactionWidget(
-                              context,
-                              TransactionModel(
-                                sId: "#8098809812",
-                                amount: "1000",
-                                isCompleted: false,
-                              ),
-                              theme,
-                              "");
-                        },
-                      )),
+              : ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.listOfTransactions.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    final TransactionModel transaction =
+                        state.listOfTransactions[index];
+                    String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
+                        .format(DateTime.parse(transaction.date!));
+                    return transactionWidget(
+                        context, transaction, theme, formattedDate);
+                  },
                 );
-              } else if (state is TransactionBuildingSuccess) {
-                return Expanded(
-                  child: state.listOfTransactions.isEmpty
-                      ? Expanded(
-                          child: ListView(children: [
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.6,
-                                child: const Center(
-                                    child: Text("No transactions founds!"))),
-                          ]),
-                        )
-                      : ListView.builder(
-                          itemCount: state.listOfTransactions.length,
-                          itemBuilder: (context, index) {
-                            final TransactionModel transaction =
-                                state.listOfTransactions[index];
-                            String formattedDate =
-                                DateFormat('dd-MM-yyyy  hh:mm')
-                                    .format(DateTime.parse(transaction.date!));
-                            return transactionWidget(
-                                context, transaction, theme, formattedDate);
-                          },
-                        ),
-                );
-              }
-              return const Text("No Transaction Found");
-            }))
-          ],
-        ),
-      ),
+        }
+        return const Text("No Transaction Found");
+      })),
     );
   }
 
@@ -309,44 +115,43 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
       TransactionModel transaction, ThemeData theme, String formattedDate) {
     return GestureDetector(
       onTap: () {
-        ReusableFunctions.showSnackBar(
-            context: context, content: transaction.description!);
+        showTopSnackBar(context, transaction.description ?? "");
       },
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
-        child: Container(
-          decoration: BoxDecoration(
-              color: theme.cardColor,
-              borderRadius: BorderRadius.circular(15.r)),
-          child: ListTile(
-            title: Row(
-              children: [
-                Text(
-                  "${transaction.name}",
-                  style: theme.textTheme.titleMedium,
-                ),
-                Gap(5.w),
-                transaction.isCompleted!
-                    ? Icon(
-                        Icons.check_circle_outline_outlined,
-                        color: green,
-                        size: 20,
-                      )
-                    : const SizedBox()
-              ],
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        child: Column(
+          children: [
+            ListTile(
+              title: Row(
+                children: [
+                  Text(
+                    "${transaction.name}",
+                    style: theme.textTheme.titleMedium,
+                  ),
+                  Gap(5.w),
+                  transaction.isCompleted!
+                      ? Icon(
+                          Icons.check_circle_outline_outlined,
+                          color: green,
+                          size: 20,
+                        )
+                      : const SizedBox()
+                ],
+              ),
+              subtitle: Text(
+                formattedDate,
+                style: theme.textTheme.titleMedium!
+                    .copyWith(color: grey, fontSize: 14),
+              ),
+              trailing: Text(
+                "₹ ${transaction.amount}",
+                style: theme.textTheme.titleLarge?.copyWith(
+                    fontSize: 16,
+                    color: transaction.entryType == 'Credit' ? green : red),
+              ),
             ),
-            subtitle: Text(
-              formattedDate,
-              style: theme.textTheme.titleMedium!
-                  .copyWith(color: grey, fontSize: 14),
-            ),
-            trailing: Text(
-              "${transaction.amount}",
-              style: TextStyle(
-                  fontSize: 13,
-                  color: transaction.entryType == 'Credit' ? green : red),
-            ),
-          ),
+            const Divider()
+          ],
         ),
       ),
     );

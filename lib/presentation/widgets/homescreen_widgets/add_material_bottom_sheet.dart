@@ -50,7 +50,10 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
     );
 
     if (pickedDate != null) {
-      context.read<DateBlocBloc>().add(DateChanged(dateTime: pickedDate));
+      context
+          .read<DateBlocBloc>()
+          .add(DateBlocEvent.onDateChanged(dateTime: pickedDate));
+
       context
           .read<AddMaterialBloc>()
           .add(AddMaterialEvent.onDateChanged(date: pickedDate.toString()));

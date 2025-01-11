@@ -9,10 +9,12 @@ import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
@@ -51,27 +53,55 @@ class _MyBottomBarState extends State<MyBottomBar> {
       builder: (context, state) {
         return Scaffold(
           key: _scaffoldKey,
+          appBar: PreferredSize(
+              preferredSize: Size(
+                  double.infinity, MediaQuery.of(context).size.height * 0.1),
+              child: MyHomeScreenAppBar(onTap: () {
+                _scaffoldKey.currentState?.openDrawer();
+              })),
           drawer: drawer(context: context),
           body: screens[state.tabIndex],
-          bottomNavigationBar: BottomNavigationBar(
-              backgroundColor: theme.scaffoldBackgroundColor,
-              unselectedItemColor: grey,
-              selectedItemColor: purple,
-              elevation: 0,
-              currentIndex: state.tabIndex,
-              onTap: (value) {
-                context
-                    .read<BottomBarBloc>()
-                    .add(TabChangeEvent(tabIndex: value));
-              },
-              items: const [
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.home), label: 'Parties'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.analytics), label: "Projects"),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.library_books_rounded), label: "Bills"),
-              ]),
+          bottomNavigationBar: Theme(
+            data: Theme.of(context).copyWith(
+              splashFactory:
+                  NoSplash.splashFactory, // Disable the splash effect
+              highlightColor:
+                  Colors.transparent, // Disable the highlight effect
+            ),
+            child: BottomNavigationBar(
+                backgroundColor: theme.scaffoldBackgroundColor,
+                unselectedItemColor: grey,
+                selectedItemColor: purple,
+                unselectedIconTheme: IconThemeData(color: grey),
+                selectedIconTheme: IconThemeData(color: purple),
+                elevation: 0,
+                currentIndex: state.tabIndex,
+                onTap: (value) {
+                  context
+                      .read<BottomBarBloc>()
+                      .add(TabChangeEvent(tabIndex: value));
+                },
+                items: [
+                  BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        Assets.svg.partiesIcon.path,
+                        color: state.tabIndex == 0 ? purple : grey,
+                      ),
+                      label: 'Parties'),
+                  BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        Assets.svg.projectIcon.path,
+                        color: state.tabIndex == 1 ? purple : grey,
+                      ),
+                      label: "Projects"),
+                  BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        Assets.svg.billIcon.path,
+                        color: state.tabIndex == 2 ? purple : grey,
+                      ),
+                      label: "Bills"),
+                ]),
+          ),
         );
       },
     );
@@ -87,7 +117,7 @@ Widget drawer({required BuildContext context}) {
         Container(
           color: theme.cardColor,
           width: double.infinity,
-          padding: EdgeInsets.only(top: 45, bottom: 10),
+          padding: const EdgeInsets.only(top: 45, bottom: 10),
           child: Column(
             children: [
               CircleAvatar(
@@ -110,11 +140,11 @@ Widget drawer({required BuildContext context}) {
         ),
         ListTile(
           leading: Lottie.asset(
-            height: 50,
+            height: 35,
             width: 35,
             Assets.json.subscription,
-            fit: BoxFit.cover,
-            repeat: true,
+            fit: BoxFit.fitWidth,
+            repeat: false,
           ),
           title: Text(
             "Upgrade",

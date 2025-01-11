@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
@@ -599,14 +600,11 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                 .read<BillingPartiesHomeBloc>()
                                 .add(BillingPartiesLoadEvent());
                             Navigator.of(context).pop();
-                            "Bill added!".showToast(
-                                context: context,
-                                typeOfToast: ShortToastType.success);
+                            const TopSnackBar(message: "Bill added");
                           } else if (state.isAddedBill == 3) {
                             Navigator.of(context).pop();
-                            "Something went wrong! Try again".showToast(
-                                context: context,
-                                typeOfToast: ShortToastType.error);
+                            const TopSnackBar(
+                                message: "Something went wrong! Try again");
                           }
                         },
                         builder: (context, state) {

@@ -1,7 +1,10 @@
 part of 'date_bloc_bloc.dart';
 
-class DateBlocState {
-  final DateTime selectedDate;
+@freezed
+class DateBlocState with _$DateBlocState {
+  const factory DateBlocState({required DateTime selectedDate}) =
+      _DateBlocState;
 
-  DateBlocState({required this.selectedDate});
+  factory DateBlocState.initial() =>
+      DateBlocState(selectedDate: DateTime.now());
 }

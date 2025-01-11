@@ -1,21 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'total_payment_out_bloc.dart';
 
-class TotalPaymentOutState {
-  String paymentOut;
-  String paymentIn;
-  TotalPaymentOutState({
-    this.paymentOut = "0",
-    this.paymentIn = "0",
-  });
+@freezed
+class TotalPaymentOutState with _$TotalPaymentOutState {
+  const factory TotalPaymentOutState(
+      {required RequestState state,
+      required String message,
+      required String paymentOut,
+      required String paymentIn}) = _TotalPaymentOutState;
 
-  TotalPaymentOutState copyWith({
-    String? paymentOut,
-    String? paymentIn,
-  }) {
-    return TotalPaymentOutState(
-      paymentOut: paymentOut ?? this.paymentOut,
-      paymentIn: paymentIn ?? this.paymentIn,
-    );
-  }
+  factory TotalPaymentOutState.initial() => TotalPaymentOutState(
+      state: RequestState.empty, message: '', paymentIn: "0", paymentOut: "0");
 }

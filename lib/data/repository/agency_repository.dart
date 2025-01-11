@@ -4,6 +4,10 @@ import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
 import 'package:construction_mate/logic/models/floor_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
+import 'package:construction_mate/utilities/error_handling/error_handler.dart';
+import 'package:construction_mate/utilities/error_handling/failure.dart';
+import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class AgencyRepository {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
@@ -31,7 +35,7 @@ abstract class AgencyRepository {
   Future<List<DropDownAgencyModel>> getWorkingAgenciesOnBuildingForDropDown(
       {required String buildingId, required String projectId});
   Future<List<TotalAgencyModel>> getTotalAgencies();
-  Future<List<TotalAgencyModel>> getAgencyByProject(
+  Future<Either<Failure, List<TotalAgencyModel>>> getAgencyByProject(
       {required String projectId});
   Future<void> addAgency(
       {required String name,
@@ -41,6 +45,7 @@ abstract class AgencyRepository {
   Future<List<DropDownAgencyModel>> getPaymentInAgency();
 }
 
+@LazySingleton(as: AgencyRepository)
 class AgencyRepositoryImpl extends AgencyRepository {
   final AgencyDataSource agencyDataSource;
   AgencyRepositoryImpl({required this.agencyDataSource});
@@ -152,16 +157,10 @@ class AgencyRepositoryImpl extends AgencyRepository {
   }
 
   @override
-  Future<List<TotalAgencyModel>> getAgencyByProject(
+  Future<Either<Failure, List<TotalAgencyModel>>> getAgencyByProject(
       {required String projectId}) async {
-    List<TotalAgencyModel> totalAgenciesList = [];
-    try {
-      totalAgenciesList =
-          await agencyDataSource.getAgencyByProject(projectId: projectId);
-    } catch (e) {
-      print(e.toString());
-    }
-    return totalAgenciesList;
+    return handleErrors(
+        () => agencyDataSource.getAgencyByProject(projectId: projectId));
   }
 
   @override

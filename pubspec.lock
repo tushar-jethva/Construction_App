@@ -174,6 +174,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  calendar_date_picker2:
+    dependency: "direct main"
+    description:
+      name: calendar_date_picker2
+      sha256: b5169b1e6aea0890ff4acaa037c81b697e985b149da64ae53e96afcfebb2e18e
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.8"
   characters:
     dependency: transitive
     description:
@@ -302,6 +310,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.10.1"
+  dashed_line:
+    dependency: "direct main"
+    description:
+      name: dashed_line
+      sha256: e66c20b5aabd3e774328f495c6d6b80c85193bf6474f9bd7f902d6d06c1caddd
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0+3"
   dbus:
     dependency: transitive
     description:
@@ -1290,6 +1306,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  svg_path_parser:
+    dependency: transitive
+    description:
+      name: svg_path_parser
+      sha256: adff09b1099a0c9e0dc81e1975de70999889f825c1a2e8e9139bab03464a3657
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   synchronized:
     dependency: transitive
     description:

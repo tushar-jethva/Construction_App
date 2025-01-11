@@ -1,17 +1,17 @@
 part of 'start_and_end_date_bloc.dart';
 
-@immutable
-sealed class StartAndEndDateEvent {}
+@freezed
+class StartAndEndDateEvent with _$StartAndEndDateEvent {
+  //Initial
+  const factory StartAndEndDateEvent.initalize() = _Initialize;
 
-class DateInitial extends StartAndEndDateEvent{}
+  //On start changed
+  const factory StartAndEndDateEvent.onStartDateChanged(
+      {required DateTime startDate}) = _OnStartDateChanged;
 
-class DateDetailsStartChanged extends StartAndEndDateEvent{
-  final DateTime startDate;
-  DateDetailsStartChanged({required this.startDate});
+  //On end changed
+  const factory StartAndEndDateEvent.onEndDateChanged(
+      {required DateTime endDate}) = _OnEndDateChanged;
 }
 
-class DateDetailsEndChanged extends StartAndEndDateEvent{
-  final DateTime endDate;
 
-  DateDetailsEndChanged({required this.endDate});
-}

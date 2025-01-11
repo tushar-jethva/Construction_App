@@ -1,6 +1,8 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
@@ -10,6 +12,7 @@ import 'package:construction_mate/presentation/widgets/homescreen_widgets/projec
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
@@ -98,14 +101,14 @@ class AllProjectsWidget extends StatelessWidget {
         } else if (state is ProjectLoadSuccess) {
           return state.projects.isNotEmpty
               ? ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: state.projects.length,
                   itemBuilder: (context, index) {
                     ProjectModel project = state.projects[index];
                     return GestureDetector(
                       onTap: () {
-                        context.pushNamed(RoutesName.projectDetailsScreen,
+                        context.pushNamed(RoutesName.NEW_DETAIL_SCREEN_NAME,
                             extra: project);
                       },
                       child: Padding(
@@ -115,8 +118,8 @@ class AllProjectsWidget extends StatelessWidget {
                             leading: IconCircleWidget(
                               radius: 10,
                               backgroundColor: theme.cardColor,
-                              imagewidget: Icon(
-                                Icons.home,
+                              imagewidget: SvgPicture.asset(
+                                buildIcons[index % buildIcons.length],
                                 color: theme.canvasColor,
                               ),
                             ),

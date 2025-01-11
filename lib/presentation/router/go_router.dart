@@ -5,10 +5,12 @@ import 'package:construction_mate/data/repository/bills_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
+import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialByParty/financialy_by_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
+import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionIndividualAgency/transactions_individual_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/FloorNameAndFeet/floor_name_and_feet_bloc.dart';
@@ -185,6 +187,10 @@ class Routes {
             final agencyId = args['agencyId'] as String;
             final projectId = args['projectId'] as String;
             final agencyName = args['agencyName'] as String;
+
+            context
+                .read<StartAndEndDateBloc>()
+                .add(const StartAndEndDateEvent.initalize());
             return BlocProvider(
               create: (context) => TransactionsIndividualAgencyBloc(
                   transactionRepository: TransactionRepositoryImpl(
@@ -296,7 +302,16 @@ class Routes {
           path: RoutesName.NEW_DETAIL_SCREEN_PATH,
           name: RoutesName.NEW_DETAIL_SCREEN_NAME,
           builder: (context, state) {
-            return const ProjectDetailsNScreen();
+            final ProjectModel project = state.extra as ProjectModel;
+            context
+                .read<BuildingByIdBloc>()
+                .add(BuildingByIdEvent.getProject(project: project));
+            context
+                .read<StartAndEndDateBloc>()
+                .add(const StartAndEndDateEvent.initalize());
+            return ProjectDetailsNScreen(
+              projectModel: project,
+            );
           },
         ),
       ]);

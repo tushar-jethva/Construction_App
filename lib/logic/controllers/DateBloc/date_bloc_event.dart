@@ -1,12 +1,13 @@
 part of 'date_bloc_bloc.dart';
 
-sealed class DateBlocEvent {}
+@freezed
+class DateBlocEvent with _$DateBlocEvent {
+  //Initial
+  const factory DateBlocEvent.initalize() = _Initalize;
 
-class DateChanged extends DateBlocEvent{
-  final DateTime dateTime;
-  DateChanged({required this.dateTime});
+  //On date changend
+  const factory DateBlocEvent.onDateChanged({required DateTime dateTime}) =
+      _OnDateChanged;
 }
-
-class DateInitial extends DateBlocEvent{}
 
 

@@ -1,20 +1,14 @@
 part of 'payment_total_project_bloc.dart';
 
-  class PaymentTotalProjectState {
-  String paymentOut;
-  String paymentIn;
-  PaymentTotalProjectState({
-    this.paymentOut = "0",
-    this.paymentIn = "0",
-  });
+@freezed
+class PaymentTotalProjectState with _$PaymentTotalProjectState {
+  const factory PaymentTotalProjectState({
+    required RequestState state,
+    required String message,
+    required String paymentOut,
+    required String paymentIn,
+  }) = _PaymentTotalProjectState;
 
-  PaymentTotalProjectState copyWith({
-    String? paymentOut,
-    String? paymentIn,
-  }) {
-    return PaymentTotalProjectState(
-      paymentOut: paymentOut ?? this.paymentOut,
-      paymentIn: paymentIn ?? this.paymentIn,
-    );
-  }
+  factory PaymentTotalProjectState.initial() => const PaymentTotalProjectState(
+      state: RequestState.empty, message: '', paymentOut: "0", paymentIn: "0");
 }

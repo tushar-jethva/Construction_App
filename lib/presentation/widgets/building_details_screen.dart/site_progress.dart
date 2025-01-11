@@ -1,7 +1,9 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:flutter/material.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
@@ -46,6 +48,11 @@ class _MySiteProgressScreenWidgetState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    return scrollableSheetWidget(context, theme);
+  }
+
+  BlocBuilder<SiteProgressFloorsBloc, SiteProgressFloorsState> floorsWidget(
+      ThemeData theme) {
     return BlocBuilder<SiteProgressFloorsBloc, SiteProgressFloorsState>(
       builder: (context, state) {
         if (state is SiteProgressFloorsInitial) {
@@ -56,6 +63,8 @@ class _MySiteProgressScreenWidgetState
             child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 itemCount: 5,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {},
@@ -92,29 +101,27 @@ class _MySiteProgressScreenWidgetState
                 }),
           );
         } else if (state is SiteProgressFloorsSuccess) {
-          return ListView.builder(
-              itemCount: state.listOfFloorsSite.length,
-              itemBuilder: (context, index) {
-                FloorSiteModel floorSiteModel = state.listOfFloorsSite[index];
-                String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
-                    .format(DateTime.parse(floorSiteModel.completedDate!));
+          return Padding(
+            padding: const EdgeInsets.only(top: 10.0),
+            child: ListView.builder(
+                itemCount: state.listOfFloorsSite.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  FloorSiteModel floorSiteModel = state.listOfFloorsSite[index];
+                  String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
+                      .format(DateTime.parse(floorSiteModel.completedDate!));
 
-                return InkWell(
-                  onTap: () {
-                    context
-                        .pushNamed(RoutesName.siteProgressDeailsScreen, extra: {
-                      'floorSiteModel': floorSiteModel,
-                    });
-                  },
-                  child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 15.w, vertical: 10.h),
-                      decoration: BoxDecoration(
-                          color: theme.cardColor,
-                          borderRadius: BorderRadius.circular(15.r)),
+                  return InkWell(
+                    onTap: () {
+                      context.pushNamed(RoutesName.siteProgressDeailsScreen,
+                          extra: {
+                            'floorSiteModel': floorSiteModel,
+                          });
+                    },
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -122,24 +129,73 @@ class _MySiteProgressScreenWidgetState
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("${floorSiteModel.floorName}"),
                               Text(
-                                  "Total agencies: ${floorSiteModel.workStatus!.length}")
+                                "${floorSiteModel.floorName}",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(fontSize: 16),
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "Total agencies: ",
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(fontSize: 14, color: grey),
+                                  ),
+                                  Text(
+                                    floorSiteModel.workStatus?.length
+                                            .toString() ??
+                                        "0",
+                                    style: theme.textTheme.titleMedium,
+                                  )
+                                ],
+                              )
                             ],
                           ),
-                          Text("Updated last: $formattedDate")
+                          Row(
+                            children: [
+                              Text(
+                                "Last updated: ",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(fontSize: 14, color: grey),
+                              ),
+                              Text(
+                                formattedDate,
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                          const Divider()
                         ],
                       ),
                     ),
-                  ),
-                );
-              });
+                  );
+                }),
+          );
         } else {
           return const Center(
             child: Text("Something gone wrong!"),
           );
         }
       },
+    );
+  }
+
+  DraggableScrollableSheetCommonComp scrollableSheetWidget(
+      BuildContext context, ThemeData theme) {
+    return DraggableScrollableSheetCommonComp(
+      draggableScrollableController: DraggableScrollableController(),
+      stops: const [0.9, 0.98],
+      initialSize: 0.9,
+      minChildSize: 0.9,
+      radius: 20,
+      
+      widget: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: [floorsWidget(theme)],
+        ),
+      ),
     );
   }
 }

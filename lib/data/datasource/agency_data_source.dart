@@ -8,6 +8,7 @@ import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/utilities/dio_config/api_service.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 import 'package:dio/dio.dart' as dio;
+import 'package:injectable/injectable.dart';
 
 abstract class AgencyDataSource {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
@@ -49,6 +50,7 @@ abstract class AgencyDataSource {
   Future<List<DropDownAgencyModel>> getPaymentInAgency();
 }
 
+@LazySingleton(as: AgencyDataSource)
 class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   final dio = BaseDataCenter().dio.dio;
 

@@ -1,5 +1,6 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:flutter/material.dart';
@@ -35,9 +36,8 @@ class MyHomeScreenAppBar extends StatelessWidget {
                     builder: (context, state) {
                       return GestureDetector(
                         onTap: onTap,
-                        child: const CircleAvatar(
-                          backgroundImage:
-                              AssetImage('assets/images/assets.png'),
+                        child: CircleAvatar(
+                          backgroundImage: AssetImage(Assets.images.user2.path),
                         ),
                       );
                     },
@@ -46,7 +46,7 @@ class MyHomeScreenAppBar extends StatelessWidget {
               ),
               Gap(10.w),
               Text(
-                "Hello, Tushar",
+                "Hello, Tushar 👋",
                 style: theme.textTheme.titleMedium
                     ?.copyWith(fontWeight: FontWeight.bold),
               )
@@ -56,8 +56,7 @@ class MyHomeScreenAppBar extends StatelessWidget {
             builder: (context, state) {
               return InkWell(
                 onTap: () {
-                  // context.read<ThemeBloc>().add(OnThemeChangeEvent());
-                  context.pushNamed(RoutesName.NEW_DETAIL_SCREEN_NAME);
+                  context.read<ThemeBloc>().add(OnThemeChangeEvent());
                 },
                 child: state.themeData.scaffoldBackgroundColor ==
                         blackBackgroundColor

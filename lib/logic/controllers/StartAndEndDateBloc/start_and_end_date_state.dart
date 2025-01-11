@@ -1,10 +1,12 @@
 part of 'start_and_end_date_bloc.dart';
 
-@immutable
- class StartAndEndDateState {
-  final DateTime startDate;
-  final DateTime endDate;
+@freezed
+class StartAndEndDateState with _$StartAndEndDateState {
+  const factory StartAndEndDateState({
+    required DateTime startDate,
+    required DateTime endDate,
+  }) = _StartAndEndDateState;
 
-  StartAndEndDateState({required this.startDate, required this.endDate});
-  
+  factory StartAndEndDateState.initial() =>
+      StartAndEndDateState(startDate: DateTime.now(), endDate: DateTime.now());
 }

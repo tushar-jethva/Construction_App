@@ -88,8 +88,22 @@ class $AssetsImagesGen {
   /// File path: assets/images/crown.png
   AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
 
+  /// File path: assets/images/user1.png
+  AssetGenImage get user1 => const AssetGenImage('assets/images/user1.png');
+
+  /// File path: assets/images/user2.png
+  AssetGenImage get user2 => const AssetGenImage('assets/images/user2.png');
+
+  /// File path: assets/images/user3.png
+  AssetGenImage get user3 => const AssetGenImage('assets/images/user3.png');
+
+  /// File path: assets/images/waving_hand.png
+  AssetGenImage get wavingHand =>
+      const AssetGenImage('assets/images/waving_hand.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [assets, crown];
+  List<AssetGenImage> get values =>
+      [assets, crown, user1, user2, user3, wavingHand];
 }
 
 class $AssetsJsonGen {
@@ -118,6 +132,9 @@ class $AssetsLogosGen {
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
+  /// File path: assets/svg/bill_icon.svg
+  SvgGenImage get billIcon => const SvgGenImage('assets/svg/bill_icon.svg');
+
   /// File path: assets/svg/bills_back.svg
   SvgGenImage get billsBack => const SvgGenImage('assets/svg/bills_back.svg');
 
@@ -125,11 +142,70 @@ class $AssetsSvgGen {
   SvgGenImage get billsBack3 =>
       const SvgGenImage('assets/svg/bills_back_3.svg');
 
+  /// File path: assets/svg/build1.svg
+  SvgGenImage get build1 => const SvgGenImage('assets/svg/build1.svg');
+
+  /// File path: assets/svg/build2.svg
+  SvgGenImage get build2 => const SvgGenImage('assets/svg/build2.svg');
+
+  /// File path: assets/svg/build3.svg
+  SvgGenImage get build3 => const SvgGenImage('assets/svg/build3.svg');
+
+  /// File path: assets/svg/expences 1.svg
+  SvgGenImage get expences1 => const SvgGenImage('assets/svg/expences 1.svg');
+
+  /// File path: assets/svg/gst_icon.svg
+  SvgGenImage get gstIcon => const SvgGenImage('assets/svg/gst_icon.svg');
+
   /// File path: assets/svg/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/svg/logout.svg');
 
+  /// File path: assets/svg/more_vert.svg
+  SvgGenImage get moreVert => const SvgGenImage('assets/svg/more_vert.svg');
+
+  /// File path: assets/svg/parties_icon.svg
+  SvgGenImage get partiesIcon =>
+      const SvgGenImage('assets/svg/parties_icon.svg');
+
+  /// File path: assets/svg/project_icon.svg
+  SvgGenImage get projectIcon =>
+      const SvgGenImage('assets/svg/project_icon.svg');
+
+  /// File path: assets/svg/remaining.svg
+  SvgGenImage get remaining => const SvgGenImage('assets/svg/remaining.svg');
+
+  /// File path: assets/svg/tds_icon.svg
+  SvgGenImage get tdsIcon => const SvgGenImage('assets/svg/tds_icon.svg');
+
+  /// File path: assets/svg/user1.svg
+  SvgGenImage get user1 => const SvgGenImage('assets/svg/user1.svg');
+
+  /// File path: assets/svg/user2.svg
+  SvgGenImage get user2 => const SvgGenImage('assets/svg/user2.svg');
+
+  /// File path: assets/svg/user3.svg
+  SvgGenImage get user3 => const SvgGenImage('assets/svg/user3.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values => [billsBack, billsBack3, logout];
+  List<SvgGenImage> get values => [
+        billIcon,
+        billsBack,
+        billsBack3,
+        build1,
+        build2,
+        build3,
+        expences1,
+        gstIcon,
+        logout,
+        moreVert,
+        partiesIcon,
+        projectIcon,
+        remaining,
+        tdsIcon,
+        user1,
+        user2,
+        user3
+      ];
 }
 
 class $AssetsFontsMonteserratGen {

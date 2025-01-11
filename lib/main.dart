@@ -20,10 +20,12 @@ import 'package:construction_mate/injections/injection.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
+import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
+import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/EditProfileBloc/edit_profile_bloc.dart';
@@ -33,14 +35,17 @@ import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
+import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
+import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart';
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
+import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
 import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_eye_bloc.dart';
 import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
@@ -166,6 +171,15 @@ class MyMultiBlocProviders extends StatelessWidget {
               projectRepository: ProjectRepositoryImpl(ProjectDataSourceImpl()),
               billingPartyRepository: BillingRepositoryImpl()),
         ),
+        BlocProvider(
+            create: (context) => PaymentTotalProjectBloc(
+                transactionRepository: TransactionRepositoryImpl(
+                    transactionDataSource: TransactionDataSourceImpl()))),
+        BlocProvider(
+            create: (context) => TransactionBuildingBloc(
+                transactionRepository: TransactionRepositoryImpl(
+                    transactionDataSource: TransactionDataSourceImpl()))),
+        BlocProvider(create: (_) => di.locator<AgencyWorksProjectsBloc>()),
         BlocProvider(create: (_) => di.locator<AddMaterialBloc>()),
         BlocProvider(create: (_) => di.locator<BottomsheetBloc>()),
         BlocProvider(create: (_) => di.locator<SubsctiptionBoxBloc>()),
@@ -175,7 +189,9 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<EditProfileBloc>()),
         BlocProvider(create: (_) => di.locator<PaymentOutOtherExpenseBloc>()),
         BlocProvider(create: (_) => di.locator<MenuBloc>()),
-
+        BlocProvider(create: (_) => di.locator<BuildingByIdBloc>()),
+        BlocProvider(create: (_) => di.locator<DateBlocBloc>()),
+        BlocProvider(create: (_) => StartAndEndDateBloc()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

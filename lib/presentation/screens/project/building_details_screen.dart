@@ -23,6 +23,7 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
+          backgroundColor: theme.cardColor,
           appBar: AppBar(
             iconTheme: IconThemeData(color: theme.canvasColor),
             backgroundColor: theme.scaffoldBackgroundColor,
@@ -33,6 +34,11 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
             bottom: TabBar(
               onTap: (index) {},
               labelColor: purple,
+              indicatorSize: TabBarIndicatorSize.tab,
+              indicatorPadding: EdgeInsets.zero,
+              dividerColor: grey,
+              dividerHeight: 3,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               unselectedLabelColor: greyELight,
               indicatorColor: purple,
               tabs: const [

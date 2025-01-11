@@ -1,6 +1,12 @@
 part of 'total_payment_out_bloc.dart';
 
-@immutable
-sealed class TotalPaymentOutEvent {}
+@freezed
+class TotalPaymentOutEvent with _$TotalPaymentOutEvent {
+  //Initialize
+  const factory TotalPaymentOutEvent.initialize() = _Initialize;
+  
+  //Fetch totals
+  const factory TotalPaymentOutEvent.fetchTotalPayments() = _FetchTotalPayments;
 
-class FetchTotalPaymentOut extends TotalPaymentOutEvent{}
+}
+
