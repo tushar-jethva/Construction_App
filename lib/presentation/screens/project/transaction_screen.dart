@@ -2,6 +2,7 @@
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -92,18 +93,23 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                             child: Text("No transactions founds!"))),
                   ]),
                 )
-              : ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.listOfTransactions.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final TransactionModel transaction =
-                        state.listOfTransactions[index];
-                    String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
-                        .format(DateTime.parse(transaction.date!));
-                    return transactionWidget(
-                        context, transaction, theme, formattedDate);
-                  },
+              : Column(
+                  children: [
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: state.listOfTransactions.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        final TransactionModel transaction =
+                            state.listOfTransactions[index];
+                        String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
+                            .format(DateTime.parse(transaction.date!));
+                        return transactionWidget(
+                            context, transaction, theme, formattedDate);
+                      },
+                    ),
+                    60.hx,
+                  ],
                 );
         }
         return const Text("No Transaction Found");
@@ -147,7 +153,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                 "₹ ${transaction.amount}",
                 style: theme.textTheme.titleLarge?.copyWith(
                     fontSize: 16,
-                    color: transaction.entryType == 'Credit' ? green : red),
+                    color: transaction.entryType == 'Credit' ? orange : red),
               ),
             ),
             const Divider()

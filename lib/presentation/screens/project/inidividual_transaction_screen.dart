@@ -91,6 +91,7 @@ class _MyTransactionIndividualScreenState
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.cardColor,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
         iconTheme: IconThemeData(color: theme.canvasColor),
@@ -104,7 +105,6 @@ class _MyTransactionIndividualScreenState
         children: [
           searchAndFilterSection(context, theme),
           scrollableSheetWidget(context, theme),
-          // allTransactionsWidget(theme)
         ],
       ),
     );
@@ -150,7 +150,7 @@ class _MyTransactionIndividualScreenState
           ),
         ),
         PopupMenuButton<String>(
-          color: theme.scaffoldBackgroundColor,
+          color: theme.canvasColor,
           onSelected: (String value) {},
           itemBuilder: (BuildContext context) => [
             PopupMenuItem<String>(
@@ -318,6 +318,7 @@ class _MyTransactionIndividualScreenState
               )
             : ListView.builder(
                 shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: state.listOfIndividualTransactions.length,
                 itemBuilder: (context, index) {
                   final TransactionModel transaction =

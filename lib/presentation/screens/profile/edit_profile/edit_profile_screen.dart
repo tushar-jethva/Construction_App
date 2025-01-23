@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
-import 'package:construction_mate/logic/controllers/EditProfileBloc/edit_profile_bloc.dart';
+import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
+import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
@@ -29,9 +31,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   setController() {
-    _emailController = TextEditingController(text: "");
-    _gstController = TextEditingController(text: "");
-    _mobileNoController = TextEditingController(text: "");
+    final user = context.read<UserWatcherBloc>().state.profile;
+    _emailController = TextEditingController(text: user?.email ?? "");
+    _gstController = TextEditingController(text: user?.gSTNumber ?? "");
+    _mobileNoController =
+        TextEditingController(text: user?.mobile.toString() ?? "");
   }
 
   late TextEditingController _emailController;
@@ -56,49 +60,64 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        state.imageUrl.isNotEmpty
+                        state.image == null
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: Image.file(
-                                  File(state.imageUrl),
-                                  height: 120,
-                                  width: 120,
-                                  fit: BoxFit.cover,
-                                ))
+                                child: state.imageUrl.isNotEmpty
+                                    ? Image.network(
+                                        state.imageUrl,
+                                        height: 120,
+                                        width: 120,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(
+                                        Assets.images.user1.path,
+                                        height: 120,
+                                        width: 120,
+                                        fit: BoxFit.cover,
+                                      ))
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: Image.asset(Assets.logos.s2p.path,
-                                    height: 120, width: 120),
+                                child: state.image?.path == null
+                                    ? Image.file(
+                                        File(
+                                          state.image?.path ?? '',
+                                        ),
+                                        height: 120,
+                                        width: 120,
+                                        fit: BoxFit.cover,
+                                      )
+                                    : Image.asset(
+                                        Assets.images.user1.path,
+                                        height: 120,
+                                        width: 120,
+                                        fit: BoxFit.cover,
+                                      ),
                               ),
                         Positioned(
                             bottom: 5,
                             right: -2,
                             child: InkWell(
                               onTap: () async {
-                                if (state.imageUrl.isEmpty) {
-                                  await selectProfile(
-                                    context,
-                                    isNumnber: 0,
-                                    onCallBack: (file) {
-                                      if (file != null) {
-                                        context.read<EditProfileBloc>().add(
-                                                EditProfileEvent
-                                                    .onImageUrlChanged(
-                                              imageUrl: file.path,
-                                            ));
+                                await selectProfile(
+                                  context,
+                                  isNumnber: 0,
+                                  onCallBack: (file) {
+                                    if (file != null) {
+                                      context.read<EditProfileBloc>().add(
+                                              EditProfileEvent
+                                                  .onImageUrlChanged(
+                                            imageUrl: file.path,
+                                          ));
 
-                                        context.read<EditProfileBloc>().add(
-                                                EditProfileEvent.onImageChanged(
-                                              image: file,
-                                            ));
-                                      }
-                                    },
-                                  );
-                                } else {
-                                  // context
-                                  //     .read<UpdateprofileBloc>()
-                                  //     .add(const UpdateprofileEvent.clearImage());
-                                }
+                                      context
+                                          .read<EditProfileBloc>()
+                                          .add(EditProfileEvent.onImageChanged(
+                                            image: file,
+                                          ));
+                                    }
+                                  },
+                                );
                               },
                               child: Container(
                                 padding: const EdgeInsets.all(6),
@@ -107,10 +126,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     border: Border.all(
                                         width: 2, color: Colors.white),
                                     color: purple),
-                                child: Icon(
-                                  state.imageUrl.isNotEmpty
-                                      ? Icons.cancel
-                                      : Icons.edit,
+                                child: const Icon(
+                                  Icons.edit,
                                   size: 18,
                                   color: Colors.black,
                                 ),
@@ -170,12 +187,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: BlocConsumer<EditProfileBloc, EditProfileState>(
           listener: (context, state) {
             // TODO: implement listener
+
             if (state.state.isLoaded) {
-              "Profile Updated".showToast(
-                  context: context, typeOfToast: ShortToastType.success);
+              const TopSnackBar(message: "Profile Updated");
             } else if (state.state.isError) {
-              "Something went wrong!".showToast(
-                  context: context, typeOfToast: ShortToastType.error);
+              const TopSnackBar(message: "Something went wrong! Try again");
+              const TopSnackBar(message: "Something went wrong!");
             }
           },
           builder: (context, state) {

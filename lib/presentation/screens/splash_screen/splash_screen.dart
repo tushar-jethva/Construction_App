@@ -7,6 +7,7 @@ import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -41,8 +42,11 @@ class _SplashScreenState extends State<SplashScreen> {
             // update fcm token
             context.replaceNamed(RoutesName.bottomBar);
           },
+          isFirstTime: (_) {
+            context.replaceNamed(RoutesName.ONBOARD_SCREEN_NAME);
+          },
           unauthenticated: (_) {
-            context.replaceNamed(RoutesName.signUpScreen);
+            context.replaceNamed(RoutesName.signInScreen);
           },
         );
       },
@@ -54,17 +58,13 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Expanded(
                 child: Center(
-                  child: Image.asset(
-                    Assets.images.assets.path,
-                    // AppImagesConstant.appLogo,
-                    height: 130,
-                    width: 130,
+                    child: CircleAvatar(
+                  radius: 80,
+                  backgroundImage: AssetImage(
+                    Assets.images.a4build.path,
                   ),
-                ),
+                )),
               ),
-              // Assets.images.splashImg.image(
-              //   fit: BoxFit.cover,
-              // ),
             ],
           ),
         ),

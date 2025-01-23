@@ -13,10 +13,14 @@ class SiteProgressFloorsBloc
       : super(SiteProgressFloorsInitial()) {
     on<LoadFloorsSite>((event, emit) async {
       try {
+        print("---------------- inin -------------------");
         emit(SiteProgressFloorsInitial());
         List<FloorSiteModel> listOfFloorsSite =
             await siteProgressRepository.getFloorsOfSite(
                 projectId: event.projectId, buildingId: event.buildingId);
+
+        print(
+            "----- in siteprgredssflorrbloc ${listOfFloorsSite.first.workStatus?[0].agencyName}");
         emit(SiteProgressFloorsSuccess(listOfFloorsSite: listOfFloorsSite));
       } catch (e) {
         emit(SiteProgressFloorsFailure());

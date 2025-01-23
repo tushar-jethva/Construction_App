@@ -28,7 +28,8 @@ import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_blo
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
-import 'package:construction_mate/logic/controllers/EditProfileBloc/edit_profile_bloc.dart';
+import 'package:construction_mate/logic/controllers/Onboard/onboard_bloc.dart';
+import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
 import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
@@ -37,6 +38,7 @@ import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/paymen
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
@@ -192,6 +194,8 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<BuildingByIdBloc>()),
         BlocProvider(create: (_) => di.locator<DateBlocBloc>()),
         BlocProvider(create: (_) => StartAndEndDateBloc()),
+        BlocProvider(create: (_) => di.locator<UserWatcherBloc>()),
+        BlocProvider(create: (_) => di.locator<OnboardBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

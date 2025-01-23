@@ -2,7 +2,7 @@ class FloorSiteModel {
   String? projectId;
   String? buildingId;
   String? floorName;
-  String? squreFeet;
+  num? squreFeet;
   bool? isCompleted;
   String? completedDate;
   List<WorkStatus>? workStatus;
@@ -20,13 +20,13 @@ class FloorSiteModel {
     projectId = json['projectId'] ?? '';
     buildingId = json['buildingId'] ?? '';
     floorName = json['floorName'] ?? '';
-    squreFeet = (json['squreFeet'] as dynamic).toString();
+    squreFeet = json['squreFeet'] ?? 0;
     isCompleted = json['isCompleted'] ?? false;
     completedDate = json['completedDate'] ?? DateTime.now().toString();
-    if (json['workStatus'] != null) {
+    if (json['workStatus'] != null && json['workStatus'].isNotEmpty) {
       workStatus = <WorkStatus>[];
       json['workStatus'].forEach((v) {
-        workStatus!.add(new WorkStatus.fromJson(v));
+        workStatus?.add(WorkStatus.fromJson(v));
       });
     }
   }
@@ -40,7 +40,7 @@ class FloorSiteModel {
     data['isCompleted'] = this.isCompleted;
     data['completedDate'] = this.completedDate;
     if (this.workStatus != null) {
-      data['workStatus'] = this.workStatus!.map((v) => v.toJson()).toList();
+      data['workStatus'] = this.workStatus?.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -51,7 +51,7 @@ class WorkStatus {
   String? workTypeId;
   String? agencyName;
   String? workTypeName;
-  String? price;
+  num? price;
   String? description;
   bool? isCompleted;
   String? completedDate;
@@ -71,9 +71,9 @@ class WorkStatus {
     workTypeId = json['workTypeId'] ?? '';
     agencyName = json['agencyName'] ?? '';
     workTypeName = json['workTypeName'] ?? '';
-    price = (json['price'] as dynamic).toString();
+    price = json['price'] ?? 0;
     description = json['description'] ?? '';
-    isCompleted = json['isCompleted'];
+    isCompleted = json['isCompleted'] ?? false;
     completedDate = json['completedDate'] ?? DateTime.now().toString();
   }
 

@@ -8,6 +8,7 @@ import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/b
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialByParty/financialy_by_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
+import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
@@ -29,6 +30,7 @@ import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/bills/pdf_preview.dart';
 import 'package:construction_mate/presentation/screens/bills/sheet_view_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
+import 'package:construction_mate/presentation/screens/onboard/onboard_step1.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
@@ -61,6 +63,11 @@ class Routes {
           path: RoutesName.initialLocation,
           name: RoutesName.initialLocation,
           builder: (contex, state) => const SplashScreen(),
+        ),
+        GoRoute(
+          path: RoutesName.ONBOARD_SCREEN_PATH,
+          name: RoutesName.ONBOARD_SCREEN_NAME,
+          builder: (contex, state) => const OnboardStep1(),
         ),
         GoRoute(
           path: RoutesName.signUpScreen,
@@ -295,6 +302,10 @@ class Routes {
           path: RoutesName.editProfileScreen,
           name: RoutesName.editProfileScreen,
           builder: (context, state) {
+            context
+                .read<EditProfileBloc>()
+                .add(const EditProfileEvent.setData());
+
             return const EditProfileScreen();
           },
         ),

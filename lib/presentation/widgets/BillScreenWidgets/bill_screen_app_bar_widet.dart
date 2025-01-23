@@ -32,10 +32,6 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height * 0.2,
-      margin: EdgeInsets.only(
-        left: 15.w,
-        right: 15.w,
-      ),
       padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
       decoration: BoxDecoration(
           color: theme.cardColor, borderRadius: BorderRadius.circular(10.r)),

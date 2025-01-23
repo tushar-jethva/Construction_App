@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,8 +68,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                       if (state.selectedFloorList[index].isCompleted!) {
                         return GestureDetector(
                           onTap: () {
-                            ReusableFunctions.showSnackBar(
-                                context: context, content: "Already given!");
+                            showTopSnackBar(context, "Already given");
                           },
                           child: Container(
                             alignment: Alignment.center,
@@ -96,7 +96,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                           child: Container(
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                              color: green,
+                              color: purple,
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             child: Text(
@@ -117,7 +117,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.r),
-                            color: greyLight,
+                            color: theme.cardColor,
                           ),
                           child: Text(
                             "${state.selectedFloorList[index].floorName}",

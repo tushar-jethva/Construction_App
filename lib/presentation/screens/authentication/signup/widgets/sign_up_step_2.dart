@@ -1,4 +1,6 @@
+import 'package:construction_mate/common/enter_otp_widget.dart';
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
@@ -12,6 +14,8 @@ import 'package:construction_mate/presentation/widgets/common/custom_button_with
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -57,6 +61,98 @@ class SignUpStep2 extends StatelessWidget {
                                   .add(SignUpEvent.companyNameChanged(value));
                             },
                             maxLines: 1),
+                        10.hx,
+                        CustomTextFormField(
+                            isValidate: true,
+                            textInputType: TextInputType.emailAddress,
+                            textFieldType: TextFieldType.email,
+                            hintText: "Email",
+                            onChanged: (value) {
+                              context
+                                  .read<SignUpBloc>()
+                                  .add(SignUpEvent.emailOnChanged(value));
+                            },
+                            maxLines: 1),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: BlocConsumer<SignUpBloc, SignUpState>(
+                            listener: (context, state) {
+                              if (state.state.isLoaded) {
+                                if (state.screenState == 0) {
+                                  context.pushNamed(RoutesName.signInScreen);
+                                  showTopSnackBar(context,
+                                      "Already have an account! Please login.");
+                                } else if (state.screenState == 1) {
+                                  context.read<SignUpBloc>().add(
+                                      const SignUpEvent.onIsVerifiedChanged(
+                                          isVerified: true));
+                                } else if (state.screenState == 2) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const EnterOptwidget();
+                                    },
+                                    barrierColor:
+                                        Colors.transparent.withOpacity(0.6),
+                                    barrierDismissible: false,
+                                  );
+                                }
+                              } else if (state.state.isError) {
+                                ReusableFunctions.showSnackBar(
+                                    context: context,
+                                    content: "Something went wrong!");
+                              }
+                            },
+                            builder: (context, state) {
+                              return InkWell(
+                                onTap: () {
+                                  context.read<SignUpBloc>().add(
+                                      const SignUpEvent.checkIsEmailExist());
+                                },
+                                child: !state.state.isLoading
+                                    ? !state.isVerified
+                                        ? Text(
+                                            "Verify your email",
+                                            style: TextStyle(
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                decorationColor: purple,
+                                                color: purple),
+                                          )
+                                        : Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              SvgPicture.asset(
+                                                  Assets.svg.trueIcon.path),
+                                              Text(
+                                                "Verified",
+                                                style: TextStyle(
+                                                    color: green,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    decorationColor: green),
+                                              )
+                                            ],
+                                          )
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15.0),
+                                            child: SpinKitThreeBounce(
+                                              size: 15,
+                                              color: purple,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                              );
+                            },
+                          ),
+                        ),
                         10.hx,
                         BlocBuilder<VisibilityEyeBloc, VisibilityEyeState>(
                           builder: (context, state) {
@@ -128,7 +224,8 @@ class SignUpStep2 extends StatelessWidget {
                                   labelColor: white,
                                   borderColor: Colors.transparent,
                                   onTap: () {
-                                    if (formKey.currentState!.validate()) {
+                                    if (formKey.currentState!.validate() &&
+                                        state.isVerified) {
                                       if (state.password !=
                                           state.confirmPassword) {
                                         ReusableFunctions.showSnackBar(
@@ -160,11 +257,12 @@ class SignUpStep2 extends StatelessWidget {
                                     .read<VisibilityEyeBloc>()
                                     .add(const VisibilityEyeEvent.initialize());
                               },
-                              child: const Text(
+                              child: Text(
                                 "Sign In",
                                 style: TextStyle(
                                     decoration: TextDecoration.underline,
-                                    decorationColor: white),
+                                    color: purple,
+                                    decorationColor: purple),
                               ),
                             )
                           ],

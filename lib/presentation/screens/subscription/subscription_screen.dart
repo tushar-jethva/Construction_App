@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart';
@@ -105,8 +106,7 @@ class SubscriptionScreen extends StatelessWidget {
                     ? context.replaceNamed(RoutesName.signInScreen)
                     : context.pop();
                 isExpired
-                    ? "Free trial ended!".showToast(
-                        context: context, typeOfToast: ShortToastType.info)
+                    ? const TopSnackBar(message: "Free trial ended!")
                     : ();
               },
               label: 'Back',

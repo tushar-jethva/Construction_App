@@ -121,50 +121,58 @@ class _MyBillsParticularPartyScreenState
                           color: theme.hintColor,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    MyRichTextForPopUp(
-                                      theme: theme,
-                                      leftText: "Total Amount:  ",
-                                      rightText:
-                                          "₹ ${double.parse(bill.totalAmount.toString()).toStringAsFixed(2)}",
-                                    ),
-                                    MyRichTextForPopUp(
-                                      theme: theme,
-                                      leftText: "Receivable Amount:  ",
-                                      rightText:
-                                          "₹ ${double.parse(bill.receivableAmount.toString()).toStringAsFixed(2)}",
-                                      rightStyle: theme.textTheme.titleMedium!
-                                          .copyWith(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: red),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                        "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}"),
-                                    IconButton(
-                                        onPressed: () {
-                                          context.pushNamed(
-                                              RoutesName.pdfPreviewScreen,
-                                              extra: bill);
-                                        },
-                                        icon: Icon(
-                                          Icons.download,
-                                          color: theme.canvasColor,
-                                        ))
-                                  ],
-                                ),
-                              ],
+                            child: Expanded(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      MyRichTextForPopUp(
+                                        theme: theme,
+                                        leftText: "Total Amount:  ",
+                                        rightText:
+                                            "₹ ${double.parse(bill.totalAmount.toString()).toStringAsFixed(2)}",
+                                      ),
+                                      MyRichTextForPopUp(
+                                        theme: theme,
+                                        leftText: "Receivable Amount:  ",
+                                        rightText:
+                                            "₹ ${double.parse(bill.receivableAmount.toString()).toStringAsFixed(2)}",
+                                        rightStyle: theme.textTheme.titleMedium!
+                                            .copyWith(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: red),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}",
+                                        style: theme.textTheme.labelLarge
+                                            ?.copyWith(
+                                                fontSize: 12, color: black),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {
+                                            context.pushNamed(
+                                                RoutesName.pdfPreviewScreen,
+                                                extra: bill);
+                                          },
+                                          icon: Icon(
+                                            Icons.download,
+                                            color: theme.canvasColor,
+                                          ))
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

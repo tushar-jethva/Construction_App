@@ -1,4 +1,5 @@
 import 'package:construction_mate/common/enter_otp_dialog.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
@@ -16,10 +17,13 @@ class EnterOptwidget extends StatelessWidget {
     return BlocConsumer<SignUpBloc, SignUpState>(
       listener: (context, state) {
         if (state.state1.isLoaded) {
-          context.goNamed(RoutesName.signUpScreen2);
+          context
+              .read<SignUpBloc>()
+              .add(const SignUpEvent.onIsVerifiedChanged(isVerified: true));
+          context.pop();
+          // context.goNamed(RoutesName.signUpScreen2);
         } else if (state.state1.isError) {
-          ReusableFunctions.showSnackBar(
-              context: context, content: "Wrong otp!");
+          showTopSnackBar(context, "Wrong OTP!");
         }
       },
       builder: (context, state) {

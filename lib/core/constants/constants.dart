@@ -60,6 +60,9 @@ List<String> userIcons = [
   Assets.svg.user3.path,
 ];
 
+//---------------storage
+const String IS_FIRST_TIME = 'is_first_time';
+
 //---------------- top snackbar ---------------------
 void showTopSnackBar(BuildContext context, String message,
     {Color backgroundColor = Colors.blue}) {
@@ -137,26 +140,33 @@ class _TopSnackBarState extends State<TopSnackBar>
       position: _slideAnimation,
       child: Material(
         color: Colors.transparent,
-        child: Container(
-          margin: const EdgeInsets.all(10),
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-          decoration: BoxDecoration(
-            color: widget.backgroundColor,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 10,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Text(
-            widget.message,
-            style: const TextStyle(color: Colors.white, fontSize: 16),
+        child: Align(
+          alignment: Alignment.center,
+          child: Container(
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            decoration: BoxDecoration(
+              color: widget.backgroundColor,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 10,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Text(
+              widget.message,
+              style: const TextStyle(color: Colors.white, fontSize: 16),
+            ),
           ),
         ),
       ),
     );
   }
 }
+
+//------------ image --------
+const alteranateUrl =
+    "https://www.google.com/url?sa=i&url=https%3A%2F%2Fin.pinterest.com%2Fpin%2F634655772464432888%2F&psig=AOvVaw2DdCy8iLtwxA-Z7cEjEWLP&ust=1736861970026000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPDYzqDp8ooDFQAAAAAdAAAAABAJ";

@@ -47,7 +47,7 @@ class DraggableScrollableSheetCommonComp extends StatelessWidget {
                   isDraggerShow
                       ? const BottomSheetDraggerWidget()
                       : const SizedBox.shrink(),
-                  widget ?? SizedBox.shrink(),
+                  widget ?? const SizedBox.shrink(),
                 ],
               ),
             );

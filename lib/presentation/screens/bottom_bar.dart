@@ -1,10 +1,12 @@
 import 'package:construction_mate/common/common_alery_message_dialog.dart';
 import 'package:construction_mate/common/enter_otp_widget.dart';
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
+import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
@@ -112,155 +114,164 @@ Widget drawer({required BuildContext context}) {
   final theme = Theme.of(context);
   return Drawer(
     backgroundColor: theme.scaffoldBackgroundColor,
-    child: Column(
-      children: [
-        Container(
-          color: theme.cardColor,
-          width: double.infinity,
-          padding: const EdgeInsets.only(top: 45, bottom: 10),
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 45,
-                backgroundColor: white,
-                child: Image.asset(
-                  Assets.logos.s2p.path,
-                  fit: BoxFit.contain,
-                  height: 40,
-                ),
+    child: BlocBuilder<UserWatcherBloc, UserWatcherState>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            Container(
+              color: theme.cardColor,
+              width: double.infinity,
+              padding: const EdgeInsets.only(top: 45, bottom: 10),
+              child: Column(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: state.profile?.logo == null
+                        ? Image.asset(
+                            Assets.images.user1.path,
+                            fit: BoxFit.cover,
+                            height: 100,
+                            width: 100,
+                          )
+                        : Image.network(
+                            state.profile?.logo ?? "",
+                            fit: BoxFit.cover,
+                            height: 100,
+                            width: 100,
+                          ),
+                  ),
+                  10.hx,
+                  Text(
+                    state.profile?.name ?? "",
+                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
+                  ),
+                  10.hx,
+                ],
               ),
-              10.hx,
-              Text(
-                "S2P",
+            ),
+            ListTile(
+              leading: Lottie.asset(
+                height: 35,
+                width: 35,
+                Assets.json.subscription,
+                fit: BoxFit.fitWidth,
+                repeat: false,
+              ),
+              title: Text(
+                "Upgrade",
+                style: theme.textTheme.bodyMedium
+                    ?.copyWith(fontSize: 16, color: Colors.yellow.shade800),
+              ),
+              onTap: () {
+                context.pushNamed(RoutesName.subscriptionScreen, extra: false);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.account_circle,
+                color: theme.canvasColor,
+              ),
+              title: Text(
+                "Profile",
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+              ),
+              onTap: () {
+                context.pushNamed(RoutesName.editProfileScreen);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.book,
+                color: theme.canvasColor,
+              ),
+              title: Text(
+                "TDS",
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+              ),
+              onTap: () {
+                context.pushNamed(RoutesName.tdsScreen);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.book,
+                color: theme.canvasColor,
+              ),
+              title: Text(
+                "GST",
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+              ),
+              onTap: () {
+                context.pushNamed(RoutesName.gstScreen);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.book,
+                color: theme.canvasColor,
+              ),
+              title: Text(
+                "Other expense",
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+              ),
+              onTap: () {
+                context.pushNamed(RoutesName.otherExpensesScreen);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.logout,
+                color: theme.canvasColor,
+              ),
+              title: Text(
+                "Logout",
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+              ),
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CommonAlertMessageDialog(
+                        cancelAction: () {
+                          context.pop();
+                        },
+                        theme: Theme.of(context),
+                        title: "Logout",
+                        icon: Assets.svg.logout.path,
+                        description: "Are you sure want to Logout?",
+                        buttonText: "Logout",
+                        action: () async {
+                          context.pushReplacementNamed(RoutesName.signInScreen);
+                          context
+                              .read<SignInBloc>()
+                              .add(const SignInEvent.logout());
+                          const TopSnackBar(message: "Logout Successfully!");
+                        },
+                      );
+                    });
+              },
+            ),
+            const Spacer(),
+            Text("🧡"),
+            RichText(
+                text: TextSpan(children: [
+              TextSpan(
+                  text: "Built with pride in",
+                  style: theme.textTheme.titleMedium?.copyWith(fontSize: 16)),
+              TextSpan(
+                text: " Gujarat",
                 style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
-              ),
-              10.hx,
-            ],
-          ),
-        ),
-        ListTile(
-          leading: Lottie.asset(
-            height: 35,
-            width: 35,
-            Assets.json.subscription,
-            fit: BoxFit.fitWidth,
-            repeat: false,
-          ),
-          title: Text(
-            "Upgrade",
-            style: theme.textTheme.bodyMedium
-                ?.copyWith(fontSize: 16, color: Colors.yellow.shade800),
-          ),
-          onTap: () {
-            context.pushNamed(RoutesName.subscriptionScreen, extra: false);
-          },
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.account_circle,
-            color: theme.canvasColor,
-          ),
-          title: Text(
-            "Profile",
-            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
-          ),
-          onTap: () {
-            context.pushNamed(RoutesName.editProfileScreen);
-          },
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.book,
-            color: theme.canvasColor,
-          ),
-          title: Text(
-            "TDS",
-            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
-          ),
-          onTap: () {
-            context.pushNamed(RoutesName.tdsScreen);
-          },
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.book,
-            color: theme.canvasColor,
-          ),
-          title: Text(
-            "GST",
-            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
-          ),
-          onTap: () {
-            context.pushNamed(RoutesName.gstScreen);
-          },
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.book,
-            color: theme.canvasColor,
-          ),
-          title: Text(
-            "Other expense",
-            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
-          ),
-          onTap: () {
-            context.pushNamed(RoutesName.otherExpensesScreen);
-          },
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.logout,
-            color: theme.canvasColor,
-          ),
-          title: Text(
-            "Logout",
-            style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
-          ),
-          onTap: () {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return CommonAlertMessageDialog(
-                    cancelAction: () {
-                      context.pop();
-                    },
-                    theme: Theme.of(context),
-                    title: "Logout",
-                    icon: Assets.svg.logout.path,
-                    description: "Are you sure want to Logout?",
-                    buttonText: "Logout",
-                    action: () async {
-                      context.pushReplacementNamed(RoutesName.signInScreen);
-                      context
-                          .read<SignInBloc>()
-                          .add(const SignInEvent.logout());
-                      "Logout Successfully".showToast(
-                          context: context,
-                          typeOfToast: ShortToastType.success);
-                    },
-                  );
-                });
-          },
-        ),
-        const Spacer(),
-        Text("🧡"),
-        RichText(
-            text: TextSpan(children: [
-          TextSpan(
-              text: "Built with pride in",
-              style: theme.textTheme.titleMedium?.copyWith(fontSize: 16)),
-          TextSpan(
-            text: " Gujarat",
-            style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
-          )
-        ])),
-        Text(
-          'Builders Everywhere',
-          textAlign: TextAlign.center,
-          style: theme.textTheme.titleMedium?.copyWith(fontSize: 16),
-        ),
-        10.hx,
-      ],
+              )
+            ])),
+            Text(
+              'Builders Everywhere',
+              textAlign: TextAlign.center,
+              style: theme.textTheme.titleMedium?.copyWith(fontSize: 16),
+            ),
+            10.hx,
+          ],
+        );
+      },
     ),
   );
 }

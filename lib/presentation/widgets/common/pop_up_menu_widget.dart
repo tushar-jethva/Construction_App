@@ -21,19 +21,14 @@ class PopUpMenuWidget extends StatelessWidget {
       color: theme.scaffoldBackgroundColor,
       itemBuilder: (context) => [
         PopupMenuItem(
-            child: TextButton(
-                onPressed: onUpdateButtonPressed,
-                child: Text(
-                  "Update",
-                  style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
-                ))),
-        PopupMenuItem(
-            child: TextButton(
-                onPressed: onDeleteButtonPressed,
-                child: Text(
-                  "Delete",
-                  style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
-                )))
+          child: TextButton(
+            onPressed: onUpdateButtonPressed,
+            child: Text(
+              "Update",
+              style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
+            ),
+          ),
+        ),
       ],
       icon: SvgPicture.asset(Assets.svg.moreVert.path),
       padding: EdgeInsets.zero,

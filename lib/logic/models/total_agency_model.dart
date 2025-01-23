@@ -9,6 +9,8 @@ class TotalAgencyModel {
   String? updatedAt;
   int? iV;
   String? totalAccount;
+  num? totalPayable;
+  num? totalPaid;
 
   TotalAgencyModel(
       {this.sId,
@@ -20,7 +22,9 @@ class TotalAgencyModel {
       this.createdAt,
       this.updatedAt,
       this.iV,
-      this.totalAccount});
+      this.totalAccount,
+      this.totalPaid,
+      this.totalPayable});
 
   TotalAgencyModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -38,6 +42,8 @@ class TotalAgencyModel {
     updatedAt = json['updatedAt'];
     iV = json['__v'];
     totalAccount = (json['TotalAccount'] as dynamic).toString();
+    totalPayable = json['TotalPayable'] ?? 0;
+    totalPaid = json['TotalPaid'] ?? 0;
   }
 
   Map<String, dynamic> toJson() {

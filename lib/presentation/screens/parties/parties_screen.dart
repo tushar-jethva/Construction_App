@@ -80,6 +80,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.cardColor,
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           searchWidget(context, theme),
@@ -177,33 +178,69 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
               ),
               10.wx,
               Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Column(
                   children: [
-                    Text(
-                      agency.name ?? "",
-                      style: theme.textTheme.titleLarge,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          agency.name ?? "",
+                          style: theme.textTheme.titleLarge
+                              ?.copyWith(fontSize: 14),
+                        ),
+                        Row(
+                          children: [
+                            SvgPicture.asset(Assets.svg.remaining.path),
+                            5.wx,
+                            Text(
+                              "Remaining: ",
+                              style: theme.textTheme.titleMedium
+                                  ?.copyWith(color: grey, fontSize: 12),
+                            ),
+                            Text(
+                              "₹ ${agency.totalAccount ?? 0}",
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                  color: Colors.orange, fontSize: 13),
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                     Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset(Assets.svg.remaining.path),
-                        5.wx,
-                        Text(
-                          "Remaining: ",
-                          style: theme.textTheme.titleMedium
-                              ?.copyWith(color: grey, fontSize: 14),
+                        Row(
+                          children: [
+                            Text(
+                              "Total Paid:",
+                              style: theme.textTheme.titleMedium
+                                  ?.copyWith(color: grey, fontSize: 12),
+                            ),
+                            Text(
+                              " ₹ ${agency.totalPaid ?? 0}",
+                              style: theme.textTheme.titleLarge
+                                  ?.copyWith(color: green, fontSize: 13),
+                            )
+                          ],
                         ),
-                        Text(
-                          "₹ ${agency.totalAccount!.startsWith('-') ? agency.totalAccount!.substring(1, agency.totalAccount!.length) : agency.totalAccount.toString()}",
-                          style: theme.textTheme.titleLarge?.copyWith(
-                              color: agency.totalAccount!.startsWith('-')
-                                  ? red
-                                  : green,
-                              fontSize: 16),
-                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Total Payable: ",
+                              style: theme.textTheme.titleMedium
+                                  ?.copyWith(color: grey, fontSize: 12),
+                            ),
+                            Text(
+                              "₹ ${agency.totalPayable ?? 0}",
+                              style: theme.textTheme.titleLarge
+                                  ?.copyWith(color: red, fontSize: 13),
+                            ),
+                          ],
+                        )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -274,26 +311,34 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
       BuildContext context, ThemeData theme) {
     return DraggableScrollableSheetCommonComp(
       draggableScrollableController: DraggableScrollableController(),
-      stops: const [0.85, 0.98],
-      initialSize: 0.85,
-      minChildSize: 0.85,
+      stops: const [0.89, 0.98],
+      initialSize: 0.89,
+      minChildSize: 0.89,
       radius: 20,
       newWidget: (context, scrollController) {
-        return Container(
-          decoration: BoxDecoration(
-            color: theme.scaffoldBackgroundColor,
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-          ),
-          child: Column(
-            children: [
-              addAgencyWidget(theme, context),
-              Expanded(
-                  child: SingleChildScrollView(
-                controller: scrollController,
-                child: allAgenciesWidget(theme),
-              ))
-            ],
+        return MediaQuery.removeViewInsets(
+          context: context,
+          removeBottom: true,
+          child: Container(
+            decoration: BoxDecoration(
+              color: theme.scaffoldBackgroundColor,
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            ),
+            child: Column(
+              children: [
+                addAgencyWidget(theme, context),
+                Expanded(
+                    child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: Column(
+                    children: [
+                      allAgenciesWidget(theme),
+                    ],
+                  ),
+                ))
+              ],
+            ),
           ),
         );
       },

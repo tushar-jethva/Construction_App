@@ -22,29 +22,38 @@ class SiteProgressAgencyUpdateBloc
           buildingId: event.buildingId,
           floorIndex: event.floorIndex,
         );
-        List<SiteProgressAgencyUpdateModel> selectedAgencies =
-            floorSiteModel.workStatus!.map((agency) {
-          return SiteProgressAgencyUpdateModel(
-              agencyId: agency.agencyId!,
-              workTypeId: agency.workTypeId!,
-              isSelected: agency.isCompleted,
-              agencyName: agency.agencyName,
-              workTypeName: agency.workTypeName);
-        }).toList();
 
-        List<SiteProgressAgencyUpdateModel> currentSelectedAgencies =
-            floorSiteModel.workStatus!.map((agency) {
-          return SiteProgressAgencyUpdateModel(
-              agencyId: agency.agencyId!,
-              workTypeId: agency.workTypeId!,
-              isSelected: agency.isCompleted,
-              agencyName: agency.agencyName,
-              workTypeName: agency.workTypeName);
-        }).toList();
+        if ((floorSiteModel.workStatus ?? []).isNotEmpty) {
+          print("----------------- inin bloc --------------------------");
+          List<SiteProgressAgencyUpdateModel> selectedAgencies =
+              floorSiteModel.workStatus!.map((agency) {
+            return SiteProgressAgencyUpdateModel(
+                agencyId: agency.agencyId!,
+                workTypeId: agency.workTypeId!,
+                isSelected: agency.isCompleted,
+                agencyName: agency.agencyName,
+                workTypeName: agency.workTypeName);
+          }).toList();
+
+          List<SiteProgressAgencyUpdateModel> currentSelectedAgencies =
+              floorSiteModel.workStatus!.map((agency) {
+            return SiteProgressAgencyUpdateModel(
+                agencyId: agency.agencyId!,
+                workTypeId: agency.workTypeId!,
+                isSelected: agency.isCompleted,
+                agencyName: agency.agencyName,
+                workTypeName: agency.workTypeName);
+          }).toList();
+
+          emit(state.copyWith(
+              selectedAgencies: selectedAgencies,
+              isLoading: false,
+              currentSelectedAgencies: currentSelectedAgencies));
+        }
         emit(state.copyWith(
-            selectedAgencies: selectedAgencies,
             isLoading: false,
-            currentSelectedAgencies: currentSelectedAgencies));
+            selectedAgencies: state.selectedAgencies,
+            currentSelectedAgencies: state.currentSelectedAgencies ));
       } catch (e) {
         print(e.toString());
       }
@@ -55,7 +64,7 @@ class SiteProgressAgencyUpdateBloc
           state.currentSelectedAgencies);
       currentSelectedAgencies[event.index].isSelected =
           !currentSelectedAgencies[event.index].isSelected!;
-      print(currentSelectedAgencies);
+      print(currentSelectedAgencies.first.isSelected);
       final selectAll =
           currentSelectedAgencies.every((selected) => selected.isSelected!);
       emit(state.copyWith(

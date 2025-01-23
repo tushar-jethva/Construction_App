@@ -59,6 +59,8 @@ class _MyAddBillingPartyBottomSheetState
     _shippingAddressController.dispose();
   }
 
+  bool isSame = false;
+
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
@@ -203,17 +205,37 @@ class _MyAddBillingPartyBottomSheetState
                       },
                     ),
                     Align(
-                        alignment: Alignment.topRight,
-                        child: TextButton(
-                            onPressed: () {
-                              _billingAddressController.text =
-                                  _shippingAddressController.text;
-                            },
-                            child: Text(
-                              "Same as Shipping Address ",
-                              style: theme.textTheme.titleMedium!
-                                  .copyWith(fontSize: 14),
-                            ))),
+                        alignment: Alignment.centerRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            isSame
+                                ? _billingAddressController.text =
+                                    _shippingAddressController.text
+                                : _billingAddressController.clear();
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Checkbox(
+                                  activeColor: purple,
+                                  value: isSame,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      isSame = val ?? false;
+                                      isSame
+                                          ? _billingAddressController.text =
+                                              _shippingAddressController.text
+                                          : _billingAddressController.clear();
+                                    });
+                                  }),
+                              Text(
+                                "Same as Shipping Address ",
+                                style: theme.textTheme.titleMedium!
+                                    .copyWith(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        )),
                     Gap(20.h),
                     BlocConsumer<AddBillingPartyBloc, AddBillingPartyState>(
                       listener: (context, state) {

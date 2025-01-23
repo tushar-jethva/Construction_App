@@ -96,6 +96,7 @@ class _EnterOTPDialogState extends State<EnterOTPDialog> {
       insetPadding: const EdgeInsets.all(24),
       elevation: 0,
       backgroundColor: theme.scaffoldBackgroundColor,
+      
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

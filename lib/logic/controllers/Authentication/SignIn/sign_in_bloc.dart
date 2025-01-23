@@ -36,7 +36,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
           final token = await authenticationRepository.signIn(
               email: state.email, password: state.password);
-         await token.fold((l) {
+          await token.fold((l) {
             emit(state.copyWith(state: RequestState.error, message: l.message));
           }, (r) async {
             await SharedPreferenceHelper().storedata("token", r);

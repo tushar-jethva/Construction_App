@@ -50,19 +50,23 @@ import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc
     as _i465;
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart'
     as _i882;
-import 'package:construction_mate/logic/controllers/EditProfileBloc/edit_profile_bloc.dart'
-    as _i503;
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart' as _i487;
 import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart'
     as _i688;
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart'
     as _i681;
+import 'package:construction_mate/logic/controllers/Onboard/onboard_bloc.dart'
+    as _i593;
 import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_other_expense_bloc.dart'
     as _i847;
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart'
     as _i273;
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart'
     as _i585;
+import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart'
+    as _i527;
+import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart'
+    as _i95;
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart'
     as _i660;
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart' as _i347;
@@ -89,6 +93,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i660.SubsctiptionBoxBloc>(() => _i660.SubsctiptionBoxBloc());
     gh.singleton<_i79.AuthenticatorWatcherBloc>(
         () => _i79.AuthenticatorWatcherBloc());
+    gh.singleton<_i593.OnboardBloc>(() => _i593.OnboardBloc());
     gh.lazySingleton<_i548.MaterialDataSource>(
         () => _i548.MaterialDataSourceImpl());
     gh.lazySingleton<_i740.TransactionDataSource>(
@@ -136,16 +141,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i273.OtherExpenseBloc(gh<_i429.ProfileUsecase>()));
     gh.singleton<_i487.GstBloc>(
         () => _i487.GstBloc(gh<_i429.ProfileUsecase>()));
-    gh.singleton<_i503.EditProfileBloc>(
-        () => _i503.EditProfileBloc(gh<_i429.ProfileUsecase>()));
     gh.singleton<_i347.TdsBloc>(
         () => _i347.TdsBloc(gh<_i429.ProfileUsecase>()));
+    gh.singleton<_i95.UserWatcherBloc>(
+        () => _i95.UserWatcherBloc(gh<_i429.ProfileUsecase>()));
     gh.singleton<_i571.AddMaterialBloc>(
         () => _i571.AddMaterialBloc(gh<_i37.MaterialRepository>()));
     gh.factory<_i154.MaterialUsecase>(
         () => _i154.MaterialUsecase(gh<_i37.MaterialRepository>()));
     gh.singleton<_i847.PaymentOutOtherExpenseBloc>(
         () => _i847.PaymentOutOtherExpenseBloc(gh<_i740.TransactionUsecase>()));
+    gh.singleton<_i527.EditProfileBloc>(() => _i527.EditProfileBloc(
+          gh<_i429.ProfileUsecase>(),
+          gh<_i95.UserWatcherBloc>(),
+        ));
     return this;
   }
 }

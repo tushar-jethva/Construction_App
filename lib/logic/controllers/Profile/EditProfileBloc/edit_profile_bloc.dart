@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/usecases/profile_usecase.dart';
+import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:injectable/injectable.dart';
@@ -12,12 +13,22 @@ part 'edit_profile_bloc.freezed.dart';
 
 @singleton
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
-  EditProfileBloc(this.profileUsecase) : super(EditProfileState.initial()) {
+  EditProfileBloc(this.profileUsecase, this.userWatcherBloc)
+      : super(EditProfileState.initial()) {
     on<EditProfileEvent>(
       (event, emit) async {
         await event.map(
           initialize: (_Initialize value) {
             emit(EditProfileState.initial());
+          },
+          setData: (value) {
+            final user = userWatcherBloc.state.profile;
+            emit(state.copyWith(
+                state: RequestState.empty,
+                email: user?.email ?? '',
+                gst: user?.gSTNumber ?? '',
+                mobileNo: user?.mobile.toString() ?? '',
+                imageUrl: user?.logo ?? ''));
           },
           onEmailChanged: (_OnEmailChanged value) {
             emit(state.copyWith(state: RequestState.empty, email: value.email));
@@ -40,11 +51,14 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
             emit(state.copyWith(state: RequestState.loading));
             final url = await ReusableFunctions.uploadToCloudinary(
                 state.image ?? XFile(""));
+
             final res = await profileUsecase.completeProfile(
                 email: state.email,
                 gst: state.gst,
                 phoneNumber: state.mobileNo,
-                imageUrl: state.imageUrl);
+                imageUrl: url.isEmpty
+                    ? (userWatcherBloc.state.profile?.logo ?? "")
+                    : url);
 
             res.fold((l) {
               emit(state.copyWith(
@@ -59,4 +73,5 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   }
 
   final ProfileUsecase profileUsecase;
+  final UserWatcherBloc userWatcherBloc;
 }

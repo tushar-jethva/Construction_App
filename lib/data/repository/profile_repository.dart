@@ -1,6 +1,7 @@
 import 'package:construction_mate/data/datasource/profile_data_source.dart';
 import 'package:construction_mate/logic/models/gst_model.dart';
 import 'package:construction_mate/logic/models/other_expense_model.dart';
+import 'package:construction_mate/logic/models/profile_model.dart';
 import 'package:construction_mate/logic/models/tds_model.dart';
 import 'package:construction_mate/utilities/error_handling/error_handler.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
@@ -19,6 +20,8 @@ abstract class ProfileRepository {
       required String gst,
       required String phoneNumber,
       required String imageUrl});
+
+  Future<Either<Failure, ProfileModel?>> getProfile();
 }
 
 @LazySingleton(as: ProfileRepository)
@@ -49,5 +52,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
       required String imageUrl}) {
     return handleErrors(() => dataSource.completeProfile(
         email: email, gst: gst, phoneNumber: phoneNumber, imageUrl: imageUrl));
+  }
+
+  @override
+  Future<Either<Failure, ProfileModel?>> getProfile() {
+    return handleErrors(() => dataSource.getProfile());
   }
 }

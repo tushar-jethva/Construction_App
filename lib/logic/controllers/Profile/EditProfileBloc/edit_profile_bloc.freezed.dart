@@ -19,6 +19,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function() setData,
     required TResult Function(String email) onEmailChanged,
     required TResult Function(String phoneNumber) onNumberChanged,
     required TResult Function(String imageUrl) onImageUrlChanged,
@@ -30,6 +31,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function()? setData,
     TResult? Function(String email)? onEmailChanged,
     TResult? Function(String phoneNumber)? onNumberChanged,
     TResult? Function(String imageUrl)? onImageUrlChanged,
@@ -41,6 +43,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function()? setData,
     TResult Function(String email)? onEmailChanged,
     TResult Function(String phoneNumber)? onNumberChanged,
     TResult Function(String imageUrl)? onImageUrlChanged,
@@ -53,6 +56,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
     required TResult Function(_OnEmailChanged value) onEmailChanged,
     required TResult Function(_OnNumberChanged value) onNumberChanged,
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
@@ -64,6 +68,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
     TResult? Function(_OnEmailChanged value)? onEmailChanged,
     TResult? Function(_OnNumberChanged value)? onNumberChanged,
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -75,6 +80,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
     TResult Function(_OnEmailChanged value)? onEmailChanged,
     TResult Function(_OnNumberChanged value)? onNumberChanged,
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -149,6 +155,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function() setData,
     required TResult Function(String email) onEmailChanged,
     required TResult Function(String phoneNumber) onNumberChanged,
     required TResult Function(String imageUrl) onImageUrlChanged,
@@ -163,6 +170,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function()? setData,
     TResult? Function(String email)? onEmailChanged,
     TResult? Function(String phoneNumber)? onNumberChanged,
     TResult? Function(String imageUrl)? onImageUrlChanged,
@@ -177,6 +185,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function()? setData,
     TResult Function(String email)? onEmailChanged,
     TResult Function(String phoneNumber)? onNumberChanged,
     TResult Function(String imageUrl)? onImageUrlChanged,
@@ -195,6 +204,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
     required TResult Function(_OnEmailChanged value) onEmailChanged,
     required TResult Function(_OnNumberChanged value) onNumberChanged,
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
@@ -209,6 +219,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
     TResult? Function(_OnEmailChanged value)? onEmailChanged,
     TResult? Function(_OnNumberChanged value)? onNumberChanged,
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -223,6 +234,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
     TResult Function(_OnEmailChanged value)? onEmailChanged,
     TResult Function(_OnNumberChanged value)? onNumberChanged,
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -240,6 +252,147 @@ class _$InitializeImpl implements _Initialize {
 
 abstract class _Initialize implements EditProfileEvent {
   const factory _Initialize() = _$InitializeImpl;
+}
+
+/// @nodoc
+abstract class _$$SetDataImplCopyWith<$Res> {
+  factory _$$SetDataImplCopyWith(
+          _$SetDataImpl value, $Res Function(_$SetDataImpl) then) =
+      __$$SetDataImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SetDataImplCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res, _$SetDataImpl>
+    implements _$$SetDataImplCopyWith<$Res> {
+  __$$SetDataImplCopyWithImpl(
+      _$SetDataImpl _value, $Res Function(_$SetDataImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of EditProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SetDataImpl implements _SetData {
+  const _$SetDataImpl();
+
+  @override
+  String toString() {
+    return 'EditProfileEvent.setData()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SetDataImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function() setData,
+    required TResult Function(String email) onEmailChanged,
+    required TResult Function(String phoneNumber) onNumberChanged,
+    required TResult Function(String imageUrl) onImageUrlChanged,
+    required TResult Function(XFile image) onImageChanged,
+    required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function() onUpdateProfileTap,
+  }) {
+    return setData();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function()? setData,
+    TResult? Function(String email)? onEmailChanged,
+    TResult? Function(String phoneNumber)? onNumberChanged,
+    TResult? Function(String imageUrl)? onImageUrlChanged,
+    TResult? Function(XFile image)? onImageChanged,
+    TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function()? onUpdateProfileTap,
+  }) {
+    return setData?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function()? setData,
+    TResult Function(String email)? onEmailChanged,
+    TResult Function(String phoneNumber)? onNumberChanged,
+    TResult Function(String imageUrl)? onImageUrlChanged,
+    TResult Function(XFile image)? onImageChanged,
+    TResult Function(String gstNo)? onGSTChanged,
+    TResult Function()? onUpdateProfileTap,
+    required TResult orElse(),
+  }) {
+    if (setData != null) {
+      return setData();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
+    required TResult Function(_OnEmailChanged value) onEmailChanged,
+    required TResult Function(_OnNumberChanged value) onNumberChanged,
+    required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
+    required TResult Function(_OnImageChanged value) onImageChanged,
+    required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
+  }) {
+    return setData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
+    TResult? Function(_OnEmailChanged value)? onEmailChanged,
+    TResult? Function(_OnNumberChanged value)? onNumberChanged,
+    TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
+    TResult? Function(_OnImageChanged value)? onImageChanged,
+    TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
+  }) {
+    return setData?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
+    TResult Function(_OnEmailChanged value)? onEmailChanged,
+    TResult Function(_OnNumberChanged value)? onNumberChanged,
+    TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
+    TResult Function(_OnImageChanged value)? onImageChanged,
+    TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
+    required TResult orElse(),
+  }) {
+    if (setData != null) {
+      return setData(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SetData implements EditProfileEvent {
+  const factory _SetData() = _$SetDataImpl;
 }
 
 /// @nodoc
@@ -312,6 +465,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function() setData,
     required TResult Function(String email) onEmailChanged,
     required TResult Function(String phoneNumber) onNumberChanged,
     required TResult Function(String imageUrl) onImageUrlChanged,
@@ -326,6 +480,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function()? setData,
     TResult? Function(String email)? onEmailChanged,
     TResult? Function(String phoneNumber)? onNumberChanged,
     TResult? Function(String imageUrl)? onImageUrlChanged,
@@ -340,6 +495,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function()? setData,
     TResult Function(String email)? onEmailChanged,
     TResult Function(String phoneNumber)? onNumberChanged,
     TResult Function(String imageUrl)? onImageUrlChanged,
@@ -358,6 +514,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
     required TResult Function(_OnEmailChanged value) onEmailChanged,
     required TResult Function(_OnNumberChanged value) onNumberChanged,
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
@@ -372,6 +529,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
     TResult? Function(_OnEmailChanged value)? onEmailChanged,
     TResult? Function(_OnNumberChanged value)? onNumberChanged,
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -386,6 +544,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
     TResult Function(_OnEmailChanged value)? onEmailChanged,
     TResult Function(_OnNumberChanged value)? onNumberChanged,
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -485,6 +644,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function() setData,
     required TResult Function(String email) onEmailChanged,
     required TResult Function(String phoneNumber) onNumberChanged,
     required TResult Function(String imageUrl) onImageUrlChanged,
@@ -499,6 +659,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function()? setData,
     TResult? Function(String email)? onEmailChanged,
     TResult? Function(String phoneNumber)? onNumberChanged,
     TResult? Function(String imageUrl)? onImageUrlChanged,
@@ -513,6 +674,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function()? setData,
     TResult Function(String email)? onEmailChanged,
     TResult Function(String phoneNumber)? onNumberChanged,
     TResult Function(String imageUrl)? onImageUrlChanged,
@@ -531,6 +693,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
     required TResult Function(_OnEmailChanged value) onEmailChanged,
     required TResult Function(_OnNumberChanged value) onNumberChanged,
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
@@ -545,6 +708,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
     TResult? Function(_OnEmailChanged value)? onEmailChanged,
     TResult? Function(_OnNumberChanged value)? onNumberChanged,
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -559,6 +723,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
     TResult Function(_OnEmailChanged value)? onEmailChanged,
     TResult Function(_OnNumberChanged value)? onNumberChanged,
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -658,6 +823,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function() setData,
     required TResult Function(String email) onEmailChanged,
     required TResult Function(String phoneNumber) onNumberChanged,
     required TResult Function(String imageUrl) onImageUrlChanged,
@@ -672,6 +838,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function()? setData,
     TResult? Function(String email)? onEmailChanged,
     TResult? Function(String phoneNumber)? onNumberChanged,
     TResult? Function(String imageUrl)? onImageUrlChanged,
@@ -686,6 +853,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function()? setData,
     TResult Function(String email)? onEmailChanged,
     TResult Function(String phoneNumber)? onNumberChanged,
     TResult Function(String imageUrl)? onImageUrlChanged,
@@ -704,6 +872,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
     required TResult Function(_OnEmailChanged value) onEmailChanged,
     required TResult Function(_OnNumberChanged value) onNumberChanged,
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
@@ -718,6 +887,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
     TResult? Function(_OnEmailChanged value)? onEmailChanged,
     TResult? Function(_OnNumberChanged value)? onNumberChanged,
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -732,6 +902,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
     TResult Function(_OnEmailChanged value)? onEmailChanged,
     TResult Function(_OnNumberChanged value)? onNumberChanged,
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -830,6 +1001,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function() setData,
     required TResult Function(String email) onEmailChanged,
     required TResult Function(String phoneNumber) onNumberChanged,
     required TResult Function(String imageUrl) onImageUrlChanged,
@@ -844,6 +1016,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function()? setData,
     TResult? Function(String email)? onEmailChanged,
     TResult? Function(String phoneNumber)? onNumberChanged,
     TResult? Function(String imageUrl)? onImageUrlChanged,
@@ -858,6 +1031,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function()? setData,
     TResult Function(String email)? onEmailChanged,
     TResult Function(String phoneNumber)? onNumberChanged,
     TResult Function(String imageUrl)? onImageUrlChanged,
@@ -876,6 +1050,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
     required TResult Function(_OnEmailChanged value) onEmailChanged,
     required TResult Function(_OnNumberChanged value) onNumberChanged,
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
@@ -890,6 +1065,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
     TResult? Function(_OnEmailChanged value)? onEmailChanged,
     TResult? Function(_OnNumberChanged value)? onNumberChanged,
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -904,6 +1080,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
     TResult Function(_OnEmailChanged value)? onEmailChanged,
     TResult Function(_OnNumberChanged value)? onNumberChanged,
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -1001,6 +1178,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function() setData,
     required TResult Function(String email) onEmailChanged,
     required TResult Function(String phoneNumber) onNumberChanged,
     required TResult Function(String imageUrl) onImageUrlChanged,
@@ -1015,6 +1193,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function()? setData,
     TResult? Function(String email)? onEmailChanged,
     TResult? Function(String phoneNumber)? onNumberChanged,
     TResult? Function(String imageUrl)? onImageUrlChanged,
@@ -1029,6 +1208,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function()? setData,
     TResult Function(String email)? onEmailChanged,
     TResult Function(String phoneNumber)? onNumberChanged,
     TResult Function(String imageUrl)? onImageUrlChanged,
@@ -1047,6 +1227,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
     required TResult Function(_OnEmailChanged value) onEmailChanged,
     required TResult Function(_OnNumberChanged value) onNumberChanged,
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
@@ -1061,6 +1242,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
     TResult? Function(_OnEmailChanged value)? onEmailChanged,
     TResult? Function(_OnNumberChanged value)? onNumberChanged,
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -1075,6 +1257,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
     TResult Function(_OnEmailChanged value)? onEmailChanged,
     TResult Function(_OnNumberChanged value)? onNumberChanged,
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -1145,6 +1328,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function() setData,
     required TResult Function(String email) onEmailChanged,
     required TResult Function(String phoneNumber) onNumberChanged,
     required TResult Function(String imageUrl) onImageUrlChanged,
@@ -1159,6 +1343,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function()? setData,
     TResult? Function(String email)? onEmailChanged,
     TResult? Function(String phoneNumber)? onNumberChanged,
     TResult? Function(String imageUrl)? onImageUrlChanged,
@@ -1173,6 +1358,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function()? setData,
     TResult Function(String email)? onEmailChanged,
     TResult Function(String phoneNumber)? onNumberChanged,
     TResult Function(String imageUrl)? onImageUrlChanged,
@@ -1191,6 +1377,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
     required TResult Function(_OnEmailChanged value) onEmailChanged,
     required TResult Function(_OnNumberChanged value) onNumberChanged,
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
@@ -1205,6 +1392,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
     TResult? Function(_OnEmailChanged value)? onEmailChanged,
     TResult? Function(_OnNumberChanged value)? onNumberChanged,
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
@@ -1219,6 +1407,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
     TResult Function(_OnEmailChanged value)? onEmailChanged,
     TResult Function(_OnNumberChanged value)? onNumberChanged,
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,

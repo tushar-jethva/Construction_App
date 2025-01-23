@@ -14,6 +14,7 @@ import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -153,49 +154,66 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                 Gap(10.h),
                 BlocBuilder<AddBillBloc, AddBillState>(
                   builder: (context, state) {
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: state.billItems.length,
-                      itemBuilder: (context, index) {
-                        BillItemModel bill = state.billItems[index];
-                        return Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: greyELight),
-                              color: theme.scaffoldBackgroundColor),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "HSN Code : ${bill.HSNCode}",
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              Text(
-                                "Sqare Feet : ${bill.squareFeet}",
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              Text(
-                                "Rate : ${bill.rate}",
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              Text(
-                                "Total Amount : ${bill.amount}",
-                                style: theme.textTheme.titleMedium,
-                              ),
-                              Text(
-                                "Description : ${bill.itemDescription}",
-                                style: theme.textTheme.titleMedium,
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
+                    return state.billItems.isNotEmpty
+                        ? Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: greyELight),
+                                color: theme.scaffoldBackgroundColor),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: state.billItems.length,
+                              itemBuilder: (context, index) {
+                                BillItemModel bill = state.billItems[index];
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${index + 1}.",
+                                        style: theme.textTheme.titleLarge,
+                                      ),
+                                      10.wx,
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "HSN Code : ${bill.HSNCode}",
+                                            style: theme.textTheme.titleMedium,
+                                          ),
+                                          Text(
+                                            "Sqare Feet : ${bill.squareFeet}",
+                                            style: theme.textTheme.titleMedium,
+                                          ),
+                                          Text(
+                                            "Rate : ${bill.rate}",
+                                            style: theme.textTheme.titleMedium,
+                                          ),
+                                          Text(
+                                            "Total Amount : ${bill.amount}",
+                                            style: theme.textTheme.titleMedium,
+                                          ),
+                                          Text(
+                                            "Description : ${bill.itemDescription}",
+                                            style: theme.textTheme.titleMedium,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          )
+                        : const SizedBox.shrink();
                   },
                 ),
-                10.hx,
                 Form(
                   key: _billFormKey,
                   child: Column(
@@ -600,7 +618,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                 .read<BillingPartiesHomeBloc>()
                                 .add(BillingPartiesLoadEvent());
                             Navigator.of(context).pop();
-                            const TopSnackBar(message: "Bill added");
+                            showTopSnackBar(context, "Bill added");
                           } else if (state.isAddedBill == 3) {
                             Navigator.of(context).pop();
                             const TopSnackBar(

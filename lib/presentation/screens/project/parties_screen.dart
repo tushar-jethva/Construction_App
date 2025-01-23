@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
+import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,8 +69,10 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                   itemCount: 5,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return agencyWidget(theme,
-                        TotalAgencyModel(name: "Agency", totalAccount: "1000"));
+                    return agencyWidget(
+                        theme,
+                        TotalAgencyModel(name: "Agency", totalAccount: "1000"),
+                        index);
                   }),
             );
           }
@@ -93,7 +97,7 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final agency = state.totalAgencies[index];
-                        return agencyWidget(theme, agency);
+                        return agencyWidget(theme, agency, index);
                       }),
             );
           }
@@ -102,12 +106,13 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
               child: Center(
                 child: Text("Something went wrong!"),
               ));
-        })
+        }),
+        100.hx,
       ],
     );
   }
 
-  Widget agencyWidget(ThemeData theme, TotalAgencyModel agency) {
+  Widget agencyWidget(ThemeData theme, TotalAgencyModel agency, int index) {
     return GestureDetector(
       onTap: () {
         context.push(RoutesName.transactionIndividualScreen, extra: {
@@ -124,11 +129,22 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  agency.name ?? "",
-                  style: theme.textTheme.titleLarge?.copyWith(
-                    fontSize: 16,
-                  ),
+                Row(
+                  children: [
+                    IconCircleWidget(
+                      radius: 10,
+                      isSvg: true,
+                      svgpath: userIcons[index % userIcons.length],
+                      backgroundColor: theme.cardColor,
+                    ),
+                    10.wx,
+                    Text(
+                      agency.name ?? "",
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
                   agency.totalAccount!.startsWith('-')

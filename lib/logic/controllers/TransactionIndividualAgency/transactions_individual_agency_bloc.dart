@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/models/transaction_model.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'transactions_individual_agency_event.dart';
@@ -47,16 +48,22 @@ class TransactionsIndividualAgencyBloc extends Bloc<
     on<FetchTransactionsByDatesIndividual>((event, emit) {
       try {
         final filteredTransactions = _originalTransactions.where((transaction) {
-          final transactionDate = DateTime.parse(
-              transaction.date!); // Assume `date` is a DateTime property
+          // Ensure `transaction.date` is a valid DateTime
+          if (transaction.date == null) return false;
 
-          return transactionDate.isAfter(event.startDate) &&
-              transactionDate.isBefore(event.endDate.add(Duration(days: 1)));
+          final transactionDate = DateTime.parse(transaction.date!);
+
+          // Check if the transaction date falls on or within the range (inclusive)
+          return transactionDate.isAtSameMomentAs(event.startDate) ||
+              transactionDate.isAtSameMomentAs(event.endDate) ||
+              (transactionDate.isAfter(event.startDate) &&
+                  transactionDate.isBefore(event.endDate));
         }).toList();
 
         emit(TransactionsIndividualAgencySuccess(
             listOfIndividualTransactions: filteredTransactions));
       } catch (e) {
+        // Emit failure state in case of any errors
         emit(TransactionsIndividualAgencyFailure());
       }
     });

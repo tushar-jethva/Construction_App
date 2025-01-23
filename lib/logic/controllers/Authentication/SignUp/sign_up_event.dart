@@ -22,6 +22,8 @@ class SignUpEvent with _$SignUpEvent {
 
   const factory SignUpEvent.signIn() = _SignInUserAfterSignUp;
 
-  const factory SignUpEvent.setScreenState() = _SetScreenState;
+  const factory SignUpEvent.onIsVerifiedChanged({required bool isVerified}) =
+      _OnIsVerifiedChanged;
 
+  const factory SignUpEvent.setScreenState() = _SetScreenState;
 }

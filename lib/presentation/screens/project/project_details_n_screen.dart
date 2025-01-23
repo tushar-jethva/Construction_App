@@ -15,6 +15,7 @@ import 'package:construction_mate/presentation/screens/project/transaction_scree
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/payment_in_project_dialog_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/payment_out_project_dilog_widget.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
@@ -69,17 +70,17 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         FetchAllTransactionByProjectId(projectId: widget.projectModel.sId!));
 
     _tabController = TabController(length: 4, vsync: this);
+    _tabController.addListener(() {
+      context
+          .read<MenuBloc>()
+          .add(MenuEvent.onIndexChanged(index: _tabController.index));
+    });
+  }
 
-    // // Add listener to detect tab changes
-    // _tabController.addListener(() {
-    //   // Trigger the bloc only when the index has fully changed
-    //   if (!_tabController.indexIsChanging &&
-    //       _tabController.index == _tabController.animation?.value.round()) {
-    //     context
-    //         .read<MenuBloc>()
-    //         .add(MenuEvent.onIndexChanged(index: _tabController.index));
-    //   }
-    // });
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
   }
 
   void _showPaymentInDialog({required ThemeData theme}) {
@@ -124,69 +125,72 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.cardColor,
-      appBar: CustomAppBar(
-        onTap: () {
-          context.pop();
-        },
-        titleWidget: BlocBuilder<MenuBloc, MenuState>(
-          builder: (context, state) {
-            return Text(
-              menus[state.index].menuName,
-              style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
-            );
+        resizeToAvoidBottomInset: true,
+        backgroundColor: theme.cardColor,
+        appBar: CustomAppBar(
+          onTap: () {
+            context.pop();
           },
+          titleWidget: BlocBuilder<MenuBloc, MenuState>(
+            builder: (context, state) {
+              return Text(
+                menus[state.index].menuName,
+                style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
+              );
+            },
+          ),
         ),
-      ),
-      body: Stack(
-        children: [
-          topAmountAndWidgetSection(theme),
-          scrollableSheetWidget(context, theme),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: EdgeInsets.only(
-                  left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
-              height: 50.h,
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 10.w),
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: CustomElevatedButton(
-                      label: "Payment In",
-                      backgroundColor: green,
-                      borderColor: transparent,
-                      onTap: () {
-                        context
-                            .read<PaymentInDropDownBloc>()
-                            .add(FetchAgencyInEvent());
-                        _showPaymentInDialog(theme: theme);
-                      },
-                    ),
-                  ),
-                  30.wx,
-                  Expanded(
-                    child: CustomElevatedButton(
-                      label: "Payment Out",
-                      backgroundColor: red,
-                      borderColor: transparent,
-                      onTap: () {
-                        context
-                            .read<PaymentOutDropDownBloc>()
-                            .add(FetchBuildingsEvent(widget.projectModel.sId!));
-                        _showPaymentOutDialog(theme: theme);
-                      },
-                    ),
-                  ),
-                ],
+        body: Stack(
+          children: [
+            topAmountAndWidgetSection(theme),
+            scrollableSheetWidget(context, theme),
+            paymentSecton(context, theme),
+          ],
+        ));
+  }
+
+  Align paymentSecton(BuildContext context, ThemeData theme) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        margin:
+            EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
+        height: 50.h,
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(horizontal: 10.w),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.r)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: CustomElevatedButton(
+                label: "Payment In",
+                backgroundColor: green,
+                borderColor: transparent,
+                onTap: () {
+                  context
+                      .read<PaymentInDropDownBloc>()
+                      .add(FetchAgencyInEvent());
+                  _showPaymentInDialog(theme: theme);
+                },
               ),
             ),
-          )
-        ],
+            30.wx,
+            Expanded(
+              child: CustomElevatedButton(
+                label: "Payment Out",
+                backgroundColor: red,
+                borderColor: transparent,
+                onTap: () {
+                  context
+                      .read<PaymentOutDropDownBloc>()
+                      .add(FetchBuildingsEvent(widget.projectModel.sId!));
+                  _showPaymentOutDialog(theme: theme);
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -211,87 +215,88 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
-                  child: DefaultTabController(
-                    initialIndex: 0,
-                    length: 4,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        TabBar(
-                          isScrollable: true,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          padding: const EdgeInsets.only(top: 20, left: 0),
-                          indicator: BoxDecoration(
-                            color: transparent,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          dividerHeight: 0,
-                          tabAlignment: TabAlignment.start,
-                          dividerColor: transparent,
-                          unselectedLabelColor:
-                              const Color.fromARGB(255, 27, 24, 24),
-                          labelColor: Colors.white,
-                          labelStyle: theme.textTheme.titleLarge
-                              ?.copyWith(fontSize: 14),
-                          tabs: const [
-                            Tab(
-                                child: MenuWidget(
-                              name: "Parties",
-                              index: 0,
-                            )),
-                            Tab(
-                                child: MenuWidget(
-                              name: "Buildings",
-                              index: 1,
-                            )),
-                            Tab(
-                                child: MenuWidget(
-                              name: "Material",
-                              index: 2,
-                            )),
-                            Tab(
-                                child: MenuWidget(
-                              name: "Transaction",
-                              index: 3,
-                            )),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      TabBar(
+                        controller: _tabController,
+                        isScrollable: true,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        padding: const EdgeInsets.only(top: 20, left: 0),
+                        indicator: BoxDecoration(
+                          color: transparent,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        dividerHeight: 0,
+                        tabAlignment: TabAlignment.start,
+                        dividerColor: transparent,
+                        unselectedLabelColor:
+                            const Color.fromARGB(255, 27, 24, 24),
+                        labelColor: Colors.white,
+                        labelStyle:
+                            theme.textTheme.titleLarge?.copyWith(fontSize: 14),
+                        tabs: [
+                          Tab(
+                              child: MenuWidget(
+                            name: "Parties",
+                            index: 0,
+                            tabController: _tabController,
+                          )),
+                          Tab(
+                              child: MenuWidget(
+                            name: "Buildings",
+                            index: 1,
+                            tabController: _tabController,
+                          )),
+                          Tab(
+                              child: MenuWidget(
+                            name: "Material",
+                            index: 2,
+                            tabController: _tabController,
+                          )),
+                          Tab(
+                              child: MenuWidget(
+                            name: "Transaction",
+                            index: 3,
+                            tabController: _tabController,
+                          )),
+                        ],
+                      ),
+                      Expanded(
+                        child: TabBarView(
+                          dragStartBehavior: DragStartBehavior.start,
+                          controller: _tabController,
+                          children: [
+                            ListView(
+                              controller: scrollController, // Attach controller
+                              children: [
+                                MyPartiesProjectScreen(
+                                    project: widget.projectModel)
+                              ],
+                            ),
+                            SingleChildScrollView(
+                              controller: scrollController, // Attach controller
+                              child: BuildingsScreen(
+                                project: widget.projectModel,
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              controller: scrollController, // Attach controller
+                              child: Center(
+                                  child: MaterialScreen(
+                                      project: widget.projectModel)),
+                            ),
+                            SingleChildScrollView(
+                              controller: scrollController, // Attach controller
+                              child: Center(
+                                  child: MyTransactionScreen(
+                                      project: widget.projectModel)),
+                            ),
                           ],
                         ),
-                        Expanded(
-                          child: TabBarView(
-                            children: [
-                              SingleChildScrollView(
-                                controller:
-                                    scrollController, // Attach controller
-                                child: MyPartiesProjectScreen(
-                                    project: widget.projectModel),
-                              ),
-                              SingleChildScrollView(
-                                controller:
-                                    scrollController, // Attach controller
-                                child: BuildingsScreen(
-                                  project: widget.projectModel,
-                                ),
-                              ),
-                              SingleChildScrollView(
-                                controller:
-                                    scrollController, // Attach controller
-                                child: Center(
-                                    child: MaterialScreen(
-                                        project: widget.projectModel)),
-                              ),
-                              SingleChildScrollView(
-                                controller:
-                                    scrollController, // Attach controller
-                                child: Center(
-                                    child: MyTransactionScreen(
-                                        project: widget.projectModel)),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 )
               ],
@@ -349,43 +354,42 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
 class MenuWidget extends StatelessWidget {
   final String name;
   final int index;
-  const MenuWidget({super.key, required this.name, required this.index});
+  final TabController tabController;
+  const MenuWidget(
+      {super.key,
+      required this.name,
+      required this.index,
+      required this.tabController});
 
   @override
   Widget build(BuildContext context) {
-    final TabController tabController = DefaultTabController.of(context);
     final theme = Theme.of(context);
     return BlocBuilder<MenuBloc, MenuState>(
       builder: (context, state) {
-        return AnimatedBuilder(
-            animation: tabController.animation!,
-            builder: (context, child) {
-              final isSelected = state.index == index;
-              return GestureDetector(
-                onTap: () {
-                  tabController.animateTo(index);
-                  context
-                      .read<MenuBloc>()
-                      .add(MenuEvent.onIndexChanged(index: index));
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  alignment: Alignment.center,
-                  width: MediaQuery.of(context).size.width / 4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: isSelected ? purple : theme.cardColor,
-                  ),
-                  child: Text(
-                    name,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                        fontSize: 12,
-                        color: isSelected ? white : theme.canvasColor),
-                  ),
-                ),
-              );
-            });
+        final isSelected = state.index == index;
+
+        return GestureDetector(
+          onTap: () {
+            tabController.animateTo(index);
+            context
+                .read<MenuBloc>()
+                .add(MenuEvent.onIndexChanged(index: index));
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width / 4,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: isSelected ? purple : theme.cardColor,
+            ),
+            child: Text(
+              name,
+              style: theme.textTheme.titleLarge?.copyWith(
+                  fontSize: 12, color: isSelected ? white : theme.canvasColor),
+            ),
+          ),
+        );
       },
     );
   }

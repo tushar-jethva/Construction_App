@@ -82,11 +82,26 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/4build.png
+  AssetGenImage get a4build => const AssetGenImage('assets/images/4build.png');
+
   /// File path: assets/images/assets.png
   AssetGenImage get assets => const AssetGenImage('assets/images/assets.png');
 
   /// File path: assets/images/crown.png
   AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
+
+  /// File path: assets/images/onboard1.png
+  AssetGenImage get onboard1 =>
+      const AssetGenImage('assets/images/onboard1.png');
+
+  /// File path: assets/images/onboard2.png
+  AssetGenImage get onboard2 =>
+      const AssetGenImage('assets/images/onboard2.png');
+
+  /// File path: assets/images/onboard3.png
+  AssetGenImage get onboard3 =>
+      const AssetGenImage('assets/images/onboard3.png');
 
   /// File path: assets/images/user1.png
   AssetGenImage get user1 => const AssetGenImage('assets/images/user1.png');
@@ -102,8 +117,18 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/waving_hand.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [assets, crown, user1, user2, user3, wavingHand];
+  List<AssetGenImage> get values => [
+        a4build,
+        assets,
+        crown,
+        onboard1,
+        onboard2,
+        onboard3,
+        user1,
+        user2,
+        user3,
+        wavingHand
+      ];
 }
 
 class $AssetsJsonGen {
@@ -177,6 +202,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/tds_icon.svg
   SvgGenImage get tdsIcon => const SvgGenImage('assets/svg/tds_icon.svg');
 
+  /// File path: assets/svg/true_icon.svg
+  SvgGenImage get trueIcon => const SvgGenImage('assets/svg/true_icon.svg');
+
   /// File path: assets/svg/user1.svg
   SvgGenImage get user1 => const SvgGenImage('assets/svg/user1.svg');
 
@@ -202,6 +230,7 @@ class $AssetsSvgGen {
         projectIcon,
         remaining,
         tdsIcon,
+        trueIcon,
         user1,
         user2,
         user3

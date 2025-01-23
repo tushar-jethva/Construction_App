@@ -186,30 +186,34 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   },
                 ),
                 Gap(15.h),
-                CustomElevatedButton(
-                  label: 'Select Floors',
-                  onTap: () {
-                    for (int i = 0; i < 1; i++) {
-                      if (formKey.currentState!.validate()) {
-                        final dropDown =
-                            context.read<AddAgencyDropDownsBloc>().state;
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: CustomElevatedButton(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    label: 'Select Floors',
+                    onTap: () {
+                      for (int i = 0; i < 1; i++) {
+                        if (formKey.currentState!.validate()) {
+                          final dropDown =
+                              context.read<AddAgencyDropDownsBloc>().state;
 
-                        if (dropDown.workTypeValue.isNotEmpty) {
-                          final selectFloorsBloc =
-                              BlocProvider.of<SelectFloorsBloc>(context);
-                          context.pushNamed(
-                            RoutesName.selectFloorsScreen,
-                            extra: {
-                              'buildingModel': buildingModel,
-                              'bloc': selectFloorsBloc,
-                              'projectModel': projectModel,
-                              'workTypeId': dropDown.workTypeValue
-                            },
-                          );
+                          if (dropDown.workTypeValue.isNotEmpty) {
+                            final selectFloorsBloc =
+                                BlocProvider.of<SelectFloorsBloc>(context);
+                            context.pushNamed(
+                              RoutesName.selectFloorsScreen,
+                              extra: {
+                                'buildingModel': buildingModel,
+                                'bloc': selectFloorsBloc,
+                                'projectModel': projectModel,
+                                'workTypeId': dropDown.workTypeValue
+                              },
+                            );
+                          }
                         }
                       }
-                    }
-                  },
+                    },
+                  ),
                 ),
                 3.hx,
                 BlocBuilder<SelectFloorsBloc, SelectFloorsState>(

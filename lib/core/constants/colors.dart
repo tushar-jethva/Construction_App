@@ -18,5 +18,5 @@ final Color darkCardColor = Color(0xff1f1f1f);
 final Color darkShimmerColor = Color(0xff2E2E2E);
 final Color otpbackColor = const Color.fromARGB(102, 205, 212, 245);
 final Color gray500 = Color.fromRGBO(157, 164, 158, 1);
-
+final Color orange = Colors.orange;
 final Color darkBlue = const Color.fromARGB(255, 17, 43, 173);

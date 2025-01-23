@@ -5,7 +5,6 @@ import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
-import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -87,6 +86,7 @@ class _MyTransactionPartiesScreenState
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.cardColor,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: theme.scaffoldBackgroundColor,
         iconTheme: IconThemeData(color: theme.canvasColor),
@@ -358,7 +358,9 @@ class _MyTransactionPartiesScreenState
         child: Column(
           children: [
             RefreshIndicator(
-                onRefresh: _refreshTransactions, child: allTransactions(theme))
+              onRefresh: _refreshTransactions,
+              child: allTransactions(theme),
+            ),
           ],
         ),
       ),

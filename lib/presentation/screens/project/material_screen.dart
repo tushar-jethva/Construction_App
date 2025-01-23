@@ -84,13 +84,18 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                     date: DateTime.now().toString()));
                           }))
                   : state.materialList.isNotEmpty
-                      ? ListView.builder(
-                          itemCount: state.materialList.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            final material = state.materialList[index];
-                            return materialWidget(theme, material);
-                          })
+                      ? Column(
+                          children: [
+                            ListView.builder(
+                                itemCount: state.materialList.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  final material = state.materialList[index];
+                                  return materialWidget(theme, material);
+                                }),
+                            60.hx,
+                          ],
+                        )
                       : SizedBox(
                           height: MediaQuery.of(context).size.height,
                           child: ListView(children: [

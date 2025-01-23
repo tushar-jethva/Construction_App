@@ -44,7 +44,6 @@ class TransactionStatusWidget extends StatelessWidget {
                 ),
               ],
             ),
-            40.hx,
             Text(
               belowText,
               style: belowTextStyle,

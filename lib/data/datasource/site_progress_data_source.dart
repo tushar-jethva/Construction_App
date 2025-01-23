@@ -4,6 +4,7 @@ import 'package:construction_mate/core/constants/api.dart';
 
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
+import 'package:flutter/material.dart';
 
 abstract class SiteProgressDataSource {
   Future<List<FloorSiteModel>> getFloorsOfSite(
@@ -30,12 +31,11 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
     List<FloorSiteModel> floorsOfSiteList = [];
     try {
       final res = await dio.post(
-        "${API.GET_FLOORS}",
-        data: jsonEncode(
-            {"projectId": "$projectId", "buildingId": "$buildingId"}),
+        API.GET_FLOORS,
+        data: jsonEncode({"projectId": projectId, "buildingId": buildingId}),
       );
       final floors = res.data;
-      print(floors);
+      print("----------------- getfloorsapi    ${floors} ---------------");
       for (var floor in floors["data"]) {
         floorsOfSiteList.add(FloorSiteModel.fromJson(floor));
       }
@@ -66,6 +66,9 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
       print("Floorofsite ${res.data}");
       final floors = res.data;
       floorsOfSite = FloorSiteModel.fromJson(floors["data"][0]);
+
+      print(
+          "--------------- floor ${floorsOfSite.workStatus?.first.agencyName}");
     } catch (e) {
       print(e.toString());
     }
@@ -81,7 +84,7 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
     try {
       print("$projectId $buildingId $floorIndex $workTypeIds");
       final res = await dio.post(
-        "${API.SITE_PROGRESS_UPDATE_AGENCY}",
+        API.SITE_PROGRESS_UPDATE_AGENCY,
         data: jsonEncode({
           "ProjectId": projectId,
           "BuildingId": buildingId,
@@ -89,7 +92,7 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
           "floorName": floorIndex
         }),
       );
-      print(res.data);
+      debugPrint("---------- site response ${res.data} ---------------");
     } catch (e) {
       print(e.toString());
     }

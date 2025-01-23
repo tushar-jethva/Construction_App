@@ -28,4 +28,7 @@ class RoutesName {
   static String NEW_DETAIL_SCREEN_PATH = "/newDetails";
   static String NEW_DETAIL_SCREEN_NAME = "/newDetails";
 
+  //Onboard
+  static String ONBOARD_SCREEN_PATH = "/onboard";
+  static String ONBOARD_SCREEN_NAME = "/onboard";
 }

@@ -48,7 +48,10 @@ class _MySiteProgressScreenWidgetState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return scrollableSheetWidget(context, theme);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+      child: floorsWidget(theme),
+    );
   }
 
   BlocBuilder<SiteProgressFloorsBloc, SiteProgressFloorsState> floorsWidget(
@@ -60,118 +63,126 @@ class _MySiteProgressScreenWidgetState
             gradient: LinearGradient(
                 colors: [theme.hoverColor, theme.cardColor],
                 stops: const [0.1, 0.8]),
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: 5,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                      child: Container(
+            child: SizedBox(
+              height: 300,
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {},
+                      child: Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 15.w, vertical: 10.h),
-                        decoration: BoxDecoration(
-                            color: theme.cardColor,
-                            borderRadius: BorderRadius.circular(15.r)),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ShimmerBox(height: 10, width: 150),
-                                Gap(10),
-                                ShimmerBox(height: 10, width: 90)
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                ShimmerBox(height: 5, width: 10),
-                              ],
-                            ),
-                          ],
+                            horizontal: 15.w, vertical: 5.h),
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 10.h),
+                          decoration: BoxDecoration(
+                              color: theme.cardColor,
+                              borderRadius: BorderRadius.circular(15.r)),
+                          child: const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ShimmerBox(height: 10, width: 150),
+                                  Gap(10),
+                                  ShimmerBox(height: 10, width: 90)
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  ShimmerBox(height: 5, width: 10),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                }),
+                    );
+                  }),
+            ),
           );
         } else if (state is SiteProgressFloorsSuccess) {
-          return Padding(
-            padding: const EdgeInsets.only(top: 10.0),
-            child: ListView.builder(
-                itemCount: state.listOfFloorsSite.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  FloorSiteModel floorSiteModel = state.listOfFloorsSite[index];
-                  String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
-                      .format(DateTime.parse(floorSiteModel.completedDate!));
+          return state.listOfFloorsSite.isNotEmpty
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: ListView.builder(
+                      itemCount: state.listOfFloorsSite.length,
+                      itemBuilder: (context, index) {
+                        FloorSiteModel floorSiteModel =
+                            state.listOfFloorsSite[index];
+                        String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
+                            .format(
+                                DateTime.parse(floorSiteModel.completedDate!));
 
-                  return InkWell(
-                    onTap: () {
-                      context.pushNamed(RoutesName.siteProgressDeailsScreen,
-                          extra: {
-                            'floorSiteModel': floorSiteModel,
-                          });
-                    },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${floorSiteModel.floorName}",
-                                style: theme.textTheme.titleLarge
-                                    ?.copyWith(fontSize: 16),
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Total agencies: ",
-                                    style: theme.textTheme.titleMedium
-                                        ?.copyWith(fontSize: 14, color: grey),
-                                  ),
-                                  Text(
-                                    floorSiteModel.workStatus?.length
-                                            .toString() ??
-                                        "0",
-                                    style: theme.textTheme.titleMedium,
-                                  )
-                                ],
-                              )
-                            ],
+                        return InkWell(
+                          onTap: () {
+                            context.pushNamed(
+                                RoutesName.siteProgressDeailsScreen,
+                                extra: {
+                                  'floorSiteModel': floorSiteModel,
+                                });
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.w, vertical: 5.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${floorSiteModel.floorName}",
+                                      style: theme.textTheme.titleLarge
+                                          ?.copyWith(fontSize: 16),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Total agencies: ",
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(
+                                                  fontSize: 14, color: grey),
+                                        ),
+                                        Text(
+                                          floorSiteModel.workStatus?.length
+                                                  .toString() ??
+                                              "0",
+                                          style: theme.textTheme.titleMedium,
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Last updated: ",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(fontSize: 14, color: grey),
+                                    ),
+                                    Text(
+                                      formattedDate,
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                                const Divider()
+                              ],
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                "Last updated: ",
-                                style: theme.textTheme.titleMedium
-                                    ?.copyWith(fontSize: 14, color: grey),
-                              ),
-                              Text(
-                                formattedDate,
-                                style: theme.textTheme.titleMedium
-                                    ?.copyWith(fontSize: 14),
-                              ),
-                            ],
-                          ),
-                          const Divider()
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-          );
+                        );
+                      }),
+                )
+              : const Center(
+                  child: Text("No floors found!"),
+                );
         } else {
           return const Center(
             child: Text("Something gone wrong!"),
@@ -185,11 +196,10 @@ class _MySiteProgressScreenWidgetState
       BuildContext context, ThemeData theme) {
     return DraggableScrollableSheetCommonComp(
       draggableScrollableController: DraggableScrollableController(),
-      stops: const [0.9, 0.98],
-      initialSize: 0.9,
-      minChildSize: 0.9,
+      stops: const [0.98, 0.99],
+      initialSize: 0.98,
+      minChildSize: 0.98,
       radius: 20,
-      
       widget: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(

@@ -1,15 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
+import 'package:construction_mate/presentation/widgets/building_details_screen.dart/completed_agencies.dart';
+import 'package:construction_mate/presentation/widgets/building_details_screen.dart/working_agencies_site.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
+import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
+import 'package:construction_mate/utilities/constants/common_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class MySiteProgressDetailsWidget extends StatefulWidget {
   final FloorSiteModel floorSiteModel;
@@ -41,8 +46,10 @@ class _MySiteProgressDetailsWidgetState
   @override
   Widget build(BuildContext context) {
     final floor = widget.floorSiteModel;
+
     final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.cardColor,
       appBar: AppBar(
         iconTheme: IconThemeData(color: theme.canvasColor),
         backgroundColor: theme.scaffoldBackgroundColor,
@@ -51,104 +58,217 @@ class _MySiteProgressDetailsWidgetState
           style: theme.textTheme.titleMedium!.copyWith(fontSize: 20),
         ),
       ),
-      body: BlocBuilder<SiteProgressAgencyUpdateBloc,
+      body: Stack(
+        children: [
+          scrollableSheetWidget(context, theme, floor),
+          // Positioned(
+          //   bottom: 10,
+          //   right: 10,
+          //   left: 10,
+          //   child: updateButton(floor),
+          // ),
+        ],
+      ),
+    );
+  }
+
+  BlocBuilder<SiteProgressAgencyUpdateBloc, SiteProgressAgencyUpdateState>
+      allAgenciesSection(FloorSiteModel floor, ThemeData theme) {
+    return BlocBuilder<SiteProgressAgencyUpdateBloc,
+        SiteProgressAgencyUpdateState>(
+      builder: (context, state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Working agency on ${floor.floorName}",
+              style: const TextStyle(fontSize: 15),
+            ),
+            ListTile(
+              leading: Checkbox(
+                side: const BorderSide(color: grey),
+                value: state.selectAll,
+                onChanged: (bool? value) {
+                  context
+                      .read<SiteProgressAgencyUpdateBloc>()
+                      .add(ToggleSelectAll());
+                },
+              ),
+              title: Text(
+                'Select All',
+                style: theme.textTheme.titleMedium,
+              ),
+            ),
+            !state.isLoading
+                ? state.selectedAgencies.isNotEmpty
+                    ? Column(
+                        children: [
+                          Expanded(
+                            child: ListView.builder(
+                              itemCount: floor.workStatus!.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return state.selectedAgencies[index].isSelected!
+                                    ? Text(
+                                        "${state.selectedAgencies[index].agencyName} task is Already completed!")
+                                    : ListTile(
+                                        leading: Checkbox(
+                                          side: const BorderSide(color: grey),
+                                          value: state
+                                              .currentSelectedAgencies[index]
+                                              .isSelected,
+                                          onChanged: (bool? value) {
+                                            context
+                                                .read<
+                                                    SiteProgressAgencyUpdateBloc>()
+                                                .add(ToggleAgencySelection(
+                                                    index: index));
+                                          },
+                                        ),
+                                        title: Text(
+                                          floor.workStatus![index].agencyName!,
+                                          style: theme.textTheme.titleMedium,
+                                        ),
+                                      );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : const Text("No agency founds!")
+                : Center(
+                    child: ReusableFunctions.loader(),
+                  ),
+            BlocListener<SiteProgressAgencyUpdateBloc,
+                SiteProgressAgencyUpdateState>(
+              listener: (context, state) {
+                if (state is SiteProgressAgencyUpdateSuccessState) {
+                  showTopSnackBar(context, "Agency updated successfully!");
+                  context.pop();
+                }
+              },
+              child: BlocBuilder<SiteProgressAgencyUpdateBloc,
+                  SiteProgressAgencyUpdateState>(
+                builder: (context, state) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
+                    child: CustomElevatedButton(
+                      isLoading: state is SiteProgressAgencyUpdateLoadingState,
+                      label: 'Update',
+                      onTap: () {
+                        final currentSelectedAgencies = context
+                            .read<SiteProgressAgencyUpdateBloc>()
+                            .state
+                            .currentSelectedAgencies
+                            .where((element) => element.isSelected! == true)
+                            .toList();
+                        if (currentSelectedAgencies.isNotEmpty) {
+                          context
+                              .read<SiteProgressAgencyUpdateBloc>()
+                              .add(OnUpdateButtonPressed(floor: floor));
+                        }
+                      },
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  DraggableScrollableSheetCommonComp scrollableSheetWidget(
+    BuildContext context,
+    ThemeData theme,
+    FloorSiteModel floor,
+  ) {
+    return DraggableScrollableSheetCommonComp(
+        draggableScrollableController: DraggableScrollableController(),
+        stops: const [0.9, 0.98],
+        initialSize: 0.9,
+        minChildSize: 0.9,
+        radius: 20,
+        newWidget: (contex, scrollController) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            decoration: BoxDecoration(
+                color: theme.scaffoldBackgroundColor,
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40))),
+            child: DefaultTabController(
+                length: 2,
+                child: Column(
+                  children: [
+                    const TabBar(
+                      labelColor: Colors.blue,
+                      unselectedLabelColor: Colors.grey,
+                      indicatorColor: Colors.blue,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      tabs: [
+                        Tab(text: 'Working'),
+                        Tab(text: 'Completed'),
+                      ],
+                    ),
+                    Expanded(
+                      child: TabBarView(children: [
+                        SingleChildScrollView(
+                            controller: scrollController,
+                            child: WorkingAgenciesSite(floor: floor)),
+                        SingleChildScrollView(
+                            controller: scrollController,
+                            child: CompletedAgencies(floor: floor))
+                      ]),
+                    )
+                  ],
+                )),
+          );
+        });
+  }
+
+  Widget updateButton(FloorSiteModel floor) {
+    return BlocListener<SiteProgressAgencyUpdateBloc,
+        SiteProgressAgencyUpdateState>(
+      listener: (context, state) {
+        if (state is SiteProgressAgencyUpdateSuccessState) {
+          // Navigator.pop(context);
+          showTopSnackBar(context, "Agency updated successfully");
+
+          context.read<SiteProgressAgencyUpdateBloc>().add(
+              FetchAlreadySelectedAgencies(
+                  projectId: widget.floorSiteModel.projectId!,
+                  buildingId: widget.floorSiteModel.buildingId!,
+                  floorIndex: widget.floorSiteModel.floorName.toString()));
+
+          context.pop();
+        }
+      },
+      child: BlocBuilder<SiteProgressAgencyUpdateBloc,
           SiteProgressAgencyUpdateState>(
         builder: (context, state) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Working agency on ${floor.floorName}",
-                style: const TextStyle(fontSize: 15),
-              ),
-              ListTile(
-                leading: Checkbox(
-                  side: const BorderSide(color: grey),
-                  value: state.selectAll,
-                  onChanged: (bool? value) {
-                    context
-                        .read<SiteProgressAgencyUpdateBloc>()
-                        .add(ToggleSelectAll());
-                  },
-                ),
-                title: Text(
-                  'Select All',
-                  style: theme.textTheme.titleMedium,
-                ),
-              ),
-              !state.isLoading
-                  ? state.selectedAgencies.isNotEmpty
-                      ? Expanded(
-                          child: ListView.builder(
-                            itemCount: floor.workStatus!.length,
-                            itemBuilder: (context, index) {
-                              return state.selectedAgencies[index].isSelected!
-                                  ? Text(
-                                      "${state.selectedAgencies[index].agencyName} task is Already completed!")
-                                  : ListTile(
-                                      leading: Checkbox(
-                                        side: const BorderSide(color: grey),
-                                        value: state
-                                            .currentSelectedAgencies[index]
-                                            .isSelected,
-                                        onChanged: (bool? value) {
-                                          context
-                                              .read<
-                                                  SiteProgressAgencyUpdateBloc>()
-                                              .add(ToggleAgencySelection(
-                                                  index: index));
-                                        },
-                                      ),
-                                      title: Text(
-                                        floor.workStatus![index].agencyName!,
-                                        style: theme.textTheme.titleMedium,
-                                      ),
-                                    );
-                            },
-                          ),
-                        )
-                      : const Text("No agency founds!")
-                  : Center(
-                      child: ReusableFunctions.loader(),
-                    ),
-              BlocListener<SiteProgressAgencyUpdateBloc,
-                  SiteProgressAgencyUpdateState>(
-                listener: (context, state) {
-                  if (state is SiteProgressAgencyUpdateSuccessState) {
-                    Navigator.pop(context);
-                    ReusableFunctions.showSnackBar(
-                        context: context,
-                        content: "Agency updated successfully!");
-                  }
-                },
-                child: BlocBuilder<SiteProgressAgencyUpdateBloc,
-                    SiteProgressAgencyUpdateState>(
-                  builder: (context, state) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: CustomElevatedButton(
-                        isLoading:
-                            state is SiteProgressAgencyUpdateLoadingState,
-                        label: 'Update',
-                        onTap: () {
-                          final currentSelectedAgencies = context
-                              .read<SiteProgressAgencyUpdateBloc>()
-                              .state
-                              .currentSelectedAgencies
-                              .where((element) => element.isSelected! == true)
-                              .toList();
-                          if (currentSelectedAgencies.isNotEmpty) {
-                            context
-                                .read<SiteProgressAgencyUpdateBloc>()
-                                .add(OnUpdateButtonPressed(floor: floor));
-                          }
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+            child: CustomElevatedButton(
+              isLoading: state.isLoading,
+              label: 'Update',
+              onTap: () {
+                final currentSelectedAgencies = context
+                    .read<SiteProgressAgencyUpdateBloc>()
+                    .state
+                    .currentSelectedAgencies
+                    .where((element) => element.isSelected! == true)
+                    .toList();
+                if (currentSelectedAgencies.isNotEmpty) {
+                  context
+                      .read<SiteProgressAgencyUpdateBloc>()
+                      .add(OnUpdateButtonPressed(floor: floor));
+                }
+              },
+            ),
           );
         },
       ),

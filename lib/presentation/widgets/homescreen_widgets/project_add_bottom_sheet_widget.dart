@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
@@ -139,12 +140,8 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                   if (state is ProjectAddSuccess) {
                     Navigator.pop(context);
                     widget.isUpdate == true
-                        ? "Project updated!".showToast(
-                            context: context,
-                            typeOfToast: ShortToastType.success)
-                        : "Project Added".showToast(
-                            context: context,
-                            typeOfToast: ShortToastType.success);
+                        ? const TopSnackBar(message: "Project updated!")
+                        : const TopSnackBar(message: "Project Added!");
                   } else if (state is ProjectAddFailure) {
                     "Something went wrong!".showToast(context: context);
                   }

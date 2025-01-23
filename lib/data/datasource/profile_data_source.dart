@@ -5,6 +5,7 @@ import 'package:construction_mate/logic/models/fitler_option_model.dart';
 import 'package:construction_mate/logic/models/gst_model.dart';
 import 'package:construction_mate/logic/models/other_expense_model.dart';
 import 'package:construction_mate/logic/models/others_transaction_data_model.dart';
+import 'package:construction_mate/logic/models/profile_model.dart';
 import 'package:construction_mate/logic/models/tds_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,8 @@ abstract class ProfileDataSource {
       required String gst,
       required String phoneNumber,
       required String imageUrl});
+
+  Future<ProfileModel?> getProfile();
 }
 
 @LazySingleton(as: ProfileDataSource)
@@ -129,8 +132,19 @@ class ProfileDataSourceImpl implements ProfileDataSource {
             "Email": email,
             'logo': imageUrl
           }));
-
+      print("-------------- ${res.data} ----------------");
       return res.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ProfileModel?> getProfile() async {
+    try {
+      final res = await dio.get(API.GET_PROFILE);
+
+      return ProfileModel.fromJson(res.data["data"][0]);
     } catch (e) {
       rethrow;
     }

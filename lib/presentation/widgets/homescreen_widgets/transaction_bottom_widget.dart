@@ -1,8 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_other_expense_bloc.dart';
+import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
+import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/presentation/screens/authentication/signin/sign_in_screen.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
@@ -695,18 +699,14 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                           listener: (context, state) {
                                             if (state.state.isLoaded) {
                                               Navigator.pop(context);
-                                              "${state.transactionType} is added!"
-                                                  .showToast(
-                                                      context: context,
-                                                      typeOfToast:
-                                                          ShortToastType
-                                                              .success);
+                                              TopSnackBar(
+                                                  message:
+                                                      "${state.transactionType} is Added");
                                             } else if (state.state.isError) {
                                               Navigator.pop(context);
-                                              "Something went wrong!".showToast(
-                                                  context: context,
-                                                  typeOfToast:
-                                                      ShortToastType.error);
+                                              const TopSnackBar(
+                                                  message:
+                                                      "Something went wrong!");
                                             }
                                           },
                                           child: BlocBuilder<
@@ -733,8 +733,21 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
                                                       context
                                                           .read<
                                                               TotalPaymentOutBloc>()
-                                                          .add(TotalPaymentOutEvent
+                                                          .add(const TotalPaymentOutEvent
                                                               .fetchTotalPayments());
+                                                      context
+                                                          .read<TdsBloc>()
+                                                          .add(const TdsEvent
+                                                              .fetchTds());
+                                                      context
+                                                          .read<GstBloc>()
+                                                          .add(const GstEvent
+                                                              .fetchGst());
+                                                      context
+                                                          .read<
+                                                              OtherExpenseBloc>()
+                                                          .add(const OtherExpenseEvent
+                                                              .fetchOtherExpenses());
                                                     }
                                                   },
                                                 ),

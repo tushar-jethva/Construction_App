@@ -1,5 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
+import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
+import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
@@ -35,13 +37,14 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     super.initState();
     _projectBloc = BlocProvider.of<ProjectBloc>(context);
     _totalPaymentOutBloc = BlocProvider.of<TotalPaymentOutBloc>(context);
-    _totalPaymentOutBloc.add(TotalPaymentOutEvent.fetchTotalPayments());
+    _totalPaymentOutBloc.add(const TotalPaymentOutEvent.fetchTotalPayments());
     _projectBloc.add(LoadProjects());
     context.read<TdsBloc>().add(const TdsEvent.fetchTds());
     context.read<GstBloc>().add(const GstEvent.fetchGst());
     context
         .read<OtherExpenseBloc>()
         .add(const OtherExpenseEvent.fetchOtherExpenses());
+    context.read<UserWatcherBloc>().add(const UserWatcherEvent.fetchProfile());
   }
 
   Future<void> _refreshProjects() async {
@@ -125,7 +128,8 @@ class CommonButton2 extends StatelessWidget {
       this.onTap,
       this.backgroundColor,
       this.textColor,
-      this.iconBackColor, this.iconColor});
+      this.iconBackColor,
+      this.iconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +147,7 @@ class CommonButton2 extends StatelessWidget {
             IconCircleWidget(
               radius: 5,
               padding: const EdgeInsets.all(2),
-              imagewidget:  Icon(
+              imagewidget: Icon(
                 Icons.add,
                 size: 14,
                 color: iconColor ?? white,

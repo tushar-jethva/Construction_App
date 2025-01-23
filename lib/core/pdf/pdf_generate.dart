@@ -44,17 +44,18 @@ class PDFGenerator {
       ..add(Items(
           description: "SGST",
           rate: bill.sGST,
-          amount: bill.sGSTAmount.toString(),
+          amount: double.parse(bill.sGSTAmount ?? '0').toStringAsFixed(2),
           per: "%")) // Add SGST item
       ..add(Items(
           description: "CGST",
           rate: bill.cGST,
-          amount: bill.cGSTAmount.toString(),
+          amount: double.parse(bill.cGSTAmount ?? '0').toStringAsFixed(2),
           per: "%"))
       ..add(Items(
           description: "Total",
           squreFeet: getTotalSquareFeet(items: bill.items!),
-          amount: "Total Amount: ${bill.totalAmount}",
+          amount:
+              "Total Amount: ${double.parse(bill.totalAmount ?? '0').toStringAsFixed(2)}",
           per: ""));
     pdf.addPage(
       pw.MultiPage(
@@ -289,9 +290,10 @@ class PDFGenerator {
   }
 
   // Define the `toElement` helper function to map `Items` to a List<String>
+  int currIndex = 1;
   List<String> toElement(Items item, int index) {
     return [
-      item.description == null ? "" : (index + 1).toString(),
+      item.description == null ? "" : " ${(currIndex++).toString()}",
       item.description ?? "",
       item.hSNCode ?? "",
       item.squreFeet == null ? "" : item.squreFeet.toString(),
@@ -486,11 +488,13 @@ class PDFGenerator {
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
-              child: pw.Text(bill.sGSTAmount.toString()),
+              child: pw.Text(
+                  double.parse(bill.sGSTAmount ?? '0').toStringAsFixed(2)),
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
-              child: pw.Text(bill.totalAmount.toString()),
+              child: pw.Text(
+                  double.parse(bill.totalAmount ?? '0').toStringAsFixed(2)),
             ),
           ],
         ),
@@ -504,7 +508,8 @@ class PDFGenerator {
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
-              child: pw.Text(bill.netAmount.toString(),
+              child: pw.Text(
+                  double.parse(bill.netAmount ?? '0').toStringAsFixed(2),
                   style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
             ),
             pw.Padding(
@@ -513,7 +518,8 @@ class PDFGenerator {
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
-              child: pw.Text(bill.cGSTAmount.toString(),
+              child: pw.Text(
+                  double.parse(bill.cGSTAmount ?? '0').toStringAsFixed(2),
                   style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
             ),
             pw.Padding(
@@ -522,12 +528,14 @@ class PDFGenerator {
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
-              child: pw.Text(bill.sGSTAmount.toString(),
+              child: pw.Text(
+                  double.parse(bill.sGSTAmount ?? '0').toStringAsFixed(2),
                   style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
             ),
             pw.Padding(
               padding: const pw.EdgeInsets.all(8),
-              child: pw.Text(bill.totalAmount.toString(),
+              child: pw.Text(
+                  double.parse(bill.totalAmount ?? '0').toStringAsFixed(2),
                   style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
             ),
           ],
@@ -544,11 +552,15 @@ class PDFGenerator {
       child: pw.Column(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
-          _buildAmountRow('Work Bill Amount', bill.netAmount.toString()),
-          _buildAmountRow('SGST (${bill.sGST}%)', bill.sGSTAmount.toString()),
-          _buildAmountRow('CGST (${bill.cGST}%)', bill.cGSTAmount.toString()),
+          _buildAmountRow('Work Bill Amount',
+              double.parse(bill.netAmount ?? '0').toStringAsFixed(2)),
+          _buildAmountRow('SGST (${bill.sGST}%)',
+              double.parse(bill.sGSTAmount ?? '0').toStringAsFixed(2)),
+          _buildAmountRow('CGST (${bill.cGST}%)',
+              double.parse(bill.cGSTAmount ?? '0').toStringAsFixed(2)),
           pw.SizedBox(height: 10),
-          _buildAmountRow('TOTAL AMOUNT', bill.totalAmount.toString(),
+          _buildAmountRow('TOTAL AMOUNT',
+              double.parse(bill.totalAmount ?? '0').toStringAsFixed(2),
               isBold: true),
         ],
       ),

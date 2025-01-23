@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:label="Buildish"
+        android:label="4BUILD"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
@@ -58,7 +59,6 @@ class SignInScreen extends StatelessWidget {
                                 .add(SignInEvent.emailOnChanged(value));
                           },
                         ),
-                        10.hx,
                         BlocBuilder<VisibilityEyeBloc, VisibilityEyeState>(
                           builder: (context, state) {
                             return CustomTextFormField(
@@ -87,18 +87,16 @@ class SignInScreen extends StatelessWidget {
                             );
                           },
                         ),
-                        25.hx,
+                        15.hx,
                         BlocConsumer<SignInBloc, SignInState>(
                           listener: (context, state) {
                             if (state.state.isLoaded) {
                               context.replace(RoutesName.bottomBar);
-                              "Login successful".showToast(
-                                  context: context,
-                                  typeOfToast: ShortToastType.success);
+                              const TopSnackBar(message: "Login successful");
                             } else if (state.state.isError) {
-                              "Email or Password is wrong!".showToast(
-                                  context: context,
-                                  typeOfToast: ShortToastType.warning);
+                              showTopSnackBar(
+                                  context, "Email or Password is wrong!",
+                                  backgroundColor: red);
                             }
                           },
                           builder: (context, state) {
@@ -110,7 +108,6 @@ class SignInScreen extends StatelessWidget {
                               borderColor: Colors.transparent,
                               onTap: () {
                                 if (formKey.currentState!.validate()) {
-                                  
                                   context
                                       .read<SignInBloc>()
                                       .add(const SignInEvent.loginUser());
@@ -127,13 +124,14 @@ class SignInScreen extends StatelessWidget {
                             5.wx,
                             InkWell(
                               onTap: () {
-                                context.goNamed(RoutesName.signUpScreen);
+                                context.goNamed(RoutesName.signUpScreen2);
                               },
-                              child: const Text(
+                              child: Text(
                                 "Sign Up",
                                 style: TextStyle(
                                     decoration: TextDecoration.underline,
-                                    decorationColor: white),
+                                    color: purple,
+                                    decorationColor: purple),
                               ),
                             )
                           ],

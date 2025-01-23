@@ -11,8 +11,7 @@ part 'sign_up_bloc.freezed.dart';
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   final AuthenticationRepository repository;
-  SignUpBloc({required this.repository})
-      : super(SignUpState.initial()) {
+  SignUpBloc({required this.repository}) : super(SignUpState.initial()) {
     on<SignUpEvent>((event, emit) async {
       await event.map(
         initial: (value) {
@@ -20,6 +19,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         },
         emailOnChanged: (_EmailOnChanged value) {
           emit(state.copyWith(email: value.email, state: RequestState.empty));
+        },
+        onIsVerifiedChanged: (value) {
+          emit(state.copyWith(
+              state: RequestState.empty, isVerified: value.isVerified));
         },
         companyNameChanged: (_CompanyNameChanged value) {
           emit(state.copyWith(
@@ -86,5 +89,4 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       );
     });
   }
-
 }

@@ -1,5 +1,6 @@
 import 'package:construction_mate/common/enter_otp_widget.dart';
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_eye_bloc.dart';
@@ -47,97 +48,96 @@ class SignUpScreen extends StatelessWidget {
               ),
               const Gap(30),
               Form(
-                  key: formKey,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Column(
-                      children: [
-                        CustomTextFormField(
-                            isValidate: true,
-                            textInputType: TextInputType.emailAddress,
-                            textFieldType: TextFieldType.email,
-                            onChanged: (value) {
-                              context
-                                  .read<SignUpBloc>()
-                                  .add(SignUpEvent.emailOnChanged(value));
-                            },
-                            hintText: "Email",
-                            maxLines: 1),
-                        10.hx,
-                        BlocConsumer<SignUpBloc, SignUpState>(
-                          listener: (context, state) {
-                            if (state.state.isLoaded) {
-                              if (state.screenState == 0) {
-                                context.pushNamed(RoutesName.signInScreen);
-                                "Already have an account! Please login."
-                                    .showToast(
-                                        context: context,
-                                        typeOfToast: ShortToastType.info);
-                              } else if (state.screenState == 1) {
-                                context.goNamed(RoutesName.signUpScreen2);
-                              } else if (state.screenState == 2) {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return const EnterOptwidget();
-                                  },
-                                  barrierColor:
-                                      Colors.transparent.withOpacity(0.6),
-                                  barrierDismissible: false,
-                                );
-                              }
-                            } else if (state.state.isError) {
-                              ReusableFunctions.showSnackBar(
-                                  context: context,
-                                  content: "Something went wrong!");
+                key: formKey,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Column(
+                    children: [
+                      CustomTextFormField(
+                          isValidate: true,
+                          textInputType: TextInputType.emailAddress,
+                          textFieldType: TextFieldType.email,
+                          onChanged: (value) {
+                            context
+                                .read<SignUpBloc>()
+                                .add(SignUpEvent.emailOnChanged(value));
+                          },
+                          hintText: "Email",
+                          maxLines: 1),
+                      10.hx,
+                      BlocConsumer<SignUpBloc, SignUpState>(
+                        listener: (context, state) {
+                          if (state.state.isLoaded) {
+                            if (state.screenState == 0) {
+                              context.pushNamed(RoutesName.signInScreen);
+                              const TopSnackBar(
+                                  message:
+                                      "Already have an account! Please login.");
+                            } else if (state.screenState == 1) {
+                              context.goNamed(RoutesName.signUpScreen2);
+                            } else if (state.screenState == 2) {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return const EnterOptwidget();
+                                },
+                                barrierColor:
+                                    Colors.transparent.withOpacity(0.6),
+                                barrierDismissible: false,
+                              );
                             }
-                          },
-                          builder: (context, state) {
-                            return BlocBuilder<SignUpBloc, SignUpState>(
-                              builder: (context, state) {
-                                return CustomElevatedButton(
-                                  isLoading: state.state.isLoading,
-                                  label: "Next",
-                                  backgroundColor: purple,
-                                  labelColor: white,
-                                  borderColor: Colors.transparent,
-                                  onTap: () {
-                                    if (formKey.currentState!.validate()) {
-                                      context.read<SignUpBloc>().add(
-                                          const SignUpEvent
-                                              .checkIsEmailExist());
-                                    }
-                                  },
-                                );
-                              },
-                            );
-                          },
-                        ),
-                        5.hx,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            const Text("Already hava an account?"),
-                            5.wx,
-                            InkWell(
-                              onTap: () {
-                                context.goNamed(RoutesName.signInScreen);
-                                context
-                                    .read<VisibilityEyeBloc>()
-                                    .add(const VisibilityEyeEvent.initialize());
-                              },
-                              child: const Text(
-                                "Sign In",
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: white),
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  ))
+                          } else if (state.state.isError) {
+                            ReusableFunctions.showSnackBar(
+                                context: context,
+                                content: "Something went wrong!");
+                          }
+                        },
+                        builder: (context, state) {
+                          return BlocBuilder<SignUpBloc, SignUpState>(
+                            builder: (context, state) {
+                              return CustomElevatedButton(
+                                isLoading: state.state.isLoading,
+                                label: "Next",
+                                backgroundColor: purple,
+                                labelColor: white,
+                                borderColor: Colors.transparent,
+                                onTap: () {
+                                  if (formKey.currentState!.validate()) {
+                                    context.read<SignUpBloc>().add(
+                                        const SignUpEvent.checkIsEmailExist());
+                                  }
+                                },
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      5.hx,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const Text("Already hava an account?"),
+                          5.wx,
+                          InkWell(
+                            onTap: () {
+                              context.goNamed(RoutesName.signInScreen);
+                              context
+                                  .read<VisibilityEyeBloc>()
+                                  .add(const VisibilityEyeEvent.initialize());
+                            },
+                            child: const Text(
+                              "Sign In",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: white),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         ),

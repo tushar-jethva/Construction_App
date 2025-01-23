@@ -16,6 +16,7 @@ class GstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.cardColor,
       appBar: appBarWidget(theme, context),
       body: SafeArea(
         child: Padding(
@@ -85,19 +86,26 @@ class GstScreen extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Total",
-                    style: theme.textTheme.titleLarge
-                        ?.copyWith(fontSize: 13, color: grey),
-                  ),
-                  Text(
-                    "₹ ${state.total}",
-                    style: theme.textTheme.bodyMedium?.copyWith(fontSize: 26),
-                  )
-                ],
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: theme.scaffoldBackgroundColor),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Total",
+                      style: theme.textTheme.titleLarge
+                          ?.copyWith(fontSize: 13, color: grey),
+                    ),
+                    Text(
+                      "₹ ${state.total}",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(fontSize: 26, color: green),
+                    )
+                  ],
+                ),
               ),
             ),
             BlocBuilder<GstBloc, GstState>(
