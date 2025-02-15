@@ -43,7 +43,7 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
               indicatorColor: purple,
               tabs: const [
                 Tab(text: 'Progress'),
-                Tab(text: 'Agencies'),
+                Tab(text: 'Tasks'),
               ],
             ),
           ),
