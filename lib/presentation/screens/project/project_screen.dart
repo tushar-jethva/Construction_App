@@ -70,7 +70,6 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.cardColor,
-      resizeToAvoidBottomInset: true,
       body: Stack(
         children: [
           const TransactionsTotalWidget(),
@@ -85,20 +84,45 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
       BuildContext context, ThemeData theme) {
     return DraggableScrollableSheetCommonComp(
       draggableScrollableController: DraggableScrollableController(),
-      stops: const [0.73, 0.98],
-      initialSize: 0.73,
-      minChildSize: 0.73,
+      stops: const [0.98],
+      initialSize: 0.77,
+      minChildSize: 0.77,
       radius: 20,
-      widget: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          children: [
-            addProjectTextWidget(context, theme),
-            const AllProjectsWidget(),
-            90.hx,
-          ],
-        ),
-      ),
+      newWidget: (context, scrollController) {
+        return Container(
+          decoration: BoxDecoration(
+            color: theme.scaffoldBackgroundColor,
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                  top: 20,
+                  right: 20,
+                  child: addProjectTextWidget(context, theme)),
+              Positioned(
+                top: 60,
+                right: 0,
+                left: 0,
+                child: AllProjectsWidget(
+                  scrollController: scrollController,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      // widget: Padding(
+      //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      //   child: Column(
+      //     children: [
+      //       addProjectTextWidget(context, theme),
+      //       const AllProjectsWidget(),
+      //       90.hx,
+      //     ],
+      //   ),
+      // ),
     );
   }
 

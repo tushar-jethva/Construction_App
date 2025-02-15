@@ -30,7 +30,8 @@ class CompletedAgencies extends StatelessWidget {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return state.selectedAgencies[index].isSelected!
+                          return state.selectedAgencies[index].isSelected ??
+                                  false
                               ? Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: ListTile(

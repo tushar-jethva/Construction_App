@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 
 class ErrorAndNotFoundWidget extends StatelessWidget {
   final String text;
-  const ErrorAndNotFoundWidget({
-    super.key,
-    required this.text
-  });
+  const ErrorAndNotFoundWidget({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

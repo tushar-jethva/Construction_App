@@ -17,6 +17,10 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         initial: (value) {
           emit(SignUpState.initial());
         },
+        isDialogOpen: (value) {
+          emit(state.copyWith(
+              state: RequestState.empty, isDialogOpen: value.isDialogOpen));
+        },
         emailOnChanged: (_EmailOnChanged value) {
           emit(state.copyWith(email: value.email, state: RequestState.empty));
         },
@@ -47,6 +51,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
               state1: RequestState.loading, state: RequestState.empty));
           final response =
               await repository.verifyOtp(email: state.email, otp: state.otp);
+
           if (response) {
             emit(state.copyWith(state1: RequestState.loaded));
           } else {

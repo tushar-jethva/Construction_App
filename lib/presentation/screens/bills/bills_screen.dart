@@ -92,7 +92,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
   }
 
   BlocBuilder<BillingPartiesHomeBloc, BillingPartiesHomeState> allBillsWidget(
-      ThemeData theme) {
+      ThemeData theme, ScrollController scrollController) {
     return BlocBuilder<BillingPartiesHomeBloc, BillingPartiesHomeState>(
       builder: (context, state) {
         if (state is BillingPartiesHomeLoading) {
@@ -108,10 +108,11 @@ class _MyBillScreenState extends State<MyBillScreen> {
           return state.billingParties.isNotEmpty
               ? RefreshIndicator(
                   onRefresh: onRefreshIndicatorCalled,
+                  color: purple,
                   child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
+                      controller: scrollController,
                       itemCount: state.billingParties.length,
+                      // physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final party = state.billingParties[index];
                         return GestureDetector(
@@ -239,8 +240,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
             children: [
               partyAndBillAddWidget(context, theme),
               Expanded(
-                child: SingleChildScrollView(
-                    controller: scrollController, child: allBillsWidget(theme)),
+                child: allBillsWidget(theme, scrollController),
               )
             ],
           ),

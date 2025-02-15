@@ -1,10 +1,12 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:dashed_line/dashed_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 
 class MyWorkingAgencyDetailsScreen extends StatefulWidget {
@@ -26,6 +28,7 @@ class _MyWorkingAgencyDetailsScreenState
     return Scaffold(
       backgroundColor: theme.cardColor,
       appBar: AppBar(
+        surfaceTintColor: transparent,
         backgroundColor: theme.scaffoldBackgroundColor,
         iconTheme: IconThemeData(color: theme.canvasColor),
         title: Text(
@@ -73,9 +76,9 @@ class _MyWorkingAgencyDetailsScreenState
       BuildContext context, ThemeData theme) {
     return DraggableScrollableSheetCommonComp(
       draggableScrollableController: DraggableScrollableController(),
-      stops: const [0.8, 0.9],
-      initialSize: 0.8,
-      minChildSize: 0.8,
+      stops: const [0.9, 0.91],
+      initialSize: 0.9,
+      minChildSize: 0.9,
       radius: 20,
       newWidget: (context, scrollController) {
         PerBuildingAgencyModel perBuildingAgency = widget.perBuildingAgency;
@@ -110,18 +113,30 @@ class _MyWorkingAgencyDetailsScreenState
                         return Column(
                           children: [
                             Container(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
                               height: MediaQuery.of(context).size.height * 0.15,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.r),
                                 color: theme.cardColor,
                               ),
-                              child: Text(
-                                perBuildingAgency.floors![index],
-                                style: TextStyle(
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    Assets.svg.floorsPlan.path,
+                                    height: 50,
+                                    width: 50,
                                     color: theme.canvasColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
+                                  ),
+                                  10.wx,
+                                  Text(
+                                    perBuildingAgency.floors?[index] ?? "",
+                                    style: TextStyle(
+                                        color: theme.canvasColor,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                ],
                               ),
                             ),
                             10.hx,

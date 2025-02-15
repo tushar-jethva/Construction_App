@@ -58,17 +58,7 @@ class _MySiteProgressDetailsWidgetState
           style: theme.textTheme.titleMedium!.copyWith(fontSize: 20),
         ),
       ),
-      body: Stack(
-        children: [
-          scrollableSheetWidget(context, theme, floor),
-          // Positioned(
-          //   bottom: 10,
-          //   right: 10,
-          //   left: 10,
-          //   child: updateButton(floor),
-          // ),
-        ],
-      ),
+      body: scrollableSheetWidget(context, theme, floor),
     );
   }
 
@@ -181,97 +171,83 @@ class _MySiteProgressDetailsWidgetState
     );
   }
 
-  DraggableScrollableSheetCommonComp scrollableSheetWidget(
+  Widget scrollableSheetWidget(
     BuildContext context,
     ThemeData theme,
     FloorSiteModel floor,
   ) {
-    return DraggableScrollableSheetCommonComp(
-        draggableScrollableController: DraggableScrollableController(),
-        stops: const [0.9, 0.98],
-        initialSize: 0.9,
-        minChildSize: 0.9,
-        radius: 20,
-        newWidget: (contex, scrollController) {
-          return Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-            decoration: BoxDecoration(
-                color: theme.scaffoldBackgroundColor,
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40))),
-            child: DefaultTabController(
-                length: 2,
-                child: Column(
-                  children: [
-                    const TabBar(
-                      labelColor: Colors.blue,
-                      unselectedLabelColor: Colors.grey,
-                      indicatorColor: Colors.blue,
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      tabs: [
-                        Tab(text: 'Working'),
-                        Tab(text: 'Completed'),
-                      ],
-                    ),
-                    Expanded(
-                      child: TabBarView(children: [
-                        SingleChildScrollView(
-                            controller: scrollController,
-                            child: WorkingAgenciesSite(floor: floor)),
-                        SingleChildScrollView(
-                            controller: scrollController,
-                            child: CompletedAgencies(floor: floor))
-                      ]),
-                    )
-                  ],
-                )),
-          );
-        });
-  }
-
-  Widget updateButton(FloorSiteModel floor) {
-    return BlocListener<SiteProgressAgencyUpdateBloc,
-        SiteProgressAgencyUpdateState>(
-      listener: (context, state) {
-        if (state is SiteProgressAgencyUpdateSuccessState) {
-          // Navigator.pop(context);
-          showTopSnackBar(context, "Agency updated successfully");
-
-          context.read<SiteProgressAgencyUpdateBloc>().add(
-              FetchAlreadySelectedAgencies(
-                  projectId: widget.floorSiteModel.projectId!,
-                  buildingId: widget.floorSiteModel.buildingId!,
-                  floorIndex: widget.floorSiteModel.floorName.toString()));
-
-          context.pop();
-        }
-      },
-      child: BlocBuilder<SiteProgressAgencyUpdateBloc,
-          SiteProgressAgencyUpdateState>(
-        builder: (context, state) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: CustomElevatedButton(
-              isLoading: state.isLoading,
-              label: 'Update',
-              onTap: () {
-                final currentSelectedAgencies = context
-                    .read<SiteProgressAgencyUpdateBloc>()
-                    .state
-                    .currentSelectedAgencies
-                    .where((element) => element.isSelected! == true)
-                    .toList();
-                if (currentSelectedAgencies.isNotEmpty) {
-                  context
-                      .read<SiteProgressAgencyUpdateBloc>()
-                      .add(OnUpdateButtonPressed(floor: floor));
-                }
-              },
-            ),
-          );
-        },
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      decoration: BoxDecoration(
+        color: theme.scaffoldBackgroundColor,
       ),
+      child: DefaultTabController(
+          length: 2,
+          child: Column(
+            children: [
+              const TabBar(
+                labelColor: Colors.blue,
+                unselectedLabelColor: Colors.grey,
+                indicatorColor: Colors.blue,
+                indicatorSize: TabBarIndicatorSize.tab,
+                tabs: [
+                  Tab(text: 'Working'),
+                  Tab(text: 'Completed'),
+                ],
+              ),
+              Expanded(
+                child: TabBarView(children: [
+                  WorkingAgenciesSite(floor: floor),
+                  CompletedAgencies(floor: floor)
+                ]),
+              )
+            ],
+          )),
     );
   }
+}
+
+Widget updateButton(FloorSiteModel floor) {
+  return BlocListener<SiteProgressAgencyUpdateBloc,
+      SiteProgressAgencyUpdateState>(
+    listener: (context, state) {
+      if (state is SiteProgressAgencyUpdateSuccessState) {
+        // Navigator.pop(context);
+        showTopSnackBar(context, "Agency updated successfully");
+
+        context.read<SiteProgressAgencyUpdateBloc>().add(
+            FetchAlreadySelectedAgencies(
+                projectId: floor.projectId!,
+                buildingId: floor.buildingId!,
+                floorIndex: floor.floorName.toString()));
+
+        context.pop();
+      }
+    },
+    child: BlocBuilder<SiteProgressAgencyUpdateBloc,
+        SiteProgressAgencyUpdateState>(
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          child: CustomElevatedButton(
+            isLoading: state.isLoading,
+            label: 'Update',
+            onTap: () {
+              final currentSelectedAgencies = context
+                  .read<SiteProgressAgencyUpdateBloc>()
+                  .state
+                  .currentSelectedAgencies
+                  .where((element) => element.isSelected! == true)
+                  .toList();
+              if (currentSelectedAgencies.isNotEmpty) {
+                context
+                    .read<SiteProgressAgencyUpdateBloc>()
+                    .add(OnUpdateButtonPressed(floor: floor));
+              }
+            },
+          ),
+        );
+      },
+    ),
+  );
 }

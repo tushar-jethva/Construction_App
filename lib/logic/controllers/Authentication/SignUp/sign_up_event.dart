@@ -4,6 +4,10 @@ part of 'sign_up_bloc.dart';
 class SignUpEvent with _$SignUpEvent {
   const factory SignUpEvent.initial() = _initials;
 
+  //dialog
+  const factory SignUpEvent.isDialogOpen({required bool isDialogOpen}) =
+      _IsDialogOpen;
+
   // TextField events
   const factory SignUpEvent.emailOnChanged(String email) = _EmailOnChanged;
   const factory SignUpEvent.companyNameChanged(String companyName) =

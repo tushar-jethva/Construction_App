@@ -80,15 +80,16 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
       child: Column(
         children: [
           addAgencyWidgeet(theme, context),
-          availableAgencyWidget(theme, scrollController)
+          availableAgencyWidget(
+            theme,
+          )
         ],
       ),
     );
   }
 
   BlocBuilder<PerBuildingAgenciesBloc, PerBuildingAgenciesState>
-      availableAgencyWidget(
-          ThemeData theme, ScrollController scrollController) {
+      availableAgencyWidget(ThemeData theme) {
     return BlocBuilder<PerBuildingAgenciesBloc, PerBuildingAgenciesState>(
         builder: (context, state) {
       if (state is PerBuildingAgenciesInitial) {
@@ -97,8 +98,6 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
               colors: [theme.hoverColor, theme.cardColor], stops: [0.1, 0.8]),
           child: ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              scrollDirection: Axis.vertical,
               itemCount: 5,
               itemBuilder: (context, index) {
                 return InkWell(
@@ -137,87 +136,93 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
         );
       } else if (state is PerBuildingAgenciesSuccess) {
         return state.agencies.isEmpty
-            ? const Center(
-                child: Text("No agencies found!"),
+            ? const Expanded(
+                child: Center(
+                  child: Text("No agencies found!"),
+                ),
               )
-            : ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
-                itemCount: state.agencies.length,
-                itemBuilder: (context, index) {
-                  PerBuildingAgencyModel agency = state.agencies[index];
-                  return InkWell(
-                    onTap: () {
-                      context.pushNamed(RoutesName.workingAgencyDetailsScreen,
-                          extra: agency);
-                    },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            : Expanded(
+                child: ListView.builder(
+                    itemCount: state.agencies.length,
+                    itemBuilder: (context, index) {
+                      PerBuildingAgencyModel agency = state.agencies[index];
+                      return InkWell(
+                        onTap: () {
+                          context.pushNamed(
+                              RoutesName.workingAgencyDetailsScreen,
+                              extra: agency);
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 15.w, vertical: 5.h),
+                          child: Column(
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    agency.nameOfAgency ?? "",
-                                    style: theme.textTheme.titleLarge
-                                        ?.copyWith(fontSize: 16),
-                                  ),
-                                  Text(
-                                    agency.workType ?? "",
-                                    style: theme.textTheme.titleMedium
-                                        ?.copyWith(fontSize: 14, color: grey),
-                                  )
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Price: ",
+                                        agency.nameOfAgency ?? "",
+                                        style: theme.textTheme.titleLarge
+                                            ?.copyWith(fontSize: 16),
+                                      ),
+                                      Text(
+                                        agency.workType ?? "",
                                         style: theme.textTheme.titleMedium
                                             ?.copyWith(
                                                 fontSize: 14, color: grey),
-                                      ),
-                                      Text(
-                                        "₹ ${agency.pricePerFeet}",
-                                        style: theme.textTheme.titleLarge
-                                            ?.copyWith(fontSize: 15),
-                                      ),
+                                      )
                                     ],
                                   ),
-                                  Row(
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Given Floors: ",
-                                        style: theme.textTheme.titleMedium
-                                            ?.copyWith(
-                                                fontSize: 14, color: grey),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Price: ",
+                                            style: theme.textTheme.titleMedium
+                                                ?.copyWith(
+                                                    fontSize: 14, color: grey),
+                                          ),
+                                          Text(
+                                            "₹ ${agency.pricePerFeet}",
+                                            style: theme.textTheme.titleLarge
+                                                ?.copyWith(fontSize: 15),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        agency.floors!.length.toString(),
-                                        style: theme.textTheme.titleLarge
-                                            ?.copyWith(fontSize: 15),
-                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Given Floors: ",
+                                            style: theme.textTheme.titleMedium
+                                                ?.copyWith(
+                                                    fontSize: 14, color: grey),
+                                          ),
+                                          Text(
+                                            agency.floors!.length.toString(),
+                                            style: theme.textTheme.titleLarge
+                                                ?.copyWith(fontSize: 15),
+                                          ),
+                                        ],
+                                      )
                                     ],
-                                  )
+                                  ),
                                 ],
                               ),
+                              const Divider()
                             ],
                           ),
-                          const Divider()
-                        ],
-                      ),
-                    ),
-                  );
-                });
+                        ),
+                      );
+                    }),
+              );
       } else {
         return const Center(child: Text('Failed to load projects'));
       }
@@ -240,33 +245,16 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
     );
   }
 
-  DraggableScrollableSheetCommonComp scrollableSheetWidget(
-      BuildContext context, ThemeData theme) {
-    return DraggableScrollableSheetCommonComp(
-      draggableScrollableController: DraggableScrollableController(),
-      stops: const [0.9, 0.98],
-      initialSize: 0.9,
-      minChildSize: 0.9,
-      radius: 20,
-      newWidget: (context, scrollController) {
-        return Container(
-          decoration: BoxDecoration(
-              color: theme.scaffoldBackgroundColor,
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              addAgencyWidgeet(theme, context),
-              Expanded(
-                child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: availableAgencyWidget(theme, scrollController)),
-              )
-            ],
-          ),
-        );
-      },
+  Widget scrollableSheetWidget(BuildContext context, ThemeData theme) {
+    return Container(
+      color: theme.scaffoldBackgroundColor,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          addAgencyWidgeet(theme, context),
+          availableAgencyWidget(theme)
+        ],
+      ),
     );
   }
 }

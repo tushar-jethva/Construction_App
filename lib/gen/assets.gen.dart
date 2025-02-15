@@ -91,6 +91,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/crown.png
   AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
 
+  /// File path: assets/images/expences_icon.png
+  AssetGenImage get expencesIcon =>
+      const AssetGenImage('assets/images/expences_icon.png');
+
+  /// File path: assets/images/floors_plan.png
+  AssetGenImage get floorsPlan =>
+      const AssetGenImage('assets/images/floors_plan.png');
+
+  /// File path: assets/images/gst_icon.png
+  AssetGenImage get gstIcon =>
+      const AssetGenImage('assets/images/gst_icon.png');
+
   /// File path: assets/images/onboard1.png
   AssetGenImage get onboard1 =>
       const AssetGenImage('assets/images/onboard1.png');
@@ -102,6 +114,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/onboard3.png
   AssetGenImage get onboard3 =>
       const AssetGenImage('assets/images/onboard3.png');
+
+  /// File path: assets/images/tds_icon.png
+  AssetGenImage get tdsIcon =>
+      const AssetGenImage('assets/images/tds_icon.png');
 
   /// File path: assets/images/user1.png
   AssetGenImage get user1 => const AssetGenImage('assets/images/user1.png');
@@ -121,9 +137,13 @@ class $AssetsImagesGen {
         a4build,
         assets,
         crown,
+        expencesIcon,
+        floorsPlan,
+        gstIcon,
         onboard1,
         onboard2,
         onboard3,
+        tdsIcon,
         user1,
         user2,
         user3,
@@ -179,6 +199,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/expences 1.svg
   SvgGenImage get expences1 => const SvgGenImage('assets/svg/expences 1.svg');
 
+  /// File path: assets/svg/floors_plan.svg
+  SvgGenImage get floorsPlan => const SvgGenImage('assets/svg/floors_plan.svg');
+
   /// File path: assets/svg/gst_icon.svg
   SvgGenImage get gstIcon => const SvgGenImage('assets/svg/gst_icon.svg');
 
@@ -223,6 +246,7 @@ class $AssetsSvgGen {
         build2,
         build3,
         expences1,
+        floorsPlan,
         gstIcon,
         logout,
         moreVert,

@@ -20,7 +20,9 @@ class EnterOptwidget extends StatelessWidget {
           context
               .read<SignUpBloc>()
               .add(const SignUpEvent.onIsVerifiedChanged(isVerified: true));
+
           context.pop();
+
           // context.goNamed(RoutesName.signUpScreen2);
         } else if (state.state1.isError) {
           showTopSnackBar(context, "Wrong OTP!");
@@ -39,7 +41,11 @@ class EnterOptwidget extends StatelessWidget {
           isLoading: state.state1.isLoading,
           theme: Theme.of(context),
           onVerifyTap: () {
-            context.read<SignUpBloc>().add(const SignUpEvent.verifyOtp());
+            if (state.otp.isEmpty) {
+              showTopSnackBar(context, "Please Enter otp!");
+            } else {
+              context.read<SignUpBloc>().add(const SignUpEvent.verifyOtp());
+            }
           },
           enterOtpText: "Enter OTP",
           otpMessage: "A verification codes has been sent to ${state.email}",

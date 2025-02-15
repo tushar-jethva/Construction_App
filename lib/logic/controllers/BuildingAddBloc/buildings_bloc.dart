@@ -18,8 +18,7 @@ class BuildingsBloc extends Bloc<BuildingsEvent, BuildingsState> {
     try {
       List<BuildingModel> listOfBuildings =
           await buildingRepository.allBuildingById(projectId: event.projectId);
-      print(event.projectId);
-      print(listOfBuildings);
+      
       emit(BuildingsLoadSuccess(
         buildings: listOfBuildings,
       ));

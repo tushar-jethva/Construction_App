@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -13,10 +14,9 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class BuildingsScreen extends StatefulWidget {
   final ProjectModel project;
-  const BuildingsScreen({
-    super.key,
-    required this.project,
-  });
+  final ScrollController scrollController;
+  const BuildingsScreen(
+      {super.key, required this.project, required this.scrollController});
 
   @override
   State<BuildingsScreen> createState() => _BuildingsScreenState();
@@ -42,41 +42,38 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: _refreshBuildings,
-      child: Column(
-        children: [
+      color: purple,
+      child:
           BlocBuilder<BuildingsBloc, BuildingsState>(builder: (context, state) {
-            if (state is BuildingsInitial || state is BuildingAddLoading) {
-              return Skeletonizer(
-                enabled: true,
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: 6,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return MyBuildingListWidget(
-                          index: index,
-                          building: BuildingModel(
-                            name: "Name",
-                            totalFloor: 10,
-                          ));
-                    }),
-              );
-            } else if (state is BuildingsLoadSuccess) {
-              return state.buildings.isEmpty
-                  ? Expanded(
-                      child: ListView(children: [
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.6,
-                            child: const Center(
-                                child: Text("No building founds!"))),
-                      ]),
-                    )
-                  : ListView.builder(
-                      scrollDirection: Axis.vertical,
+        if (state is BuildingsInitial || state is BuildingAddLoading) {
+          return Skeletonizer(
+            enabled: true,
+            child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: 6,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return MyBuildingListWidget(
+                      index: index,
+                      building: BuildingModel(
+                        name: "Name",
+                        totalFloor: 10,
+                      ));
+                }),
+          );
+        } else if (state is BuildingsLoadSuccess) {
+          return state.buildings.isEmpty
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  child: const Center(child: Text("No building founds!")))
+              : SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.73,
+                  child: ListView.builder(
+                      controller: widget.scrollController,
+                      // primary: false,
                       itemCount: state.buildings.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                      // physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         BuildingModel building = state.buildings[index];
                         return GestureDetector(
@@ -92,13 +89,12 @@ class _BuildingsScreenState extends State<BuildingsScreen> {
                               building: building,
                               index: index,
                             ));
-                      });
-            } else {
-              return const Center(child: Text('Failed to load projects'));
-            }
-          }),
-        ],
-      ),
+                      }),
+                );
+        } else {
+          return const Center(child: Text('Failed to load projects'));
+        }
+      }),
     );
   }
 }

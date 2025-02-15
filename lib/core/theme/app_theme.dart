@@ -89,6 +89,7 @@ class AppTheme {
       primaryColor: purple,
       hintColor: white,
       textTheme: _lightTextTheme,
+      indicatorColor: purple,
       canvasColor: black);
 
   static const TextTheme _darkTextTheme = TextTheme(
@@ -173,5 +174,6 @@ class AppTheme {
       primaryColor: purple,
       canvasColor: white,
       hintColor: darkCardColor,
+      indicatorColor: purple,
       textTheme: _darkTextTheme);
 }

@@ -14,7 +14,7 @@ abstract class AuthenticationDatasource {
       required String email,
       required String password});
 
-  Future<String> signIn({required String email, required String password});
+  Future<String> signIn({ required String email, required String password});
 }
 
 @LazySingleton(as: AuthenticationDatasource)

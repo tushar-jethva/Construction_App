@@ -51,9 +51,26 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
             );
           } else if (state is BillingPartyParticularLoaded) {
             final List<BillModel> bills = state.bills;
+            // Calculate column totals
+            double totalNetAmount = 0;
+            double totalAmount = 0;
+            double totalTDS = 0;
+            double totalGST = 0;
             final rows = bills.map((bill) {
               String formattedDate =
                   DateFormat.yMMMd().format(DateTime.parse(bill.date!));
+
+              double netAmount = double.parse(bill.netAmount.toString());
+              double totalAmt = double.parse(bill.totalAmount.toString());
+              double tdsAmount = double.parse(bill.tDSAmount.toString());
+              double gstAmount = (double.parse(bill.cGSTAmount ?? "0") +
+                  double.parse(bill.sGSTAmount ?? "0"));
+
+              // Accumulate totals
+              totalNetAmount += netAmount;
+              totalAmount += totalAmt;
+              totalTDS += tdsAmount;
+              totalGST += gstAmount;
 
               return DataRow(cells: [
                 DataCell(Text(bill.billNumber.toString())),
@@ -77,6 +94,37 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
                 )),
               ]);
             }).toList();
+
+            // Add the summary row at the end
+            rows.add(
+              DataRow(
+                cells: [
+                  DataCell(Text(
+                    "Total",
+                    style: theme.textTheme.titleLarge!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                  )),
+                  DataCell(Text("-")), // No total for Date
+                  DataCell(Text(
+                    totalNetAmount.toStringAsFixed(2),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+                  DataCell(Text(
+                    totalAmount.toStringAsFixed(2),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+                  DataCell(Text(
+                    totalTDS.toStringAsFixed(2),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+                  DataCell(Text(
+                    totalGST.toStringAsFixed(2),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
+                  DataCell(Text("")), // Empty cell for PDF icon
+                ],
+              ),
+            );
 
             return SingleChildScrollView(
               scrollDirection: Axis.horizontal,

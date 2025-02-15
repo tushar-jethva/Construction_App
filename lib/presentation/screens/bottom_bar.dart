@@ -14,6 +14,7 @@ import 'package:construction_mate/presentation/screens/project/project_screen.da
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
+import 'package:construction_mate/utilities/gradient/gradient_rect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -77,7 +78,10 @@ class _MyBottomBarState extends State<MyBottomBar> {
                 unselectedIconTheme: IconThemeData(color: grey),
                 selectedIconTheme: IconThemeData(color: purple),
                 elevation: 0,
+                showSelectedLabels: true,
+                showUnselectedLabels: false,
                 currentIndex: state.tabIndex,
+                selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
                 onTap: (value) {
                   context
                       .read<BottomBarBloc>()
@@ -85,21 +89,39 @@ class _MyBottomBarState extends State<MyBottomBar> {
                 },
                 items: [
                   BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        Assets.svg.partiesIcon.path,
-                        color: state.tabIndex == 0 ? purple : grey,
+                      icon: Column(
+                        children: [
+                          GradientShape(isActive: state.tabIndex == 0),
+                          3.hx,
+                          SvgPicture.asset(
+                            Assets.svg.partiesIcon.path,
+                            color: state.tabIndex == 0 ? purple : grey,
+                          ),
+                        ],
                       ),
                       label: 'Parties'),
                   BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        Assets.svg.projectIcon.path,
-                        color: state.tabIndex == 1 ? purple : grey,
+                      icon: Column(
+                        children: [
+                          GradientShape(isActive: state.tabIndex == 1),
+                          3.hx,
+                          SvgPicture.asset(
+                            Assets.svg.projectIcon.path,
+                            color: state.tabIndex == 1 ? purple : grey,
+                          ),
+                        ],
                       ),
                       label: "Projects"),
                   BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        Assets.svg.billIcon.path,
-                        color: state.tabIndex == 2 ? purple : grey,
+                      icon: Column(
+                        children: [
+                          GradientShape(isActive: state.tabIndex == 2),
+                          3.hx,
+                          SvgPicture.asset(
+                            Assets.svg.billIcon.path,
+                            color: state.tabIndex == 2 ? purple : grey,
+                          ),
+                        ],
                       ),
                       label: "Bills"),
                 ]),
@@ -118,35 +140,72 @@ Widget drawer({required BuildContext context}) {
       builder: (context, state) {
         return Column(
           children: [
-            Container(
-              color: theme.cardColor,
-              width: double.infinity,
-              padding: const EdgeInsets.only(top: 45, bottom: 10),
-              child: Column(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: state.profile?.logo == null
-                        ? Image.asset(
-                            Assets.images.user1.path,
-                            fit: BoxFit.cover,
-                            height: 100,
-                            width: 100,
-                          )
-                        : Image.network(
-                            state.profile?.logo ?? "",
-                            fit: BoxFit.cover,
-                            height: 100,
-                            width: 100,
+            GestureDetector(
+              onTap: () {
+                context.pushNamed(RoutesName.editProfileScreen);
+              },
+              child: Container(
+                color: theme.cardColor,
+                width: double.infinity,
+                padding: const EdgeInsets.only(
+                    top: 45, bottom: 10, right: 10, left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "My Account",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    20.hx,
+                    Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(80),
+                          child: state.profile?.logo == null
+                              ? Image.asset(
+                                  Assets.images.user1.path,
+                                  fit: BoxFit.cover,
+                                  height: 90,
+                                  width: 90,
+                                )
+                              : Image.network(
+                                  state.profile?.logo ?? "",
+                                  fit: BoxFit.cover,
+                                  height: 90,
+                                  width: 90,
+                                ),
+                        ),
+                        10.wx,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                state.profile?.name ?? "",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(fontSize: 14),
+                              ),
+                              Text(
+                                "Personal Info",
+                                style: theme.textTheme.bodySmall
+                                    ?.copyWith(fontSize: 12),
+                              ),
+                            ],
                           ),
-                  ),
-                  10.hx,
-                  Text(
-                    state.profile?.name ?? "",
-                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
-                  ),
-                  10.hx,
-                ],
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_right_outlined,
+                          color: Theme.of(context).canvasColor,
+                        ),
+                        10.hx,
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             ListTile(
@@ -167,21 +226,9 @@ Widget drawer({required BuildContext context}) {
               },
             ),
             ListTile(
-              leading: Icon(
-                Icons.account_circle,
-                color: theme.canvasColor,
-              ),
-              title: Text(
-                "Profile",
-                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
-              ),
-              onTap: () {
-                context.pushNamed(RoutesName.editProfileScreen);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.book,
+              leading: Image.asset(
+                Assets.images.tdsIcon.path,
+                height: 25,
                 color: theme.canvasColor,
               ),
               title: Text(
@@ -193,8 +240,9 @@ Widget drawer({required BuildContext context}) {
               },
             ),
             ListTile(
-              leading: Icon(
-                Icons.book,
+              leading: Image.asset(
+                Assets.images.gstIcon.path,
+                height: 25,
                 color: theme.canvasColor,
               ),
               title: Text(
@@ -206,8 +254,9 @@ Widget drawer({required BuildContext context}) {
               },
             ),
             ListTile(
-              leading: Icon(
-                Icons.book,
+              leading: Image.asset(
+                Assets.images.expencesIcon.path,
+                height: 25,
                 color: theme.canvasColor,
               ),
               title: Text(

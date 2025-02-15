@@ -165,90 +165,93 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
   Padding agenyOneWidget(ThemeData theme, TotalAgencyModel agency, int index) {
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
-      child: Column(
-        children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              IconCircleWidget(
-                radius: 10,
-                isSvg: true,
-                svgpath: userIcons[index % userIcons.length],
-                backgroundColor: theme.cardColor,
-              ),
-              10.wx,
-              Expanded(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          agency.name ?? "",
-                          style: theme.textTheme.titleLarge
-                              ?.copyWith(fontSize: 14),
-                        ),
-                        Row(
-                          children: [
-                            SvgPicture.asset(Assets.svg.remaining.path),
-                            5.wx,
-                            Text(
-                              "Remaining: ",
-                              style: theme.textTheme.titleMedium
-                                  ?.copyWith(color: grey, fontSize: 12),
-                            ),
-                            Text(
-                              "₹ ${agency.totalAccount ?? 0}",
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                  color: Colors.orange, fontSize: 13),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Total Paid:",
-                              style: theme.textTheme.titleMedium
-                                  ?.copyWith(color: grey, fontSize: 12),
-                            ),
-                            Text(
-                              " ₹ ${agency.totalPaid ?? 0}",
-                              style: theme.textTheme.titleLarge
-                                  ?.copyWith(color: green, fontSize: 13),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Total Payable: ",
-                              style: theme.textTheme.titleMedium
-                                  ?.copyWith(color: grey, fontSize: 12),
-                            ),
-                            Text(
-                              "₹ ${agency.totalPayable ?? 0}",
-                              style: theme.textTheme.titleLarge
-                                  ?.copyWith(color: red, fontSize: 13),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
+      child: Container(
+        color: transparent,
+        child: Column(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                IconCircleWidget(
+                  radius: 10,
+                  isSvg: true,
+                  svgpath: userIcons[index % userIcons.length],
+                  backgroundColor: theme.cardColor,
                 ),
-              ),
-            ],
-          ),
-          10.hx,
-          const Divider()
-        ],
+                10.wx,
+                Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            agency.name ?? "",
+                            style: theme.textTheme.titleLarge
+                                ?.copyWith(fontSize: 14),
+                          ),
+                          Row(
+                            children: [
+                              SvgPicture.asset(Assets.svg.remaining.path),
+                              5.wx,
+                              Text(
+                                "Remaining: ",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                "₹ ${agency.totalAccount ?? 0}",
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                    color: Colors.orange, fontSize: 13),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Total Paid:",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                " ₹ ${agency.totalPaid ?? 0}",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(color: green, fontSize: 13),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Total Payable: ",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                "₹ ${agency.totalPayable ?? 0}",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(color: red, fontSize: 13),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            10.hx,
+            const Divider()
+          ],
+        ),
       ),
     );
   }

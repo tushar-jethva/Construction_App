@@ -19,7 +19,6 @@ import '../common/custom_text_form_field.dart';
 class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
   const PaymentOutProjectDialogBoxWidget({
     super.key,
-    required this.mediaQueryData,
     required this.formPaymentOutKey,
     required this.projectId,
     required this.projectName,
@@ -28,7 +27,6 @@ class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
   })  : _priceOutController = priceOutController,
         _descriptionController = descriptionController;
 
-  final MediaQueryData mediaQueryData;
   final GlobalKey<FormState> formPaymentOutKey;
   final String projectId;
   final String projectName;
@@ -38,6 +36,7 @@ class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     return Padding(
       padding: mediaQueryData.viewInsets,

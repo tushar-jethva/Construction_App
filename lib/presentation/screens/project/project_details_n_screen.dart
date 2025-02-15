@@ -69,7 +69,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
     context.read<TransactionBuildingBloc>().add(
         FetchAllTransactionByProjectId(projectId: widget.projectModel.sId!));
 
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 4, vsync: this, initialIndex: 1);
     _tabController.addListener(() {
       context
           .read<MenuBloc>()
@@ -79,13 +79,14 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    _priceInController.dispose();
+    _priceOutController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
   }
 
   void _showPaymentInDialog({required ThemeData theme}) {
-    final MediaQueryData mediaQueryData = MediaQuery.of(context);
-
     showModalBottomSheet(
         isScrollControlled: true,
         showDragHandle: true,
@@ -93,7 +94,6 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         context: context,
         builder: (context) {
           return PaymentInProjectDialogWidget(
-            mediaQueryData: mediaQueryData,
             formPaymentInKey: formPaymentInKey,
             priceInController: _priceInController,
             descriptionController: _descriptionController,
@@ -103,8 +103,6 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
   }
 
   void _showPaymentOutDialog({required ThemeData theme}) {
-    final MediaQueryData mediaQueryData = MediaQuery.of(context);
-
     showModalBottomSheet(
         isScrollControlled: true,
         showDragHandle: true,
@@ -112,7 +110,6 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         context: context,
         builder: (context) {
           return PaymentOutProjectDialogBoxWidget(
-              mediaQueryData: mediaQueryData,
               formPaymentOutKey: formPaymentOutKey,
               projectId: widget.projectModel.sId ?? "",
               projectName: widget.projectModel.name ?? "",
@@ -235,7 +232,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                             const Color.fromARGB(255, 27, 24, 24),
                         labelColor: Colors.white,
                         labelStyle:
-                            theme.textTheme.titleLarge?.copyWith(fontSize: 14),
+                            theme.textTheme.titleLarge?.copyWith(fontSize: 8),
                         tabs: [
                           Tab(
                               child: MenuWidget(
@@ -268,31 +265,20 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                           dragStartBehavior: DragStartBehavior.start,
                           controller: _tabController,
                           children: [
-                            ListView(
-                              controller: scrollController, // Attach controller
-                              children: [
-                                MyPartiesProjectScreen(
-                                    project: widget.projectModel)
-                              ],
+                            MyPartiesProjectScreen(
+                              project: widget.projectModel,
+                              scrollController: scrollController,
                             ),
-                            SingleChildScrollView(
-                              controller: scrollController, // Attach controller
-                              child: BuildingsScreen(
+                            BuildingsScreen(
+                              project: widget.projectModel,
+                              scrollController: scrollController,
+                            ),
+                            MaterialScreen(
                                 project: widget.projectModel,
-                              ),
-                            ),
-                            SingleChildScrollView(
-                              controller: scrollController, // Attach controller
-                              child: Center(
-                                  child: MaterialScreen(
-                                      project: widget.projectModel)),
-                            ),
-                            SingleChildScrollView(
-                              controller: scrollController, // Attach controller
-                              child: Center(
-                                  child: MyTransactionScreen(
-                                      project: widget.projectModel)),
-                            ),
+                                scrollController: scrollController),
+                            MyTransactionScreen(
+                                project: widget.projectModel,
+                                scrollController: scrollController),
                           ],
                         ),
                       ),
@@ -329,7 +315,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                 builder: (context, state) {
                   return TopAmountWidget(
                     theme: theme,
-                    title: "Amount Received",
+                    title: "Amount Paid",
                     amount: state.paymentOut,
                     color: red,
                   );

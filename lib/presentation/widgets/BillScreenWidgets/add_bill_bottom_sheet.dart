@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
@@ -222,24 +223,32 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                         key: _innerItemFormKey,
                         child: Column(
                           children: [
-                            CustomTextFormField(
+                            MyCustomTextFormField(
                               controller: _hsnCodeController,
                               hintText: "HSN code",
                               maxLines: 1,
                               textInputType: TextInputType.text,
                               textInputAction: TextInputAction.next,
-                              isValidate: true,
-                              customvalidation: "Please add HSN Code!",
+                              validator: (value) {
+                                if (!ReusableFunctions.isValidInput(
+                                    value ?? '')) {
+                                  return 'Enter HSN code';
+                                }
+                              },
                             ),
                             Gap(10.h),
-                            CustomTextFormField(
+                            MyCustomTextFormField(
                               controller: _itemDescriptionController,
                               hintText: "Description",
                               maxLines: 2,
                               textInputType: TextInputType.name,
                               textInputAction: TextInputAction.next,
-                              isValidate: true,
-                              customvalidation: 'Please add description!',
+                              validator: (value) {
+                                if (!ReusableFunctions.isValidInput(
+                                    value ?? '')) {
+                                  return 'Enter description';
+                                }
+                              },
                             ),
                             Gap(10.h),
                             MyCustomTextFormField(
@@ -521,6 +530,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                     hintText: "Delivery Note",
                                     maxLines: 2,
                                     textInputAction: TextInputAction.newline,
+                                    validator: (value) {
+                                      if (!ReusableFunctions.isValidInput(
+                                          value ?? '')) {
+                                        return 'Enter Deliver not';
+                                      }
+                                    },
                                     onChanged: (value) {
                                       print(
                                           "---------------------textfield--------------");
@@ -539,6 +554,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillModeOfPaymentChanged(
                                               value: value!));
                                     },
+                                    validator: (value) {
+                                      if (!ReusableFunctions.isValidInput(
+                                          value ?? '')) {
+                                        return 'Enter mode of payment';
+                                      }
+                                    },
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -549,6 +570,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                       context.read<AddBillBloc>().add(
                                           BillreferenceNoChanged(
                                               value: value!));
+                                    },
+                                    validator: (value) {
+                                      if (!ReusableFunctions.isValidInput(
+                                          value ?? '')) {
+                                        return 'Enter reference no.';
+                                      }
                                     },
                                   ),
                                   Gap(10.h),
@@ -561,6 +588,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillOtherReferencesChanged(
                                               value: value!));
                                     },
+                                    validator: (value) {
+                                      if (!ReusableFunctions.isValidInput(
+                                          value ?? '')) {
+                                        return 'Enter other references';
+                                      }
+                                    },
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -571,6 +604,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                       context.read<AddBillBloc>().add(
                                           BillBuyersOrderNoChanged(
                                               value: value!));
+                                    },
+                                    validator: (value) {
+                                      if (!ReusableFunctions.isValidInput(
+                                          value ?? '')) {
+                                        return "Enter buyers's order no. code";
+                                      }
                                     },
                                   ),
                                   Gap(10.h),
@@ -583,6 +622,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillDispatchDocNoChanged(
                                               value: value!));
                                     },
+                                    validator: (value) {
+                                      if (!ReusableFunctions.isValidInput(
+                                          value ?? '')) {
+                                        return 'Enter dispatch no.';
+                                      }
+                                    },
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -594,6 +639,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillDispatchedThroughChanged(
                                               value: value!));
                                     },
+                                    validator: (value) {
+                                      if (!ReusableFunctions.isValidInput(
+                                          value ?? '')) {
+                                        return 'Enter dispatched through';
+                                      }
+                                    },
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -604,6 +655,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                       context.read<AddBillBloc>().add(
                                           BillDestinationChanged(
                                               value: value!));
+                                    },
+                                    validator: (value) {
+                                      if (!ReusableFunctions.isValidInput(
+                                          value ?? '')) {
+                                        return 'Enter destination';
+                                      }
                                     },
                                   ),
                                 ])

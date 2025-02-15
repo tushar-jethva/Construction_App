@@ -31,7 +31,7 @@ class MyDropDownFormField extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
-            5.r,
+            10.r,
           ),
           borderSide: const BorderSide(color: grey),
         ),

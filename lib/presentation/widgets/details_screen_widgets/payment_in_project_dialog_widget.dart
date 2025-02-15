@@ -18,7 +18,6 @@ import 'package:gap/gap.dart';
 class PaymentInProjectDialogWidget extends StatelessWidget {
   const PaymentInProjectDialogWidget({
     super.key,
-    required this.mediaQueryData,
     required this.formPaymentInKey,
     required TextEditingController priceInController,
     required TextEditingController descriptionController,
@@ -26,7 +25,6 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
   })  : _priceInController = priceInController,
         _descriptionController = descriptionController;
 
-  final MediaQueryData mediaQueryData;
   final GlobalKey<FormState> formPaymentInKey;
   final TextEditingController _priceInController;
   final TextEditingController _descriptionController;
@@ -35,6 +33,7 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final MediaQueryData mediaQueryData = MediaQuery.of(context);
 
     return Padding(
       padding: mediaQueryData.viewInsets,

@@ -28,7 +28,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
                 email: user?.email ?? '',
                 gst: user?.gSTNumber ?? '',
                 mobileNo: user?.mobile.toString() ?? '',
-                imageUrl: user?.logo ?? ''));
+                imageUrl: user?.logo ?? '',
+                address: user?.address ?? ''));
           },
           onEmailChanged: (_OnEmailChanged value) {
             emit(state.copyWith(state: RequestState.empty, email: value.email));
@@ -47,10 +48,16 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
           onImageChanged: (_OnImageChanged value) {
             emit(state.copyWith(state: RequestState.empty, image: value.image));
           },
+          onAddressChanged: (_OnAddressChanged value) {
+            emit(state.copyWith(
+                state: RequestState.empty, address: value.address));
+          },
           onUpdateProfileTap: (_OnUpdateProfileTap value) async {
             emit(state.copyWith(state: RequestState.loading));
-            final url = await ReusableFunctions.uploadToCloudinary(
-                state.image ?? XFile(""));
+            String url = "";
+            if (state.image != null) {
+              url = await ReusableFunctions.uploadToCloudinary(state.image!);
+            }
 
             final res = await profileUsecase.completeProfile(
                 email: state.email,
@@ -58,7 +65,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
                 phoneNumber: state.mobileNo,
                 imageUrl: url.isEmpty
                     ? (userWatcherBloc.state.profile?.logo ?? "")
-                    : url);
+                    : url,
+                address: state.address);
 
             res.fold((l) {
               emit(state.copyWith(

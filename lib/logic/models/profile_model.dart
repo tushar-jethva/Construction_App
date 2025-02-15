@@ -16,6 +16,7 @@ class ProfileModel {
   String? gSTNumber;
   int? mobile;
   String? logo;
+  String? address;
 
   ProfileModel(
       {this.sId,
@@ -34,7 +35,8 @@ class ProfileModel {
       this.password,
       this.gSTNumber,
       this.mobile,
-      this.logo});
+      this.logo,
+      this.address});
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -54,6 +56,7 @@ class ProfileModel {
     gSTNumber = json['GSTNumber'];
     mobile = json['Mobile'];
     logo = json['logo'];
+    address = json['Address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -75,6 +78,7 @@ class ProfileModel {
     data['GSTNumber'] = this.gSTNumber;
     data['Mobile'] = this.mobile;
     data['logo'] = this.logo;
+    data['Address'] = this.address;
     return data;
   }
 }

@@ -117,35 +117,35 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
         ),
         body: TabBarView(
           children: [
-            BlocProvider(
-              create: (context) => AgencyWorksProjectsBloc(
-                  agencyRepository: AgencyRepositoryImpl(
-                      agencyDataSource: AgencyDataSourceDataSourceImpl())),
-              child: MyPartiesProjectScreen(
-                project: widget.projectModel,
-              ),
-            ),
-            BuildingsScreen(
-              project: widget.projectModel,
-            ),
-            MaterialScreen(
-              project: widget.projectModel,
-            ),
-            MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (_) => TransactionBuildingBloc(
-                      transactionRepository: TransactionRepositoryImpl(
-                          transactionDataSource: TransactionDataSourceImpl())),
-                ),
-                BlocProvider(
-                  create: (_) => StartAndEndDateBloc(),
-                )
-              ],
-              child: MyTransactionScreen(
-                project: widget.projectModel,
-              ),
-            ),
+            // BlocProvider(
+            //   create: (context) => AgencyWorksProjectsBloc(
+            //       agencyRepository: AgencyRepositoryImpl(
+            //           agencyDataSource: AgencyDataSourceDataSourceImpl())),
+            //   child: MyPartiesProjectScreen(
+            //     project: widget.projectModel,
+            //   ),
+            // ),
+            // // BuildingsScreen(
+            // //   project: widget.projectModel,
+            // // ),
+            // MaterialScreen(
+            //   project: widget.projectModel,
+            // ),
+            // MultiBlocProvider(
+            //   providers: [
+            //     BlocProvider(
+            //       create: (_) => TransactionBuildingBloc(
+            //           transactionRepository: TransactionRepositoryImpl(
+            //               transactionDataSource: TransactionDataSourceImpl())),
+            //     ),
+            //     BlocProvider(
+            //       create: (_) => StartAndEndDateBloc(),
+            //     )
+            //   ],
+            //   child: MyTransactionScreen(
+            //     project: widget.projectModel,
+            //   ),
+            // ),
           ],
         ),
       ),

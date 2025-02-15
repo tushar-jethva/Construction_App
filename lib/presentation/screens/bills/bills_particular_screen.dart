@@ -8,6 +8,7 @@ import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_pa
 import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -63,7 +64,7 @@ class _MyBillsParticularPartyScreenState
         body: Stack(
           children: [
             MyBillScreenParticularAppBarWidget(
-              partyId: widget.party.sId!,
+              partyId: widget.party.sId ?? '',
             ),
             scrollableSheetWidget(context, theme)
           ],
@@ -87,7 +88,8 @@ class _MyBillsParticularPartyScreenState
         ));
   }
 
-  RefreshIndicator allBillsWidget(ThemeData theme) {
+  RefreshIndicator allBillsWidget(
+      ThemeData theme, ScrollController scrollController) {
     return RefreshIndicator(
       color: purple,
       onRefresh: onRefreshIndicatorCalled,
@@ -96,7 +98,7 @@ class _MyBillsParticularPartyScreenState
         builder: (context, state) {
           if (state is BillingPartyParticularLoading) {
             return SizedBox(
-              height: MediaQuery.of(context).size.height,
+              height: MediaQuery.of(context).size.height * 0.5,
               child: Center(
                 child: CircularProgressIndicator(
                   color: purple,
@@ -106,8 +108,9 @@ class _MyBillsParticularPartyScreenState
           } else if (state is BillingPartyParticularLoaded) {
             return state.bills.isNotEmpty
                 ? ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
+                    // physics: const NeverScrollableScrollPhysics(),
+                    controller: scrollController,
+                    // shrinkWrap: true,
                     itemCount: state.bills.length,
                     itemBuilder: (context, index) {
                       final bill = state.bills[index];
@@ -121,58 +124,54 @@ class _MyBillsParticularPartyScreenState
                           color: theme.hintColor,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
-                            child: Expanded(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      MyRichTextForPopUp(
-                                        theme: theme,
-                                        leftText: "Total Amount:  ",
-                                        rightText:
-                                            "₹ ${double.parse(bill.totalAmount.toString()).toStringAsFixed(2)}",
-                                      ),
-                                      MyRichTextForPopUp(
-                                        theme: theme,
-                                        leftText: "Receivable Amount:  ",
-                                        rightText:
-                                            "₹ ${double.parse(bill.receivableAmount.toString()).toStringAsFixed(2)}",
-                                        rightStyle: theme.textTheme.titleMedium!
-                                            .copyWith(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color: red),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}",
-                                        style: theme.textTheme.labelLarge
-                                            ?.copyWith(
-                                                fontSize: 12, color: black),
-                                      ),
-                                      IconButton(
-                                          onPressed: () {
-                                            context.pushNamed(
-                                                RoutesName.pdfPreviewScreen,
-                                                extra: bill);
-                                          },
-                                          icon: Icon(
-                                            Icons.download,
-                                            color: theme.canvasColor,
-                                          ))
-                                    ],
-                                  ),
-                                ],
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    MyRichTextForPopUp(
+                                      theme: theme,
+                                      leftText: "Total Amount:  ",
+                                      rightText:
+                                          "₹ ${double.parse(bill.totalAmount.toString()).toStringAsFixed(2)}",
+                                    ),
+                                    MyRichTextForPopUp(
+                                      theme: theme,
+                                      leftText: "Receivable Amount:  ",
+                                      rightText:
+                                          "₹ ${double.parse(bill.receivableAmount.toString()).toStringAsFixed(2)}",
+                                      rightStyle: theme.textTheme.titleMedium!
+                                          .copyWith(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: red),
+                                    ),
+                                    Text(
+                                      "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}",
+                                      style: theme.textTheme.labelLarge
+                                          ?.copyWith(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                10.wx,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          context.pushNamed(
+                                              RoutesName.pdfPreviewScreen,
+                                              extra: bill);
+                                        },
+                                        icon: Icon(
+                                          Icons.download,
+                                          color: theme.canvasColor,
+                                        ))
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -256,14 +255,7 @@ class _MyBillsParticularPartyScreenState
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           ),
-          child: Column(
-            children: [
-              Expanded(
-                child: SingleChildScrollView(
-                    controller: scrollController, child: allBillsWidget(theme)),
-              )
-            ],
-          ),
+          child: allBillsWidget(theme, scrollController),
         );
       },
     );

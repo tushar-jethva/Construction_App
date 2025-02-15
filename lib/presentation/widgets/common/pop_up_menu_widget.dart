@@ -18,15 +18,13 @@ class PopUpMenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       menuPadding: EdgeInsets.zero,
-      color: theme.scaffoldBackgroundColor,
+      color: theme.cardColor,
       itemBuilder: (context) => [
         PopupMenuItem(
-          child: TextButton(
-            onPressed: onUpdateButtonPressed,
-            child: Text(
-              "Update",
-              style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
-            ),
+          onTap: onUpdateButtonPressed,
+          child: Text(
+            "Update",
+            style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
           ),
         ),
       ],

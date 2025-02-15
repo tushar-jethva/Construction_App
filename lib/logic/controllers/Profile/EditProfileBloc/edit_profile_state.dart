@@ -9,7 +9,8 @@ class EditProfileState with _$EditProfileState {
       required String imageUrl,
       required String email,
       required String gst,
+      required String address,
       required String mobileNo}) = _EditProfileState;
 
-   factory EditProfileState.initial() => EditProfileState(state: RequestState.empty, message: "", imageUrl: "", email: "", gst: "", mobileNo: "",image: null);
+   factory EditProfileState.initial() => EditProfileState(state: RequestState.empty, message: "", imageUrl: "", email: "", gst: "", mobileNo: "",image: null,address: '');
 }

@@ -4,9 +4,11 @@ import 'package:construction_mate/data/datasource/transaction_data_source.dart';
 import 'package:construction_mate/data/repository/bills_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialByParty/financialy_by_party_bloc.dart';
+import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
@@ -77,7 +79,10 @@ class Routes {
         GoRoute(
           path: RoutesName.signUpScreen2,
           name: RoutesName.signUpScreen2,
-          builder: (contex, state) => const SignUpStep2(),
+          builder: (contex, state) {
+            contex.read<SignUpBloc>().add(SignUpEvent.initial());
+            return const SignUpStep2();
+          },
         ),
         GoRoute(
           path: RoutesName.signInScreen,
@@ -320,6 +325,9 @@ class Routes {
             context
                 .read<StartAndEndDateBloc>()
                 .add(const StartAndEndDateEvent.initalize());
+
+            context.read<MenuBloc>().add(MenuEvent.onIndexChanged(index: 1));
+            // context.read<>()
             return ProjectDetailsNScreen(
               projectModel: project,
             );

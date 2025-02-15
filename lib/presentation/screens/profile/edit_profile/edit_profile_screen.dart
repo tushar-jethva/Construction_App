@@ -36,11 +36,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _gstController = TextEditingController(text: user?.gSTNumber ?? "");
     _mobileNoController =
         TextEditingController(text: user?.mobile.toString() ?? "");
+    _addressController = TextEditingController(text: user?.address ?? '');
   }
 
   late TextEditingController _emailController;
   late TextEditingController _gstController;
   late TextEditingController _mobileNoController;
+  late TextEditingController _addressController;
 
   @override
   Widget build(BuildContext context) {
@@ -49,136 +51,140 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       appBar: appBarWidget(theme, context),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              BlocBuilder<EditProfileBloc, EditProfileState>(
-                builder: (context, state) {
-                  return Center(
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        state.image == null
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: state.imageUrl.isNotEmpty
-                                    ? Image.network(
-                                        state.imageUrl,
-                                        height: 120,
-                                        width: 120,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset(
-                                        Assets.images.user1.path,
-                                        height: 120,
-                                        width: 120,
-                                        fit: BoxFit.cover,
-                                      ))
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: state.image?.path == null
-                                    ? Image.file(
-                                        File(
-                                          state.image?.path ?? '',
-                                        ),
-                                        height: 120,
-                                        width: 120,
-                                        fit: BoxFit.cover,
-                                      )
-                                    : Image.asset(
-                                        Assets.images.user1.path,
-                                        height: 120,
-                                        width: 120,
-                                        fit: BoxFit.cover,
-                                      ),
-                              ),
-                        Positioned(
-                            bottom: 5,
-                            right: -2,
-                            child: InkWell(
-                              onTap: () async {
-                                await selectProfile(
-                                  context,
-                                  isNumnber: 0,
-                                  onCallBack: (file) {
-                                    if (file != null) {
-                                      context.read<EditProfileBloc>().add(
-                                              EditProfileEvent
-                                                  .onImageUrlChanged(
-                                            imageUrl: file.path,
-                                          ));
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                BlocBuilder<EditProfileBloc, EditProfileState>(
+                  builder: (context, state) {
+                    return Center(
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          state.image == null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: state.imageUrl.isNotEmpty
+                                      ? Image.network(
+                                          state.imageUrl,
+                                          height: 120,
+                                          width: 120,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.asset(
+                                          Assets.images.user1.path,
+                                          height: 120,
+                                          width: 120,
+                                          fit: BoxFit.cover,
+                                        ))
+                              : ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Image.file(
+                                    File(
+                                      state.image?.path ?? '',
+                                    ),
+                                    height: 120,
+                                    width: 120,
+                                    fit: BoxFit.cover,
+                                  )),
+                          Positioned(
+                              bottom: 5,
+                              right: -2,
+                              child: InkWell(
+                                onTap: () async {
+                                  await selectProfile(
+                                    context,
+                                    isNumnber: 0,
+                                    onCallBack: (file) {
+                                      if (file != null) {
+                                        context.read<EditProfileBloc>().add(
+                                                EditProfileEvent
+                                                    .onImageUrlChanged(
+                                              imageUrl: file.path,
+                                            ));
 
-                                      context
-                                          .read<EditProfileBloc>()
-                                          .add(EditProfileEvent.onImageChanged(
-                                            image: file,
-                                          ));
-                                    }
-                                  },
-                                );
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                        width: 2, color: Colors.white),
-                                    color: purple),
-                                child: const Icon(
-                                  Icons.edit,
-                                  size: 18,
-                                  color: Colors.black,
+                                        context.read<EditProfileBloc>().add(
+                                                EditProfileEvent.onImageChanged(
+                                              image: file,
+                                            ));
+                                      }
+                                    },
+                                  );
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          width: 2, color: Colors.white),
+                                      color: purple),
+                                  child: const Icon(
+                                    Icons.edit,
+                                    size: 18,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ))
-                      ],
-                    ),
-                  );
-                },
-              ),
-              30.hx,
-              CustomTextFormField(
-                controller: _emailController,
-                hintText: "Enter email",
-                textInputAction: TextInputAction.next,
-                textFieldType: TextFieldType.email,
-                textInputType: TextInputType.emailAddress,
-                alignLableWithHint: true,
-                onChanged: (value) {
-                  context
-                      .read<EditProfileBloc>()
-                      .add(EditProfileEvent.onEmailChanged(email: value));
-                },
-              ),
-              CustomTextFormField(
-                controller: _gstController,
-                hintText: "Enter GST No.",
-                maxLength: 15,
-                textInputAction: TextInputAction.next,
-                textInputType: TextInputType.number,
-                alignLableWithHint: true,
-                onChanged: (value) {
-                  context
-                      .read<EditProfileBloc>()
-                      .add(EditProfileEvent.onGSTChanged(gstNo: value));
-                },
-              ),
-              CustomTextFormField(
-                controller: _mobileNoController,
-                hintText: "Enter Mobile No.",
-                maxLength: 10,
-                textInputAction: TextInputAction.done,
-                textInputType: TextInputType.phone,
-                alignLableWithHint: true,
-                onChanged: (value) {
-                  context
-                      .read<EditProfileBloc>()
-                      .add(EditProfileEvent.onGSTChanged(gstNo: value));
-                },
-              ),
-            ],
+                              ))
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                30.hx,
+                CustomTextFormField(
+                  controller: _emailController,
+                  hintText: "Enter email",
+                  textInputAction: TextInputAction.next,
+                  textFieldType: TextFieldType.email,
+                  textInputType: TextInputType.emailAddress,
+                  alignLableWithHint: true,
+                  onChanged: (value) {
+                    context
+                        .read<EditProfileBloc>()
+                        .add(EditProfileEvent.onEmailChanged(email: value));
+                  },
+                ),
+                CustomTextFormField(
+                  controller: _gstController,
+                  hintText: "Enter GST No.",
+                  maxLength: 15,
+                  textInputAction: TextInputAction.next,
+                  textInputType: TextInputType.number,
+                  alignLableWithHint: true,
+                  onChanged: (value) {
+                    context
+                        .read<EditProfileBloc>()
+                        .add(EditProfileEvent.onGSTChanged(gstNo: value));
+                  },
+                ),
+                CustomTextFormField(
+                  controller: _mobileNoController,
+                  hintText: "Enter Mobile No.",
+                  maxLength: 10,
+                  textInputAction: TextInputAction.next,
+                  textInputType: TextInputType.phone,
+                  alignLableWithHint: true,
+                  onChanged: (value) {
+                    context.read<EditProfileBloc>().add(
+                        EditProfileEvent.onNumberChanged(phoneNumber: value));
+                  },
+                ),
+                CustomTextFormField(
+                  controller: _addressController,
+                  hintText: "Enter Address",
+                  textInputAction: TextInputAction.done,
+                  textInputType: TextInputType.text,
+                  alignLableWithHint: true,
+                  onChanged: (value) {
+                    context
+                        .read<EditProfileBloc>()
+                        .add(EditProfileEvent.onAddressChanged(address: value));
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -189,10 +195,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             // TODO: implement listener
 
             if (state.state.isLoaded) {
-              const TopSnackBar(message: "Profile Updated");
+              showTopSnackBar(context, "Profile Updated");
+              context
+                  .read<UserWatcherBloc>()
+                  .add(const UserWatcherEvent.fetchProfile());
             } else if (state.state.isError) {
-              const TopSnackBar(message: "Something went wrong! Try again");
-              const TopSnackBar(message: "Something went wrong!");
+              showTopSnackBar(context, "Something went wrong! Try again");
+              showTopSnackBar(context, "Something went wrong!");
             }
           },
           builder: (context, state) {

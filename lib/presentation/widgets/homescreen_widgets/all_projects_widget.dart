@@ -18,7 +18,8 @@ import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AllProjectsWidget extends StatelessWidget {
-  const AllProjectsWidget({super.key});
+  final ScrollController scrollController;
+  const AllProjectsWidget({super.key, required this.scrollController});
 
   openBottomSheet(
       {required BuildContext context, required ProjectModel project}) {
@@ -100,47 +101,52 @@ class AllProjectsWidget extends StatelessWidget {
           );
         } else if (state is ProjectLoadSuccess) {
           return state.projects.isNotEmpty
-              ? ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: state.projects.length,
-                  itemBuilder: (context, index) {
-                    ProjectModel project = state.projects[index];
-                    return GestureDetector(
-                      onTap: () {
-                        context.pushNamed(RoutesName.NEW_DETAIL_SCREEN_NAME,
-                            extra: project);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            leading: IconCircleWidget(
-                              radius: 10,
-                              backgroundColor: theme.cardColor,
-                              imagewidget: SvgPicture.asset(
-                                buildIcons[index % buildIcons.length],
-                                color: theme.canvasColor,
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.66,
+                  child: ListView.builder(
+                    controller: scrollController,
+                    // physics: const NeverScrollableScrollPhysics(),
+                    // shrinkWrap: true,
+                    itemCount: state.projects.length,
+                    itemBuilder: (context, index) {
+                      ProjectModel project = state.projects[index];
+                      return GestureDetector(
+                        onTap: () {
+                          context.pushNamed(RoutesName.NEW_DETAIL_SCREEN_NAME,
+                              extra: project);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0, vertical: 10),
+                          child: ListTile(
+                              contentPadding: EdgeInsets.zero,
+                              leading: IconCircleWidget(
+                                radius: 10,
+                                backgroundColor: theme.cardColor,
+                                imagewidget: SvgPicture.asset(
+                                  buildIcons[index % buildIcons.length],
+                                  color: theme.canvasColor,
+                                ),
                               ),
-                            ),
-                            title: Text(
-                              project.name!,
-                              style: theme.textTheme.titleMedium
-                                  ?.copyWith(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text("50%",
+                              title: Text(
+                                project.name!,
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(fontSize: 14, color: grey)),
-                            trailing: PopUpMenuWidget(
-                              theme: theme,
-                              onUpdateButtonPressed: () {
-                                openBottomSheet(
-                                    context: context, project: project);
-                              },
-                            )),
-                      ),
-                    );
-                  },
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text("50%",
+                                  style: theme.textTheme.titleMedium
+                                      ?.copyWith(fontSize: 14, color: grey)),
+                              trailing: PopUpMenuWidget(
+                                theme: theme,
+                                onUpdateButtonPressed: () {
+                                  openBottomSheet(
+                                      context: context, project: project);
+                                },
+                              )),
+                        ),
+                      );
+                    },
+                  ),
                 )
               : SizedBox(
                   height: MediaQuery.of(context).size.height *

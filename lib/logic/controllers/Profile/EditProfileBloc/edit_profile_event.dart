@@ -22,5 +22,9 @@ class EditProfileEvent with _$EditProfileEvent {
   const factory EditProfileEvent.onGSTChanged({required String gstNo}) =
       _OnGSTChanged;
 
+  //address
+   const factory EditProfileEvent.onAddressChanged({required String address}) =
+      _OnAddressChanged;
+
   const factory EditProfileEvent.onUpdateProfileTap() = _OnUpdateProfileTap;
 }

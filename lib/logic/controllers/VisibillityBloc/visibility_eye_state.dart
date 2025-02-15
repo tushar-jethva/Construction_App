@@ -12,5 +12,5 @@ class VisibilityEyeState with _$VisibilityEyeState {
       state: RequestState.empty,
       message: '',
       isPasswordShow: true,
-      isConfPasswordShow: false);
+      isConfPasswordShow: true);
 }

@@ -19,6 +19,7 @@ mixin _$SignUpEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -35,6 +36,7 @@ mixin _$SignUpEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -51,6 +53,7 @@ mixin _$SignUpEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -68,6 +71,7 @@ mixin _$SignUpEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -85,6 +89,7 @@ mixin _$SignUpEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -101,6 +106,7 @@ mixin _$SignUpEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -186,6 +192,7 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -205,6 +212,7 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -224,6 +232,7 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -247,6 +256,7 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -267,6 +277,7 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -286,6 +297,7 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -308,6 +320,223 @@ class _$initialsImpl with DiagnosticableTreeMixin implements _initials {
 
 abstract class _initials implements SignUpEvent {
   const factory _initials() = _$initialsImpl;
+}
+
+/// @nodoc
+abstract class _$$IsDialogOpenImplCopyWith<$Res> {
+  factory _$$IsDialogOpenImplCopyWith(
+          _$IsDialogOpenImpl value, $Res Function(_$IsDialogOpenImpl) then) =
+      __$$IsDialogOpenImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({bool isDialogOpen});
+}
+
+/// @nodoc
+class __$$IsDialogOpenImplCopyWithImpl<$Res>
+    extends _$SignUpEventCopyWithImpl<$Res, _$IsDialogOpenImpl>
+    implements _$$IsDialogOpenImplCopyWith<$Res> {
+  __$$IsDialogOpenImplCopyWithImpl(
+      _$IsDialogOpenImpl _value, $Res Function(_$IsDialogOpenImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isDialogOpen = null,
+  }) {
+    return _then(_$IsDialogOpenImpl(
+      isDialogOpen: null == isDialogOpen
+          ? _value.isDialogOpen
+          : isDialogOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$IsDialogOpenImpl with DiagnosticableTreeMixin implements _IsDialogOpen {
+  const _$IsDialogOpenImpl({required this.isDialogOpen});
+
+  @override
+  final bool isDialogOpen;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'SignUpEvent.isDialogOpen(isDialogOpen: $isDialogOpen)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SignUpEvent.isDialogOpen'))
+      ..add(DiagnosticsProperty('isDialogOpen', isDialogOpen));
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$IsDialogOpenImpl &&
+            (identical(other.isDialogOpen, isDialogOpen) ||
+                other.isDialogOpen == isDialogOpen));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isDialogOpen);
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$IsDialogOpenImplCopyWith<_$IsDialogOpenImpl> get copyWith =>
+      __$$IsDialogOpenImplCopyWithImpl<_$IsDialogOpenImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
+    required TResult Function(String email) emailOnChanged,
+    required TResult Function(String companyName) companyNameChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confPassword) confPasswordChanged,
+    required TResult Function(String otp) otpOnChanged,
+    required TResult Function() checkIsEmailExist,
+    required TResult Function() verifyOtp,
+    required TResult Function() addUser,
+    required TResult Function() signIn,
+    required TResult Function(bool isVerified) onIsVerifiedChanged,
+    required TResult Function() setScreenState,
+  }) {
+    return isDialogOpen(this.isDialogOpen);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
+    TResult? Function(String email)? emailOnChanged,
+    TResult? Function(String companyName)? companyNameChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confPassword)? confPasswordChanged,
+    TResult? Function(String otp)? otpOnChanged,
+    TResult? Function()? checkIsEmailExist,
+    TResult? Function()? verifyOtp,
+    TResult? Function()? addUser,
+    TResult? Function()? signIn,
+    TResult? Function(bool isVerified)? onIsVerifiedChanged,
+    TResult? Function()? setScreenState,
+  }) {
+    return isDialogOpen?.call(this.isDialogOpen);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
+    TResult Function(String email)? emailOnChanged,
+    TResult Function(String companyName)? companyNameChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confPassword)? confPasswordChanged,
+    TResult Function(String otp)? otpOnChanged,
+    TResult Function()? checkIsEmailExist,
+    TResult Function()? verifyOtp,
+    TResult Function()? addUser,
+    TResult Function()? signIn,
+    TResult Function(bool isVerified)? onIsVerifiedChanged,
+    TResult Function()? setScreenState,
+    required TResult orElse(),
+  }) {
+    if (isDialogOpen != null) {
+      return isDialogOpen(this.isDialogOpen);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
+    required TResult Function(_EmailOnChanged value) emailOnChanged,
+    required TResult Function(_CompanyNameChanged value) companyNameChanged,
+    required TResult Function(_PasswordOnChanged value) passwordChanged,
+    required TResult Function(_ConfirmPasswordOnChanged value)
+        confPasswordChanged,
+    required TResult Function(_OtpOnChanged value) otpOnChanged,
+    required TResult Function(_CheckIsEmailExist value) checkIsEmailExist,
+    required TResult Function(_VerifyOTP value) verifyOtp,
+    required TResult Function(_AddUser value) addUser,
+    required TResult Function(_SignInUserAfterSignUp value) signIn,
+    required TResult Function(_OnIsVerifiedChanged value) onIsVerifiedChanged,
+    required TResult Function(_SetScreenState value) setScreenState,
+  }) {
+    return isDialogOpen(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
+    TResult? Function(_EmailOnChanged value)? emailOnChanged,
+    TResult? Function(_CompanyNameChanged value)? companyNameChanged,
+    TResult? Function(_PasswordOnChanged value)? passwordChanged,
+    TResult? Function(_ConfirmPasswordOnChanged value)? confPasswordChanged,
+    TResult? Function(_OtpOnChanged value)? otpOnChanged,
+    TResult? Function(_CheckIsEmailExist value)? checkIsEmailExist,
+    TResult? Function(_VerifyOTP value)? verifyOtp,
+    TResult? Function(_AddUser value)? addUser,
+    TResult? Function(_SignInUserAfterSignUp value)? signIn,
+    TResult? Function(_OnIsVerifiedChanged value)? onIsVerifiedChanged,
+    TResult? Function(_SetScreenState value)? setScreenState,
+  }) {
+    return isDialogOpen?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
+    TResult Function(_EmailOnChanged value)? emailOnChanged,
+    TResult Function(_CompanyNameChanged value)? companyNameChanged,
+    TResult Function(_PasswordOnChanged value)? passwordChanged,
+    TResult Function(_ConfirmPasswordOnChanged value)? confPasswordChanged,
+    TResult Function(_OtpOnChanged value)? otpOnChanged,
+    TResult Function(_CheckIsEmailExist value)? checkIsEmailExist,
+    TResult Function(_VerifyOTP value)? verifyOtp,
+    TResult Function(_AddUser value)? addUser,
+    TResult Function(_SignInUserAfterSignUp value)? signIn,
+    TResult Function(_OnIsVerifiedChanged value)? onIsVerifiedChanged,
+    TResult Function(_SetScreenState value)? setScreenState,
+    required TResult orElse(),
+  }) {
+    if (isDialogOpen != null) {
+      return isDialogOpen(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _IsDialogOpen implements SignUpEvent {
+  const factory _IsDialogOpen({required final bool isDialogOpen}) =
+      _$IsDialogOpenImpl;
+
+  bool get isDialogOpen;
+
+  /// Create a copy of SignUpEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$IsDialogOpenImplCopyWith<_$IsDialogOpenImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -390,6 +619,7 @@ class _$EmailOnChangedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -409,6 +639,7 @@ class _$EmailOnChangedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -428,6 +659,7 @@ class _$EmailOnChangedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -451,6 +683,7 @@ class _$EmailOnChangedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -471,6 +704,7 @@ class _$EmailOnChangedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -490,6 +724,7 @@ class _$EmailOnChangedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -603,6 +838,7 @@ class _$CompanyNameChangedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -622,6 +858,7 @@ class _$CompanyNameChangedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -641,6 +878,7 @@ class _$CompanyNameChangedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -664,6 +902,7 @@ class _$CompanyNameChangedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -684,6 +923,7 @@ class _$CompanyNameChangedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -703,6 +943,7 @@ class _$CompanyNameChangedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -817,6 +1058,7 @@ class _$PasswordOnChangedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -836,6 +1078,7 @@ class _$PasswordOnChangedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -855,6 +1098,7 @@ class _$PasswordOnChangedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -878,6 +1122,7 @@ class _$PasswordOnChangedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -898,6 +1143,7 @@ class _$PasswordOnChangedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -917,6 +1163,7 @@ class _$PasswordOnChangedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -1033,6 +1280,7 @@ class _$ConfirmPasswordOnChangedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -1052,6 +1300,7 @@ class _$ConfirmPasswordOnChangedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -1071,6 +1320,7 @@ class _$ConfirmPasswordOnChangedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -1094,6 +1344,7 @@ class _$ConfirmPasswordOnChangedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -1114,6 +1365,7 @@ class _$ConfirmPasswordOnChangedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -1133,6 +1385,7 @@ class _$ConfirmPasswordOnChangedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -1243,6 +1496,7 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -1262,6 +1516,7 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -1281,6 +1536,7 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -1304,6 +1560,7 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -1324,6 +1581,7 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -1343,6 +1601,7 @@ class _$OtpOnChangedImpl with DiagnosticableTreeMixin implements _OtpOnChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -1426,6 +1685,7 @@ class _$CheckIsEmailExistImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -1445,6 +1705,7 @@ class _$CheckIsEmailExistImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -1464,6 +1725,7 @@ class _$CheckIsEmailExistImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -1487,6 +1749,7 @@ class _$CheckIsEmailExistImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -1507,6 +1770,7 @@ class _$CheckIsEmailExistImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -1526,6 +1790,7 @@ class _$CheckIsEmailExistImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -1598,6 +1863,7 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -1617,6 +1883,7 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -1636,6 +1903,7 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -1659,6 +1927,7 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -1679,6 +1948,7 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -1698,6 +1968,7 @@ class _$VerifyOTPImpl with DiagnosticableTreeMixin implements _VerifyOTP {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -1770,6 +2041,7 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -1789,6 +2061,7 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -1808,6 +2081,7 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -1831,6 +2105,7 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -1851,6 +2126,7 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -1870,6 +2146,7 @@ class _$AddUserImpl with DiagnosticableTreeMixin implements _AddUser {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -1946,6 +2223,7 @@ class _$SignInUserAfterSignUpImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -1965,6 +2243,7 @@ class _$SignInUserAfterSignUpImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -1984,6 +2263,7 @@ class _$SignInUserAfterSignUpImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -2007,6 +2287,7 @@ class _$SignInUserAfterSignUpImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -2027,6 +2308,7 @@ class _$SignInUserAfterSignUpImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -2046,6 +2328,7 @@ class _$SignInUserAfterSignUpImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -2151,6 +2434,7 @@ class _$OnIsVerifiedChangedImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -2170,6 +2454,7 @@ class _$OnIsVerifiedChangedImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -2189,6 +2474,7 @@ class _$OnIsVerifiedChangedImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -2212,6 +2498,7 @@ class _$OnIsVerifiedChangedImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -2232,6 +2519,7 @@ class _$OnIsVerifiedChangedImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -2251,6 +2539,7 @@ class _$OnIsVerifiedChangedImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -2334,6 +2623,7 @@ class _$SetScreenStateImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function(bool isDialogOpen) isDialogOpen,
     required TResult Function(String email) emailOnChanged,
     required TResult Function(String companyName) companyNameChanged,
     required TResult Function(String password) passwordChanged,
@@ -2353,6 +2643,7 @@ class _$SetScreenStateImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function(bool isDialogOpen)? isDialogOpen,
     TResult? Function(String email)? emailOnChanged,
     TResult? Function(String companyName)? companyNameChanged,
     TResult? Function(String password)? passwordChanged,
@@ -2372,6 +2663,7 @@ class _$SetScreenStateImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function(bool isDialogOpen)? isDialogOpen,
     TResult Function(String email)? emailOnChanged,
     TResult Function(String companyName)? companyNameChanged,
     TResult Function(String password)? passwordChanged,
@@ -2395,6 +2687,7 @@ class _$SetScreenStateImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_initials value) initial,
+    required TResult Function(_IsDialogOpen value) isDialogOpen,
     required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_CompanyNameChanged value) companyNameChanged,
     required TResult Function(_PasswordOnChanged value) passwordChanged,
@@ -2415,6 +2708,7 @@ class _$SetScreenStateImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_initials value)? initial,
+    TResult? Function(_IsDialogOpen value)? isDialogOpen,
     TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_CompanyNameChanged value)? companyNameChanged,
     TResult? Function(_PasswordOnChanged value)? passwordChanged,
@@ -2434,6 +2728,7 @@ class _$SetScreenStateImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_initials value)? initial,
+    TResult Function(_IsDialogOpen value)? isDialogOpen,
     TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_CompanyNameChanged value)? companyNameChanged,
     TResult Function(_PasswordOnChanged value)? passwordChanged,
@@ -2464,6 +2759,7 @@ mixin _$SignUpState {
   RequestState get state1 => throw _privateConstructorUsedError;
   RequestState get state2 => throw _privateConstructorUsedError;
   RequestState get state3 => throw _privateConstructorUsedError;
+  bool get isDialogOpen => throw _privateConstructorUsedError;
   int get screenState => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   String get companyName => throw _privateConstructorUsedError;
@@ -2491,6 +2787,7 @@ abstract class $SignUpStateCopyWith<$Res> {
       RequestState state1,
       RequestState state2,
       RequestState state3,
+      bool isDialogOpen,
       int screenState,
       String message,
       String companyName,
@@ -2520,6 +2817,7 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
     Object? state1 = null,
     Object? state2 = null,
     Object? state3 = null,
+    Object? isDialogOpen = null,
     Object? screenState = null,
     Object? message = null,
     Object? companyName = null,
@@ -2546,6 +2844,10 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
           ? _value.state3
           : state3 // ignore: cast_nullable_to_non_nullable
               as RequestState,
+      isDialogOpen: null == isDialogOpen
+          ? _value.isDialogOpen
+          : isDialogOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
       screenState: null == screenState
           ? _value.screenState
           : screenState // ignore: cast_nullable_to_non_nullable
@@ -2595,6 +2897,7 @@ abstract class _$$SignUpFormStateImplCopyWith<$Res>
       RequestState state1,
       RequestState state2,
       RequestState state3,
+      bool isDialogOpen,
       int screenState,
       String message,
       String companyName,
@@ -2622,6 +2925,7 @@ class __$$SignUpFormStateImplCopyWithImpl<$Res>
     Object? state1 = null,
     Object? state2 = null,
     Object? state3 = null,
+    Object? isDialogOpen = null,
     Object? screenState = null,
     Object? message = null,
     Object? companyName = null,
@@ -2648,6 +2952,10 @@ class __$$SignUpFormStateImplCopyWithImpl<$Res>
           ? _value.state3
           : state3 // ignore: cast_nullable_to_non_nullable
               as RequestState,
+      isDialogOpen: null == isDialogOpen
+          ? _value.isDialogOpen
+          : isDialogOpen // ignore: cast_nullable_to_non_nullable
+              as bool,
       screenState: null == screenState
           ? _value.screenState
           : screenState // ignore: cast_nullable_to_non_nullable
@@ -2694,6 +3002,7 @@ class _$SignUpFormStateImpl
       required this.state1,
       required this.state2,
       required this.state3,
+      required this.isDialogOpen,
       required this.screenState,
       required this.message,
       required this.companyName,
@@ -2711,6 +3020,8 @@ class _$SignUpFormStateImpl
   final RequestState state2;
   @override
   final RequestState state3;
+  @override
+  final bool isDialogOpen;
   @override
   final int screenState;
   @override
@@ -2730,7 +3041,7 @@ class _$SignUpFormStateImpl
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SignUpState(state: $state, state1: $state1, state2: $state2, state3: $state3, screenState: $screenState, message: $message, companyName: $companyName, email: $email, password: $password, confirmPassword: $confirmPassword, otp: $otp, isVerified: $isVerified)';
+    return 'SignUpState(state: $state, state1: $state1, state2: $state2, state3: $state3, isDialogOpen: $isDialogOpen, screenState: $screenState, message: $message, companyName: $companyName, email: $email, password: $password, confirmPassword: $confirmPassword, otp: $otp, isVerified: $isVerified)';
   }
 
   @override
@@ -2742,6 +3053,7 @@ class _$SignUpFormStateImpl
       ..add(DiagnosticsProperty('state1', state1))
       ..add(DiagnosticsProperty('state2', state2))
       ..add(DiagnosticsProperty('state3', state3))
+      ..add(DiagnosticsProperty('isDialogOpen', isDialogOpen))
       ..add(DiagnosticsProperty('screenState', screenState))
       ..add(DiagnosticsProperty('message', message))
       ..add(DiagnosticsProperty('companyName', companyName))
@@ -2761,6 +3073,8 @@ class _$SignUpFormStateImpl
             (identical(other.state1, state1) || other.state1 == state1) &&
             (identical(other.state2, state2) || other.state2 == state2) &&
             (identical(other.state3, state3) || other.state3 == state3) &&
+            (identical(other.isDialogOpen, isDialogOpen) ||
+                other.isDialogOpen == isDialogOpen) &&
             (identical(other.screenState, screenState) ||
                 other.screenState == screenState) &&
             (identical(other.message, message) || other.message == message) &&
@@ -2783,6 +3097,7 @@ class _$SignUpFormStateImpl
       state1,
       state2,
       state3,
+      isDialogOpen,
       screenState,
       message,
       companyName,
@@ -2808,6 +3123,7 @@ abstract class _SignUpFormState implements SignUpState {
       required final RequestState state1,
       required final RequestState state2,
       required final RequestState state3,
+      required final bool isDialogOpen,
       required final int screenState,
       required final String message,
       required final String companyName,
@@ -2825,6 +3141,8 @@ abstract class _SignUpFormState implements SignUpState {
   RequestState get state2;
   @override
   RequestState get state3;
+  @override
+  bool get isDialogOpen;
   @override
   int get screenState;
   @override

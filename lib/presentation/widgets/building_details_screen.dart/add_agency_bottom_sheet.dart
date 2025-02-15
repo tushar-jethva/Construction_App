@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
@@ -242,9 +243,7 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   listener: (context, state) {
                     if (state is AddAgencySuccessState) {
                       Navigator.pop(context);
-                      ReusableFunctions.showSnackBar(
-                          context: context,
-                          content: "Agency added successfully!");
+                      showTopSnackBar(context, "Agency added successfully!");
                       context.read<PerBuildingAgenciesBloc>().add(LoadAgencies(
                           buildingId: buildingModel.sId!,
                           projectId: projectModel.sId!));
@@ -263,7 +262,7 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                               final selectedFloors =
                                   context.read<SelectFloorsBloc>().state;
 
-                              if (selectedFloors.selectedFloorList.isEmpty) {
+                              if (selectedFloors.floorList.isEmpty) {
                                 context.read<SelectFloorsBloc>().add(
                                     OnMessageChangedFloors(
                                         message:

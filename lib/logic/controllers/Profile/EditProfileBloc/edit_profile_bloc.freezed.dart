@@ -25,6 +25,7 @@ mixin _$EditProfileEvent {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) =>
       throw _privateConstructorUsedError;
@@ -37,6 +38,7 @@ mixin _$EditProfileEvent {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) =>
       throw _privateConstructorUsedError;
@@ -49,6 +51,7 @@ mixin _$EditProfileEvent {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) =>
@@ -62,6 +65,7 @@ mixin _$EditProfileEvent {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) =>
       throw _privateConstructorUsedError;
@@ -74,6 +78,7 @@ mixin _$EditProfileEvent {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) =>
       throw _privateConstructorUsedError;
@@ -86,6 +91,7 @@ mixin _$EditProfileEvent {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) =>
@@ -161,6 +167,7 @@ class _$InitializeImpl implements _Initialize {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) {
     return initialize();
@@ -176,6 +183,7 @@ class _$InitializeImpl implements _Initialize {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) {
     return initialize?.call();
@@ -191,6 +199,7 @@ class _$InitializeImpl implements _Initialize {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -210,6 +219,7 @@ class _$InitializeImpl implements _Initialize {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) {
     return initialize(this);
@@ -225,6 +235,7 @@ class _$InitializeImpl implements _Initialize {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) {
     return initialize?.call(this);
@@ -240,6 +251,7 @@ class _$InitializeImpl implements _Initialize {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -302,6 +314,7 @@ class _$SetDataImpl implements _SetData {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) {
     return setData();
@@ -317,6 +330,7 @@ class _$SetDataImpl implements _SetData {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) {
     return setData?.call();
@@ -332,6 +346,7 @@ class _$SetDataImpl implements _SetData {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -351,6 +366,7 @@ class _$SetDataImpl implements _SetData {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) {
     return setData(this);
@@ -366,6 +382,7 @@ class _$SetDataImpl implements _SetData {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) {
     return setData?.call(this);
@@ -381,6 +398,7 @@ class _$SetDataImpl implements _SetData {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -471,6 +489,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) {
     return onEmailChanged(email);
@@ -486,6 +505,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) {
     return onEmailChanged?.call(email);
@@ -501,6 +521,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -520,6 +541,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) {
     return onEmailChanged(this);
@@ -535,6 +557,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) {
     return onEmailChanged?.call(this);
@@ -550,6 +573,7 @@ class _$OnEmailChangedImpl implements _OnEmailChanged {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -650,6 +674,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) {
     return onNumberChanged(phoneNumber);
@@ -665,6 +690,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) {
     return onNumberChanged?.call(phoneNumber);
@@ -680,6 +706,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -699,6 +726,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) {
     return onNumberChanged(this);
@@ -714,6 +742,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) {
     return onNumberChanged?.call(this);
@@ -729,6 +758,7 @@ class _$OnNumberChangedImpl implements _OnNumberChanged {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -829,6 +859,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) {
     return onImageUrlChanged(imageUrl);
@@ -844,6 +875,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) {
     return onImageUrlChanged?.call(imageUrl);
@@ -859,6 +891,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -878,6 +911,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) {
     return onImageUrlChanged(this);
@@ -893,6 +927,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) {
     return onImageUrlChanged?.call(this);
@@ -908,6 +943,7 @@ class _$OnImageUrlChangedImpl implements _OnImageUrlChanged {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -1007,6 +1043,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) {
     return onImageChanged(image);
@@ -1022,6 +1059,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) {
     return onImageChanged?.call(image);
@@ -1037,6 +1075,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -1056,6 +1095,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) {
     return onImageChanged(this);
@@ -1071,6 +1111,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) {
     return onImageChanged?.call(this);
@@ -1086,6 +1127,7 @@ class _$OnImageChangedImpl implements _OnImageChanged {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -1184,6 +1226,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) {
     return onGSTChanged(gstNo);
@@ -1199,6 +1242,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) {
     return onGSTChanged?.call(gstNo);
@@ -1214,6 +1258,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -1233,6 +1278,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) {
     return onGSTChanged(this);
@@ -1248,6 +1294,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) {
     return onGSTChanged?.call(this);
@@ -1263,6 +1310,7 @@ class _$OnGSTChangedImpl implements _OnGSTChanged {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -1283,6 +1331,190 @@ abstract class _OnGSTChanged implements EditProfileEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OnGSTChangedImplCopyWith<_$OnGSTChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnAddressChangedImplCopyWith<$Res> {
+  factory _$$OnAddressChangedImplCopyWith(_$OnAddressChangedImpl value,
+          $Res Function(_$OnAddressChangedImpl) then) =
+      __$$OnAddressChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String address});
+}
+
+/// @nodoc
+class __$$OnAddressChangedImplCopyWithImpl<$Res>
+    extends _$EditProfileEventCopyWithImpl<$Res, _$OnAddressChangedImpl>
+    implements _$$OnAddressChangedImplCopyWith<$Res> {
+  __$$OnAddressChangedImplCopyWithImpl(_$OnAddressChangedImpl _value,
+      $Res Function(_$OnAddressChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of EditProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? address = null,
+  }) {
+    return _then(_$OnAddressChangedImpl(
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnAddressChangedImpl implements _OnAddressChanged {
+  const _$OnAddressChangedImpl({required this.address});
+
+  @override
+  final String address;
+
+  @override
+  String toString() {
+    return 'EditProfileEvent.onAddressChanged(address: $address)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnAddressChangedImpl &&
+            (identical(other.address, address) || other.address == address));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, address);
+
+  /// Create a copy of EditProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnAddressChangedImplCopyWith<_$OnAddressChangedImpl> get copyWith =>
+      __$$OnAddressChangedImplCopyWithImpl<_$OnAddressChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function() setData,
+    required TResult Function(String email) onEmailChanged,
+    required TResult Function(String phoneNumber) onNumberChanged,
+    required TResult Function(String imageUrl) onImageUrlChanged,
+    required TResult Function(XFile image) onImageChanged,
+    required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
+    required TResult Function() onUpdateProfileTap,
+  }) {
+    return onAddressChanged(address);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function()? setData,
+    TResult? Function(String email)? onEmailChanged,
+    TResult? Function(String phoneNumber)? onNumberChanged,
+    TResult? Function(String imageUrl)? onImageUrlChanged,
+    TResult? Function(XFile image)? onImageChanged,
+    TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
+    TResult? Function()? onUpdateProfileTap,
+  }) {
+    return onAddressChanged?.call(address);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function()? setData,
+    TResult Function(String email)? onEmailChanged,
+    TResult Function(String phoneNumber)? onNumberChanged,
+    TResult Function(String imageUrl)? onImageUrlChanged,
+    TResult Function(XFile image)? onImageChanged,
+    TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
+    TResult Function()? onUpdateProfileTap,
+    required TResult orElse(),
+  }) {
+    if (onAddressChanged != null) {
+      return onAddressChanged(address);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_SetData value) setData,
+    required TResult Function(_OnEmailChanged value) onEmailChanged,
+    required TResult Function(_OnNumberChanged value) onNumberChanged,
+    required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
+    required TResult Function(_OnImageChanged value) onImageChanged,
+    required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
+    required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
+  }) {
+    return onAddressChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_SetData value)? setData,
+    TResult? Function(_OnEmailChanged value)? onEmailChanged,
+    TResult? Function(_OnNumberChanged value)? onNumberChanged,
+    TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
+    TResult? Function(_OnImageChanged value)? onImageChanged,
+    TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
+    TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
+  }) {
+    return onAddressChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_SetData value)? setData,
+    TResult Function(_OnEmailChanged value)? onEmailChanged,
+    TResult Function(_OnNumberChanged value)? onNumberChanged,
+    TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
+    TResult Function(_OnImageChanged value)? onImageChanged,
+    TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
+    TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
+    required TResult orElse(),
+  }) {
+    if (onAddressChanged != null) {
+      return onAddressChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnAddressChanged implements EditProfileEvent {
+  const factory _OnAddressChanged({required final String address}) =
+      _$OnAddressChangedImpl;
+
+  String get address;
+
+  /// Create a copy of EditProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnAddressChangedImplCopyWith<_$OnAddressChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1334,6 +1566,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
     required TResult Function(String imageUrl) onImageUrlChanged,
     required TResult Function(XFile image) onImageChanged,
     required TResult Function(String gstNo) onGSTChanged,
+    required TResult Function(String address) onAddressChanged,
     required TResult Function() onUpdateProfileTap,
   }) {
     return onUpdateProfileTap();
@@ -1349,6 +1582,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
     TResult? Function(String imageUrl)? onImageUrlChanged,
     TResult? Function(XFile image)? onImageChanged,
     TResult? Function(String gstNo)? onGSTChanged,
+    TResult? Function(String address)? onAddressChanged,
     TResult? Function()? onUpdateProfileTap,
   }) {
     return onUpdateProfileTap?.call();
@@ -1364,6 +1598,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
     TResult Function(String imageUrl)? onImageUrlChanged,
     TResult Function(XFile image)? onImageChanged,
     TResult Function(String gstNo)? onGSTChanged,
+    TResult Function(String address)? onAddressChanged,
     TResult Function()? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -1383,6 +1618,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
     required TResult Function(_OnImageUrlChanged value) onImageUrlChanged,
     required TResult Function(_OnImageChanged value) onImageChanged,
     required TResult Function(_OnGSTChanged value) onGSTChanged,
+    required TResult Function(_OnAddressChanged value) onAddressChanged,
     required TResult Function(_OnUpdateProfileTap value) onUpdateProfileTap,
   }) {
     return onUpdateProfileTap(this);
@@ -1398,6 +1634,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
     TResult? Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult? Function(_OnImageChanged value)? onImageChanged,
     TResult? Function(_OnGSTChanged value)? onGSTChanged,
+    TResult? Function(_OnAddressChanged value)? onAddressChanged,
     TResult? Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
   }) {
     return onUpdateProfileTap?.call(this);
@@ -1413,6 +1650,7 @@ class _$OnUpdateProfileTapImpl implements _OnUpdateProfileTap {
     TResult Function(_OnImageUrlChanged value)? onImageUrlChanged,
     TResult Function(_OnImageChanged value)? onImageChanged,
     TResult Function(_OnGSTChanged value)? onGSTChanged,
+    TResult Function(_OnAddressChanged value)? onAddressChanged,
     TResult Function(_OnUpdateProfileTap value)? onUpdateProfileTap,
     required TResult orElse(),
   }) {
@@ -1435,6 +1673,7 @@ mixin _$EditProfileState {
   String get imageUrl => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get gst => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
   String get mobileNo => throw _privateConstructorUsedError;
 
   /// Create a copy of EditProfileState
@@ -1457,6 +1696,7 @@ abstract class $EditProfileStateCopyWith<$Res> {
       String imageUrl,
       String email,
       String gst,
+      String address,
       String mobileNo});
 }
 
@@ -1481,6 +1721,7 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
     Object? imageUrl = null,
     Object? email = null,
     Object? gst = null,
+    Object? address = null,
     Object? mobileNo = null,
   }) {
     return _then(_value.copyWith(
@@ -1508,6 +1749,10 @@ class _$EditProfileStateCopyWithImpl<$Res, $Val extends EditProfileState>
           ? _value.gst
           : gst // ignore: cast_nullable_to_non_nullable
               as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
       mobileNo: null == mobileNo
           ? _value.mobileNo
           : mobileNo // ignore: cast_nullable_to_non_nullable
@@ -1531,6 +1776,7 @@ abstract class _$$EditProfileStateImplCopyWith<$Res>
       String imageUrl,
       String email,
       String gst,
+      String address,
       String mobileNo});
 }
 
@@ -1553,6 +1799,7 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
     Object? imageUrl = null,
     Object? email = null,
     Object? gst = null,
+    Object? address = null,
     Object? mobileNo = null,
   }) {
     return _then(_$EditProfileStateImpl(
@@ -1580,6 +1827,10 @@ class __$$EditProfileStateImplCopyWithImpl<$Res>
           ? _value.gst
           : gst // ignore: cast_nullable_to_non_nullable
               as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
       mobileNo: null == mobileNo
           ? _value.mobileNo
           : mobileNo // ignore: cast_nullable_to_non_nullable
@@ -1598,6 +1849,7 @@ class _$EditProfileStateImpl implements _EditProfileState {
       required this.imageUrl,
       required this.email,
       required this.gst,
+      required this.address,
       required this.mobileNo});
 
   @override
@@ -1613,11 +1865,13 @@ class _$EditProfileStateImpl implements _EditProfileState {
   @override
   final String gst;
   @override
+  final String address;
+  @override
   final String mobileNo;
 
   @override
   String toString() {
-    return 'EditProfileState(state: $state, message: $message, image: $image, imageUrl: $imageUrl, email: $email, gst: $gst, mobileNo: $mobileNo)';
+    return 'EditProfileState(state: $state, message: $message, image: $image, imageUrl: $imageUrl, email: $email, gst: $gst, address: $address, mobileNo: $mobileNo)';
   }
 
   @override
@@ -1632,13 +1886,14 @@ class _$EditProfileStateImpl implements _EditProfileState {
                 other.imageUrl == imageUrl) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.gst, gst) || other.gst == gst) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.mobileNo, mobileNo) ||
                 other.mobileNo == mobileNo));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, state, message, image, imageUrl, email, gst, mobileNo);
+  int get hashCode => Object.hash(runtimeType, state, message, image, imageUrl,
+      email, gst, address, mobileNo);
 
   /// Create a copy of EditProfileState
   /// with the given fields replaced by the non-null parameter values.
@@ -1658,6 +1913,7 @@ abstract class _EditProfileState implements EditProfileState {
       required final String imageUrl,
       required final String email,
       required final String gst,
+      required final String address,
       required final String mobileNo}) = _$EditProfileStateImpl;
 
   @override
@@ -1672,6 +1928,8 @@ abstract class _EditProfileState implements EditProfileState {
   String get email;
   @override
   String get gst;
+  @override
+  String get address;
   @override
   String get mobileNo;
 

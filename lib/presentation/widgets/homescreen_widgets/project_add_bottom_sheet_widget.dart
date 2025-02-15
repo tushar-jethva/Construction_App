@@ -107,7 +107,10 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                       textInputType: TextInputType.name,
                       // ignore: body_might_complete_normally_nullable
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            value.trim().isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
                           return 'Please enter project name!';
                         }
                       },
@@ -120,7 +123,9 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                       textInputType: TextInputType.name,
                       // ignore: body_might_complete_normally_nullable
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.trim().isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
                           return 'Please enter project address!';
                         }
                       },

@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
@@ -71,7 +72,9 @@ class _MyAddAgencyBottomSheetPartiesState
                       textInputType: TextInputType.name,
                       // ignore: body_might_complete_normally_nullable
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
                           return 'Please enter agency name!';
                         }
                       },
@@ -84,7 +87,9 @@ class _MyAddAgencyBottomSheetPartiesState
                       textInputType: TextInputType.name,
                       // ignore: body_might_complete_normally_nullable
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
                           return 'Please enter description!';
                         }
                       },
@@ -140,7 +145,12 @@ class _MyAddAgencyBottomSheetPartiesState
                             maxLines: 1,
                             textInputType: TextInputType.name,
                             // ignore: body_might_complete_normally_nullable
-                            validator: (value) {},
+                            validator: (value) {
+                              if (!ReusableFunctions.isValidInput(
+                                  value ?? '')) {
+                                return 'Please enter new work name!';
+                              }
+                            },
                           ),
                         ),
                         Gap(10.w),
@@ -155,8 +165,7 @@ class _MyAddAgencyBottomSheetPartiesState
                                           name: _workTypeAddController.text));
                                   _workTypeAddController.clear();
                                 } else {
-                                  ReusableFunctions.showSnackBar(
-                                      context: context, content: "Add Some");
+                                  showTopSnackBar(context, "Enter new work");
                                 }
                               }),
                         )

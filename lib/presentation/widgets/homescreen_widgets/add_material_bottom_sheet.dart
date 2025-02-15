@@ -1,12 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
+import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
@@ -104,19 +106,33 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                     key: _formKeyMaterial,
                     child: Column(
                       children: [
-                        CustomTextFormField(
+                        MyCustomTextFormField(
                           controller: _materialNameController,
                           hintText: 'Material Name',
                           maxLines: 1,
                           textInputType: TextInputType.name,
-                          customvalidation: "Add material name!",
+                          validator: (value) {
+                            if (!ReusableFunctions.isValidInput(value ?? '')) {
+                              return 'Enter destination';
+                            }
+                          },
                         ),
                         15.hx,
-                        CustomTextFormField(
+                        MyCustomTextFormField(
                           controller: _quantityController,
                           hintText: 'Project Quantity',
                           maxLines: 1,
-                          textFieldType: TextFieldType.number,
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Enter project quantity';
+                            }
+                            if (int.tryParse(value) == null) {
+                              return 'Please enter valid digit!';
+                            }
+                            if (value.startsWith('-')) {
+                              return 'Please enter valid digit!';
+                            }
+                          },
                         ),
                         15.hx,
                         CustomDropDown(
@@ -130,10 +146,16 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                           },
                         ),
                         15.hx,
-                        CustomTextFormField(
+                        MyCustomTextFormField(
                           controller: _descriptionController,
                           hintText: 'Project Description',
                           maxLines: 3,
+                          textInputType: TextInputType.name,
+                          validator: (value) {
+                            if (!ReusableFunctions.isValidInput(value ?? '')) {
+                              return 'Enter destination';
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -184,7 +206,12 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                                 ? 'Update'
                                 : 'Add Material',
                             onTap: () async {
-                              if (_formKeyMaterial.currentState!.validate()) {
+                              if (!_formKeyMaterial.currentState!.validate()) {
+                              } else if (int.parse(_quantityController.text) <=
+                                  0) {
+                                showTopSnackBar(
+                                    context, "Enter valid quantity");
+                              } else {
                                 context.read<AddMaterialBloc>().add(
                                     AddMaterialEvent.onAddMaterialTap(
                                         materialId: material.id ?? "",
@@ -202,6 +229,7 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                       },
                     ),
                   ),
+                  20.hx,
                 ],
               );
             },

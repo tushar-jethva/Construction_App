@@ -33,7 +33,7 @@ class SignUpStep2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              100.hx,
+              60.hx,
               SizedBox(
                 height:
                     ReusableFunctions.getHeight(context: context, height: 0.3),
@@ -53,7 +53,8 @@ class SignUpStep2 extends StatelessWidget {
                         CustomTextFormField(
                             isValidate: true,
                             textInputType: TextInputType.text,
-                            textFieldType: TextFieldType.text,
+                            textFieldType: TextFieldType.custom,
+                            customvalidation: "Please enter company name",
                             hintText: "Company Name",
                             onChanged: (value) {
                               context
@@ -71,6 +72,9 @@ class SignUpStep2 extends StatelessWidget {
                               context
                                   .read<SignUpBloc>()
                                   .add(SignUpEvent.emailOnChanged(value));
+                              context.read<SignUpBloc>().add(
+                                  SignUpEvent.onIsVerifiedChanged(
+                                      isVerified: false));
                             },
                             maxLines: 1),
                         Align(
@@ -87,27 +91,44 @@ class SignUpStep2 extends StatelessWidget {
                                       const SignUpEvent.onIsVerifiedChanged(
                                           isVerified: true));
                                 } else if (state.screenState == 2) {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return const EnterOptwidget();
-                                    },
-                                    barrierColor:
-                                        Colors.transparent.withOpacity(0.6),
-                                    barrierDismissible: false,
-                                  );
+                                  if (!state.isDialogOpen) {
+                                    context.read<SignUpBloc>().add(
+                                        const SignUpEvent.isDialogOpen(
+                                            isDialogOpen: true));
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return const EnterOptwidget();
+                                      },
+                                      barrierColor:
+                                          Colors.transparent.withOpacity(0.6),
+                                      barrierDismissible: false,
+                                    ).then((value) {
+                                      context.read<SignUpBloc>().add(
+                                          const SignUpEvent.isDialogOpen(
+                                              isDialogOpen: false));
+                                    });
+                                  }
+                                } else if (state.state.isError) {
+                                  showTopSnackBar(
+                                      context, "Something went wrong!");
                                 }
-                              } else if (state.state.isError) {
-                                ReusableFunctions.showSnackBar(
-                                    context: context,
-                                    content: "Something went wrong!");
                               }
                             },
                             builder: (context, state) {
-                              return InkWell(
+                              return GestureDetector(
                                 onTap: () {
-                                  context.read<SignUpBloc>().add(
-                                      const SignUpEvent.checkIsEmailExist());
+                                  if (state.email.isEmpty) {
+                                    showTopSnackBar(
+                                        context, "Please enter email!");
+                                  } else if (!ReusableFunctions.isEmailValid(
+                                      email: state.email)) {
+                                    showTopSnackBar(
+                                        context, "Please enter valid email!");
+                                  } else {
+                                    context.read<SignUpBloc>().add(
+                                        const SignUpEvent.checkIsEmailExist());
+                                  }
                                 },
                                 child: !state.state.isLoading
                                     ? !state.isVerified
@@ -269,7 +290,8 @@ class SignUpStep2 extends StatelessWidget {
                         )
                       ],
                     ),
-                  ))
+                  )),
+              20.hx,
             ],
           ),
         ),

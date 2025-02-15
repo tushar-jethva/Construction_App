@@ -1,30 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/constants.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/transaction_model.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 class MyTransactionScreen extends StatefulWidget {
   final ProjectModel project;
-  const MyTransactionScreen({
-    super.key,
-    required this.project,
-  });
+  final ScrollController scrollController;
+  const MyTransactionScreen(
+      {super.key, required this.project, required this.scrollController});
 
   @override
   State<MyTransactionScreen> createState() => _MyTransactionScreenState();
@@ -93,23 +85,21 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                             child: Text("No transactions founds!"))),
                   ]),
                 )
-              : Column(
-                  children: [
-                    ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: state.listOfTransactions.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final TransactionModel transaction =
-                            state.listOfTransactions[index];
-                        String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
-                            .format(DateTime.parse(transaction.date!));
-                        return transactionWidget(
-                            context, transaction, theme, formattedDate);
-                      },
-                    ),
-                    60.hx,
-                  ],
+              : SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.73,
+                  child: ListView.builder(
+                    controller: widget.scrollController,
+                    itemCount: state.listOfTransactions.length,
+                    // shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final TransactionModel transaction =
+                          state.listOfTransactions[index];
+                      String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
+                          .format(DateTime.parse(transaction.date!));
+                      return transactionWidget(
+                          context, transaction, theme, formattedDate);
+                    },
+                  ),
                 );
         }
         return const Text("No Transaction Found");
@@ -138,7 +128,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                   transaction.isCompleted!
                       ? Icon(
                           Icons.check_circle_outline_outlined,
-                          color: green,
+                          color: orange,
                           size: 20,
                         )
                       : const SizedBox()
@@ -153,7 +143,11 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                 "₹ ${transaction.amount}",
                 style: theme.textTheme.titleLarge?.copyWith(
                     fontSize: 16,
-                    color: transaction.entryType == 'Credit' ? orange : red),
+                    color: (transaction.isCompleted ?? false)
+                        ? orange
+                        : transaction.entryType == 'Credit'
+                            ? green
+                            : red),
               ),
             ),
             const Divider()

@@ -116,11 +116,14 @@ class _MyAddBillingPartyBottomSheetState
                     Gap(10.h),
                     MyCustomTextFormField(
                       controller: _billingPartyNameController,
+                      textInputAction: TextInputAction.next,
                       hintText: "Party name",
                       maxLines: 1,
                       textInputType: TextInputType.name,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
                           return 'Please add party name!';
                         }
                       },
@@ -128,6 +131,7 @@ class _MyAddBillingPartyBottomSheetState
                     Gap(10.h),
                     MyCustomTextFormField(
                       controller: _gstNoController,
+                      textInputAction: TextInputAction.next,
                       hintText: "GST No.",
                       maxLines: 1,
                       maxLength: 15,
@@ -150,6 +154,7 @@ class _MyAddBillingPartyBottomSheetState
                     Gap(10.h),
                     MyCustomTextFormField(
                       controller: _emailController,
+                      textInputAction: TextInputAction.next,
                       hintText: "Emailaddress",
                       maxLines: 1,
                       textInputType: TextInputType.emailAddress,
@@ -167,6 +172,7 @@ class _MyAddBillingPartyBottomSheetState
                     Gap(10.h),
                     MyCustomTextFormField(
                       controller: _contactNoController,
+                      textInputAction: TextInputAction.next,
                       hintText: "Contatct No.",
                       maxLines: 1,
                       maxLength: 10,
@@ -183,11 +189,14 @@ class _MyAddBillingPartyBottomSheetState
                     Gap(10.h),
                     MyCustomTextFormField(
                       controller: _shippingAddressController,
+                      textInputAction: TextInputAction.next,
                       hintText: "Shipping Address",
                       maxLines: 3,
                       textInputType: TextInputType.name,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
                           return 'Please add shipping address!';
                         }
                       },
@@ -195,11 +204,14 @@ class _MyAddBillingPartyBottomSheetState
                     Gap(10.h),
                     MyCustomTextFormField(
                       controller: _billingAddressController,
+                      textInputAction: TextInputAction.next,
                       hintText: "Billing Address",
                       maxLines: 3,
                       textInputType: TextInputType.name,
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
                           return 'Please add billing address!';
                         }
                       },

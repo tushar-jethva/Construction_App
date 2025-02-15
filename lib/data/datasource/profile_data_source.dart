@@ -22,7 +22,7 @@ abstract class ProfileDataSource {
       {required String email,
       required String gst,
       required String phoneNumber,
-      required String imageUrl});
+      required String imageUrl, required String address});
 
   Future<ProfileModel?> getProfile();
 }
@@ -123,14 +123,16 @@ class ProfileDataSourceImpl implements ProfileDataSource {
       {required String email,
       required String gst,
       required String phoneNumber,
-      required String imageUrl}) async {
+      required String imageUrl,
+      required String address}) async {
     try {
       final res = await dio.post(API.COMPLETE_PROFILE,
           data: jsonEncode({
             "GSTNumber": gst,
             "Mobile": phoneNumber,
             "Email": email,
-            'logo': imageUrl
+            'logo': imageUrl,
+            'Address':address
           }));
       print("-------------- ${res.data} ----------------");
       return res.data['message'];
@@ -143,7 +145,7 @@ class ProfileDataSourceImpl implements ProfileDataSource {
   Future<ProfileModel?> getProfile() async {
     try {
       final res = await dio.get(API.GET_PROFILE);
-
+      print("------------------- resprofile ${res.data} -------------------");
       return ProfileModel.fromJson(res.data["data"][0]);
     } catch (e) {
       rethrow;

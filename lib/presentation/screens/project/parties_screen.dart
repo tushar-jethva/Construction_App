@@ -15,10 +15,9 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class MyPartiesProjectScreen extends StatefulWidget {
   final ProjectModel project;
-  const MyPartiesProjectScreen({
-    super.key,
-    required this.project,
-  });
+  final ScrollController scrollController;
+  const MyPartiesProjectScreen(
+      {super.key, required this.project, required this.scrollController});
 
   @override
   State<MyPartiesProjectScreen> createState() => _MyPartiesProjectScreenState();
@@ -57,59 +56,58 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      children: [
-        10.hx,
-        BlocBuilder<AgencyWorksProjectsBloc, AgencyWorksProjectsState>(
-            builder: (context, state) {
-          if (state.state.isLoading) {
-            return Skeletonizer(
-              enabled: true,
-              child: ListView.builder(
-                  itemCount: 5,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return agencyWidget(
-                        theme,
-                        TotalAgencyModel(name: "Agency", totalAccount: "1000"),
-                        index);
-                  }),
-            );
-          }
-          if (state.state.isLoaded) {
-            return RefreshIndicator(
-              onRefresh: _refreshTotalAgencies,
-              child: state.totalAgencies.isEmpty
-                  ? SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: SingleChildScrollView(
-                        child: SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.5,
-                          child: const Center(
-                            child: Text("No agencies found!"),
-                          ),
-                        ),
+    return BlocBuilder<AgencyWorksProjectsBloc, AgencyWorksProjectsState>(
+        builder: (context, state) {
+      if (state.state.isLoading) {
+        return Skeletonizer(
+          enabled: true,
+          child: ListView.builder(
+              itemCount: 5,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return agencyWidget(
+                    theme,
+                    TotalAgencyModel(name: "Agency", totalAccount: "1000"),
+                    index);
+              }),
+        );
+      }
+      if (state.state.isLoaded) {
+        return RefreshIndicator(
+          onRefresh: _refreshTotalAgencies,
+          color: purple,
+          child: state.totalAgencies.isEmpty
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: SingleChildScrollView(
+                    child: SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.5,
+                      child: const Center(
+                        child: Text("No agencies found!"),
                       ),
-                    )
-                  : ListView.builder(
+                    ),
+                  ),
+                )
+              : SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.73,
+                  child: ListView.builder(
                       itemCount: state.totalAgencies.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
+                      // primary: false,
+                      controller: widget.scrollController, 
+                      // physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final agency = state.totalAgencies[index];
                         return agencyWidget(theme, agency, index);
                       }),
-            );
-          }
-          return const SizedBox(
-              height: 500,
-              child: Center(
-                child: Text("Something went wrong!"),
-              ));
-        }),
-        100.hx,
-      ],
-    );
+                ),
+        );
+      }
+      return const SizedBox(
+          height: 500,
+          child: Center(
+            child: Text("Something went wrong!"),
+          ));
+    });
   }
 
   Widget agencyWidget(ThemeData theme, TotalAgencyModel agency, int index) {

@@ -48,12 +48,14 @@ class SiteProgressAgencyUpdateBloc
           emit(state.copyWith(
               selectedAgencies: selectedAgencies,
               isLoading: false,
-              currentSelectedAgencies: currentSelectedAgencies));
+              currentSelectedAgencies: currentSelectedAgencies,
+              totalAgencies: floorSiteModel.workStatus?.length ?? 0));
         }
         emit(state.copyWith(
             isLoading: false,
             selectedAgencies: state.selectedAgencies,
-            currentSelectedAgencies: state.currentSelectedAgencies ));
+            currentSelectedAgencies: state.currentSelectedAgencies,
+            totalAgencies: 0));
       } catch (e) {
         print(e.toString());
       }
@@ -93,7 +95,8 @@ class SiteProgressAgencyUpdateBloc
             selectedAgencies: state.selectedAgencies,
             currentSelectedAgencies: state.currentSelectedAgencies,
             selectAll: state.selectAll,
-            isLoading: state.isLoading));
+            isLoading: state.isLoading,
+            totalAgencies: state.totalAgencies));
         print("2State is $state");
         final currentSelectedAgencies = state.currentSelectedAgencies
             .where((element) => element.isSelected! == true)
@@ -109,14 +112,16 @@ class SiteProgressAgencyUpdateBloc
             selectedAgencies: state.selectedAgencies,
             currentSelectedAgencies: state.currentSelectedAgencies,
             selectAll: state.selectAll,
-            isLoading: state.isLoading));
+            isLoading: state.isLoading,
+            totalAgencies: state.totalAgencies));
         print("4State is $state");
       } catch (e) {
         emit(SiteProgressAgencyUpdateFailureState(
             selectedAgencies: state.selectedAgencies,
             currentSelectedAgencies: state.currentSelectedAgencies,
             selectAll: state.selectAll,
-            isLoading: state.isLoading));
+            isLoading: state.isLoading,
+            totalAgencies: state.totalAgencies));
       }
     });
   }

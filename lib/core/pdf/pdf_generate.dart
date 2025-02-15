@@ -5,6 +5,7 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
+import 'package:construction_mate/logic/models/profile_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:http/http.dart' as http;
 
 class PDFGenerator {
   // Method to create a PDF
@@ -30,9 +32,20 @@ class PDFGenerator {
     return totalSquareFeet;
   }
 
-  Future<Uint8List> createInvoicePDF({required BillModel bill}) async {
+  Future<Uint8List> getImageFromUrl(String imageUrl) async {
+    final response = await http.get(Uri.parse(imageUrl));
+    if (response.statusCode == 200) {
+      return response.bodyBytes; // Convert to Uint8List
+    } else {
+      throw Exception("Failed to load image");
+    }
+  }
+
+  Future<Uint8List> createInvoicePDF(
+      {required BillModel bill, required ProfileModel? profile}) async {
     final pdf = pw.Document();
-    final Uint8List imageData = await _loadAssetImage('assets/logos/s2p.jpeg');
+    final Uint8List imageData =
+        await getImageFromUrl(profile?.logo ?? 'assets/logos/s2p.jpeg');
     final String formattedDate =
         DateFormat.yMMMd().format(DateTime.parse(bill.date!));
 
@@ -68,7 +81,7 @@ class PDFGenerator {
             pw.SizedBox(height: 20),
             _buildHeader(imageData: imageData, date: formattedDate),
             pw.SizedBox(height: 20),
-            _buildBillingAndSupplyDetails(bill: bill),
+            _buildBillingAndSupplyDetails(bill: bill, profile: profile),
             pw.SizedBox(height: 20),
             _buildItemsTable(items: listOfItems),
             pw.SizedBox(height: 20),
@@ -93,13 +106,25 @@ class PDFGenerator {
       crossAxisAlignment: pw.CrossAxisAlignment.center,
       children: [
         pw.Row(children: [pw.Text("Ack Date: "), pw.Text(date)]),
-        pw.Image(pw.MemoryImage(imageData))
+        pw.Container(
+          width: 100, // Set width & height to make it circular
+          height: 100,
+          decoration: pw.BoxDecoration(
+            shape: pw.BoxShape.circle, // Makes the container circular
+            image: pw.DecorationImage(
+              image: pw.MemoryImage(imageData),
+              fit:
+                  pw.BoxFit.cover, // Ensures the image covers the circular area
+            ),
+          ),
+        )
       ],
     );
   }
 
   // Billing and Supply details section
-  pw.Widget _buildBillingAndSupplyDetails({required BillModel bill}) {
+  pw.Widget _buildBillingAndSupplyDetails(
+      {required BillModel bill, required ProfileModel? profile}) {
     return pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
       pw.Expanded(
         child: pw.Table(border: pw.TableBorder.all(), children: [
@@ -110,15 +135,14 @@ class PDFGenerator {
                 child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
-                      pw.Text("S2P PROJECTS",
+                      pw.Text(profile?.name ?? "",
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
                       pw.SizedBox(height: 7),
-                      pw.Text(
-                          "138 , APEXA CHITRAKUT DHAM SOC B/H I.O.C COLONY KALAWAD ROAD RAJKOT GUJRAT 360005",
+                      pw.Text(profile?.address ?? "",
                           overflow: pw.TextOverflow.clip),
-                      pw.Text("GSTIN/UIN: 24ABBFP1674M1Z1"),
-                      pw.Text("State Name: Gujarat, Code: 24"),
-                      pw.Text("E-Mail: S2PPROJECT2020@GMAIL.COM")
+                      pw.Text("GSTIN/UIN: ${profile?.gSTNumber ?? ''}"),
+                      pw.Text("Phone number: ${profile?.mobile ?? ''}"),
+                      pw.Text("E-Mail: ${profile?.email ?? ''}")
                     ])),
           ]),
           pw.TableRow(children: [
@@ -136,7 +160,6 @@ class PDFGenerator {
                       pw.Text("${bill.partieId!.shippingAddress}",
                           overflow: pw.TextOverflow.clip),
                       pw.Text("GSTIN/UIN: ${bill.partieId!.gSTnumber}"),
-                      pw.Text("State Name: Gujarat, Code: 24"),
                       pw.Text("E-Mail : ${bill.partieId!.email}")
                     ])),
           ]),
@@ -155,8 +178,6 @@ class PDFGenerator {
                       pw.Text("${bill.partieId!.billingAddress}",
                           overflow: pw.TextOverflow.clip),
                       pw.Text("GSTIN/UIN: ${bill.partieId!.gSTnumber}"),
-                      pw.Text("State Name: Gujarat, Code: 24"),
-                      pw.Text("Place of Supply: Gujarat"),
                       pw.Text("E-Mail : ${bill.partieId!.email}")
                     ])),
           ]),

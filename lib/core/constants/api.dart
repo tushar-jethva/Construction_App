@@ -60,7 +60,7 @@ class API {
 
   //------------- Authentication--------------
   static const REQUEST_OTP = "$BASE_URL/Company/RequestOtp";
-  static const VERIFY_OTP = "$BASE_URL/Company/VerifyOtp";
+  static const VERIFY_OTP = "$BASE_URL/Company/EmailVarificationOtp";
   static const SIGN_UP_API = "$BASE_URL/Company/SetCredentials";
   static const LOGIN_API = "$BASE_URL/Company/Login";
 

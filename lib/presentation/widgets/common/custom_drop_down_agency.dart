@@ -31,7 +31,7 @@ class MyDropDownFormFieldAgency extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
-            5.r,
+            10.r,
           ),
           borderSide: const BorderSide(color: grey),
         ),
@@ -39,7 +39,7 @@ class MyDropDownFormFieldAgency extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             10.r,
           ),
-          borderSide:  BorderSide(color: purple),
+          borderSide: BorderSide(color: purple),
         ),
       ),
       value: items[0].sId,

@@ -29,9 +29,9 @@ class ProfileUsecase {
       {required String email,
       required String gst,
       required String phoneNumber,
-      required String imageUrl}) {
+      required String imageUrl, required String address}) {
     return _repository.completeProfile(
-        email: email, gst: gst, phoneNumber: phoneNumber, imageUrl: imageUrl);
+        email: email, gst: gst, phoneNumber: phoneNumber, imageUrl: imageUrl,address: address);
   }
 
   Future<Either<Failure, ProfileModel?>> getProfile() {

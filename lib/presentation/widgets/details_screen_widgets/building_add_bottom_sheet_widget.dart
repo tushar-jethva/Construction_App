@@ -118,7 +118,9 @@ class _MyBuildingAddBottomSheetWidgetState
                       textInputType: TextInputType.name,
                       // ignore: body_might_complete_normally_nullable
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value ?? '')) {
                           return 'Please enter building name!';
                         }
                       },
@@ -127,7 +129,7 @@ class _MyBuildingAddBottomSheetWidgetState
                     MyCustomTextFormField(
                       controller: _floorController,
                       textInputType: TextInputType.number,
-                      hintText: "Add floors",
+                      hintText: "Floors",
                       // ignore: body_might_complete_normally_nullable
                       onChanged: (value) {
                         context.read<FloorNameAndFeetBloc>().add(FloorChanged(
@@ -145,6 +147,12 @@ class _MyBuildingAddBottomSheetWidgetState
                         if (value.startsWith('-')) {
                           return 'Please enter valid digit!';
                         }
+                        if (int.tryParse(value)! <= 0) {
+                          return 'Please enter valid floors';
+                        }
+                        if (int.tryParse(value)! > 100) {
+                          return 'Floors should be less than 100';
+                        }
                       },
                     ),
                     Gap(20.h),
@@ -154,7 +162,7 @@ class _MyBuildingAddBottomSheetWidgetState
                           child: MyCustomTextFormField(
                             controller: _unitPerFootController,
                             textInputType: TextInputType.number,
-                            hintText: 'Unit per floor',
+                            hintText: 'Sq. feet per floor',
                             maxLines: 1,
                             // ignore: body_might_complete_normally_nullable
                             onChanged: (value) {
@@ -178,8 +186,16 @@ class _MyBuildingAddBottomSheetWidgetState
                         ),
                         IconButton(
                             onPressed: () {
-                              context.push(RoutesName.footAndFloorScreen,
-                                  extra: context.read<FloorNameAndFeetBloc>());
+                              if (_floorController.text.isEmpty) {
+                                showTopSnackBar(context, "Please enter floors");
+                              } else if (_unitPerFootController.text.isEmpty) {
+                                showTopSnackBar(
+                                    context, "Please enter unit per floor");
+                              } else {
+                                context.push(RoutesName.footAndFloorScreen,
+                                    extra:
+                                        context.read<FloorNameAndFeetBloc>());
+                              }
                             },
                             icon: Icon(
                               Icons.edit,
@@ -195,7 +211,9 @@ class _MyBuildingAddBottomSheetWidgetState
                       textInputType: TextInputType.name,
                       // ignore: body_might_complete_normally_nullable
                       validator: (value) {
-                        if (value == null || value.isEmpty) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value ?? '')) {
                           return 'Please add description!';
                         }
                       },
@@ -214,7 +232,7 @@ class _MyBuildingAddBottomSheetWidgetState
                 child: BlocBuilder<BuildingsBloc, BuildingsState>(
                   builder: (context, state) {
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding: const EdgeInsets.only(bottom: 25.0),
                       child: CustomElevatedButton(
                         isLoading: state is BuildingAddLoading,
                         label: 'Add Building',
