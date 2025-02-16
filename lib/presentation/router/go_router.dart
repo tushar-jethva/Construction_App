@@ -47,6 +47,7 @@ import 'package:construction_mate/presentation/screens/project/project_screen.da
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
 import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
+import 'package:construction_mate/presentation/screens/subscription/contact_us_screen.dart';
 import 'package:construction_mate/presentation/screens/subscription/subscription_screen.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/floors_and_foot_screen.dart';
@@ -280,6 +281,13 @@ class Routes {
             return SubscriptionScreen(
               isExpired: isExpired,
             );
+          },
+        ),
+        GoRoute(
+          path: RoutesName.CONTACT_US_SCREEN_NAME,
+          name: RoutesName.CONTACT_US_SCREEN_PATH,
+          builder: (context, state) {
+            return ContactUsScreen();
           },
         ),
         GoRoute(

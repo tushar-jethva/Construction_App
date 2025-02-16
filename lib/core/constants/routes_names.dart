@@ -31,4 +31,8 @@ class RoutesName {
   //Onboard
   static String ONBOARD_SCREEN_PATH = "/onboard";
   static String ONBOARD_SCREEN_NAME = "/onboard";
+
+  //contact us
+  static String CONTACT_US_SCREEN_PATH = "/contactUs";
+  static String CONTACT_US_SCREEN_NAME = "/contactUs";
 }

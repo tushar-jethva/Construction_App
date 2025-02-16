@@ -57,6 +57,7 @@ dependencies:
   cached_network_image: ^3.4.1
   calendar_date_picker2: ^1.1.8
   dashed_line: ^0.1.0+3
+  url_launcher: ^6.3.1
 
 
 
@@ -153,7 +154,7 @@ flutter:
           weight: 700
         - asset: assets/fonts/inter/Inter_18pt-Bold.ttf
           weight: 600
-        - asset: assets/fonts/inter/Inter_18pt-SemitBold.ttf
+        - asset: assets/fonts/inter/Inter_18pt-SemiBold.ttf
           weight: 500
         - asset: assets/fonts/inter/Inter_18pt-Medium.ttf
           weight: 400

@@ -23,13 +23,52 @@ class SubscriptionScreen extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        surfaceTintColor: transparent,
+        leading: IconButton(
+            onPressed: () {
+              context.pop();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: theme.canvasColor,
+            )),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              50.hx,
+              isExpired
+                  ? Text(
+                      "Your 7 days free trial has ended!",
+                      style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14),
+                    )
+                  : const SizedBox.shrink(),
+              3.hx,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Column(
+                  children: [
+                    Text(
+                      "Get Premium",
+                      style: theme.textTheme.headlineMedium
+                          ?.copyWith(fontSize: 30),
+                    ),
+                    10.hx,
+                    Text(
+                      "Unlock all the power of this mobile tool and enjoy digital experience like never before!",
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                          fontSize: 13, color: black.withOpacity(0.7)),
+                    ),
+                  ],
+                ),
+              ),
+              20.hx,
               Center(
                 child: Lottie.asset(
                   height: 200,
@@ -39,48 +78,31 @@ class SubscriptionScreen extends StatelessWidget {
                   repeat: true,
                 ),
               ),
-              isExpired
-                  ? Text(
-                      "Your 7 days free trial has ended!",
-                      style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14),
-                    )
-                  : const SizedBox.shrink(),
-              3.hx,
-              Text(
-                "Upgrade Plan",
-                style: theme.textTheme.titleLarge
-                    ?.copyWith(fontSize: 16, color: Colors.yellow.shade800),
-              ),
               20.hx,
               BlocBuilder<SubsctiptionBoxBloc, SubsctiptionBoxState>(
                 builder: (context, state) {
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SubscriptionBoxWidget(
-                          theme: theme,
-                          subscription: subscription[0],
-                          isSelected: state.index == 0,
-                          index: 0,
-                        ),
-                        15.wx,
-                        SubscriptionBoxWidget(
-                          theme: theme,
-                          subscription: subscription[1],
-                          index: 1,
-                          isSelected: state.index == 1,
-                        ),
-                        15.wx,
-                        SubscriptionBoxWidget(
-                          theme: theme,
-                          subscription: subscription[2],
-                          index: 2,
-                          isSelected: state.index == 2,
-                        ),
-                      ],
-                    ),
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SubscriptionBoxWidget(
+                        theme: theme,
+                        subscription: subscription[0],
+                        isSelected: state.index == 0,
+                        index: 0,
+                      ),
+                      SubscriptionBoxWidget(
+                        theme: theme,
+                        subscription: subscription[1],
+                        index: 1,
+                        isSelected: state.index == 1,
+                      ),
+                      SubscriptionBoxWidget(
+                        theme: theme,
+                        subscription: subscription[2],
+                        index: 2,
+                        isSelected: state.index == 2,
+                      ),
+                    ],
                   );
                 },
               ),
@@ -92,38 +114,15 @@ class SubscriptionScreen extends StatelessWidget {
     );
   }
 
-  Container bottomBarWidget(ThemeData theme, BuildContext context) {
-    return Container(
-      color: theme.cardColor,
-      padding: const EdgeInsets.only(top: 20, left: 15, right: 15, bottom: 15),
-      child: Row(
-        children: [
-          Expanded(
-            child: CustomElevatedButton(
-              radius: 10,
-              onTap: () {
-                isExpired
-                    ? context.replaceNamed(RoutesName.signInScreen)
-                    : context.pop();
-                isExpired
-                    ? const TopSnackBar(message: "Free trial ended!")
-                    : ();
-              },
-              label: 'Back',
-              backgroundColor: white,
-              labelColor: purple,
-              borderColor: white,
-            ),
-          ),
-          20.wx,
-          Expanded(
-            child: CustomElevatedButton(
-              onTap: () {},
-              label: 'Contact Us',
-              radius: 10,
-            ),
-          )
-        ],
+  Widget bottomBarWidget(ThemeData theme, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 16),
+      child: CustomElevatedButton(
+        onTap: () {
+          context.pushNamed(RoutesName.CONTACT_US_SCREEN_NAME);
+        },
+        label: 'Contact Us',
+        radius: 10,
       ),
     );
   }
@@ -151,66 +150,54 @@ class SubscriptionBoxWidget extends StatelessWidget {
               .read<SubsctiptionBoxBloc>()
               .add(SubsctiptionBoxEvent.onSelectionChanged(index: index));
         },
-        child: Container(
-          height: isSelected
-              ? MediaQuery.of(context).size.height * 0.20
-              : MediaQuery.of(context).size.height * 0.19,
-          width: MediaQuery.of(context).size.width * 0.32,
-          decoration: BoxDecoration(
-              color: isSelected ? purple : theme.cardColor,
-              borderRadius: BorderRadius.circular(8)),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 10.0, right: 25, left: 25, bottom: 5),
-                child: Text(
-                  subscription.title,
-                  style: theme.textTheme.titleLarge
-                      ?.copyWith(fontSize: isSelected ? 14 : 12),
-                ),
-              ),
-              SizedBox(
-                  height: 1,
-                  width: 95,
-                  child: DottedLine(
-                    dashLength: 5,
-                    lineThickness: 2,
-                    dashColor: isSelected ? Colors.grey.shade300 : grey,
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: const Color(0xff092765).withOpacity(0.05),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                    color: isSelected ? const Color(0xff0D368C) : transparent,
+                    width: 2)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      subscription.previousPrice,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                          decoration: TextDecoration.lineThrough,
-                          fontSize: 10,
-                          color: isSelected ? Colors.grey.shade300 : grey),
+                      subscription.title,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                          fontSize: isSelected ? 16 : 14,
+                          color: const Color(0xff0D368C)),
                     ),
-                    2.hx,
-                    Text(
-                      subscription.currentPrice,
-                      style: theme.textTheme.titleLarge
-                          ?.copyWith(fontSize: isSelected ? 15 : 13),
-                    ),
-                    7.hx,
-                    Text(
-                      subscription.validity,
-                      style: theme.textTheme.titleMedium?.copyWith(
-                          fontSize: 11,
-                          color: isSelected ? Colors.grey.shade300 : grey),
-                    ),
-                    7.hx,
-                    Icon(
-                      Icons.mobile_friendly_outlined,
-                      color: theme.canvasColor,
-                    ),
+                    index == 1
+                        ? Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
+                            decoration: BoxDecoration(
+                                color: const Color(0xff26CB63),
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Text(
+                              "Best Value",
+                              style: theme.textTheme.titleMedium
+                                  ?.copyWith(fontSize: 8, color: white),
+                            ),
+                          )
+                        : const SizedBox.shrink()
                   ],
                 ),
-              ),
-            ],
+                5.hx,
+                Text(
+                  "First 7 days free - Then ${subscription.currentPrice}",
+                  style: theme.textTheme.titleSmall?.copyWith(
+                      fontSize: isSelected ? 12 : 11,
+                      color: const Color(0xff0D368C)),
+                ),
+              ],
+            ),
           ),
         ));
   }
@@ -219,17 +206,17 @@ class SubscriptionBoxWidget extends StatelessWidget {
 List<SubscriptionModel> subscription = [
   SubscriptionModel(
       title: "Pro Plus",
-      previousPrice: "INR 19,999",
-      currentPrice: "INR 9,999",
+      previousPrice: "₹ 19,999",
+      currentPrice: "₹  9,999",
       validity: "6 Months"),
   SubscriptionModel(
       title: "Business",
-      previousPrice: "INR 33,999",
-      currentPrice: "INR 23,999",
+      previousPrice: "₹33,999",
+      currentPrice: "₹23,999",
       validity: "12 Months"),
   SubscriptionModel(
       title: "Ultra Plus ",
-      previousPrice: "INR 69,999",
-      currentPrice: "INR 59,999",
+      previousPrice: "₹69,999",
+      currentPrice: "₹ 59,999",
       validity: "18 Months"),
 ];

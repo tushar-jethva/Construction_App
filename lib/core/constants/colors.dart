@@ -20,3 +20,5 @@ final Color otpbackColor = const Color.fromARGB(102, 205, 212, 245);
 final Color gray500 = Color.fromRGBO(157, 164, 158, 1);
 final Color orange = Colors.orange;
 final Color darkBlue = const Color.fromARGB(255, 17, 43, 173);
+
+final Color blue = const Color(0xff0E33F3);

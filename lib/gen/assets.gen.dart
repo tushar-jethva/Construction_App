@@ -103,6 +103,10 @@ class $AssetsImagesGen {
   AssetGenImage get gstIcon =>
       const AssetGenImage('assets/images/gst_icon.png');
 
+  /// File path: assets/images/linkedin.png
+  AssetGenImage get linkedin =>
+      const AssetGenImage('assets/images/linkedin.png');
+
   /// File path: assets/images/onboard1.png
   AssetGenImage get onboard1 =>
       const AssetGenImage('assets/images/onboard1.png');
@@ -132,6 +136,9 @@ class $AssetsImagesGen {
   AssetGenImage get wavingHand =>
       const AssetGenImage('assets/images/waving_hand.png');
 
+  /// File path: assets/images/wp_icon.png
+  AssetGenImage get wpIcon => const AssetGenImage('assets/images/wp_icon.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         a4build,
@@ -140,6 +147,7 @@ class $AssetsImagesGen {
         expencesIcon,
         floorsPlan,
         gstIcon,
+        linkedin,
         onboard1,
         onboard2,
         onboard3,
@@ -147,7 +155,8 @@ class $AssetsImagesGen {
         user1,
         user2,
         user3,
-        wavingHand
+        wavingHand,
+        wpIcon
       ];
 }
 
@@ -196,6 +205,14 @@ class $AssetsSvgGen {
   /// File path: assets/svg/build3.svg
   SvgGenImage get build3 => const SvgGenImage('assets/svg/build3.svg');
 
+  /// File path: assets/svg/bxs_phone-call.svg
+  SvgGenImage get bxsPhoneCall =>
+      const SvgGenImage('assets/svg/bxs_phone-call.svg');
+
+  /// File path: assets/svg/discord_icon.svg
+  SvgGenImage get discordIcon =>
+      const SvgGenImage('assets/svg/discord_icon.svg');
+
   /// File path: assets/svg/expences 1.svg
   SvgGenImage get expences1 => const SvgGenImage('assets/svg/expences 1.svg');
 
@@ -204,6 +221,10 @@ class $AssetsSvgGen {
 
   /// File path: assets/svg/gst_icon.svg
   SvgGenImage get gstIcon => const SvgGenImage('assets/svg/gst_icon.svg');
+
+  /// File path: assets/svg/instagram_icon.svg
+  SvgGenImage get instagramIcon =>
+      const SvgGenImage('assets/svg/instagram_icon.svg');
 
   /// File path: assets/svg/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/svg/logout.svg');
@@ -228,6 +249,10 @@ class $AssetsSvgGen {
   /// File path: assets/svg/true_icon.svg
   SvgGenImage get trueIcon => const SvgGenImage('assets/svg/true_icon.svg');
 
+  /// File path: assets/svg/twitter_icon.svg
+  SvgGenImage get twitterIcon =>
+      const SvgGenImage('assets/svg/twitter_icon.svg');
+
   /// File path: assets/svg/user1.svg
   SvgGenImage get user1 => const SvgGenImage('assets/svg/user1.svg');
 
@@ -237,6 +262,9 @@ class $AssetsSvgGen {
   /// File path: assets/svg/user3.svg
   SvgGenImage get user3 => const SvgGenImage('assets/svg/user3.svg');
 
+  /// File path: assets/svg/wp_icon.svg
+  SvgGenImage get wpIcon => const SvgGenImage('assets/svg/wp_icon.svg');
+
   /// List of all assets
   List<SvgGenImage> get values => [
         billIcon,
@@ -245,9 +273,12 @@ class $AssetsSvgGen {
         build1,
         build2,
         build3,
+        bxsPhoneCall,
+        discordIcon,
         expences1,
         floorsPlan,
         gstIcon,
+        instagramIcon,
         logout,
         moreVert,
         partiesIcon,
@@ -255,9 +286,11 @@ class $AssetsSvgGen {
         remaining,
         tdsIcon,
         trueIcon,
+        twitterIcon,
         user1,
         user2,
-        user3
+        user3,
+        wpIcon
       ];
 }
 
