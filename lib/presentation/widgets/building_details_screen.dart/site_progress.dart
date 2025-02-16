@@ -147,13 +147,14 @@ class _MySiteProgressScreenWidgetState
                                           "Total agencies: ",
                                           style: theme.textTheme.titleMedium
                                               ?.copyWith(
-                                                  fontSize: 14, color: grey),
+                                                  fontSize: 12, color: grey),
                                         ),
                                         Text(
                                           floorSiteModel.workStatus?.length
                                                   .toString() ??
                                               "0",
-                                          style: theme.textTheme.titleMedium,
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(fontSize: 12),
                                         )
                                       ],
                                     )
@@ -164,11 +165,12 @@ class _MySiteProgressScreenWidgetState
                                     Text(
                                       "Completed agencies: ",
                                       style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontSize: 14, color: grey),
+                                          ?.copyWith(fontSize: 12, color: grey),
                                     ),
                                     Text(
                                       "${floorSiteModel.completedAgenciesCount ?? 0}",
-                                      style: theme.textTheme.titleMedium,
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(fontSize: 12),
                                     )
                                   ],
                                 ),
@@ -177,12 +179,12 @@ class _MySiteProgressScreenWidgetState
                                     Text(
                                       "Last updated: ",
                                       style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontSize: 14, color: grey),
+                                          ?.copyWith(fontSize: 10, color: grey),
                                     ),
                                     Text(
                                       formattedDate,
                                       style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontSize: 14),
+                                          ?.copyWith(fontSize: 12),
                                     ),
                                   ],
                                 ),

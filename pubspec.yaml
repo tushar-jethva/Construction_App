@@ -147,6 +147,21 @@ flutter:
         - asset: assets/fonts/popins/Poppins-Light.ttf
           weight: 300
 
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter_18pt-ExtraBold.ttf
+          weight: 700
+        - asset: assets/fonts/inter/Inter_18pt-Bold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/Inter_18pt-SemitBold.ttf
+          weight: 500
+        - asset: assets/fonts/inter/Inter_18pt-Medium.ttf
+          weight: 400
+        - asset: assets/fonts/inter/Inter_18pt-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/inter/Inter_18pt-Light.ttf
+          weight: 300
+
 flutter_gen:
   integrations:
     flutter_svg: true

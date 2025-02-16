@@ -3,11 +3,9 @@ import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart';
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart';
 import 'package:construction_mate/logic/controllers/network/network_event_bloc.dart';
-import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -58,12 +56,16 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Expanded(
                 child: Center(
-                    child: CircleAvatar(
-                  radius: 80,
-                  backgroundImage: AssetImage(
-                    Assets.images.a4build.path,
-                  ),
-                )),
+                    child: Container(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: AssetImage(
+                                Assets.images.a4build.path,
+                              ),
+                              fit: BoxFit.contain),
+                        ))),
               ),
             ],
           ),

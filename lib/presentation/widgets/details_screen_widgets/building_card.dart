@@ -42,14 +42,14 @@ class MyBuildingListWidget extends StatelessWidget {
               children: [
                 Text(
                   building.name ?? "",
-                  style: theme.textTheme.titleLarge?.copyWith(fontSize: 16),
+                  style: theme.textTheme.titleLarge?.copyWith(fontSize: 14),
                 ),
                 Row(
                   children: [
                     SizedBox(
                       height: 5,
                       width: ReusableFunctions.getwidth(
-                          context: context, width: 0.6),
+                          context: context, width: 0.55),
                       child: LinearProgressIndicator(
                         borderRadius: BorderRadius.circular(10),
                         value: (building.progress ?? 0) / 100,
@@ -61,7 +61,7 @@ class MyBuildingListWidget extends StatelessWidget {
                     Text(
                       '${(building.progress ?? 0).toStringAsFixed(2)}%',
                       style:
-                          theme.textTheme.titleMedium!.copyWith(fontSize: 14),
+                          theme.textTheme.titleMedium!.copyWith(fontSize: 12),
                     ),
                   ],
                 ),
@@ -69,10 +69,14 @@ class MyBuildingListWidget extends StatelessWidget {
                   children: [
                     Text(
                       "Floors: ",
-                      style: theme.textTheme.titleSmall?.copyWith(color: grey),
+                      style: theme.textTheme.titleSmall
+                          ?.copyWith(color: grey, fontSize: 12),
                     ),
-                    Text("${building.totalFloor ?? 0}",
-                        style: theme.textTheme.titleMedium),
+                    Text(
+                      "${building.totalFloor ?? 0}",
+                      style:
+                          theme.textTheme.titleMedium?.copyWith(fontSize: 14),
+                    ),
                   ],
                 ),
               ],

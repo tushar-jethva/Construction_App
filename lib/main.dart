@@ -58,6 +58,7 @@ import 'package:construction_mate/utilities/app_bloc_observer.dart';
 import 'package:construction_mate/utilities/logger.dart';
 import 'package:construction_mate/utilities/shared_preference_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:construction_mate/injections/injection.dart' as di;
@@ -206,6 +207,17 @@ class MyMultiBlocProviders extends StatelessWidget {
           ],
           child: BlocBuilder<ThemeBloc, ThemeState>(
             builder: (context, state) {
+              bool isDarkMode = state.themeData.brightness == Brightness.dark;
+
+              SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent, // Transparent status bar
+                statusBarIconBrightness: isDarkMode
+                    ? Brightness.light
+                    : Brightness.dark, // White icons in dark mode
+                statusBarBrightness: isDarkMode
+                    ? Brightness.dark
+                    : Brightness.light, // iOS support
+              ));
               return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
                 title: 'Flutter Demo',

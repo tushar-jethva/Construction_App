@@ -137,12 +137,12 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
               subtitle: Text(
                 formattedDate,
                 style: theme.textTheme.titleMedium!
-                    .copyWith(color: grey, fontSize: 14),
+                    .copyWith(color: grey, fontSize: 12),
               ),
               trailing: Text(
                 "₹ ${transaction.amount}",
                 style: theme.textTheme.titleLarge?.copyWith(
-                    fontSize: 16,
+                    fontSize: 14,
                     color: (transaction.isCompleted ?? false)
                         ? orange
                         : transaction.entryType == 'Credit'
