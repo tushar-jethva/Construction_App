@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
+import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
@@ -35,7 +37,11 @@ class WorkingAgenciesSite extends StatelessWidget {
                   projectId: floor.projectId!,
                   buildingId: floor.buildingId!,
                   floorIndex: floor.floorName.toString()));
+          context
+              .read<BuildingsBloc>()
+              .add(LoadBuildings(projectId: floor.projectId ?? ''));
 
+          context.read<ProjectBloc>().add(LoadProjects());
           context.pop();
         }
       },
@@ -45,7 +51,7 @@ class WorkingAgenciesSite extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
             child: CustomElevatedButton(
-              isLoading: state.isLoading,
+              isLoading: state is SiteProgressAgencyUpdateLoadingState,
               label: 'Update',
               onTap: () {
                 final currentSelectedAgencies = context
@@ -135,9 +141,10 @@ class WorkingAgenciesSite extends StatelessWidget {
                       updateButton(floor)
                     ],
                   )
-                : const ErrorAndNotFoundWidget(text: 'No working agency found!')
+                : const Expanded(
+                    child: Center(child: Text("No working agency found")))
             : SizedBox(
-                height: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.5,
                 child: Center(
                   child: ReusableFunctions.loader(),
                 ),

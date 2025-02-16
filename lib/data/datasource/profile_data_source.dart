@@ -19,10 +19,12 @@ abstract class ProfileDataSource {
   Future<OtherExpenseModel?> fetchOtherExpenseDetails({String? year});
 
   Future<String> completeProfile(
-      {required String email,
+      {required String name,
+      required String email,
       required String gst,
       required String phoneNumber,
-      required String imageUrl, required String address});
+      required String imageUrl,
+      required String address});
 
   Future<ProfileModel?> getProfile();
 }
@@ -120,7 +122,8 @@ class ProfileDataSourceImpl implements ProfileDataSource {
 
   @override
   Future<String> completeProfile(
-      {required String email,
+      {required String name,
+      required String email,
       required String gst,
       required String phoneNumber,
       required String imageUrl,
@@ -128,11 +131,12 @@ class ProfileDataSourceImpl implements ProfileDataSource {
     try {
       final res = await dio.post(API.COMPLETE_PROFILE,
           data: jsonEncode({
+            "Name": name,
             "GSTNumber": gst,
             "Mobile": phoneNumber,
             "Email": email,
             'logo': imageUrl,
-            'Address':address
+            'Address': address
           }));
       print("-------------- ${res.data} ----------------");
       return res.data['message'];

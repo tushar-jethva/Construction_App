@@ -17,6 +17,7 @@ abstract class ProfileRepository {
       {String? year});
   Future<Either<Failure, String>> completeProfile(
       {required String email,
+      required String name,
       required String gst,
       required String phoneNumber,
       required String imageUrl,
@@ -50,9 +51,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
       {required String email,
       required String gst,
       required String phoneNumber,
+      required String name,
       required String imageUrl,
       required String address}) {
     return handleErrors(() => dataSource.completeProfile(
+      name: name,
         email: email,
         gst: gst,
         phoneNumber: phoneNumber,

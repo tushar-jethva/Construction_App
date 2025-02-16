@@ -37,8 +37,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _mobileNoController =
         TextEditingController(text: user?.mobile.toString() ?? "");
     _addressController = TextEditingController(text: user?.address ?? '');
+    _nameController = TextEditingController(text: user?.name ?? '');
   }
 
+  late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _gstController;
   late TextEditingController _mobileNoController;
@@ -133,6 +135,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   },
                 ),
                 30.hx,
+                CustomTextFormField(
+                  controller: _nameController,
+                  hintText: "Enter Name",
+                  textInputAction: TextInputAction.next,
+                  textFieldType: TextFieldType.text,
+                  textInputType: TextInputType.text,
+                  alignLableWithHint: true,
+                  onChanged: (value) {
+                    context
+                        .read<EditProfileBloc>()
+                        .add(EditProfileEvent.onNameChanged(name: value));
+                  },
+                ),
                 CustomTextFormField(
                   controller: _emailController,
                   hintText: "Enter email",

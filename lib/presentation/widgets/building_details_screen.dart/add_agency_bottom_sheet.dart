@@ -9,7 +9,9 @@ import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
+import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/work_type_model.dart';
@@ -247,6 +249,11 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                       context.read<PerBuildingAgenciesBloc>().add(LoadAgencies(
                           buildingId: buildingModel.sId!,
                           projectId: projectModel.sId!));
+
+                      context.read<BuildingsBloc>().add(
+                          LoadBuildings(projectId: projectModel.sId ?? ''));
+
+                      context.read<ProjectBloc>().add(LoadProjects());
                     }
                   },
                   child: BlocBuilder<AddAgencyDropDownsBloc,

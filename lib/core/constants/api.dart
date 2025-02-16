@@ -82,5 +82,5 @@ class API {
 
   //------------- Profile -----------
   static const COMPLETE_PROFILE = "$BASE_URL/Company/CompleteProfile";
-  static const GET_PROFILE = "$BASE_URL/Company/GetCompany";
+  static const GET_PROFILE = "$BASE_URL/Company/GetCompanyById";
 }

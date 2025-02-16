@@ -28,10 +28,17 @@ class ProfileUsecase {
   Future<Either<Failure, String>> completeProfile(
       {required String email,
       required String gst,
+      required String name,
       required String phoneNumber,
-      required String imageUrl, required String address}) {
+      required String imageUrl,
+      required String address}) {
     return _repository.completeProfile(
-        email: email, gst: gst, phoneNumber: phoneNumber, imageUrl: imageUrl,address: address);
+        email: email,
+        gst: gst,
+        phoneNumber: phoneNumber,
+        imageUrl: imageUrl,
+        address: address,
+        name: name);
   }
 
   Future<Either<Failure, ProfileModel?>> getProfile() {

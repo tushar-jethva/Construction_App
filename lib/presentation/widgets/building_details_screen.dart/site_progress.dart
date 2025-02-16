@@ -162,6 +162,19 @@ class _MySiteProgressScreenWidgetState
                                 Row(
                                   children: [
                                     Text(
+                                      "Completed agencies: ",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(fontSize: 14, color: grey),
+                                    ),
+                                    Text(
+                                      "${floorSiteModel.completedAgenciesCount ?? 0}",
+                                      style: theme.textTheme.titleMedium,
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
                                       "Last updated: ",
                                       style: theme.textTheme.titleMedium
                                           ?.copyWith(fontSize: 14, color: grey),

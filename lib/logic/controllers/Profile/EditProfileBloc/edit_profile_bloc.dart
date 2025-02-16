@@ -25,11 +25,15 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
             final user = userWatcherBloc.state.profile;
             emit(state.copyWith(
                 state: RequestState.empty,
+                name: user?.name ?? '',
                 email: user?.email ?? '',
                 gst: user?.gSTNumber ?? '',
                 mobileNo: user?.mobile.toString() ?? '',
                 imageUrl: user?.logo ?? '',
                 address: user?.address ?? ''));
+          },
+          onNameChanged: (_OnNameChanged value) {
+            emit(state.copyWith(state: RequestState.empty, name: value.name));
           },
           onEmailChanged: (_OnEmailChanged value) {
             emit(state.copyWith(state: RequestState.empty, email: value.email));
@@ -60,6 +64,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
             }
 
             final res = await profileUsecase.completeProfile(
+                name: state.name,
                 email: state.email,
                 gst: state.gst,
                 phoneNumber: state.mobileNo,

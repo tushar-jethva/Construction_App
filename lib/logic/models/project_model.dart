@@ -13,6 +13,7 @@ class ProjectModel {
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
+  num? progress;
 
   ProjectModel(
       {this.sId,
@@ -25,7 +26,8 @@ class ProjectModel {
       this.totalBuilding,
       this.isDeleted,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.progress});
 
   ProjectModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -39,8 +41,8 @@ class ProjectModel {
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    progress = json['progress'];
   }
-
 
   Map<String, dynamic> toJsonAddProject() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -50,8 +52,5 @@ class ProjectModel {
     return data;
   }
 
-
-
   String toJson() => json.encode(toJsonAddProject());
-
 }

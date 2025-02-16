@@ -63,7 +63,9 @@ class CompletedAgencies extends StatelessWidget {
                               : const SizedBox.shrink();
                         },
                       )
-                    : const Text("No agency founds!")
+                    : const Expanded(
+                        child: Center(
+                            child: Text("No completed agencies founds!")))
                 : SizedBox(
                     height: 100,
                     child: Center(

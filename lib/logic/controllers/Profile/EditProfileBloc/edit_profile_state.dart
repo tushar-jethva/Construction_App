@@ -5,6 +5,7 @@ class EditProfileState with _$EditProfileState {
   factory EditProfileState(
       {required RequestState state,
       required String message,
+      required String name,
       required XFile? image,
       required String imageUrl,
       required String email,
@@ -12,5 +13,5 @@ class EditProfileState with _$EditProfileState {
       required String address,
       required String mobileNo}) = _EditProfileState;
 
-   factory EditProfileState.initial() => EditProfileState(state: RequestState.empty, message: "", imageUrl: "", email: "", gst: "", mobileNo: "",image: null,address: '');
+   factory EditProfileState.initial() => EditProfileState(state: RequestState.empty, message: "",name: '', imageUrl: "", email: "", gst: "", mobileNo: "",image: null,address: '');
 }

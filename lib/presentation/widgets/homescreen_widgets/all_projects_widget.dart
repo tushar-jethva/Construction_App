@@ -129,13 +129,22 @@ class AllProjectsWidget extends StatelessWidget {
                                 ),
                               ),
                               title: Text(
-                                project.name!,
+                                project.name ?? '',
                                 style: theme.textTheme.titleMedium
                                     ?.copyWith(fontWeight: FontWeight.bold),
                               ),
-                              subtitle: Text("50%",
-                                  style: theme.textTheme.titleMedium
-                                      ?.copyWith(fontSize: 14, color: grey)),
+                              subtitle: Row(
+                                children: [
+                                  Text("Progress: ",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                              fontSize: 14, color: grey)),
+                                  Text(
+                                      "${(project.progress ?? 0).toStringAsFixed(2)}%",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(fontSize: 15)),
+                                ],
+                              ),
                               trailing: PopUpMenuWidget(
                                 theme: theme,
                                 onUpdateButtonPressed: () {

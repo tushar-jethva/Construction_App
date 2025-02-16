@@ -11,6 +11,7 @@ class BuildingModel {
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
+  num? progress;
   int? iV;
 
   BuildingModel(
@@ -24,7 +25,8 @@ class BuildingModel {
       this.isDeleted,
       this.createdAt,
       this.updatedAt,
-      this.iV});
+      this.iV,
+      this.progress});
 
   BuildingModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -37,6 +39,7 @@ class BuildingModel {
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
+    progress = json['progress'];
     iV = json['__v'];
   }
 

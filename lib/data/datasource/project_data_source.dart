@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ProjectDataSource {
@@ -41,11 +42,12 @@ class ProjectDataSourceImpl extends ProjectDataSource {
   Future<List<ProjectModel>> allProjects() async {
     List<ProjectModel> allProjectList = [];
     try {
-      print("Hello");
       final res = await dio.get(
         API.GET_PROJECT_URL,
       );
       final projects = res.data;
+
+      debugPrint('--------- projects ---- $projects');
       for (var project in projects["data"]) {
         allProjectList.add(ProjectModel.fromJson(project));
       }
@@ -58,7 +60,8 @@ class ProjectDataSourceImpl extends ProjectDataSource {
   @override
   Future<String> updateProject({required ProjectModel project}) async {
     try {
-      await dio.put("${API.UPDATE_PROJECT_URL}/${project.sId}", data: project.toJson());
+      await dio.put("${API.UPDATE_PROJECT_URL}/${project.sId}",
+          data: project.toJson());
       return "Project added successfully";
     } catch (e) {
       rethrow;

@@ -6,6 +6,7 @@ class FloorSiteModel {
   bool? isCompleted;
   String? completedDate;
   List<WorkStatus>? workStatus;
+  num? completedAgenciesCount;
 
   FloorSiteModel(
       {this.projectId,
@@ -14,7 +15,8 @@ class FloorSiteModel {
       this.squreFeet,
       this.isCompleted,
       this.completedDate,
-      this.workStatus});
+      this.workStatus,
+      this.completedAgenciesCount});
 
   FloorSiteModel.fromJson(Map<String, dynamic> json) {
     projectId = json['projectId'] ?? '';
@@ -23,6 +25,7 @@ class FloorSiteModel {
     squreFeet = json['squreFeet'] ?? 0;
     isCompleted = json['isCompleted'] ?? false;
     completedDate = json['completedDate'] ?? DateTime.now().toString();
+    completedAgenciesCount = json['completedAgenciesCount'] ?? 0;
     if (json['workStatus'] != null && json['workStatus'].isNotEmpty) {
       workStatus = <WorkStatus>[];
       json['workStatus'].forEach((v) {

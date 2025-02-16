@@ -14,8 +14,6 @@ import 'package:device_info_plus/device_info_plus.dart';
 class CommonAssets {
   static String defaultImage = "assets/logo/logo.png";
 
-
-
   static Widget getAssetsSvgImage(String imagePath,
       {double height = 40, double width = 40, Color? color}) {
     return SvgPicture.asset(
@@ -62,7 +60,6 @@ class CommonAssets {
         : getAssetsImage(height: height, width: width);
   }
 
-  
   static void copyToClipboard(String text) {
     Clipboard.setData(ClipboardData(text: text));
   }
@@ -215,10 +212,11 @@ void getMultipleMediaFile(
   }
 }
 
-  selectProfile(BuildContext context,
+selectProfile(BuildContext context,
     {Function(XFile?)? onCallBack, int? isNumnber}) {
   ShowSheet(
       context,
+      bgcolor: Theme.of(context).cardColor,
       Wrap(
         children: [
           GestureDetector(
@@ -244,8 +242,8 @@ void getMultipleMediaFile(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
-                leading:
-                    const Icon(Icons.camera_alt_rounded, color: Colors.black),
+                leading: Icon(Icons.camera_alt_rounded,
+                    color: Theme.of(context).canvasColor),
                 title: Text('Camera',
                     style: Theme.of(context)
                         .textTheme
@@ -284,9 +282,9 @@ void getMultipleMediaFile(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
-                leading: const Icon(
+                leading: Icon(
                   Icons.photo,
-                  color: Colors.black,
+                  color: Theme.of(context).canvasColor,
                 ),
                 title: Text('Gallery',
                     style: Theme.of(context)

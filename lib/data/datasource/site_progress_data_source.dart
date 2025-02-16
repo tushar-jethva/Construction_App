@@ -35,7 +35,7 @@ class SiteProgressDataSourceImpl extends SiteProgressDataSource {
         data: jsonEncode({"projectId": projectId, "buildingId": buildingId}),
       );
       final floors = res.data;
-      print("----------------- getfloorsapi    ${floors} ---------------");
+      print("----------------- getfloorsapi ${floors} ---------------");
       for (var floor in floors["data"]) {
         floorsOfSiteList.add(FloorSiteModel.fromJson(floor));
       }

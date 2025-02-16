@@ -52,20 +52,29 @@ class MyBuildingListWidget extends StatelessWidget {
                           context: context, width: 0.6),
                       child: LinearProgressIndicator(
                         borderRadius: BorderRadius.circular(10),
-                        value: 0.2,
+                        value: (building.progress ?? 0) / 100,
                         backgroundColor: theme.cardColor,
                         valueColor: AlwaysStoppedAnimation<Color>(purple),
                       ),
                     ),
                     Gap(10.w),
                     Text(
-                      '${(0.2 * 100).toStringAsFixed(1)}%',
+                      '${(building.progress ?? 0).toStringAsFixed(2)}%',
                       style:
                           theme.textTheme.titleMedium!.copyWith(fontSize: 14),
                     ),
                   ],
                 ),
-                Text("Floors: ${building.totalFloor.toString()}"),
+                Row(
+                  children: [
+                    Text(
+                      "Floors: ",
+                      style: theme.textTheme.titleSmall?.copyWith(color: grey),
+                    ),
+                    Text("${building.totalFloor ?? 0}",
+                        style: theme.textTheme.titleMedium),
+                  ],
+                ),
               ],
             ),
           ],

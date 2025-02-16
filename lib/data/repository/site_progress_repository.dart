@@ -59,7 +59,7 @@ class SiteProgressRepositoryImpl extends SiteProgressRepository {
       required List<String> workTypeIds,
       required String floorIndex}) async {
     try {
-      siteProgressDataSource.siteProgressUpdateAgency(
+    await  siteProgressDataSource.siteProgressUpdateAgency(
           projectId: projectId,
           buildingId: buildingId,
           workTypeIds: workTypeIds,
