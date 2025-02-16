@@ -5,6 +5,7 @@ import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -170,10 +171,27 @@ class _MySiteProgressScreenWidgetState
                                     Text(
                                       "${floorSiteModel.completedAgenciesCount ?? 0}",
                                       style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontSize: 12),
+                                          ?.copyWith(
+                                              fontSize: 12, color: green),
                                     )
                                   ],
                                 ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Progress: ",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(fontSize: 12, color: grey),
+                                    ),
+                                    Text(
+                                      "${floorSiteModel.progress ?? 0}%",
+                                      style: theme.textTheme.titleMedium
+                                          ?.copyWith(
+                                              fontSize: 12, color: green),
+                                    )
+                                  ],
+                                ),
+                                5.hx,
                                 Row(
                                   children: [
                                     Text(
@@ -184,7 +202,9 @@ class _MySiteProgressScreenWidgetState
                                     Text(
                                       formattedDate,
                                       style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontSize: 12),
+                                          ?.copyWith(
+                                              fontSize: 11,
+                                              color: Colors.black87),
                                     ),
                                   ],
                                 ),

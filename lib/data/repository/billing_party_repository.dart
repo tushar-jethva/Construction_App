@@ -13,6 +13,9 @@ abstract class BillingPartyRepository {
       required String billingAddress});
 
   Future<List<BillingPartyModel>> getAllParties();
+
+  Future<List<BillingPartyModel>> getAllPartiesByProject({required String projectId});
+
 }
 
 @LazySingleton(as:BillingPartyRepository)
@@ -46,6 +49,17 @@ class BillingRepositoryImpl extends BillingPartyRepository {
     List<BillingPartyModel> billingItems = [];
     try {
       billingItems = await billingPartyDataSource.getAllParties();
+    } catch (e) {
+      print(e.toString());
+    }
+    return billingItems;
+  }
+
+  @override
+  Future<List<BillingPartyModel>> getAllPartiesByProject({required String projectId}) async{
+     List<BillingPartyModel> billingItems = [];
+    try {
+      billingItems = await billingPartyDataSource.getAllPartiesByProject(projectId: projectId);
     } catch (e) {
       print(e.toString());
     }

@@ -767,10 +767,10 @@ class _PaymentInWidgetState extends State<PaymentInWidget> {
                   BlocListener<PaymentInDropDownBloc, PaymentInDropDownState>(
                     listener: (context, state) {
                       if (state is PaymentInAddSuccess) {
+                        context.read<TotalPaymentOutBloc>().add(
+                            const TotalPaymentOutEvent.fetchTotalPayments());
                         Navigator.pop(context);
-                        ReusableFunctions.showSnackBar(
-                            context: context,
-                            content: 'Transaction In add successfully!');
+                        showTopSnackBar(context, 'Transaction added!');
                       }
                     },
                     child: BlocBuilder<PaymentInDropDownBloc,
@@ -780,7 +780,7 @@ class _PaymentInWidgetState extends State<PaymentInWidget> {
                           padding: EdgeInsets.only(bottom: 10.h),
                           child: CustomElevatedButton(
                             isLoading: state is PaymentInAddLoading,
-                            label: 'PaymentIn',
+                            label: 'Payment In',
                             onTap: () async {
                               if (formPaymentInKey.currentState!.validate()) {
                                 context

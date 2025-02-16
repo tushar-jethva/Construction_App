@@ -67,6 +67,8 @@ import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit
     as _i527;
 import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart'
     as _i95;
+import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart'
+    as _i418;
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart'
     as _i660;
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart' as _i347;
@@ -89,11 +91,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i882.BuildingByIdBloc>(() => _i882.BuildingByIdBloc());
     gh.singleton<_i688.MenuBloc>(() => _i688.MenuBloc());
     gh.singleton<_i681.NetworkBloc>(() => _i681.NetworkBloc());
+    gh.singleton<_i593.OnboardBloc>(() => _i593.OnboardBloc());
     gh.singleton<_i465.BottomsheetBloc>(() => _i465.BottomsheetBloc());
     gh.singleton<_i660.SubsctiptionBoxBloc>(() => _i660.SubsctiptionBoxBloc());
     gh.singleton<_i79.AuthenticatorWatcherBloc>(
         () => _i79.AuthenticatorWatcherBloc());
-    gh.singleton<_i593.OnboardBloc>(() => _i593.OnboardBloc());
     gh.lazySingleton<_i548.MaterialDataSource>(
         () => _i548.MaterialDataSourceImpl());
     gh.lazySingleton<_i740.TransactionDataSource>(
@@ -118,6 +120,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i865.AddBillBloc>(() => _i865.AddBillBloc(
           billingPartyRepository: gh<_i755.BillingPartyRepository>(),
           billsRepository: gh<_i17.BillsRepository>(),
+        ));
+    gh.singleton<_i418.ProjectPaymentInBloc>(() => _i418.ProjectPaymentInBloc(
+          gh<_i1072.TransactionRepository>(),
+          gh<_i755.BillingPartyRepository>(),
         ));
     gh.lazySingleton<_i282.ProfileRepository>(
         () => _i282.ProfileRepositoryImpl(gh<_i1040.ProfileDataSource>()));

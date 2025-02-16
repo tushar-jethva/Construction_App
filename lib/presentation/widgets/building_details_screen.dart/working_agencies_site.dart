@@ -6,6 +6,7 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
+import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
@@ -40,6 +41,10 @@ class WorkingAgenciesSite extends StatelessWidget {
           context
               .read<BuildingsBloc>()
               .add(LoadBuildings(projectId: floor.projectId ?? ''));
+
+          context.read<SiteProgressFloorsBloc>().add(LoadFloorsSite(
+              projectId: floor.projectId ?? '',
+              buildingId: floor.buildingId ?? ''));
 
           context.read<ProjectBloc>().add(LoadProjects());
           context.pop();
@@ -141,8 +146,7 @@ class WorkingAgenciesSite extends StatelessWidget {
                       updateButton(floor)
                     ],
                   )
-                : const Expanded(
-                    child: Center(child: Text("No working agency found")))
+                : const Center(child: Text("No working agency found"))
             : SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Center(

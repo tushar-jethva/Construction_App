@@ -7,6 +7,7 @@ import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/paymen
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
+import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/screens/project/building_screen.dart';
 import 'package:construction_mate/presentation/screens/project/material_screen.dart';
@@ -68,6 +69,10 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
 
     context.read<TransactionBuildingBloc>().add(
         FetchAllTransactionByProjectId(projectId: widget.projectModel.sId!));
+
+    context.read<ProjectPaymentInBloc>().add(
+        ProjectPaymentInEvent.fetchAgencies(
+            projectId: widget.projectModel.sId ?? ''));
 
     _tabController = TabController(length: 4, vsync: this, initialIndex: 1);
     _tabController.addListener(() {

@@ -95,11 +95,8 @@ class TransactionDataSourceImpl extends TransactionDataSource {
       final response = await dio.get(
         "${API.GET_ALL_TRANSACTION_BY_PROJECT_ID}/$projectId",
       );
-      print(response.data);
       final transactions = response.data;
       for (var transaction in transactions["data"]) {
-        print(
-            "---------------------------list $listOfTransactions---------------");
         listOfTransactions.add(TransactionModel.fromMap(transaction));
       }
     } catch (e) {
@@ -118,12 +115,9 @@ class TransactionDataSourceImpl extends TransactionDataSource {
           await dio.get("${API.GET_TRANSACTOIN_BY_AGENCY_ID}/${agencyId}");
       final transactions = response.data;
       for (var transaction in transactions["data"]) {
-        print(transaction);
         listOfTransactionsAgency.add(TransactionModel.fromMap(transaction));
       }
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
     return listOfTransactionsAgency;
   }
 

@@ -4,6 +4,7 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
+import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart';
 import 'package:construction_mate/presentation/screens/authentication/signin/sign_in_screen.dart';
 import 'package:construction_mate/presentation/screens/project/building_screen.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
@@ -58,9 +59,9 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
                     style: theme.textTheme.titleLarge,
                   ),
                   Gap(20.h),
-                  BlocBuilder<PaymentInDropDownBloc, PaymentInDropDownState>(
+                  BlocBuilder<ProjectPaymentInBloc, ProjectPaymentInState>(
                     builder: (context, state) {
-                      if (state is AgenciesLoadedInState) {
+                      if (state.agencyState.isLoaded) {
                         return PaymentOutCustomDropDown(
                           value: state.agencies[0].sId,
                           list: state.agencies
@@ -79,9 +80,10 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
                               .toList(),
                           onChanged: (val) {
                             val != state.agencies[0].sId
-                                ? context
-                                    .read<PaymentInDropDownBloc>()
-                                    .add(AgencyValueInChanged(agencyId: val!))
+                                ? context.read<ProjectPaymentInBloc>().add(
+                                    ProjectPaymentInEvent
+                                        .onAgencyDropDownValueChanged(
+                                            agencyDropDownValue: val!))
                                 : {};
                           },
                           // ignore: body_might_complete_normally_nullable
@@ -113,6 +115,11 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
                         return 'Please enter valid digit!';
                       }
                     },
+                    onChanged: (value) {
+                      context.read<ProjectPaymentInBloc>().add(
+                          ProjectPaymentInEvent.onPaymentInChanged(
+                              payment: value ?? '0'));
+                    },
                   ),
                   Gap(15.h),
                   MyCustomTextFormField(
@@ -126,11 +133,16 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
                         return 'Please enter description!';
                       }
                     },
+                    onChanged: (value) {
+                      context.read<ProjectPaymentInBloc>().add(
+                          ProjectPaymentInEvent.onDescriptionChanged(
+                              des: value ?? ''));
+                    },
                   ),
                   Gap(30.h),
-                  BlocListener<PaymentInDropDownBloc, PaymentInDropDownState>(
+                  BlocListener<ProjectPaymentInBloc, ProjectPaymentInState>(
                     listener: (context, state) {
-                      if (state is PaymentInAddSuccess) {
+                      if (state.state.isLoaded) {
                         showTopSnackBar(context, "Transaction added");
                         // "Transaction Added".showToast(context: context)
                         context.read<PaymentTotalProjectBloc>().add(
@@ -141,21 +153,18 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
                         Navigator.pop(context);
                       }
                     },
-                    child: BlocBuilder<PaymentInDropDownBloc,
-                        PaymentInDropDownState>(
+                    child: BlocBuilder<ProjectPaymentInBloc,
+                        ProjectPaymentInState>(
                       builder: (context, state) {
                         return Padding(
                           padding: EdgeInsets.only(bottom: 10.h),
                           child: CustomElevatedButton(
-                            isLoading: state is PaymentInAddLoading,
+                            isLoading: state.state.isLoading,
                             label: 'Payment In',
                             onTap: () async {
                               if (formPaymentInKey.currentState!.validate()) {
-                                context
-                                    .read<PaymentInDropDownBloc>()
-                                    .add(AddPaymentInTransaction(
-                                      amount: _priceInController.text,
-                                    ));
+                                context.read<ProjectPaymentInBloc>().add(
+                                    const ProjectPaymentInEvent.addPaymentIn());
 
                                 _descriptionController.clear();
                                 _priceInController.clear();

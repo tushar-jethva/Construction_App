@@ -155,7 +155,7 @@ class _MyAddBillingPartyBottomSheetState
                     MyCustomTextFormField(
                       controller: _emailController,
                       textInputAction: TextInputAction.next,
-                      hintText: "Emailaddress",
+                      hintText: "Email",
                       maxLines: 1,
                       textInputType: TextInputType.emailAddress,
                       validator: (value) {
@@ -164,7 +164,7 @@ class _MyAddBillingPartyBottomSheetState
                         }
                         final emailRegex = RegExp(
                             r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-                        if (!emailRegex.hasMatch(value)) {
+                        if (!emailRegex.hasMatch(value.trim())) {
                           return 'Please enter a valid email address!';
                         }
                       },

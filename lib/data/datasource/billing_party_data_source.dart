@@ -15,6 +15,9 @@ abstract class BillingPartyDataSource {
       required String billingAddress});
 
   Future<List<BillingPartyModel>> getAllParties();
+
+  Future<List<BillingPartyModel>> getAllPartiesByProject(
+      {required String projectId});
 }
 
 class BillingPartyImpl extends BillingPartyDataSource {
@@ -53,6 +56,23 @@ class BillingPartyImpl extends BillingPartyDataSource {
     List<BillingPartyModel> billingParties = [];
     try {
       final res = await dio.get(API.GET_ALL_PARTIES);
+
+      final parties = res.data;
+      for (var party in parties["data"]) {
+        billingParties.add(BillingPartyModel.fromJson2(party));
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return billingParties;
+  }
+
+  @override
+  Future<List<BillingPartyModel>> getAllPartiesByProject(
+      {required String projectId}) async {
+    List<BillingPartyModel> billingParties = [];
+    try {
+      final res = await dio.get("${API.GET_ALL_PARTIES_BY_PROJECT}/$projectId");
 
       final parties = res.data;
       for (var party in parties["data"]) {

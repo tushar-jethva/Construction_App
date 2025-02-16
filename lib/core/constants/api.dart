@@ -53,6 +53,8 @@ class API {
   static const ADD_BILLING_PARTY = "$BASE_URL/Partie/AddParties";
   static const ADD_BILL = "$BASE_URL/Bill/AddBill";
   static const GET_ALL_PARTIES = "$BASE_URL/Partie/GetParties";
+  static const GET_ALL_PARTIES_BY_PROJECT = "$BASE_URL/Partie/GetPartiesByProject";
+
   static const GET_ALL_BILLS_BY_PARTY_ID = "$BASE_URL/Bill/GetBill";
 
   //--------------------------- Financials ------------------------------------------------------------------------------------

@@ -53,6 +53,7 @@ import 'package:construction_mate/logic/controllers/authenticator_watcher/authen
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc.dart';
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart';
+import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/utilities/app_bloc_observer.dart';
 import 'package:construction_mate/utilities/logger.dart';
@@ -197,6 +198,8 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(create: (_) => StartAndEndDateBloc()),
         BlocProvider(create: (_) => di.locator<UserWatcherBloc>()),
         BlocProvider(create: (_) => di.locator<OnboardBloc>()),
+        BlocProvider(create: (_) => di.locator<ProjectPaymentInBloc>()),
+
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),
