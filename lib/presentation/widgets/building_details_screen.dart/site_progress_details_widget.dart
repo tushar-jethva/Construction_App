@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
-import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
@@ -9,8 +8,6 @@ import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/sit
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/completed_agencies.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/working_agencies_site.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
-import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
-import 'package:construction_mate/utilities/constants/common_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

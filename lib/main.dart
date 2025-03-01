@@ -29,6 +29,7 @@ import 'package:construction_mate/logic/controllers/Building-by-id/building_by_i
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/Onboard/onboard_bloc.dart';
+import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart';
 import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
@@ -199,6 +200,10 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<UserWatcherBloc>()),
         BlocProvider(create: (_) => di.locator<OnboardBloc>()),
         BlocProvider(create: (_) => di.locator<ProjectPaymentInBloc>()),
+
+        //Add Parties
+        BlocProvider(create: (_) => di.locator<AddPartiesBloc>()),
+
 
       ],
       child: ScreenUtilInit(

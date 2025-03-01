@@ -35,6 +35,7 @@ import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/onboard/onboard_step1.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
+import 'package:construction_mate/presentation/screens/parties/widget/add_particular_party_screen.dart';
 import 'package:construction_mate/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:construction_mate/presentation/screens/profile/gst/gst_screen.dart';
 import 'package:construction_mate/presentation/screens/profile/other_expense.dart/other_expense_screen.dart';
@@ -43,7 +44,6 @@ import 'package:construction_mate/presentation/screens/project/building_details_
 import 'package:construction_mate/presentation/screens/project/details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/inidividual_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_details_n_screen.dart';
-import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
 import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
@@ -320,6 +320,17 @@ class Routes {
                 .add(const EditProfileEvent.setData());
 
             return const EditProfileScreen();
+          },
+        ),
+
+        ///-----------------------------------------------------------
+        ///--------------- Add particular Party
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.ADD_PARTICULAR_PARTY_SCREEN_PATH,
+          name: RoutesName.ADD_PARTICULAR_PARTY_SCREEN_NAME,
+          builder: (context, state) {
+            return const AddParticularPartyScreen();
           },
         ),
         GoRoute(

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:construction_mate/logic/models/work_type_model.dart';
 
 abstract class WorkTypesDataSource {

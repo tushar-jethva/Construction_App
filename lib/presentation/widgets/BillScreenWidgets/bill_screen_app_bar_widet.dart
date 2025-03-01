@@ -1,5 +1,4 @@
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/custom_top_bill_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_status_widget.dart';
@@ -7,8 +6,6 @@ import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 
 class MyBillScreenAppBarWidget extends StatefulWidget {
   final bool? isdetailScreen;

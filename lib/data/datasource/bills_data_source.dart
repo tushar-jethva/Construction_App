@@ -5,8 +5,6 @@ import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/financial_model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
-import 'package:construction_mate/utilities/error_handling/failure.dart';
-import 'package:dartz/dartz.dart';
 
 abstract class BillsDataSource {
   Future<String> addBill(
@@ -37,17 +35,9 @@ class BillsDataSourceImpl extends BillsDataSource {
       required String partyId,
       required OtherDetailsBillModel model}) async {
     try {
-      final data = jsonEncode({
-        'date': date,
-        'Items': billItems.map((e) => e.toJson()).toList(),
-        'SGST': sgst,
-        'CGST': cgst,
-        'TDS': tds,
-        'PartieId': partyId,
-        'MoreDetails': model.toMap()
-      });
+  
 
-      final res = await dio.post(
+      await dio.post(
         API.ADD_BILL,
         data: jsonEncode({
           'date': date,
@@ -71,7 +61,7 @@ class BillsDataSourceImpl extends BillsDataSource {
     List<BillModel> billsList = [];
     try {
       final res = await dio.get(
-        "${API.GET_ALL_BILLS_BY_PARTY_ID}/${partyId}",
+        "${API.GET_ALL_BILLS_BY_PARTY_ID}/$partyId",
       );
       final bills = res.data;
       for (var bill in bills["data"]) {

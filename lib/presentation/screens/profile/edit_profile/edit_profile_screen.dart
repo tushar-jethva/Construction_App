@@ -5,12 +5,10 @@ import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
 import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart';
-import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:construction_mate/utilities/constants/common_assets.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
-import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -35,7 +33,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _emailController = TextEditingController(text: user?.email ?? "");
     _gstController = TextEditingController(text: user?.gSTNumber ?? "");
     _mobileNoController =
-        TextEditingController(text: user?.mobile.toString() ?? "");
+        TextEditingController(text: (user?.mobile ?? 0).toString());
     _addressController = TextEditingController(text: user?.address ?? '');
     _nameController = TextEditingController(text: user?.name ?? '');
   }

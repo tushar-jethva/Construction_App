@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 abstract class ProjectDataSource {
   Future<String> addProject(

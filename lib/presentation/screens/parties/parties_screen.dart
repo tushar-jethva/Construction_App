@@ -11,6 +11,7 @@ import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agen
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
+import 'package:construction_mate/presentation/screens/parties/widget/add_all_parties_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
@@ -57,6 +58,24 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
     _searchController.dispose();
   }
 
+  // openBottomSheet({required BuildContext context}) {
+  //   showModalBottomSheet(
+  //       isScrollControlled: true,
+  //       showDragHandle: true,
+  //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+  //       context: context,
+  //       builder: (context) {
+  //         return BlocProvider(
+  //           create: (context) => AgencyWorkTypesSelectionBloc(
+  //               agencyRepository: AgencyRepositoryImpl(
+  //                   agencyDataSource: AgencyDataSourceDataSourceImpl()),
+  //               workTypesRepository:
+  //                   WorkTypesRepositoryImpl(WorkTypesDataSourceImpl())),
+  //           child: const MyAddAgencyBottomSheetParties(),
+  //         );
+  //       });
+  // }
+
   openBottomSheet({required BuildContext context}) {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -64,14 +83,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
-          return BlocProvider(
-            create: (context) => AgencyWorkTypesSelectionBloc(
-                agencyRepository: AgencyRepositoryImpl(
-                    agencyDataSource: AgencyDataSourceDataSourceImpl()),
-                workTypesRepository:
-                    WorkTypesRepositoryImpl(WorkTypesDataSourceImpl())),
-            child: const MyAddAgencyBottomSheetParties(),
-          );
+          return const AddAllPartiesScreen();
         });
   }
 

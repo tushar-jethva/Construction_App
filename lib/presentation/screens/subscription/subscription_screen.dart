@@ -1,14 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart';
 import 'package:construction_mate/logic/models/subscription_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
-import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -63,7 +60,8 @@ class SubscriptionScreen extends StatelessWidget {
                       "Unlock all the power of this mobile tool and enjoy digital experience like never before!",
                       textAlign: TextAlign.center,
                       style: theme.textTheme.titleSmall?.copyWith(
-                          fontSize: 13, color: black.withOpacity(0.7)),
+                        fontSize: 13,
+                      ),
                     ),
                   ],
                 ),
@@ -159,8 +157,7 @@ class SubscriptionBoxWidget extends StatelessWidget {
                 color: const Color(0xff092765).withOpacity(0.05),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                    color: isSelected ? const Color(0xff0D368C) : transparent,
-                    width: 2)),
+                    color: isSelected ? purple : transparent, width: 2)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -170,8 +167,7 @@ class SubscriptionBoxWidget extends StatelessWidget {
                     Text(
                       subscription.title,
                       style: theme.textTheme.titleLarge?.copyWith(
-                          fontSize: isSelected ? 16 : 14,
-                          color: const Color(0xff0D368C)),
+                          fontSize: isSelected ? 16 : 14, color: purple),
                     ),
                     index == 1
                         ? Container(
@@ -192,9 +188,8 @@ class SubscriptionBoxWidget extends StatelessWidget {
                 5.hx,
                 Text(
                   "First 7 days free - Then ${subscription.currentPrice}",
-                  style: theme.textTheme.titleSmall?.copyWith(
-                      fontSize: isSelected ? 12 : 11,
-                      color: const Color(0xff0D368C)),
+                  style: theme.textTheme.titleSmall
+                      ?.copyWith(fontSize: isSelected ? 12 : 11, color: purple),
                 ),
               ],
             ),

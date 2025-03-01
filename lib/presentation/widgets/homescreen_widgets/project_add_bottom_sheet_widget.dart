@@ -1,4 +1,3 @@
-import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
@@ -6,9 +5,7 @@ import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_button_with_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
-import 'package:construction_mate/presentation/widgets/common/custom_textfield.dart';
 import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

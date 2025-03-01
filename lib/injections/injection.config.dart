@@ -61,6 +61,8 @@ import 'package:construction_mate/logic/controllers/OtherExpense/payment_out_oth
     as _i847;
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart'
     as _i273;
+import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart'
+    as _i625;
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart'
     as _i585;
 import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart'
@@ -96,6 +98,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i660.SubsctiptionBoxBloc>(() => _i660.SubsctiptionBoxBloc());
     gh.singleton<_i79.AuthenticatorWatcherBloc>(
         () => _i79.AuthenticatorWatcherBloc());
+    gh.singleton<_i625.AddPartiesBloc>(() => _i625.AddPartiesBloc());
     gh.lazySingleton<_i548.MaterialDataSource>(
         () => _i548.MaterialDataSourceImpl());
     gh.lazySingleton<_i740.TransactionDataSource>(

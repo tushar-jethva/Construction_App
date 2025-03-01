@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/repository/authentication_repository.dart';
-import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
 import 'package:construction_mate/utilities/shared_preference_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

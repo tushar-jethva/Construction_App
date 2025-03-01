@@ -24,6 +24,10 @@ class RoutesName {
   static String otherExpensesScreen = "/otherExpensesScreen";
   static String editProfileScreen = "/editProfileScreen";
 
+  //contact us
+  static String ADD_PARTICULAR_PARTY_SCREEN_PATH = "/addPartyParticulara";
+  static String ADD_PARTICULAR_PARTY_SCREEN_NAME = "/addPartyParticulara";
+
   //New details screen
   static String NEW_DETAIL_SCREEN_PATH = "/newDetails";
   static String NEW_DETAIL_SCREEN_NAME = "/newDetails";

@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
-import 'package:construction_mate/utilities/logger.dart';
 
 abstract class BuildingDataSource {
   Future<void> addBuilding(

@@ -1,4 +1,3 @@
-import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 

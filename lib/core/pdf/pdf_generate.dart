@@ -1,24 +1,21 @@
-import 'dart:collection';
-import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
-import 'dart:typed_data';
-import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/logic/models/bill_model.dart';
-import 'package:construction_mate/logic/models/profile_model.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import 'package:http/http.dart' as http;
+
+import 'package:construction_mate/logic/models/bill_model.dart';
+import 'package:construction_mate/logic/models/profile_model.dart';
 
 class PDFGenerator {
   // Method to create a PDF
 
+  // ignore: unused_element
   Future<Uint8List> _loadAssetImage(String path) async {
     final ByteData data = await rootBundle.load(path);
     return data.buffer.asUint8List();
@@ -96,6 +93,7 @@ class PDFGenerator {
     final output = await getApplicationDocumentsDirectory();
     final file = File("${output.path}/invoice.pdf");
     File f = await file.writeAsBytes(await pdf.save());
+    debugPrint(f.path);
     return pdf.save();
   }
 
@@ -196,7 +194,7 @@ class PDFGenerator {
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
-                padding: pw.EdgeInsets.all(8),
+                padding: const pw.EdgeInsets.all(8),
                 child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -216,7 +214,7 @@ class PDFGenerator {
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
-                padding: pw.EdgeInsets.all(8),
+                padding: const pw.EdgeInsets.all(8),
                 child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -236,7 +234,7 @@ class PDFGenerator {
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
-                padding: pw.EdgeInsets.all(8),
+                padding: const pw.EdgeInsets.all(8),
                 child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -256,7 +254,7 @@ class PDFGenerator {
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
-                padding: pw.EdgeInsets.all(8),
+                padding: const pw.EdgeInsets.all(8),
                 child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -276,7 +274,7 @@ class PDFGenerator {
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
-                padding: pw.EdgeInsets.all(8),
+                padding: const pw.EdgeInsets.all(8),
                 child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -296,7 +294,7 @@ class PDFGenerator {
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
-                padding: pw.EdgeInsets.all(8),
+                padding: const pw.EdgeInsets.all(8),
                 child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
@@ -344,12 +342,12 @@ class PDFGenerator {
     return pw.TableHelper.fromTextArray(
       cellDecoration: (index, data, rowNum) {
         return const pw.BoxDecoration(
-            border: pw.Border.new(
+            border: pw.Border(
                 left: pw.BorderSide(color: PdfColors.black, width: 1),
                 right: pw.BorderSide(color: PdfColors.black, width: 1)));
       },
       headerCellDecoration: const pw.BoxDecoration(
-          border: pw.Border.new(
+          border: pw.Border(
               left: pw.BorderSide(color: PdfColors.black, width: 1),
               right: pw.BorderSide(color: PdfColors.black, width: 1))),
       border: const pw.TableBorder(
@@ -398,13 +396,13 @@ class PDFGenerator {
     return pw.Table(
       border: pw.TableBorder.all(),
       columnWidths: {
-        0: pw.FlexColumnWidth(2), // HSN/SAC column
-        1: pw.FlexColumnWidth(2), // Taxable Value column
-        2: pw.FlexColumnWidth(1), // CGST Rate column
-        3: pw.FlexColumnWidth(2), // CGST Amount column
-        4: pw.FlexColumnWidth(1), // SGST/UGST Rate column
-        5: pw.FlexColumnWidth(2), // SGST/UGST Amount column
-        6: pw.FlexColumnWidth(2), // Total Tax Amount column
+        0: const pw.FlexColumnWidth(2), // HSN/SAC column
+        1: const pw.FlexColumnWidth(2), // Taxable Value column
+        2: const pw.FlexColumnWidth(1), // CGST Rate column
+        3: const pw.FlexColumnWidth(2), // CGST Amount column
+        4: const pw.FlexColumnWidth(1), // SGST/UGST Rate column
+        5: const pw.FlexColumnWidth(2), // SGST/UGST Amount column
+        6: const pw.FlexColumnWidth(2), // Total Tax Amount column
       },
       children: [
         // Header Row
@@ -421,7 +419,7 @@ class PDFGenerator {
                   style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
             ),
             pw.Padding(
-              padding: pw.EdgeInsets.all(5),
+              padding: const pw.EdgeInsets.all(5),
               child: pw.Text('CGST',
                   style: pw.TextStyle(
                     fontWeight: pw.FontWeight.bold,

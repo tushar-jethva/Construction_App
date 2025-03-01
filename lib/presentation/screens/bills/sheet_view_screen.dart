@@ -1,6 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
-import 'package:construction_mate/core/pdf/pdf_generate.dart';
 import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:flutter/material.dart';

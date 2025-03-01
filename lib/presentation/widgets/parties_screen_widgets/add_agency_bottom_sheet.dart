@@ -144,13 +144,14 @@ class _MyAddAgencyBottomSheetPartiesState
                             hintText: 'Add New Work',
                             maxLines: 1,
                             textInputType: TextInputType.name,
+
                             // ignore: body_might_complete_normally_nullable
-                            validator: (value) {
-                              if (!ReusableFunctions.isValidInput(
-                                  value ?? '')) {
-                                return 'Please enter new work name!';
-                              }
-                            },
+                            // validator: (value) {
+                            //   if (!ReusableFunctions.isValidInput(
+                            //       value ?? '')) {
+                            //     return 'Please enter new work name!';
+                            //   }
+                            // },
                           ),
                         ),
                         Gap(10.w),
@@ -193,9 +194,8 @@ class _MyAddAgencyBottomSheetPartiesState
                           context
                               .read<TotalAgenciesBloc>()
                               .add(LoadTotalAgencies());
-                          ReusableFunctions.showSnackBar(
-                              context: context,
-                              content: "Agency added successfully!");
+                          showTopSnackBar(
+                              context, "Agency added successfully!");
                         }
                       },
                       child: BlocBuilder<AgencyWorkTypesSelectionBloc,
@@ -212,7 +212,6 @@ class _MyAddAgencyBottomSheetPartiesState
                                       .map((e) => e.sId!)
                                       .toList()
                                       .isEmpty) {
-                                    print("Hi");
                                     context
                                         .read<AgencyWorkTypesSelectionBloc>()
                                         .add(OnMessageChanged(

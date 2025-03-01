@@ -1,7 +1,6 @@
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
-import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
 import 'package:flutter/material.dart';

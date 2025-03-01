@@ -19,8 +19,6 @@ class SiteProgressFloorsBloc
             await siteProgressRepository.getFloorsOfSite(
                 projectId: event.projectId, buildingId: event.buildingId);
 
-        print(
-            "----- in siteprgredssflorrbloc ${listOfFloorsSite.first.workStatus?[0].agencyName}");
         emit(SiteProgressFloorsSuccess(listOfFloorsSite: listOfFloorsSite));
       } catch (e) {
         emit(SiteProgressFloorsFailure());

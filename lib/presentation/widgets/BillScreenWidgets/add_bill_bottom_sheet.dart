@@ -7,15 +7,12 @@ import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billi
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
-import 'package:construction_mate/presentation/screens/authentication/signin/sign_in_screen.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
-import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
-import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
-import 'package:dotted_line/dotted_line.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,7 +101,6 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     final theme = Theme.of(context);
 
-    List<BillItemModel> billItems = [];
     return FractionallySizedBox(
       heightFactor: 0.9,
       child: Padding(

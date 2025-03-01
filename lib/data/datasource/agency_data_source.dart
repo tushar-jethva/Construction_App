@@ -5,9 +5,8 @@ import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
 import 'package:construction_mate/logic/models/floor_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
-import 'package:construction_mate/utilities/dio_config/api_service.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
-import 'package:dio/dio.dart' as dio;
+import 'package:construction_mate/utilities/extension/print_extension.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class AgencyDataSource {
@@ -60,11 +59,10 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
     try {
       List<AgencyModel> allAgencyByWorkTypeList = [];
 
-      print("AgencyWorkTypee");
       final res = await dio.get(
         "${API.GET_AGENCY_BY_WORK_TYPE}/$workTypeId",
       );
-      print(res.data);
+      res.data.log();
       final agencies = res.data;
       for (var agency in agencies["data"]) {
         allAgencyByWorkTypeList.add(AgencyModel.fromJson(agency));
@@ -82,7 +80,6 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       required String workTypeId}) async {
     List<FloorModel> floorList = [];
     try {
-      print("$projectId $buildingId $workTypeId");
       final res = await dio.post(
         API.GET_FLOORS_BY_WORK_TYPE,
         data: jsonEncode({
@@ -91,13 +88,13 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
           "WorkTypeId": workTypeId
         }),
       );
-      print("hello ${res.data}");
+      res.data.log();
       final floors = res.data;
       for (var floor in floors["data"]) {
         floorList.add(FloorModel.fromJson(floor));
       }
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
     return floorList;
   }
@@ -114,9 +111,8 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       required String projectId,
       required String description}) async {
     try {
-      print(floors);
       final res = await dio.post(
-        "${API.ADD_TASK_URL}",
+        API.ADD_TASK_URL,
         data: jsonEncode({
           "Name": name,
           "AgencyId": agencyId,
@@ -129,9 +125,9 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
         }),
       );
 
-      print(res.data);
+      res.data.log();
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
   }
 
@@ -148,7 +144,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
         allAgencyByBuildingIdList.add(AgencyModel.fromJson(agency));
       }
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
     return allAgencyByBuildingIdList;
   }
@@ -158,18 +154,16 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       {required String buildingId, required String projectId}) async {
     List<PerBuildingAgencyModel> allAgencyWorkingInBuildingIdList = [];
     try {
-      final res = await dio.post("${API.GET_AGENCY_WORKING_IN_BUILDING_ID}",
-          data: jsonEncode(
-              {"ProjectId": "$projectId", "BuildingId": "$buildingId"}));
+      final res = await dio.post(API.GET_AGENCY_WORKING_IN_BUILDING_ID,
+          data: jsonEncode({"ProjectId": projectId, "BuildingId": buildingId}));
 
       final agencies = res.data;
-      print("newage: ${res.data}");
       for (var agency in agencies["data"]) {
         allAgencyWorkingInBuildingIdList
             .add(PerBuildingAgencyModel.fromMap(agency));
       }
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
     return allAgencyWorkingInBuildingIdList;
   }
@@ -180,9 +174,8 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
     List<DropDownAgencyModel> allAgencyWorkingInBuildingIdList = [];
     try {
       final res = await dio.post(
-        "${API.GET_AGENCY_FOR_DROPDOWN}",
-        data: jsonEncode(
-            {"ProjectId": "$projectId", "BuildingId": "$buildingId"}),
+        API.GET_AGENCY_FOR_DROPDOWN,
+        data: jsonEncode({"ProjectId": projectId, "BuildingId": buildingId}),
       );
 
       final agencies = res.data;
@@ -191,7 +184,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
             .add(DropDownAgencyModel.fromJson(agency));
       }
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
     return allAgencyWorkingInBuildingIdList;
   }
@@ -200,15 +193,14 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   Future<List<TotalAgencyModel>> getTotalAgencies() async {
     List<TotalAgencyModel> totalAgenciesList = [];
     try {
-      final res = await dio.get("${API.GET_TOTAL_AGENCIES}");
+      final res = await dio.get(API.GET_TOTAL_AGENCIES);
 
-      print(res.data);
       final agencies = res.data;
       for (var agency in agencies["data"]) {
         totalAgenciesList.add(TotalAgencyModel.fromJson(agency));
       }
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
     return totalAgenciesList;
   }
@@ -219,16 +211,15 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
     List<TotalAgencyModel> totalAgenciesList = [];
     try {
       final res = await dio.post(
-        "${API.GET_AGENCY_BY_PROJECT}",
+        API.GET_AGENCY_BY_PROJECT,
         data: jsonEncode({"ProjectId": projectId}),
       );
-      print(res.data);
       final agencies = res.data;
       for (var agency in agencies["data"]) {
         totalAgenciesList.add(TotalAgencyModel.fromJson(agency));
       }
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
     return totalAgenciesList;
   }
@@ -240,7 +231,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       required List<String> workTypeIds}) async {
     try {
       await dio.post(
-        "${API.ADD_AGENCY}",
+        API.ADD_AGENCY,
         data: jsonEncode({
           "Name": name,
           "Description": description,
@@ -248,7 +239,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
         }),
       );
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
   }
 
@@ -256,14 +247,14 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   Future<List<DropDownAgencyModel>> getPaymentInAgency() async {
     List<DropDownAgencyModel> listOfPayInAgency = [];
     try {
-      final res = await dio.get("${API.GET_PAYMENT_IN_AGENCY}");
+      final res = await dio.get(API.GET_PAYMENT_IN_AGENCY);
 
       final agencies = res.data;
       for (var agency in agencies["data"]) {
         listOfPayInAgency.add(DropDownAgencyModel.fromJson(agency));
       }
     } catch (e) {
-      print(e.toString());
+      e.log();
     }
     return listOfPayInAgency;
   }

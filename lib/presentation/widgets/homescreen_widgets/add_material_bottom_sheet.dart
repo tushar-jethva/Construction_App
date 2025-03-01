@@ -7,7 +7,6 @@ import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
-import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';

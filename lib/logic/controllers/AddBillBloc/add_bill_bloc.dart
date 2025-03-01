@@ -2,13 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
 import 'package:construction_mate/data/repository/bills_repository.dart';
-import 'package:construction_mate/logic/controllers/OtherDetailsBillBloc/other_details_bill_bloc.dart';
 import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
-
 part 'add_bill_event.dart';
 part 'add_bill_state.dart';
 

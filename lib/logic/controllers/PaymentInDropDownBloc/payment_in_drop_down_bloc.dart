@@ -1,11 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
-import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
-import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
-import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:meta/meta.dart';
 
 part 'payment_in_drop_down_event.dart';

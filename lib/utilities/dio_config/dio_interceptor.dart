@@ -4,7 +4,6 @@ import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/utilities/shared_preference_helper.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class DioAuthInterceptor extends Interceptor {
   @override

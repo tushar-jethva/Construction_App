@@ -1,12 +1,9 @@
 import 'package:construction_mate/core/constants/colors.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_status_widget.dart';
-import 'package:construction_mate/presentation/widgets/homescreen_widgets/vertical_divider.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TransactionsTotalWidget extends StatelessWidget {
   const TransactionsTotalWidget({

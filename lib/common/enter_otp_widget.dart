@@ -1,9 +1,6 @@
 import 'package:construction_mate/common/enter_otp_dialog.dart';
 import 'package:construction_mate/core/constants/constants.dart';
-import 'package:construction_mate/core/constants/routes_names.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
-import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

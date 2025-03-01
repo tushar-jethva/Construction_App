@@ -1,27 +1,20 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
-import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/data/datasource/project_data_source.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
 import 'package:construction_mate/data/repository/bills_repository.dart';
-import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
-import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
-import 'package:construction_mate/logic/controllers/OtherDetailsBillBloc/other_details_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_bill_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_billing_party_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_screen_app_bar_widet.dart';
-import 'package:construction_mate/presentation/widgets/BillScreenWidgets/custom_top_bill_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class MyBillScreen extends StatefulWidget {
