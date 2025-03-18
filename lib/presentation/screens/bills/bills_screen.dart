@@ -1,5 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/data/datasource/agency_data_source.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
 import 'package:construction_mate/data/repository/bills_repository.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
@@ -47,7 +49,8 @@ class _MyBillScreenState extends State<MyBillScreen> {
             providers: [
               BlocProvider(
                 create: (context) => AddBillBloc(
-                    billingPartyRepository: BillingRepositoryImpl(),
+                    agencyRepository: AgencyRepositoryImpl(
+                        agencyDataSource: AgencyDataSourceDataSourceImpl()),
                     billsRepository: BillsRepositoryImpl()),
               ),
               BlocProvider(
@@ -143,8 +146,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                                 .copyWith(
                                                     fontSize: 14, color: grey)),
                                         TextSpan(
-                                            text:
-                                                " ₹ ${double.parse(party.receivedAmount!).toStringAsFixed(2)}",
+                                            text: " ₹ ${party.receivedAmount}",
                                             style: theme.textTheme.titleMedium!
                                                 .copyWith(
                                                     fontSize: 15,
@@ -159,8 +161,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                                 .copyWith(
                                                     fontSize: 14, color: grey)),
                                         TextSpan(
-                                            text:
-                                                "₹ ${double.parse(party.receivableAmount!).toStringAsFixed(2)}",
+                                            text: "₹ ${party.receivableAmount}",
                                             style: theme.textTheme.titleMedium!
                                                 .copyWith(
                                                     fontSize: 15,

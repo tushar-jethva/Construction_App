@@ -8,7 +8,7 @@ class MyCustomTextFormField extends StatelessWidget {
   final int? maxLength;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
-  final String? Function(String? value)? validator;
+  final String? Function(String?   value)? validator;
   final String? Function(String? value)? onChanged;
   final String? label;
   final Widget? suffixIcon;

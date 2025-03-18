@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -110,7 +111,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
       TransactionModel transaction, ThemeData theme, String formattedDate) {
     return GestureDetector(
       onTap: () {
-        showTopSnackBar(context, transaction.description ?? "");
+        showTopSnackBar(context, transaction.description ?? "", messageType: MessageType.done);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),

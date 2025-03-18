@@ -14,7 +14,16 @@ abstract class AuthenticationDatasource {
       required String email,
       required String password});
 
-  Future<String> signIn({ required String email, required String password});
+  Future<String> signIn({required String email, required String password});
+
+  Future<String> forgotPasswordOtp({required String email});
+
+  Future<bool> verifyEmail({required String email});
+
+  Future<String> forgotPassword(
+      {required String email, required String password});
+
+  Future<bool> resetVerifyOtp({required String email, required String otp});
 }
 
 @LazySingleton(as: AuthenticationDatasource)
@@ -94,6 +103,56 @@ class AuthenticationDatasourceImpl extends AuthenticationDatasource {
 
       final data = res.data;
       return data['token'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> forgotPasswordOtp({required String email}) async {
+    try {
+      final res = await dio.post(API.FORGOT_PASSWORD_EMAIL,
+          data: jsonEncode({"Email": email}));
+
+      return "Forgot password otp sent successfully";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> verifyEmail({required String email}) async {
+    try {
+      final res = await dio.post(API.EMAIL_VERIFICATION,
+          data: jsonEncode({'Email': email}));
+
+      return res.data['isVerified'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> forgotPassword(
+      {required String email, required String password}) async {
+    try {
+      final res = await dio.post(API.FORGOT_PASSWORD,
+          data: jsonEncode({'Email': email, 'Password': password}));
+
+      return "Password reset successfully";
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> resetVerifyOtp(
+      {required String email, required String otp}) async {
+    try {
+      final res = await dio.post(API.RESET_VERIFY_OTP,
+          data: jsonEncode({'Email': email, 'otp': otp}));
+
+      return res.data["status"];
     } catch (e) {
       rethrow;
     }

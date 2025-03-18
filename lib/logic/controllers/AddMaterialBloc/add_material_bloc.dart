@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/repository/material_repository.dart';
+import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
+import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -12,7 +15,8 @@ part 'add_material_bloc.freezed.dart';
 
 @singleton
 class AddMaterialBloc extends Bloc<AddMaterialEvent, AddMaterialState> {
-  AddMaterialBloc(this.materialRepository) : super(AddMaterialState.initial()) {
+  AddMaterialBloc(this.materialRepository, this.materialAgenciesBloc)
+      : super(AddMaterialState.initial()) {
     on<AddMaterialEvent>((event, emit) async {
       await event.map(initialize: (_Initialize value) {
         emit(
@@ -25,12 +29,16 @@ class AddMaterialBloc extends Bloc<AddMaterialEvent, AddMaterialState> {
       }, onAddMaterialTap: (_OnAddMaterialTap value) async {
         emit(state.copyWith(state: RequestState.loading));
         MaterialModel model = MaterialModel(
-            materialName: value.materialName,
+            name: value.materialName,
             quantity: value.quantity,
             unit: state.unit,
             description: value.description,
             date: state.date,
             projectId: value.projectId,
+            partieId: materialAgenciesBloc.state.selectedMaterialAgency,
+            priceperunit: value.pricePerUnit,
+            gst: value.gst,
+            hsncode: value.hsnCode,
             id: value.materialId);
         final res = value.isUpdate == false
             ? await materialRepository.addMaterial(model: model)
@@ -56,4 +64,5 @@ class AddMaterialBloc extends Bloc<AddMaterialEvent, AddMaterialState> {
   }
 
   final MaterialRepository materialRepository;
+  final MaterialAgenciesBloc materialAgenciesBloc;
 }

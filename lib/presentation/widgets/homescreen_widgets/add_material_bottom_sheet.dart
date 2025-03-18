@@ -1,14 +1,19 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
+import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
+import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +23,7 @@ import 'package:go_router/go_router.dart';
 
 class MyMaterialAddBottomSheet extends StatefulWidget {
   final String projectId;
-  final MaterialModel material;
+  final GetMaterialModel material;
   final bool? isUpdate;
   const MyMaterialAddBottomSheet(
       {super.key,
@@ -37,6 +42,9 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
       TextEditingController();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _gstController = TextEditingController();
+  final TextEditingController _pricePerUnitController = TextEditingController();
+  final TextEditingController _hsnCodeController = TextEditingController();
 
   String dropDownValue = units[0];
 
@@ -69,14 +77,31 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
 
   //Set controller text
   setController() {
-    _materialNameController.text = widget.material.materialName;
-    _quantityController.text = widget.material.quantity;
-    _descriptionController.text = widget.material.description;
+    _materialNameController.text = widget.material.name ?? '';
+    _quantityController.text = (widget.material.quantity ?? 0).toString();
+    _descriptionController.text = widget.material.description ?? '';
+    _gstController.text = (widget.material.gst ?? 0).toString();
+    _pricePerUnitController.text =
+        (widget.material.priceperunit ?? 0).toString();
+    _hsnCodeController.text = (widget.material.hashCode ?? 0).toString();
+
     context.read<AddMaterialBloc>().add(
         AddMaterialEvent.onDateChanged(date: widget.material.date.toString()));
     context
         .read<AddMaterialBloc>()
-        .add(AddMaterialEvent.onUnitChanged(unit: widget.material.unit));
+        .add(AddMaterialEvent.onUnitChanged(unit: widget.material.unit ?? ''));
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _materialNameController.dispose();
+    _quantityController.dispose();
+    _descriptionController.dispose();
+    _gstController.dispose();
+    _pricePerUnitController.dispose();
+    _hsnCodeController.dispose();
   }
 
   @override
@@ -105,32 +130,47 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                     key: _formKeyMaterial,
                     child: Column(
                       children: [
-                        MyCustomTextFormField(
-                          controller: _materialNameController,
-                          hintText: 'Material Name',
-                          maxLines: 1,
-                          textInputType: TextInputType.name,
-                          validator: (value) {
-                            if (!ReusableFunctions.isValidInput(value ?? '')) {
-                              return 'Enter destination';
-                            }
-                          },
-                        ),
-                        15.hx,
-                        MyCustomTextFormField(
-                          controller: _quantityController,
-                          hintText: 'Project Quantity',
-                          maxLines: 1,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Enter project quantity';
-                            }
-                            if (int.tryParse(value) == null) {
-                              return 'Please enter valid digit!';
-                            }
-                            if (value.startsWith('-')) {
-                              return 'Please enter valid digit!';
-                            }
+                        BlocBuilder<MaterialAgenciesBloc,
+                            MaterialAgenciesState>(
+                          builder: (context, state) {
+                            return state.state.isLoaded
+                                ? PaymentOutCustomDropDown(
+                                    value: state.listOfMaterialAgencies[0].sId,
+                                    list: state.listOfMaterialAgencies
+                                        .map((e) => DropdownMenuItem(
+                                              value: e.sId,
+                                              child: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.4, // Set a specific width here
+                                                child: Text(
+                                                  e.name!,
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ))
+                                        .toList(),
+                                    onChanged: (val) {
+                                      val != state.listOfMaterialAgencies[0].sId
+                                          ? context
+                                              .read<MaterialAgenciesBloc>()
+                                              .add(MaterialAgenciesEvent
+                                                  .onChangeMaterialAgency(
+                                                      materialAgency: val))
+                                          : {};
+                                    },
+                                    // ignore: body_might_complete_normally_nullable
+                                    validator: (val) {
+                                      if (val ==
+                                          state.listOfMaterialAgencies[0].sId) {
+                                        return 'Please select one of the agency!';
+                                      }
+                                    },
+                                  )
+                                : CustomDropDown(items: nameOfAgency);
                           },
                         ),
                         15.hx,
@@ -146,10 +186,99 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                         ),
                         15.hx,
                         MyCustomTextFormField(
+                          controller: _materialNameController,
+                          hintText: 'Material Name',
+                          maxLines: 1,
+                          textInputType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (!ReusableFunctions.isValidInput(value ?? '')) {
+                              return 'Enter destination';
+                            }
+                          },
+                        ),
+                        15.hx,
+                        MyCustomTextFormField(
+                          controller: _quantityController,
+                          hintText: 'Project Quantity',
+                          maxLines: 1,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Enter project quantity';
+                            }
+                            if (int.tryParse(value) == null) {
+                              return 'Please enter valid digit!';
+                            }
+                            if (value.startsWith('-')) {
+                              return 'Please enter valid digit!';
+                            }
+                          },
+                        ),
+                        15.hx,
+                        MyCustomTextFormField(
+                          controller: _pricePerUnitController,
+                          hintText: 'Price Per Unit',
+                          maxLines: 1,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Enter project quantity';
+                            }
+                            if (int.tryParse(value) == null) {
+                              return 'Please enter valid digit!';
+                            }
+                            if (value.startsWith('-')) {
+                              return 'Please enter valid digit!';
+                            }
+                          },
+                        ),
+                        15.hx,
+                        MyCustomTextFormField(
+                          controller: _gstController,
+                          hintText: 'GST',
+                          maxLines: 1,
+                          maxLength: 11,
+                          textInputType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Enter project quantity';
+                            }
+                            if (int.tryParse(value) == null) {
+                              return 'Please enter valid digit!';
+                            }
+                            if (value.startsWith('-')) {
+                              return 'Please enter valid digit!';
+                            }
+                          },
+                        ),
+                        15.hx,
+                        MyCustomTextFormField(
+                          controller: _hsnCodeController,
+                          hintText: 'HSN Code',
+                          maxLines: 1,
+                          textInputType: TextInputType.number,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (value == null || value.trim().isEmpty) {
+                              return 'Enter project quantity';
+                            }
+                            if (int.tryParse(value) == null) {
+                              return 'Please enter valid digit!';
+                            }
+                            if (value.startsWith('-')) {
+                              return 'Please enter valid digit!';
+                            }
+                          },
+                        ),
+                        15.hx,
+                        MyCustomTextFormField(
                           controller: _descriptionController,
                           hintText: 'Project Description',
                           maxLines: 3,
                           textInputType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
                           validator: (value) {
                             if (!ReusableFunctions.isValidInput(value ?? '')) {
                               return 'Enter destination';
@@ -208,17 +337,21 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                               if (!_formKeyMaterial.currentState!.validate()) {
                               } else if (int.parse(_quantityController.text) <=
                                   0) {
-                                showTopSnackBar(
-                                    context, "Enter valid quantity");
+                                showTopSnackBar(context, "Enter valid quantity",
+                                    messageType: MessageType.warning);
                               } else {
                                 context.read<AddMaterialBloc>().add(
                                     AddMaterialEvent.onAddMaterialTap(
-                                        materialId: material.id ?? "",
+                                        materialId: material.sId ?? "",
                                         isUpdate: widget.isUpdate ?? false,
                                         projectId: widget.projectId,
                                         materialName:
                                             _materialNameController.text,
                                         quantity: _quantityController.text,
+                                        gst: _gstController.text,
+                                        pricePerUnit:
+                                            _pricePerUnitController.text,
+                                        hsnCode: _hsnCodeController.text,
                                         description:
                                             _descriptionController.text));
                               }

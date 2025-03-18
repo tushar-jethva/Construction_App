@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
 import 'package:construction_mate/logic/models/floor_model.dart';
@@ -7,12 +8,13 @@ import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 import 'package:construction_mate/utilities/extension/print_extension.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class AgencyDataSource {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
 
-  Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId});
+  Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId, required String projectId});
 
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
@@ -36,15 +38,14 @@ abstract class AgencyDataSource {
   Future<List<DropDownAgencyModel>> getWorkingAgenciesOnBuildingForDropDown(
       {required String buildingId, required String projectId});
 
-  Future<List<TotalAgencyModel>> getTotalAgencies();
+  Future<List<AgencyModel>> getTotalAgencies({required PartyType partyType});
 
   Future<List<TotalAgencyModel>> getAgencyByProject(
       {required String projectId});
 
-  Future<void> addAgency(
-      {required String name,
-      required String description,
-      required List<String> workTypeIds});
+  Future<AgencyModel?> addAgency({
+    required AgencyModel agencyModel,
+  });
 
   Future<List<DropDownAgencyModel>> getPaymentInAgency();
 }
@@ -62,6 +63,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       final res = await dio.get(
         "${API.GET_AGENCY_BY_WORK_TYPE}/$workTypeId",
       );
+
       res.data.log();
       final agencies = res.data;
       for (var agency in agencies["data"]) {
@@ -113,16 +115,18 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
     try {
       final res = await dio.post(
         API.ADD_TASK_URL,
-        data: jsonEncode({
-          "Name": name,
-          "AgencyId": agencyId,
-          "ProjectId": projectId,
-          "WorkType": workTypeId,
-          "WorkingFloors": floors,
-          "Price": pricePerFeet.toString(),
-          "Description": description,
-          "BuildingId": buildingId
-        }),
+        data: jsonEncode(
+          {
+            "Name": name,
+            "AgencyId": agencyId,
+            "ProjectId": projectId,
+            "WorkType": workTypeId,
+            "WorkingFloors": floors,
+            "Price": pricePerFeet.toString(),
+            "Description": description,
+            "BuildingId": buildingId
+          },
+        ),
       );
 
       res.data.log();
@@ -133,11 +137,11 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
 
   @override
   Future<List<AgencyModel>> getAgencyByBuildingId(
-      {required String buildingId}) async {
+      {required String buildingId, required String projectId}) async {
     List<AgencyModel> allAgencyByBuildingIdList = [];
     try {
       final res =
-          await dio.get("${API.GET_AGENCY_BY_BUILDING_ID}/${buildingId}");
+          await dio.get("${API.GET_AGENCY_BY_BUILDING_ID}/$buildingId");
 
       final agencies = res.data;
       for (var agency in agencies["data"]) {
@@ -190,14 +194,18 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   }
 
   @override
-  Future<List<TotalAgencyModel>> getTotalAgencies() async {
-    List<TotalAgencyModel> totalAgenciesList = [];
+  Future<List<AgencyModel>> getTotalAgencies(
+      {required PartyType partyType}) async {
+    List<AgencyModel> totalAgenciesList = [];
     try {
-      final res = await dio.get(API.GET_TOTAL_AGENCIES);
+      final res = await dio.post(API.GET_TOTAL_AGENCIES,
+          data: jsonEncode({"agencyType": partyType.toString()}));
 
       final agencies = res.data;
+      debugPrint("res: ${agencies}");
+
       for (var agency in agencies["data"]) {
-        totalAgenciesList.add(TotalAgencyModel.fromJson(agency));
+        totalAgenciesList.add(AgencyModel.fromJson(agency));
       }
     } catch (e) {
       e.log();
@@ -225,19 +233,13 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
   }
 
   @override
-  Future<void> addAgency(
-      {required String name,
-      required String description,
-      required List<String> workTypeIds}) async {
+  Future<AgencyModel?> addAgency({required AgencyModel agencyModel}) async {
     try {
-      await dio.post(
-        API.ADD_AGENCY,
-        data: jsonEncode({
-          "Name": name,
-          "Description": description,
-          "WorkType": workTypeIds
-        }),
-      );
+      final res =
+          await dio.post(API.ADD_PARTY, data: jsonEncode(agencyModel.toJson()));
+
+      final data = res.data;
+      return AgencyModel.fromJson(data["data"]);
     } catch (e) {
       e.log();
     }

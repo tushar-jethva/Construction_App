@@ -33,17 +33,17 @@ class AddAllPartiesScreen extends StatelessWidget {
                   return Column(
                     children: [
                       RadioMenuButton(
-                          value: PartyType.Agency,
+                          value: PartyType.SubContractor,
                           groupValue: state.partyType,
                           onChanged: (val) {
                             context.read<AddPartiesBloc>().add(
                                 AddPartiesEvent.onPartyTypeChange(
-                                    partyType: val ?? PartyType.Agency));
+                                    partyType: val ?? PartyType.SubContractor));
                             context.pushNamed(
                                 RoutesName.ADD_PARTICULAR_PARTY_SCREEN_NAME);
                           },
                           child: Text(
-                            "Agency",
+                            "Sub Contractor",
                             style: theme.textTheme.titleMedium,
                           )),
                       RadioMenuButton(
@@ -52,9 +52,9 @@ class AddAllPartiesScreen extends StatelessWidget {
                           onChanged: (val) {
                             context.read<AddPartiesBloc>().add(
                                 AddPartiesEvent.onPartyTypeChange(
-                                    partyType: val ?? PartyType.Agency));
+                                    partyType: val ?? PartyType.BillingParty));
                             context.pushNamed(
-                                RoutesName.ADD_PARTICULAR_PARTY_SCREEN_NAME);
+                                RoutesName.ADD_BILLING_PARTY_SCREEN_NAME);
                           },
                           child: Text(
                             "Billing Party",
@@ -66,26 +66,26 @@ class AddAllPartiesScreen extends StatelessWidget {
                           onChanged: (val) {
                             context.read<AddPartiesBloc>().add(
                                 AddPartiesEvent.onPartyTypeChange(
-                                    partyType: val ?? PartyType.Agency));
+                                    partyType: val ?? PartyType.BillingParty));
                             context.pushNamed(
-                                RoutesName.ADD_PARTICULAR_PARTY_SCREEN_NAME);
+                                RoutesName.ADD_MATERIAL_PARTY_SCREEN_NAME);
                           },
                           child: Text(
-                            "Material",
+                            "Material Supplier",
                             style: theme.textTheme.titleMedium,
                           )),
                       RadioMenuButton(
-                          value: PartyType.Vendor,
+                          value: PartyType.EquipmentSupplier,
                           groupValue: state.partyType,
                           onChanged: (val) {
                             context.read<AddPartiesBloc>().add(
                                 AddPartiesEvent.onPartyTypeChange(
-                                    partyType: val ?? PartyType.Agency));
+                                    partyType: val ?? PartyType.SubContractor));
                             context.pushNamed(
-                                RoutesName.ADD_PARTICULAR_PARTY_SCREEN_NAME);
+                                RoutesName.ADD_RENT_PARTY_SCREEN_NAME);
                           },
                           child: Text(
-                            "Vendor",
+                            "Equipment Supplier",
                             style: theme.textTheme.titleMedium,
                           )),
                       50.hx,

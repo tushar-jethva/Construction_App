@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
@@ -131,7 +132,7 @@ class _MySiteProgressDetailsWidgetState
                 SiteProgressAgencyUpdateState>(
               listener: (context, state) {
                 if (state is SiteProgressAgencyUpdateSuccessState) {
-                  showTopSnackBar(context, "Agency updated successfully!");
+                  showTopSnackBar(context, "Agency updated successfully!", messageType: MessageType.done);
                   context.pop();
                 }
               },
@@ -210,7 +211,7 @@ Widget updateButton(FloorSiteModel floor) {
     listener: (context, state) {
       if (state is SiteProgressAgencyUpdateSuccessState) {
         // Navigator.pop(context);
-        showTopSnackBar(context, "Agency updated successfully");
+        showTopSnackBar(context, "Agency updated successfully!", messageType: MessageType.done);
 
         context.read<SiteProgressAgencyUpdateBloc>().add(
             FetchAlreadySelectedAgencies(

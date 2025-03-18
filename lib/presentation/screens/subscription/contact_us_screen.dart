@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -160,14 +161,16 @@ class ContactUsScreen extends StatelessWidget {
                                     isSvg: true,
                                     path: Assets.svg.twitterIcon.path,
                                     onTap: () {
-                                      showTopSnackBar(context, "Coming soon");
+                                      showTopSnackBar(context, "Coming soon",
+                                          messageType: MessageType.warning);
                                     },
                                   ),
                                   IconCircleWidget(
                                     isSvg: true,
                                     path: Assets.svg.instagramIcon.path,
                                     onTap: () {
-                                      showTopSnackBar(context, "Coming soon");
+                                      showTopSnackBar(context, "Coming soon",
+                                          messageType: MessageType.warning);
                                     },
                                   ),
                                   IconCircleWidget(

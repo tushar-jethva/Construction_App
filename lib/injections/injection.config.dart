@@ -16,6 +16,8 @@ import 'package:construction_mate/data/datasource/material_data_source.dart'
     as _i548;
 import 'package:construction_mate/data/datasource/profile_data_source.dart'
     as _i1040;
+import 'package:construction_mate/data/datasource/rental_data_source.dart'
+    as _i918;
 import 'package:construction_mate/data/datasource/transaction_data_source.dart'
     as _i740;
 import 'package:construction_mate/data/repository/agency_repository.dart'
@@ -30,10 +32,13 @@ import 'package:construction_mate/data/repository/material_repository.dart'
     as _i37;
 import 'package:construction_mate/data/repository/profile_repository.dart'
     as _i282;
+import 'package:construction_mate/data/repository/rental_repository.dart'
+    as _i425;
 import 'package:construction_mate/data/repository/transaction_repository.dart'
     as _i1072;
 import 'package:construction_mate/data/usecases/material_usecase.dart' as _i154;
 import 'package:construction_mate/data/usecases/profile_usecase.dart' as _i429;
+import 'package:construction_mate/data/usecases/rental_usecase.dart' as _i577;
 import 'package:construction_mate/data/usecases/transaction_usecase.dart'
     as _i740;
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart'
@@ -42,8 +47,14 @@ import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material
     as _i571;
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart'
     as _i329;
+import 'package:construction_mate/logic/controllers/Authentication/forgot_password/forgot_password_bloc.dart'
+    as _i962;
+import 'package:construction_mate/logic/controllers/Authentication/reset_password/reset_password_bloc.dart'
+    as _i893;
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart'
     as _i938;
+import 'package:construction_mate/logic/controllers/Authentication/verify_otp/verify_otp_bloc.dart'
+    as _i4;
 import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart'
     as _i79;
 import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc.dart'
@@ -51,6 +62,10 @@ import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart'
     as _i882;
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart' as _i487;
+import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart'
+    as _i40;
+import 'package:construction_mate/logic/controllers/Material/MaterialSupplier/material_supplier_bloc.dart'
+    as _i840;
 import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart'
     as _i688;
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart'
@@ -71,6 +86,14 @@ import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_wa
     as _i95;
 import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart'
     as _i418;
+import 'package:construction_mate/logic/controllers/Rent/add_rent_supplier/add_rent_supplier_bloc.dart'
+    as _i119;
+import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart'
+    as _i549;
+import 'package:construction_mate/logic/controllers/Rent/get_rental_products/get_rental_products_bloc.dart'
+    as _i449;
+import 'package:construction_mate/logic/controllers/Rent/get_rental_suppliers/get_rental_suppliers_bloc.dart'
+    as _i452;
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart'
     as _i660;
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart' as _i347;
@@ -103,6 +126,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i548.MaterialDataSourceImpl());
     gh.lazySingleton<_i740.TransactionDataSource>(
         () => _i740.TransactionDataSourceImpl());
+    gh.lazySingleton<_i918.RentalDataSource>(
+        () => _i918.RentalDataSourceImpl());
     gh.lazySingleton<_i1040.ProfileDataSource>(
         () => _i1040.ProfileDataSourceImpl());
     gh.lazySingleton<_i72.AgencyDataSource>(
@@ -120,10 +145,6 @@ extension GetItInjectableX on _i174.GetIt {
             transactionDataSource: gh<_i740.TransactionDataSource>()));
     gh.lazySingleton<_i37.MaterialRepository>(
         () => _i37.MaterialRepositoryImpl(gh<_i548.MaterialDataSource>()));
-    gh.singleton<_i865.AddBillBloc>(() => _i865.AddBillBloc(
-          billingPartyRepository: gh<_i755.BillingPartyRepository>(),
-          billsRepository: gh<_i17.BillsRepository>(),
-        ));
     gh.singleton<_i418.ProjectPaymentInBloc>(() => _i418.ProjectPaymentInBloc(
           gh<_i1072.TransactionRepository>(),
           gh<_i755.BillingPartyRepository>(),
@@ -132,11 +153,19 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i282.ProfileRepositoryImpl(gh<_i1040.ProfileDataSource>()));
     gh.lazySingleton<_i993.AgencyRepository>(() => _i993.AgencyRepositoryImpl(
         agencyDataSource: gh<_i72.AgencyDataSource>()));
+    gh.singleton<_i40.MaterialAgenciesBloc>(
+        () => _i40.MaterialAgenciesBloc(gh<_i993.AgencyRepository>()));
+    gh.singleton<_i452.GetRentalSuppliersBloc>(
+        () => _i452.GetRentalSuppliersBloc(gh<_i993.AgencyRepository>()));
     gh.singleton<_i938.SignInBloc>(() => _i938.SignInBloc(
         authenticationRepository: gh<_i953.AuthenticationRepository>()));
     gh.singleton<_i329.AgencyWorksProjectsBloc>(() =>
         _i329.AgencyWorksProjectsBloc(
             agencyRepository: gh<_i993.AgencyRepository>()));
+    gh.lazySingleton<_i425.RentalRepository>(() =>
+        _i425.RentalRepositoryImpl(dataSource: gh<_i918.RentalDataSource>()));
+    gh.factory<_i577.RentalUsecase>(
+        () => _i577.RentalUsecase(gh<_i425.RentalRepository>()));
     gh.factory<_i429.ProfileUsecase>(
         () => _i429.ProfileUsecase(gh<_i282.ProfileRepository>()));
     gh.singleton<_i201.TotalPaymentOutBloc>(() => _i201.TotalPaymentOutBloc(
@@ -144,8 +173,18 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i585.PaymentTotalProjectBloc>(() =>
         _i585.PaymentTotalProjectBloc(
             transactionRepository: gh<_i1072.TransactionRepository>()));
+    gh.singleton<_i549.AddRentalProductBloc>(() => _i549.AddRentalProductBloc(
+          gh<_i577.RentalUsecase>(),
+          gh<_i452.GetRentalSuppliersBloc>(),
+        ));
+    gh.singleton<_i840.MaterialSupplierBloc>(
+        () => _i840.MaterialSupplierBloc(gh<_i993.AgencyRepository>()));
+    gh.singleton<_i119.AddRentSupplierBloc>(
+        () => _i119.AddRentSupplierBloc(gh<_i993.AgencyRepository>()));
     gh.factory<_i740.TransactionUsecase>(
         () => _i740.TransactionUsecase(gh<_i1072.TransactionRepository>()));
+    gh.singleton<_i962.ForgotPasswordBloc>(
+        () => _i962.ForgotPasswordBloc(gh<_i953.AuthenticationRepository>()));
     gh.singleton<_i273.OtherExpenseBloc>(
         () => _i273.OtherExpenseBloc(gh<_i429.ProfileUsecase>()));
     gh.singleton<_i487.GstBloc>(
@@ -154,10 +193,26 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i347.TdsBloc(gh<_i429.ProfileUsecase>()));
     gh.singleton<_i95.UserWatcherBloc>(
         () => _i95.UserWatcherBloc(gh<_i429.ProfileUsecase>()));
-    gh.singleton<_i571.AddMaterialBloc>(
-        () => _i571.AddMaterialBloc(gh<_i37.MaterialRepository>()));
+    gh.singleton<_i865.AddBillBloc>(() => _i865.AddBillBloc(
+          agencyRepository: gh<_i993.AgencyRepository>(),
+          billsRepository: gh<_i17.BillsRepository>(),
+        ));
+    gh.singleton<_i449.GetRentalProductsBloc>(
+        () => _i449.GetRentalProductsBloc(gh<_i425.RentalRepository>()));
+    gh.singleton<_i571.AddMaterialBloc>(() => _i571.AddMaterialBloc(
+          gh<_i37.MaterialRepository>(),
+          gh<_i40.MaterialAgenciesBloc>(),
+        ));
     gh.factory<_i154.MaterialUsecase>(
         () => _i154.MaterialUsecase(gh<_i37.MaterialRepository>()));
+    gh.singleton<_i4.VerifyOtpBloc>(() => _i4.VerifyOtpBloc(
+          gh<_i953.AuthenticationRepository>(),
+          gh<_i962.ForgotPasswordBloc>(),
+        ));
+    gh.singleton<_i893.ResetPasswordBloc>(() => _i893.ResetPasswordBloc(
+          gh<_i953.AuthenticationRepository>(),
+          gh<_i962.ForgotPasswordBloc>(),
+        ));
     gh.singleton<_i847.PaymentOutOtherExpenseBloc>(
         () => _i847.PaymentOutOtherExpenseBloc(gh<_i740.TransactionUsecase>()));
     gh.singleton<_i527.EditProfileBloc>(() => _i527.EditProfileBloc(

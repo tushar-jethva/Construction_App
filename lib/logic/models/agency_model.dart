@@ -1,31 +1,160 @@
 class AgencyModel {
   String? sId;
   String? name;
-  List<String>? workType;
+  String? companyId;
+  ProjectId? projectId;
   String? description;
-  String? gSTnumber;
+  String? agencyType;
+  List<String>? workType;
+  String? email;
+  String? contactNumber;
+  String? shippingAddress;
+  String? billingAddress;
+  int? receivableAmount;
+  int? receivedAmount;
+  int? totalAmount;
+  String? gSTNumber;
+  bool? isDeleted;
+  String? createdAt;
+  String? updatedAt;
+  int? iV;
+  int? totalAccount;
+  int? totalPayable;
+  int? totalPaid;
+
+  AgencyModel(
+      {this.sId,
+      this.name,
+      this.companyId,
+      this.projectId,
+      this.description,
+      this.agencyType,
+      this.workType,
+      this.email,
+      this.contactNumber,
+      this.shippingAddress,
+      this.billingAddress,
+      this.receivableAmount,
+      this.receivedAmount,
+      this.totalAmount,
+      this.gSTNumber,
+      this.isDeleted,
+      this.createdAt,
+      this.updatedAt,
+      this.iV,
+      this.totalAccount,
+      this.totalPayable,
+      this.totalPaid});
+
+  AgencyModel.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'] ?? '';
+    name = json['Name'] ?? '';
+    companyId = json['CompanyId'] ?? '';
+    if (json['ProjectId'] is Map<String, dynamic>) {
+      projectId = ProjectId.fromJson(json['ProjectId']);
+    } else if (json['ProjectId'] is String) {
+      projectId = ProjectId(
+          sId: json[
+              'ProjectId']); // Assuming ProjectId has a constructor accepting a String
+    } else {
+      projectId = null;
+    }
+    description = json['Description'] ?? '';
+    agencyType = json['agencyType'] ?? '';
+    workType = json['WorkType']?.cast<String>();
+    email = json['Email'] ?? '';
+    contactNumber = json['ContactNumber'] ?? '';
+    shippingAddress = json['ShippingAddress'] ?? '';
+    billingAddress = json['BillingAddress'] ?? '';
+    receivableAmount = json['ReceivableAmount'] ?? 0;
+    receivedAmount = json['ReceivedAmount'] ?? 0;
+    totalAmount = json['TotalAmount'] ?? 0;
+    gSTNumber = json['GSTNumber'] ?? '';
+    isDeleted = json['isDeleted'] ?? false;
+    createdAt = json['createdAt'] ?? '';
+    updatedAt = json['updatedAt'] ?? '';
+    iV = json['__v'] ?? 0;
+    totalAccount = json['TotalAccount'] ?? 0;
+    totalPayable = json['TotalPayable'] ?? 0;
+    totalPaid = json['TotalPaid'] ?? 0;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['Name'] = this.name;
+    data['CompanyId'] = this.companyId;
+    if (this.projectId != null) {
+      data['ProjectId'] = this.projectId!.toJson();
+    }
+    data['Description'] = this.description;
+    data['agencyType'] = this.agencyType;
+    data['WorkType'] = this.workType;
+    data['Email'] = this.email;
+    data['ContactNumber'] = this.contactNumber;
+    data['ShippingAddress'] = this.shippingAddress;
+    data['BillingAddress'] = this.billingAddress;
+    data['ReceivableAmount'] = this.receivableAmount;
+    data['ReceivedAmount'] = this.receivedAmount;
+    data['TotalAmount'] = this.totalAmount;
+    data['GSTNumber'] = this.gSTNumber;
+    data['isDeleted'] = this.isDeleted;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
+    data['TotalAccount'] = this.totalAccount;
+    data['TotalPayable'] = this.totalPayable;
+    data['TotalPaid'] = this.totalPaid;
+    return data;
+  }
+}
+
+class ProjectId {
+  String? sId;
+  String? name;
+  String? companyId;
+  int? progress;
+  String? description;
+  int? paymentIn;
+  int? paymentOut;
+  String? startDate;
+  String? endDate;
+  String? address;
+  int? totalBuilding;
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
   int? iV;
 
-  AgencyModel(
+  ProjectId(
       {this.sId,
       this.name,
-      this.workType,
+      this.companyId,
+      this.progress,
       this.description,
-      this.gSTnumber,
+      this.paymentIn,
+      this.paymentOut,
+      this.startDate,
+      this.endDate,
+      this.address,
+      this.totalBuilding,
       this.isDeleted,
       this.createdAt,
       this.updatedAt,
       this.iV});
 
-  AgencyModel.fromJson(Map<String, dynamic> json) {
+  ProjectId.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['Name'];
-    workType = json['WorkType'].cast<String>();
+    companyId = json['CompanyId'];
+    progress = json['progress'];
     description = json['Description'];
-    gSTnumber = json['GSTnumber'] ?? '';
+    paymentIn = json['PaymentIn'];
+    paymentOut = json['PaymentOut'];
+    startDate = json['StartDate'];
+    endDate = json['EndDate'];
+    address = json['Address'];
+    totalBuilding = json['TotalBuilding'];
     isDeleted = json['isDeleted'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -36,9 +165,15 @@ class AgencyModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['_id'] = this.sId;
     data['Name'] = this.name;
-    data['WorkType'] = this.workType;
+    data['CompanyId'] = this.companyId;
+    data['progress'] = this.progress;
     data['Description'] = this.description;
-    data['GSTnumber'] = this.gSTnumber;
+    data['PaymentIn'] = this.paymentIn;
+    data['PaymentOut'] = this.paymentOut;
+    data['StartDate'] = this.startDate;
+    data['EndDate'] = this.endDate;
+    data['Address'] = this.address;
+    data['TotalBuilding'] = this.totalBuilding;
     data['isDeleted'] = this.isDeleted;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

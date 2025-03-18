@@ -17,6 +17,9 @@ class AddMaterialEvent with _$AddMaterialEvent {
       required String quantity,
       required String description,
       required bool isUpdate,
+      required String gst,
+      required String pricePerUnit,
+      required String hsnCode,
       String? materialId}) = _OnAddMaterialTap;
 
   //Get material list

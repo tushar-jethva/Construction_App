@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:meta/meta.dart';
 
@@ -7,7 +9,7 @@ part 'total_agencies_event.dart';
 part 'total_agencies_state.dart';
 
 class TotalAgenciesBloc extends Bloc<TotalAgenciesEvent, TotalAgenciesState> {
-  List<TotalAgencyModel> _originalTransactions = [];
+  List<AgencyModel> _originalTransactions = [];
 
   final AgencyRepository agencyRepository;
   TotalAgenciesBloc({required this.agencyRepository})
@@ -20,10 +22,13 @@ class TotalAgenciesBloc extends Bloc<TotalAgenciesEvent, TotalAgenciesState> {
       LoadTotalAgencies event, Emitter<TotalAgenciesState> emit) async {
     try {
       emit(TotalAgenciesInitial());
-      List<TotalAgencyModel> totalAgencies =
-          await agencyRepository.getTotalAgencies();
-      _originalTransactions = totalAgencies;
-      emit(TotalAgenciesLoadSuccess(totalAgencies: totalAgencies));
+      final res = await agencyRepository.getTotalAgencies(
+          partyType: PartyType.SubContractor);
+
+      res.fold((l) {}, (r) {
+        _originalTransactions = r;
+        emit(TotalAgenciesLoadSuccess(totalAgencies: r));
+      });
     } catch (e) {
       emit(TotalAgenciesLoadFailure());
     }

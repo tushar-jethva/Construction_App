@@ -1,5 +1,6 @@
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
@@ -11,7 +12,7 @@ class MaterialChildWidget extends StatelessWidget {
 
   openBottomSheetOfMaterial(
       {required BuildContext context,
-      required MaterialModel material,
+      required GetMaterialModel material,
       bool? isUpdate}) {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -45,9 +46,13 @@ class MaterialChildWidget extends StatelessWidget {
             openBottomSheetOfMaterial(
                 context: context,
                 isUpdate: false,
-                material: MaterialModel(
-                    materialName: "",
-                    quantity: "",
+                material: GetMaterialModel(
+                    name: "",
+                    priceperunit: 0,
+                    gst: 0,
+                    hsncode: '',
+                    partieId: '',
+                    quantity: 0,
                     unit: "",
                     description: "",
                     date: ""));

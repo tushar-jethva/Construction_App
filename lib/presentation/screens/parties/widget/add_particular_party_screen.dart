@@ -22,7 +22,10 @@ class AddParticularPartyScreen extends StatelessWidget {
         backgroundColor: theme.scaffoldBackgroundColor,
         title: BlocBuilder<AddPartiesBloc, AddPartiesState>(
           builder: (context, state) {
-            return Text(state.partyType.name);
+            return Text(
+              "Add Sub Contractor",
+              style: theme.textTheme.titleMedium,
+            );
           },
         ),
       ),

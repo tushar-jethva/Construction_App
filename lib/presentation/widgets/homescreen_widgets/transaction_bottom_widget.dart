@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
@@ -382,16 +383,15 @@ class _PaymentOutWidgetState extends State<PaymentOutWidget> {
                                     listener: (context, state) {
                                       if (state is PaymentOutAddSuccess) {
                                         Navigator.pop(context);
-                                        ReusableFunctions.showSnackBar(
-                                            context: context,
-                                            content:
-                                                "Payment out add successfully!");
+                                        showTopSnackBar(context,
+                                            "Payment added successfully!",
+                                            messageType: MessageType.done);
                                       } else if (state
                                           is PaymentOutAddFailure) {
                                         Navigator.pop(context);
-                                        ReusableFunctions.showSnackBar(
-                                            context: context,
-                                            content: "Payment out not added!");
+                                        showTopSnackBar(
+                                            context, "Payment failed!",
+                                            messageType: MessageType.done);
                                       }
                                     },
                                     child: BlocBuilder<PaymentOutDropDownBloc,
@@ -531,13 +531,14 @@ class _PaymentOutWidgetState extends State<PaymentOutWidget> {
                                     listener: (context, state) {
                                       if (state.state.isLoaded) {
                                         Navigator.pop(context);
-                                        TopSnackBar(
-                                            message:
-                                                "${state.transactionType} is Added");
+                                        showTopSnackBar(context,
+                                            "${state.transactionType} is Added",
+                                            messageType: MessageType.done);
                                       } else if (state.state.isError) {
                                         Navigator.pop(context);
-                                        const TopSnackBar(
-                                            message: "Something went wrong!");
+                                        showTopSnackBar(
+                                            context, "Something went wrong!",
+                                            messageType: MessageType.error);
                                       }
                                     },
                                     child: BlocBuilder<
@@ -770,7 +771,8 @@ class _PaymentInWidgetState extends State<PaymentInWidget> {
                         context.read<TotalPaymentOutBloc>().add(
                             const TotalPaymentOutEvent.fetchTotalPayments());
                         Navigator.pop(context);
-                        showTopSnackBar(context, 'Transaction added!');
+                        showTopSnackBar(context, 'Transaction added!',
+                            messageType: MessageType.done);
                       }
                     },
                     child: BlocBuilder<PaymentInDropDownBloc,

@@ -27,6 +27,9 @@ mixin _$AddMaterialEvent {
             String quantity,
             String description,
             bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
             String? materialId)
         onAddMaterialTap,
     required TResult Function(String projectId) fetchAllMaterial,
@@ -37,8 +40,16 @@ mixin _$AddMaterialEvent {
     TResult? Function()? initialize,
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
-    TResult? Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult? Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult? Function(String projectId)? fetchAllMaterial,
   }) =>
@@ -48,8 +59,16 @@ mixin _$AddMaterialEvent {
     TResult Function()? initialize,
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
-    TResult Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult Function(String projectId)? fetchAllMaterial,
     required TResult orElse(),
@@ -156,6 +175,9 @@ class _$InitializeImpl implements _Initialize {
             String quantity,
             String description,
             bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
             String? materialId)
         onAddMaterialTap,
     required TResult Function(String projectId) fetchAllMaterial,
@@ -169,8 +191,16 @@ class _$InitializeImpl implements _Initialize {
     TResult? Function()? initialize,
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
-    TResult? Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult? Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult? Function(String projectId)? fetchAllMaterial,
   }) {
@@ -183,8 +213,16 @@ class _$InitializeImpl implements _Initialize {
     TResult Function()? initialize,
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
-    TResult Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult Function(String projectId)? fetchAllMaterial,
     required TResult orElse(),
@@ -317,6 +355,9 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
             String quantity,
             String description,
             bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
             String? materialId)
         onAddMaterialTap,
     required TResult Function(String projectId) fetchAllMaterial,
@@ -330,8 +371,16 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
     TResult? Function()? initialize,
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
-    TResult? Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult? Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult? Function(String projectId)? fetchAllMaterial,
   }) {
@@ -344,8 +393,16 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
     TResult Function()? initialize,
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
-    TResult Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult Function(String projectId)? fetchAllMaterial,
     required TResult orElse(),
@@ -487,6 +544,9 @@ class _$onDateChangedImpl implements _onDateChanged {
             String quantity,
             String description,
             bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
             String? materialId)
         onAddMaterialTap,
     required TResult Function(String projectId) fetchAllMaterial,
@@ -500,8 +560,16 @@ class _$onDateChangedImpl implements _onDateChanged {
     TResult? Function()? initialize,
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
-    TResult? Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult? Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult? Function(String projectId)? fetchAllMaterial,
   }) {
@@ -514,8 +582,16 @@ class _$onDateChangedImpl implements _onDateChanged {
     TResult Function()? initialize,
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
-    TResult Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult Function(String projectId)? fetchAllMaterial,
     required TResult orElse(),
@@ -592,6 +668,9 @@ abstract class _$$OnAddMaterialTapImplCopyWith<$Res> {
       String quantity,
       String description,
       bool isUpdate,
+      String gst,
+      String pricePerUnit,
+      String hsnCode,
       String? materialId});
 }
 
@@ -613,6 +692,9 @@ class __$$OnAddMaterialTapImplCopyWithImpl<$Res>
     Object? quantity = null,
     Object? description = null,
     Object? isUpdate = null,
+    Object? gst = null,
+    Object? pricePerUnit = null,
+    Object? hsnCode = null,
     Object? materialId = freezed,
   }) {
     return _then(_$OnAddMaterialTapImpl(
@@ -636,6 +718,18 @@ class __$$OnAddMaterialTapImplCopyWithImpl<$Res>
           ? _value.isUpdate
           : isUpdate // ignore: cast_nullable_to_non_nullable
               as bool,
+      gst: null == gst
+          ? _value.gst
+          : gst // ignore: cast_nullable_to_non_nullable
+              as String,
+      pricePerUnit: null == pricePerUnit
+          ? _value.pricePerUnit
+          : pricePerUnit // ignore: cast_nullable_to_non_nullable
+              as String,
+      hsnCode: null == hsnCode
+          ? _value.hsnCode
+          : hsnCode // ignore: cast_nullable_to_non_nullable
+              as String,
       materialId: freezed == materialId
           ? _value.materialId
           : materialId // ignore: cast_nullable_to_non_nullable
@@ -653,6 +747,9 @@ class _$OnAddMaterialTapImpl implements _OnAddMaterialTap {
       required this.quantity,
       required this.description,
       required this.isUpdate,
+      required this.gst,
+      required this.pricePerUnit,
+      required this.hsnCode,
       this.materialId});
 
   @override
@@ -666,11 +763,17 @@ class _$OnAddMaterialTapImpl implements _OnAddMaterialTap {
   @override
   final bool isUpdate;
   @override
+  final String gst;
+  @override
+  final String pricePerUnit;
+  @override
+  final String hsnCode;
+  @override
   final String? materialId;
 
   @override
   String toString() {
-    return 'AddMaterialEvent.onAddMaterialTap(projectId: $projectId, materialName: $materialName, quantity: $quantity, description: $description, isUpdate: $isUpdate, materialId: $materialId)';
+    return 'AddMaterialEvent.onAddMaterialTap(projectId: $projectId, materialName: $materialName, quantity: $quantity, description: $description, isUpdate: $isUpdate, gst: $gst, pricePerUnit: $pricePerUnit, hsnCode: $hsnCode, materialId: $materialId)';
   }
 
   @override
@@ -688,13 +791,17 @@ class _$OnAddMaterialTapImpl implements _OnAddMaterialTap {
                 other.description == description) &&
             (identical(other.isUpdate, isUpdate) ||
                 other.isUpdate == isUpdate) &&
+            (identical(other.gst, gst) || other.gst == gst) &&
+            (identical(other.pricePerUnit, pricePerUnit) ||
+                other.pricePerUnit == pricePerUnit) &&
+            (identical(other.hsnCode, hsnCode) || other.hsnCode == hsnCode) &&
             (identical(other.materialId, materialId) ||
                 other.materialId == materialId));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, projectId, materialName,
-      quantity, description, isUpdate, materialId);
+      quantity, description, isUpdate, gst, pricePerUnit, hsnCode, materialId);
 
   /// Create a copy of AddMaterialEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -717,12 +824,15 @@ class _$OnAddMaterialTapImpl implements _OnAddMaterialTap {
             String quantity,
             String description,
             bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
             String? materialId)
         onAddMaterialTap,
     required TResult Function(String projectId) fetchAllMaterial,
   }) {
-    return onAddMaterialTap(
-        projectId, materialName, quantity, description, isUpdate, materialId);
+    return onAddMaterialTap(projectId, materialName, quantity, description,
+        isUpdate, gst, pricePerUnit, hsnCode, materialId);
   }
 
   @override
@@ -731,13 +841,21 @@ class _$OnAddMaterialTapImpl implements _OnAddMaterialTap {
     TResult? Function()? initialize,
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
-    TResult? Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult? Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult? Function(String projectId)? fetchAllMaterial,
   }) {
-    return onAddMaterialTap?.call(
-        projectId, materialName, quantity, description, isUpdate, materialId);
+    return onAddMaterialTap?.call(projectId, materialName, quantity,
+        description, isUpdate, gst, pricePerUnit, hsnCode, materialId);
   }
 
   @override
@@ -746,15 +864,23 @@ class _$OnAddMaterialTapImpl implements _OnAddMaterialTap {
     TResult Function()? initialize,
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
-    TResult Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult Function(String projectId)? fetchAllMaterial,
     required TResult orElse(),
   }) {
     if (onAddMaterialTap != null) {
-      return onAddMaterialTap(
-          projectId, materialName, quantity, description, isUpdate, materialId);
+      return onAddMaterialTap(projectId, materialName, quantity, description,
+          isUpdate, gst, pricePerUnit, hsnCode, materialId);
     }
     return orElse();
   }
@@ -807,6 +933,9 @@ abstract class _OnAddMaterialTap implements AddMaterialEvent {
       required final String quantity,
       required final String description,
       required final bool isUpdate,
+      required final String gst,
+      required final String pricePerUnit,
+      required final String hsnCode,
       final String? materialId}) = _$OnAddMaterialTapImpl;
 
   String get projectId;
@@ -814,6 +943,9 @@ abstract class _OnAddMaterialTap implements AddMaterialEvent {
   String get quantity;
   String get description;
   bool get isUpdate;
+  String get gst;
+  String get pricePerUnit;
+  String get hsnCode;
   String? get materialId;
 
   /// Create a copy of AddMaterialEvent
@@ -902,6 +1034,9 @@ class _$FetchAllMaterialImpl implements _FetchAllMaterial {
             String quantity,
             String description,
             bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
             String? materialId)
         onAddMaterialTap,
     required TResult Function(String projectId) fetchAllMaterial,
@@ -915,8 +1050,16 @@ class _$FetchAllMaterialImpl implements _FetchAllMaterial {
     TResult? Function()? initialize,
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
-    TResult? Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult? Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult? Function(String projectId)? fetchAllMaterial,
   }) {
@@ -929,8 +1072,16 @@ class _$FetchAllMaterialImpl implements _FetchAllMaterial {
     TResult Function()? initialize,
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
-    TResult Function(String projectId, String materialName, String quantity,
-            String description, bool isUpdate, String? materialId)?
+    TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String gst,
+            String pricePerUnit,
+            String hsnCode,
+            String? materialId)?
         onAddMaterialTap,
     TResult Function(String projectId)? fetchAllMaterial,
     required TResult orElse(),
@@ -1005,7 +1156,10 @@ mixin _$AddMaterialState {
   String get description => throw _privateConstructorUsedError;
   String get unit => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
-  List<MaterialModel> get materialList => throw _privateConstructorUsedError;
+  String get gst => throw _privateConstructorUsedError;
+  String get pricePerUnit => throw _privateConstructorUsedError;
+  String get hsnCode => throw _privateConstructorUsedError;
+  List<GetMaterialModel> get materialList => throw _privateConstructorUsedError;
   bool get isUpdate => throw _privateConstructorUsedError;
 
   /// Create a copy of AddMaterialState
@@ -1030,7 +1184,10 @@ abstract class $AddMaterialStateCopyWith<$Res> {
       String description,
       String unit,
       String date,
-      List<MaterialModel> materialList,
+      String gst,
+      String pricePerUnit,
+      String hsnCode,
+      List<GetMaterialModel> materialList,
       bool isUpdate});
 }
 
@@ -1057,6 +1214,9 @@ class _$AddMaterialStateCopyWithImpl<$Res, $Val extends AddMaterialState>
     Object? description = null,
     Object? unit = null,
     Object? date = null,
+    Object? gst = null,
+    Object? pricePerUnit = null,
+    Object? hsnCode = null,
     Object? materialList = null,
     Object? isUpdate = null,
   }) {
@@ -1093,10 +1253,22 @@ class _$AddMaterialStateCopyWithImpl<$Res, $Val extends AddMaterialState>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
+      gst: null == gst
+          ? _value.gst
+          : gst // ignore: cast_nullable_to_non_nullable
+              as String,
+      pricePerUnit: null == pricePerUnit
+          ? _value.pricePerUnit
+          : pricePerUnit // ignore: cast_nullable_to_non_nullable
+              as String,
+      hsnCode: null == hsnCode
+          ? _value.hsnCode
+          : hsnCode // ignore: cast_nullable_to_non_nullable
+              as String,
       materialList: null == materialList
           ? _value.materialList
           : materialList // ignore: cast_nullable_to_non_nullable
-              as List<MaterialModel>,
+              as List<GetMaterialModel>,
       isUpdate: null == isUpdate
           ? _value.isUpdate
           : isUpdate // ignore: cast_nullable_to_non_nullable
@@ -1122,7 +1294,10 @@ abstract class _$$AddMaterialStateImplCopyWith<$Res>
       String description,
       String unit,
       String date,
-      List<MaterialModel> materialList,
+      String gst,
+      String pricePerUnit,
+      String hsnCode,
+      List<GetMaterialModel> materialList,
       bool isUpdate});
 }
 
@@ -1147,6 +1322,9 @@ class __$$AddMaterialStateImplCopyWithImpl<$Res>
     Object? description = null,
     Object? unit = null,
     Object? date = null,
+    Object? gst = null,
+    Object? pricePerUnit = null,
+    Object? hsnCode = null,
     Object? materialList = null,
     Object? isUpdate = null,
   }) {
@@ -1183,10 +1361,22 @@ class __$$AddMaterialStateImplCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
+      gst: null == gst
+          ? _value.gst
+          : gst // ignore: cast_nullable_to_non_nullable
+              as String,
+      pricePerUnit: null == pricePerUnit
+          ? _value.pricePerUnit
+          : pricePerUnit // ignore: cast_nullable_to_non_nullable
+              as String,
+      hsnCode: null == hsnCode
+          ? _value.hsnCode
+          : hsnCode // ignore: cast_nullable_to_non_nullable
+              as String,
       materialList: null == materialList
           ? _value._materialList
           : materialList // ignore: cast_nullable_to_non_nullable
-              as List<MaterialModel>,
+              as List<GetMaterialModel>,
       isUpdate: null == isUpdate
           ? _value.isUpdate
           : isUpdate // ignore: cast_nullable_to_non_nullable
@@ -1207,7 +1397,10 @@ class _$AddMaterialStateImpl implements _AddMaterialState {
       required this.description,
       required this.unit,
       required this.date,
-      required final List<MaterialModel> materialList,
+      required this.gst,
+      required this.pricePerUnit,
+      required this.hsnCode,
+      required final List<GetMaterialModel> materialList,
       required this.isUpdate})
       : _materialList = materialList;
 
@@ -1227,9 +1420,15 @@ class _$AddMaterialStateImpl implements _AddMaterialState {
   final String unit;
   @override
   final String date;
-  final List<MaterialModel> _materialList;
   @override
-  List<MaterialModel> get materialList {
+  final String gst;
+  @override
+  final String pricePerUnit;
+  @override
+  final String hsnCode;
+  final List<GetMaterialModel> _materialList;
+  @override
+  List<GetMaterialModel> get materialList {
     if (_materialList is EqualUnmodifiableListView) return _materialList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_materialList);
@@ -1240,7 +1439,7 @@ class _$AddMaterialStateImpl implements _AddMaterialState {
 
   @override
   String toString() {
-    return 'AddMaterialState(state: $state, message: $message, projectId: $projectId, materialName: $materialName, quantity: $quantity, description: $description, unit: $unit, date: $date, materialList: $materialList, isUpdate: $isUpdate)';
+    return 'AddMaterialState(state: $state, message: $message, projectId: $projectId, materialName: $materialName, quantity: $quantity, description: $description, unit: $unit, date: $date, gst: $gst, pricePerUnit: $pricePerUnit, hsnCode: $hsnCode, materialList: $materialList, isUpdate: $isUpdate)';
   }
 
   @override
@@ -1260,6 +1459,10 @@ class _$AddMaterialStateImpl implements _AddMaterialState {
                 other.description == description) &&
             (identical(other.unit, unit) || other.unit == unit) &&
             (identical(other.date, date) || other.date == date) &&
+            (identical(other.gst, gst) || other.gst == gst) &&
+            (identical(other.pricePerUnit, pricePerUnit) ||
+                other.pricePerUnit == pricePerUnit) &&
+            (identical(other.hsnCode, hsnCode) || other.hsnCode == hsnCode) &&
             const DeepCollectionEquality()
                 .equals(other._materialList, _materialList) &&
             (identical(other.isUpdate, isUpdate) ||
@@ -1277,6 +1480,9 @@ class _$AddMaterialStateImpl implements _AddMaterialState {
       description,
       unit,
       date,
+      gst,
+      pricePerUnit,
+      hsnCode,
       const DeepCollectionEquality().hash(_materialList),
       isUpdate);
 
@@ -1300,7 +1506,10 @@ abstract class _AddMaterialState implements AddMaterialState {
       required final String description,
       required final String unit,
       required final String date,
-      required final List<MaterialModel> materialList,
+      required final String gst,
+      required final String pricePerUnit,
+      required final String hsnCode,
+      required final List<GetMaterialModel> materialList,
       required final bool isUpdate}) = _$AddMaterialStateImpl;
 
   @override
@@ -1320,7 +1529,13 @@ abstract class _AddMaterialState implements AddMaterialState {
   @override
   String get date;
   @override
-  List<MaterialModel> get materialList;
+  String get gst;
+  @override
+  String get pricePerUnit;
+  @override
+  String get hsnCode;
+  @override
+  List<GetMaterialModel> get materialList;
   @override
   bool get isUpdate;
 

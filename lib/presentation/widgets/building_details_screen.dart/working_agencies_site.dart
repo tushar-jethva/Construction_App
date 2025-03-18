@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
@@ -27,7 +28,7 @@ class WorkingAgenciesSite extends StatelessWidget {
       listener: (context, state) {
         if (state is SiteProgressAgencyUpdateSuccessState) {
           // Navigator.pop(context);
-          showTopSnackBar(context, "Agency updated successfully");
+          showTopSnackBar(context, "Agency updated successfully!", messageType: MessageType.done);
 
           context.read<SiteProgressAgencyUpdateBloc>().add(
               FetchAlreadySelectedAgencies(

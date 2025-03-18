@@ -51,11 +51,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
           final response =
               await repository.verifyOtp(email: state.email, otp: state.otp);
 
-          if (response) {
-            emit(state.copyWith(state1: RequestState.loaded));
-          } else {
-            emit(state.copyWith(state1: RequestState.error));
-          }
+          response.fold((l) {
+            emit(state.copyWith(state: RequestState.error, message: l.message));
+          }, (r) {
+            if (r) {
+              emit(state.copyWith(state1: RequestState.loaded));
+            } else {
+              emit(state.copyWith(state1: RequestState.error));
+            }
+          });
         },
         checkIsEmailExist: (_CheckIsEmailExist value) async {
           emit(state.copyWith(state: RequestState.loading));

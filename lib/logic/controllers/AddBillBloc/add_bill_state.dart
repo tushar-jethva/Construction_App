@@ -2,7 +2,7 @@
 part of 'add_bill_bloc.dart';
 
 class AddBillState {
-  final List<BillingPartyModel> selecteParty;
+  final List<AgencyModel> selecteParty;
   final bool isLoadingParties;
   final String partyValue;
   final DateTime date;
@@ -44,7 +44,7 @@ class AddBillState {
       this.otherDetailsMode});
 
   AddBillState copyWith({
-    List<BillingPartyModel>? selecteParty,
+    List<AgencyModel>? selecteParty,
     bool? isLoadingParties,
     String? partyValue,
     DateTime? date,

@@ -1,4 +1,5 @@
 import 'package:construction_mate/data/repository/material_repository.dart';
+import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -12,7 +13,7 @@ class MaterialUsecase {
     return materialRepository.addMaterial(model: model);
   }
 
-  Future<Either<Failure, List<MaterialModel>>> getMaterialList(
+  Future<Either<Failure, List<GetMaterialModel>>> getMaterialList(
       {required String projectId}) {
     return materialRepository.getMaterialList(projectId: projectId);
   }

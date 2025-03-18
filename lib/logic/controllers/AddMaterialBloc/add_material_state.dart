@@ -12,7 +12,10 @@ class AddMaterialState with _$AddMaterialState {
       required String description,
       required String unit,
       required String date,
-      required List<MaterialModel> materialList,
+      required String gst,
+      required String pricePerUnit,
+      required String hsnCode,
+      required List<GetMaterialModel> materialList,
       required bool isUpdate}) = _AddMaterialState;
 
   factory AddMaterialState.initial() => AddMaterialState(
@@ -24,6 +27,9 @@ class AddMaterialState with _$AddMaterialState {
       unit: "",
       description: "",
       date: DateTime.now().toString(),
+      gst: '',
+      hsnCode: '',
+      pricePerUnit: '',
       materialList: [],
       isUpdate:false);
 }

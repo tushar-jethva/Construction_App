@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
@@ -18,7 +19,7 @@ import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom
 import 'package:shimmer/shimmer.dart';
 
 class MyTransactionPartiesScreen extends StatefulWidget {
-  final TotalAgencyModel agency;
+  final AgencyModel agency;
   const MyTransactionPartiesScreen({super.key, required this.agency});
 
   @override

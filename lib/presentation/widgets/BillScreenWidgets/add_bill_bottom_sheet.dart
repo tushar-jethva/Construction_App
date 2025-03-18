@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
@@ -671,11 +672,13 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                 .read<BillingPartiesHomeBloc>()
                                 .add(BillingPartiesLoadEvent());
                             Navigator.of(context).pop();
-                            showTopSnackBar(context, "Bill added");
+                            showTopSnackBar(context, "Bill added successfully!",
+                                messageType: MessageType.done);
                           } else if (state.isAddedBill == 3) {
                             Navigator.of(context).pop();
-                            const TopSnackBar(
-                                message: "Something went wrong! Try again");
+                            showTopSnackBar(
+                                context, "Something went wrong! Try again",
+                                messageType: MessageType.error);
                           }
                         },
                         builder: (context, state) {

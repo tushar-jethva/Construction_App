@@ -3,7 +3,7 @@ part of 'payment_in_drop_down_bloc.dart';
 
 class PaymentInDropDownState {
   final String agencyDropDownValue;
-  final List<BillingPartyModel> agencies;
+  final List<AgencyModel> agencies;
   final DateTime date;
   PaymentInDropDownState({
     this.agencyDropDownValue = '',
@@ -13,7 +13,7 @@ class PaymentInDropDownState {
 
   PaymentInDropDownState copyWith({
     String? agencyDropDownValue,
-    List<BillingPartyModel>? agencies,
+    List<AgencyModel>? agencies,
     DateTime? date
   }) {
     return PaymentInDropDownState(

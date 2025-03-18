@@ -14,7 +14,7 @@ class API {
 
   //--------------------------- WorkType ------------------------------------------------------------------------------------
   static const GET_ALL_WORK_TYPES = "$BASE_URL/WorkType/GetWorkType";
-  static const GET_AGENCY_BY_WORK_TYPE = "$BASE_URL/Agency/GetAgency";
+  static const GET_AGENCY_BY_WORK_TYPE = "$BASE_URL/Partie/GetParties/worktype";
   static const GET_FLOORS_BY_WORK_TYPE =
       "$BASE_URL/Floor/GetSelectedStatusOfFloors";
 
@@ -36,8 +36,8 @@ class API {
   static const GET_FLOOR_BY_FLOOR_INDEX =
       "$BASE_URL/Floor/GetFloorByFloorIndex";
 
-  static const GET_AGENCY_FOR_DROPDOWN = "$BASE_URL/Agency/GetAgencyByBuilding";
-  static const GET_TOTAL_AGENCIES = "$BASE_URL/Agency/GetAgency";
+  static const GET_AGENCY_FOR_DROPDOWN = "$BASE_URL/Partie/GetPartieByBuilding";
+  static const GET_TOTAL_AGENCIES = "$BASE_URL/Partie/GetPartiesByType";
   static const GET_TRANSACTOIN_BY_AGENCY_ID =
       "$BASE_URL/Transaction/GetTransactionByAgency";
   static const GET_AGENCY_BY_PROJECT = "$BASE_URL/Agency/GetAgencyByProject";
@@ -50,10 +50,11 @@ class API {
   static const ADD_PAYMENT_IN = "$BASE_URL/Partie/PayIn";
   static const GET_TRANSACTION_BY_INDIVIDUAL_AGENCIES =
       "$BASE_URL/Transaction/GetTransactionByIndividualAgencyInProject";
-  static const ADD_BILLING_PARTY = "$BASE_URL/Partie/AddParties";
+  static const ADD_PARTY = "$BASE_URL/Partie/AddParties";
   static const ADD_BILL = "$BASE_URL/Bill/AddBill";
   static const GET_ALL_PARTIES = "$BASE_URL/Partie/GetParties";
-  static const GET_ALL_PARTIES_BY_PROJECT = "$BASE_URL/Partie/GetPartiesByProject";
+  static const GET_ALL_PARTIES_BY_PROJECT =
+      "$BASE_URL/Partie/GetInvestorPartiesByProject";
 
   static const GET_ALL_BILLS_BY_PARTY_ID = "$BASE_URL/Bill/GetBill";
 
@@ -85,4 +86,16 @@ class API {
   //------------- Profile -----------
   static const COMPLETE_PROFILE = "$BASE_URL/Company/CompleteProfile";
   static const GET_PROFILE = "$BASE_URL/Company/GetCompanyById";
+
+  //------------- Rental -----------
+  static const ADD_RENTAL = "$BASE_URL/Rental/AddRental";
+  static const GET_RENTAL_BY_PROJECT = "$BASE_URL/Rental/GetRental";
+  static const UPDATE_RENTAL = "$BASE_URL/Rental/UpdateRental";
+
+  //------------- Forgot Password-----------
+  static const FORGOT_PASSWORD_EMAIL =
+      "$BASE_URL/Company/ForgotPasswordSendOtp";
+  static const EMAIL_VERIFICATION = "$BASE_URL/Company/EmailVerify";
+  static const FORGOT_PASSWORD = "$BASE_URL/Company/ForgotPassword";
+  static const RESET_VERIFY_OTP = "$BASE_URL/Company/VerifyOtp";
 }

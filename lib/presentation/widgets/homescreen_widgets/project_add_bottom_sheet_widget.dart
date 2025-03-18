@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/project_data_source.dart';
@@ -142,10 +143,13 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                   if (state is ProjectAddSuccess) {
                     Navigator.pop(context);
                     widget.isUpdate == true
-                        ? const TopSnackBar(message: "Project updated!")
-                        : const TopSnackBar(message: "Project Added!");
+                        ? showTopSnackBar(context, "Project updated!",
+                            messageType: MessageType.done)
+                        : showTopSnackBar(context, "Project Added!",
+                            messageType: MessageType.done);
                   } else if (state is ProjectAddFailure) {
-                    "Something went wrong!".showToast(context: context);
+                    showTopSnackBar(context, "Something went wrong!",
+                        messageType: MessageType.error);
                   }
                 },
                 child: BlocBuilder<ProjectBloc, ProjectState>(

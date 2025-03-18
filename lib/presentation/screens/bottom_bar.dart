@@ -1,5 +1,6 @@
 import 'package:construction_mate/common/common_alery_message_dialog.dart';
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
@@ -291,7 +292,8 @@ Widget drawer({required BuildContext context}) {
                           context
                               .read<SignInBloc>()
                               .add(const SignInEvent.logout());
-                          const TopSnackBar(message: "Logout Successfully!");
+                          showTopSnackBar(context, "Logout Successfully!",
+                              messageType: MessageType.done);
                         },
                       );
                     });

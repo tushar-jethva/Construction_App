@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/agency_work_type_selection_model.dart';
 import 'package:construction_mate/logic/models/work_type_model.dart';
 import 'package:meta/meta.dart';
@@ -82,17 +83,19 @@ class AgencyWorkTypesSelectionBloc
 
     on<OnAddAgencyPartiesButtonPressed>((event, emit) async {
       emit(state.copyWith(isAddedAgency: 1));
-      await agencyRepository.addAgency(
+      AgencyModel agencyModel = AgencyModel(
           name: event.name,
           description: event.description,
-          workTypeIds: state.agencyWorkTypeSelectedList
+          workType: state.agencyWorkTypeSelectedList
               .where((element) => element.isSelected == true)
               .map((e) => e.sId!)
-              .toList());
+              .toList(),
+          agencyType: 'Labour');
+      await agencyRepository.addAgency(agencyModel: agencyModel);
       emit(state.copyWith(isAddedAgency: 2));
     });
 
-    on<OnMessageChanged>((event, emit)  {
+    on<OnMessageChanged>((event, emit) {
       print("----------------- state ${state.message}");
       emit(state.copyWith(message: event.message));
     });

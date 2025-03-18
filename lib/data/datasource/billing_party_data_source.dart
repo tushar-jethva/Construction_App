@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:construction_mate/core/constants/api.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
+import 'package:flutter/material.dart';
 
 abstract class BillingPartyDataSource {
   Future<void> addBillingParty(
@@ -14,10 +16,9 @@ abstract class BillingPartyDataSource {
       required String shippingAddress,
       required String billingAddress});
 
-  Future<List<BillingPartyModel>> getAllParties();
+  Future<List<AgencyModel>> getAllParties();
 
-  Future<List<BillingPartyModel>> getAllPartiesByProject(
-      {required String projectId});
+  Future<List<AgencyModel>> getAllPartiesByProject({required String projectId});
 }
 
 class BillingPartyImpl extends BillingPartyDataSource {
@@ -33,33 +34,39 @@ class BillingPartyImpl extends BillingPartyDataSource {
       required String shippingAddress,
       required String billingAddress}) async {
     try {
-      BillingPartyModel billingPartyModel = BillingPartyModel(
-          projectId: projectId,
+      AgencyModel billingPartyModel = AgencyModel(
+          projectId: ProjectId(sId: projectId),
           name: partyName,
-          gSTnumber: gstNo,
+          gSTNumber: gstNo,
           email: email,
           contactNumber: contactNo,
           shippingAddress: shippingAddress,
-          billingAddress: billingAddress);
+          billingAddress: billingAddress,
+          agencyType: 'Investor');
 
-      await dio.post(
-        API.ADD_BILLING_PARTY,
+      final res = await dio.post(
+        API.ADD_PARTY,
         data: jsonEncode(billingPartyModel.toJson()),
       );
+
+      debugPrint(
+          "===================================== res: ${res.data} =====================================");
     } catch (e) {
       print(e.toString());
     }
   }
 
   @override
-  Future<List<BillingPartyModel>> getAllParties() async {
-    List<BillingPartyModel> billingParties = [];
+  Future<List<AgencyModel>> getAllParties() async {
+    List<AgencyModel> billingParties = [];
     try {
       final res = await dio.get(API.GET_ALL_PARTIES);
 
       final parties = res.data;
+
+      debugPrint("=========== all parites ${parties} ========");
       for (var party in parties["data"]) {
-        billingParties.add(BillingPartyModel.fromJson2(party));
+        billingParties.add(AgencyModel.fromJson(party));
       }
     } catch (e) {
       print(e.toString());
@@ -68,15 +75,16 @@ class BillingPartyImpl extends BillingPartyDataSource {
   }
 
   @override
-  Future<List<BillingPartyModel>> getAllPartiesByProject(
+  Future<List<AgencyModel>> getAllPartiesByProject(
       {required String projectId}) async {
-    List<BillingPartyModel> billingParties = [];
+    List<AgencyModel> billingParties = [];
     try {
       final res = await dio.get("${API.GET_ALL_PARTIES_BY_PROJECT}/$projectId");
 
       final parties = res.data;
+
       for (var party in parties["data"]) {
-        billingParties.add(BillingPartyModel.fromJson2(party));
+        billingParties.add(AgencyModel.fromJson(party));
       }
     } catch (e) {
       print(e.toString());

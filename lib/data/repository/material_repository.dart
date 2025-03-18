@@ -1,4 +1,5 @@
 import 'package:construction_mate/data/datasource/material_data_source.dart';
+import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/utilities/error_handling/error_handler.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
@@ -8,7 +9,7 @@ import 'package:injectable/injectable.dart';
 abstract class MaterialRepository {
   Future<Either<Failure, String>> addMaterial({required MaterialModel model});
 
-  Future<Either<Failure, List<MaterialModel>>> getMaterialList(
+  Future<Either<Failure, List<GetMaterialModel>>> getMaterialList(
       {required String projectId});
 
   Future<Either<Failure, String>> updateMaterial(
@@ -25,7 +26,7 @@ class MaterialRepositoryImpl extends MaterialRepository {
   }
 
   @override
-  Future<Either<Failure, List<MaterialModel>>> getMaterialList(
+  Future<Either<Failure, List<GetMaterialModel>>> getMaterialList(
       {required String projectId}) {
     return handleErrors(() => dataSource.getMaterialList(projectId: projectId));
   }

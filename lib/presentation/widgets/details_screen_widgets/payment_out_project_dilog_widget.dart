@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
@@ -195,9 +196,10 @@ class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
                                 projectId: projectId));
                         context.read<TotalPaymentOutBloc>().add(
                             const TotalPaymentOutEvent.fetchTotalPayments());
-                        ReusableFunctions.showSnackBar(
-                            context: context,
-                            content: "Transaction Out add successfully!");
+                        showTopSnackBar(
+                            context, "Transaction added successfully!",
+                            messageType: MessageType.done);
+                       
                         Navigator.pop(context);
                       }
                     },

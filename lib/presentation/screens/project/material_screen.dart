@@ -2,6 +2,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/pop_up_menu_widget.dart';
@@ -33,7 +34,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
 
   openBottomSheetOfMaterial(
       {required BuildContext context,
-      required MaterialModel material,
+      required GetMaterialModel material,
       bool? isUpdate}) {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -74,9 +75,12 @@ class _MaterialScreenState extends State<MaterialScreen> {
                       itemBuilder: (context, index) {
                         return materialWidget(
                             theme,
-                            MaterialModel(
-                                materialName: "Helloo",
-                                quantity: "10",
+                            GetMaterialModel(
+                                name: "Helloo",
+                                priceperunit: 0,
+                                gst: 0,
+                                hsncode: "",
+                                quantity: 0,
                                 unit: "bags",
                                 description: "Description desctiptio ",
                                 date: DateTime.now().toString()));
@@ -106,7 +110,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
     );
   }
 
-  Widget materialWidget(ThemeData theme, MaterialModel material) {
+  Widget materialWidget(ThemeData theme, GetMaterialModel material) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -130,11 +134,11 @@ class _MaterialScreenState extends State<MaterialScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    material.materialName,
+                    material.name ?? '',
                     style: theme.textTheme.titleLarge?.copyWith(fontSize: 20),
                   ),
                   Text(
-                    material.description,
+                    material.description ?? '',
                     style: theme.textTheme.titleMedium?.copyWith(
                         fontSize: 14, color: const Color(0xff6B7580)),
                   ),
@@ -150,7 +154,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
                             ?.copyWith(fontSize: 14, color: theme.canvasColor),
                       ),
                       Text(
-                        material.quantity,
+                        (material.quantity ?? 0).toString(),
                         style: theme.textTheme.titleLarge
                             ?.copyWith(fontSize: 16, color: theme.canvasColor),
                       ),
@@ -158,7 +162,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
                   ),
                   10.wx,
                   Text(
-                    ReusableFunctions.getFormattedDate(material.date),
+                    ReusableFunctions.getFormattedDate(material.date ?? ''),
                     style: theme.textTheme.bodyMedium?.copyWith(color: gray500),
                   ),
                 ],

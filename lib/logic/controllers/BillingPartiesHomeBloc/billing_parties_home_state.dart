@@ -6,7 +6,7 @@ sealed class BillingPartiesHomeState {}
 final class BillingPartiesHomeLoading extends BillingPartiesHomeState {}
 
 final class BillingPartiesHomeLoaded extends BillingPartiesHomeState {
-  final List<BillingPartyModel> billingParties;
+  final List<AgencyModel> billingParties;
 
   BillingPartiesHomeLoaded({required this.billingParties});
 }

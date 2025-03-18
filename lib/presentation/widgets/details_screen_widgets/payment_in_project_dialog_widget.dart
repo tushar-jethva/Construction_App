@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
@@ -139,8 +140,8 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
                   BlocListener<ProjectPaymentInBloc, ProjectPaymentInState>(
                     listener: (context, state) {
                       if (state.state.isLoaded) {
-                        showTopSnackBar(context, "Transaction added");
-                        // "Transaction Added".showToast(context: context)
+                        showTopSnackBar(context, "Transaction added",
+                            messageType: MessageType.done);
                         context.read<PaymentTotalProjectBloc>().add(
                             PaymentTotalProjectEvent.fetchAllTotalPayments(
                                 projectId: projectId));

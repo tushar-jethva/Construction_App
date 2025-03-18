@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/api.dart';
+import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 import 'package:injectable/injectable.dart';
@@ -6,7 +7,7 @@ import 'package:injectable/injectable.dart';
 abstract class MaterialDataSource {
   Future<String> addMaterial({required MaterialModel model});
 
-  Future<List<MaterialModel>> getMaterialList({required String projectId});
+  Future<List<GetMaterialModel>> getMaterialList({required String projectId});
 
   Future<String> updateMaterial({required MaterialModel model});
 }
@@ -26,16 +27,16 @@ class MaterialDataSourceImpl extends MaterialDataSource {
   }
 
   @override
-  Future<List<MaterialModel>> getMaterialList(
+  Future<List<GetMaterialModel>> getMaterialList(
       {required String projectId}) async {
     try {
       final res = await dio.get("${API.GET_MATERIAL}/$projectId");
 
       final data = res.data;
-      List<MaterialModel> list = [];
+      List<GetMaterialModel> list = [];
 
       for (var material in data['data']) {
-        list.add(MaterialModel.fromMap(material));
+        list.add(GetMaterialModel.fromJson(material));
       }
 
       return list;

@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
@@ -11,7 +12,8 @@ import 'package:injectable/injectable.dart';
 
 abstract class AgencyRepository {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
-  Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId});
+  Future<List<AgencyModel>> getAgencyByBuildingId(
+      {required String buildingId, required String projectId});
 
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
@@ -34,13 +36,13 @@ abstract class AgencyRepository {
 
   Future<List<DropDownAgencyModel>> getWorkingAgenciesOnBuildingForDropDown(
       {required String buildingId, required String projectId});
-  Future<List<TotalAgencyModel>> getTotalAgencies();
+  Future<Either<Failure, List<AgencyModel>>> getTotalAgencies(
+      {required PartyType partyType});
   Future<Either<Failure, List<TotalAgencyModel>>> getAgencyByProject(
       {required String projectId});
-  Future<void> addAgency(
-      {required String name,
-      required String description,
-      required List<String> workTypeIds});
+  Future<Either<Failure, AgencyModel?>> addAgency({
+    required AgencyModel agencyModel,
+  });
 
   Future<List<DropDownAgencyModel>> getPaymentInAgency();
 }
@@ -106,11 +108,12 @@ class AgencyRepositoryImpl extends AgencyRepository {
   }
 
   @override
-  Future<List<AgencyModel>> getAgencyByBuildingId({required buildingId}) async {
+  Future<List<AgencyModel>> getAgencyByBuildingId(
+      {required buildingId, required String projectId}) async {
     List<AgencyModel> allAgencyByBuildingIdList = [];
     try {
-      allAgencyByBuildingIdList =
-          await agencyDataSource.getAgencyByBuildingId(buildingId: buildingId);
+      allAgencyByBuildingIdList = await agencyDataSource.getAgencyByBuildingId(
+          buildingId: buildingId, projectId: projectId);
     } catch (e) {
       print(e.toString());
     }
@@ -146,14 +149,10 @@ class AgencyRepositoryImpl extends AgencyRepository {
   }
 
   @override
-  Future<List<TotalAgencyModel>> getTotalAgencies() async {
-    List<TotalAgencyModel> totalAgenciesList = [];
-    try {
-      totalAgenciesList = await agencyDataSource.getTotalAgencies();
-    } catch (e) {
-      print(e.toString());
-    }
-    return totalAgenciesList;
+  Future<Either<Failure, List<AgencyModel>>> getTotalAgencies(
+      {required PartyType partyType}) async {
+    return handleErrors(
+        () => agencyDataSource.getTotalAgencies(partyType: partyType));
   }
 
   @override
@@ -164,16 +163,11 @@ class AgencyRepositoryImpl extends AgencyRepository {
   }
 
   @override
-  Future<void> addAgency(
-      {required String name,
-      required String description,
-      required List<String> workTypeIds}) async {
-    try {
-      await agencyDataSource.addAgency(
-          name: name, description: description, workTypeIds: workTypeIds);
-    } catch (e) {
-      print(e.toString());
-    }
+  Future<Either<Failure, AgencyModel?>> addAgency({
+    required AgencyModel agencyModel,
+  }) async {
+    return handleErrors(
+        () => agencyDataSource.addAgency(agencyModel: agencyModel));
   }
 
   @override

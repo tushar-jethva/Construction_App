@@ -1,5 +1,6 @@
 import 'package:construction_mate/common/enter_otp_widget.dart';
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
@@ -53,6 +54,7 @@ class SignUpStep2 extends StatelessWidget {
                             textFieldType: TextFieldType.custom,
                             customvalidation: "Please enter company name",
                             hintText: "Company Name",
+                            textInputAction: TextInputAction.next,
                             onChanged: (value) {
                               context
                                   .read<SignUpBloc>()
@@ -65,6 +67,7 @@ class SignUpStep2 extends StatelessWidget {
                             textInputType: TextInputType.emailAddress,
                             textFieldType: TextFieldType.email,
                             hintText: "Email",
+                            textInputAction: TextInputAction.next,
                             onChanged: (value) {
                               context
                                   .read<SignUpBloc>()
@@ -82,7 +85,8 @@ class SignUpStep2 extends StatelessWidget {
                                 if (state.screenState == 0) {
                                   context.pushNamed(RoutesName.signInScreen);
                                   showTopSnackBar(context,
-                                      "Already have an account! Please login.");
+                                      "Already have an account! Please login.",
+                                      messageType: MessageType.warning);
                                 } else if (state.screenState == 1) {
                                   context.read<SignUpBloc>().add(
                                       const SignUpEvent.onIsVerifiedChanged(
@@ -108,7 +112,8 @@ class SignUpStep2 extends StatelessWidget {
                                   }
                                 } else if (state.state.isError) {
                                   showTopSnackBar(
-                                      context, "Something went wrong!");
+                                      context, "Something went wrong!",
+                                      messageType: MessageType.error);
                                 }
                               }
                             },
@@ -117,11 +122,13 @@ class SignUpStep2 extends StatelessWidget {
                                 onTap: () {
                                   if (state.email.isEmpty) {
                                     showTopSnackBar(
-                                        context, "Please enter email!");
+                                        context, "Please enter email!",
+                                        messageType: MessageType.warning);
                                   } else if (!ReusableFunctions.isEmailValid(
                                       email: state.email)) {
                                     showTopSnackBar(
-                                        context, "Please enter valid email!");
+                                        context, "Please enter valid email!",
+                                        messageType: MessageType.warning);
                                   } else {
                                     context.read<SignUpBloc>().add(
                                         const SignUpEvent.checkIsEmailExist());
@@ -185,6 +192,7 @@ class SignUpStep2 extends StatelessWidget {
                               textFieldType: TextFieldType.password,
                               obscureText: state.isPasswordShow,
                               hintText: "Password",
+                              textInputAction: TextInputAction.next,
                               maxLines: 1,
                               suffixIcon: GestureDetector(
                                 onTap: () {
@@ -211,6 +219,7 @@ class SignUpStep2 extends StatelessWidget {
                                 textInputType: TextInputType.text,
                                 textFieldType: TextFieldType.password,
                                 hintText: "Confirm Password",
+                                textInputAction: TextInputAction.next,
                                 maxLines: 1,
                                 obscureText: state.isConfPasswordShow,
                                 suffixIcon: GestureDetector(
@@ -246,10 +255,9 @@ class SignUpStep2 extends StatelessWidget {
                                         state.isVerified) {
                                       if (state.password !=
                                           state.confirmPassword) {
-                                        ReusableFunctions.showSnackBar(
-                                            context: context,
-                                            content:
-                                                "Password and confirm password must be same!");
+                                        showTopSnackBar(context,
+                                            "Password and Confirm password must be same!",
+                                            messageType: MessageType.error);
                                       } else {
                                         context
                                             .read<SignUpBloc>()

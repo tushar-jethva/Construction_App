@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                             if (state.selectedFloorList[index].isCompleted!) {
                               return GestureDetector(
                                 onTap: () {
-                                  showTopSnackBar(context, "Already given");
+                                  showTopSnackBar(context, "Floor is already assigned!", messageType: MessageType.warning);
                                 },
                                 child: Container(
                                   alignment: Alignment.center,

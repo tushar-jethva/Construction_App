@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
@@ -185,10 +186,10 @@ class _MyBuildingAddBottomSheetWidgetState
                         IconButton(
                             onPressed: () {
                               if (_floorController.text.isEmpty) {
-                                showTopSnackBar(context, "Please enter floors");
+                                showTopSnackBar(context, "Please enter floor number!", messageType: MessageType.error);
                               } else if (_unitPerFootController.text.isEmpty) {
                                 showTopSnackBar(
-                                    context, "Please enter unit per floor");
+                                    context, "Please enter unit per floor", messageType: MessageType.error);
                               } else {
                                 context.push(RoutesName.footAndFloorScreen,
                                     extra:
@@ -224,7 +225,7 @@ class _MyBuildingAddBottomSheetWidgetState
                 listener: (context, state) {
                   if (state is BuildingAddSuccess) {
                     Navigator.pop(context);
-                    showTopSnackBar(context, "Building added");
+                    showTopSnackBar(context, "Building added", messageType: MessageType.done);
                   }
                 },
                 child: BlocBuilder<BuildingsBloc, BuildingsState>(

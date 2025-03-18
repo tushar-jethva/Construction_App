@@ -9,7 +9,7 @@ class ProjectPaymentInState with _$ProjectPaymentInState {
     required String agencyDropDownValue,
     required String paymentIn,
     required String description,
-  required List<BillingPartyModel> agencies
+  required List<AgencyModel> agencies
 
   }) = _ProjectPaymentInState;
   factory ProjectPaymentInState.initial() => const ProjectPaymentInState(

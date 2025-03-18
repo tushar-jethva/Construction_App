@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
@@ -208,13 +209,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             // TODO: implement listener
 
             if (state.state.isLoaded) {
-              showTopSnackBar(context, "Profile Updated");
+              showTopSnackBar(context, "Profile Updated",
+                  messageType: MessageType.done);
               context
                   .read<UserWatcherBloc>()
                   .add(const UserWatcherEvent.fetchProfile());
             } else if (state.state.isError) {
-              showTopSnackBar(context, "Something went wrong! Try again");
-              showTopSnackBar(context, "Something went wrong!");
+              showTopSnackBar(context, "Something went wrong! Try again",
+                  messageType: MessageType.error);
             }
           },
           builder: (context, state) {

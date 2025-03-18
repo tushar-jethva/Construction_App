@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
 import 'package:construction_mate/data/repository/bills_repository.dart';
 import 'package:construction_mate/logic/models/Other_Details_Bill_Model.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
 import 'package:injectable/injectable.dart';
@@ -11,10 +13,9 @@ part 'add_bill_state.dart';
 
 @singleton
 class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
-  final BillingPartyRepository billingPartyRepository;
+  final AgencyRepository agencyRepository;
   final BillsRepository billsRepository;
-  AddBillBloc(
-      {required this.billingPartyRepository, required this.billsRepository})
+  AddBillBloc({required this.agencyRepository, required this.billsRepository})
       : super(AddBillState(date: DateTime.now())) {
     on<BillItemAddedEvent>((event, emit) {
       List<BillItemModel> listOfBillItems = List.from(state.billItems)
@@ -66,15 +67,17 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
             isLoadingParties: false,
             partyValue: state.partyValue,
             isAddedBill: 0));
-        List<BillingPartyModel> parties =
-            await billingPartyRepository.getAllParties();
-        parties.insert(
-            0, BillingPartyModel(name: "--Select Party--", sId: "0"));
-        emit(state.copyWith(
-            selecteParty: parties,
-            isLoadingParties: true,
-            partyValue: state.partyValue,
-            isAddedBill: 0));
+        final res = await agencyRepository.getTotalAgencies(
+            partyType: PartyType.BillingParty);
+
+        res.fold((l) {}, (parties) {
+          parties.insert(0, AgencyModel(name: "--Select Party--", sId: "0"));
+          emit(state.copyWith(
+              selecteParty: parties,
+              isLoadingParties: true,
+              partyValue: state.partyValue,
+              isAddedBill: 0));
+        });
       } catch (e) {}
     });
     on<BillPartyNameChanged>((event, emit) {

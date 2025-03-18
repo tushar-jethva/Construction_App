@@ -26,7 +26,9 @@ class SubscriptionScreen extends StatelessWidget {
         surfaceTintColor: transparent,
         leading: IconButton(
             onPressed: () {
-              context.pop();
+              isExpired
+                  ? context.goNamed(RoutesName.signInScreen)
+                  : context.pop();
             },
             icon: Icon(
               Icons.arrow_back_ios_new,

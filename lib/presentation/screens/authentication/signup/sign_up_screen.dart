@@ -1,5 +1,6 @@
 import 'package:construction_mate/common/enter_otp_widget.dart';
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
@@ -64,9 +65,9 @@ class SignUpScreen extends StatelessWidget {
                           if (state.state.isLoaded) {
                             if (state.screenState == 0) {
                               context.pushNamed(RoutesName.signInScreen);
-                              const TopSnackBar(
-                                  message:
-                                      "Already have an account! Please login.");
+                              showTopSnackBar(context,
+                                  "Already have an account! Please login.",
+                                  messageType: MessageType.warning);
                             } else if (state.screenState == 1) {
                               context.goNamed(RoutesName.signUpScreen2);
                             } else if (state.screenState == 2) {

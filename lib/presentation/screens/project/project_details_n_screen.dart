@@ -1,17 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_suppliers/get_rental_suppliers_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
 import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/screens/project/building_screen.dart';
 import 'package:construction_mate/presentation/screens/project/material_screen.dart';
 import 'package:construction_mate/presentation/screens/project/parties_screen.dart';
+import 'package:construction_mate/presentation/screens/project/rent/rent_screen.dart';
 import 'package:construction_mate/presentation/screens/project/transaction_screen.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/payment_in_project_dialog_widget.dart';
@@ -67,6 +72,18 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
     context.read<AddMaterialBloc>().add(AddMaterialEvent.fetchAllMaterial(
         projectId: widget.projectModel.sId ?? ""));
 
+    context.read<AddRentalProductBloc>().add(
+        AddRentalProductEvent.fetchAllRental(
+            projectId: widget.projectModel.sId ?? ""));
+
+    context
+        .read<MaterialAgenciesBloc>()
+        .add(const MaterialAgenciesEvent.fetchMaterialAgencies());
+
+    context
+        .read<GetRentalSuppliersBloc>()
+        .add(const GetRentalSuppliersEvent.fetchRentalSuppliers());
+
     context.read<TransactionBuildingBloc>().add(
         FetchAllTransactionByProjectId(projectId: widget.projectModel.sId!));
 
@@ -74,7 +91,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         ProjectPaymentInEvent.fetchAgencies(
             projectId: widget.projectModel.sId ?? ''));
 
-    _tabController = TabController(length: 4, vsync: this, initialIndex: 1);
+    _tabController = TabController(length: 5, vsync: this, initialIndex: 1);
     _tabController.addListener(() {
       context
           .read<MenuBloc>()
@@ -259,8 +276,14 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                           )),
                           Tab(
                               child: MenuWidget(
-                            name: "Transaction",
+                            name: "Rental",
                             index: 3,
+                            tabController: _tabController,
+                          )),
+                          Tab(
+                              child: MenuWidget(
+                            name: "Transaction",
+                            index: 4,
                             tabController: _tabController,
                           )),
                         ],
@@ -279,6 +302,9 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                               scrollController: scrollController,
                             ),
                             MaterialScreen(
+                                project: widget.projectModel,
+                                scrollController: scrollController),
+                            RentalScreen(
                                 project: widget.projectModel,
                                 scrollController: scrollController),
                             MyTransactionScreen(

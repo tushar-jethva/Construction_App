@@ -1070,7 +1070,7 @@ mixin _$ProjectPaymentInState {
   String get agencyDropDownValue => throw _privateConstructorUsedError;
   String get paymentIn => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  List<BillingPartyModel> get agencies => throw _privateConstructorUsedError;
+  List<AgencyModel> get agencies => throw _privateConstructorUsedError;
 
   /// Create a copy of ProjectPaymentInState
   /// with the given fields replaced by the non-null parameter values.
@@ -1092,7 +1092,7 @@ abstract class $ProjectPaymentInStateCopyWith<$Res> {
       String agencyDropDownValue,
       String paymentIn,
       String description,
-      List<BillingPartyModel> agencies});
+      List<AgencyModel> agencies});
 }
 
 /// @nodoc
@@ -1147,7 +1147,7 @@ class _$ProjectPaymentInStateCopyWithImpl<$Res,
       agencies: null == agencies
           ? _value.agencies
           : agencies // ignore: cast_nullable_to_non_nullable
-              as List<BillingPartyModel>,
+              as List<AgencyModel>,
     ) as $Val);
   }
 }
@@ -1168,7 +1168,7 @@ abstract class _$$ProjectPaymentInStateImplCopyWith<$Res>
       String agencyDropDownValue,
       String paymentIn,
       String description,
-      List<BillingPartyModel> agencies});
+      List<AgencyModel> agencies});
 }
 
 /// @nodoc
@@ -1221,7 +1221,7 @@ class __$$ProjectPaymentInStateImplCopyWithImpl<$Res>
       agencies: null == agencies
           ? _value._agencies
           : agencies // ignore: cast_nullable_to_non_nullable
-              as List<BillingPartyModel>,
+              as List<AgencyModel>,
     ));
   }
 }
@@ -1236,7 +1236,7 @@ class _$ProjectPaymentInStateImpl implements _ProjectPaymentInState {
       required this.agencyDropDownValue,
       required this.paymentIn,
       required this.description,
-      required final List<BillingPartyModel> agencies})
+      required final List<AgencyModel> agencies})
       : _agencies = agencies;
 
   @override
@@ -1251,9 +1251,9 @@ class _$ProjectPaymentInStateImpl implements _ProjectPaymentInState {
   final String paymentIn;
   @override
   final String description;
-  final List<BillingPartyModel> _agencies;
+  final List<AgencyModel> _agencies;
   @override
-  List<BillingPartyModel> get agencies {
+  List<AgencyModel> get agencies {
     if (_agencies is EqualUnmodifiableListView) return _agencies;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_agencies);
@@ -1305,14 +1305,13 @@ class _$ProjectPaymentInStateImpl implements _ProjectPaymentInState {
 
 abstract class _ProjectPaymentInState implements ProjectPaymentInState {
   const factory _ProjectPaymentInState(
-          {required final RequestState state,
-          required final RequestState agencyState,
-          required final String message,
-          required final String agencyDropDownValue,
-          required final String paymentIn,
-          required final String description,
-          required final List<BillingPartyModel> agencies}) =
-      _$ProjectPaymentInStateImpl;
+      {required final RequestState state,
+      required final RequestState agencyState,
+      required final String message,
+      required final String agencyDropDownValue,
+      required final String paymentIn,
+      required final String description,
+      required final List<AgencyModel> agencies}) = _$ProjectPaymentInStateImpl;
 
   @override
   RequestState get state;
@@ -1327,7 +1326,7 @@ abstract class _ProjectPaymentInState implements ProjectPaymentInState {
   @override
   String get description;
   @override
-  List<BillingPartyModel> get agencies;
+  List<AgencyModel> get agencies;
 
   /// Create a copy of ProjectPaymentInState
   /// with the given fields replaced by the non-null parameter values.

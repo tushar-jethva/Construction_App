@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
@@ -90,11 +91,12 @@ class SignInScreen extends StatelessWidget {
                           listener: (context, state) {
                             if (state.state.isLoaded) {
                               context.replace(RoutesName.bottomBar);
-                              const TopSnackBar(message: "Login successful");
+                              showTopSnackBar(context, "Login successful",
+                                  messageType: MessageType.done);
                             } else if (state.state.isError) {
                               showTopSnackBar(
                                   context, "Email or Password is wrong!",
-                                  backgroundColor: red);
+                                  messageType: MessageType.error);
                             }
                           },
                           builder: (context, state) {
@@ -114,22 +116,58 @@ class SignInScreen extends StatelessWidget {
                             );
                           },
                         ),
-                        5.hx,
+                        20.hx,
+                        GestureDetector(
+                          onTap: () {
+                            context
+                                .pushNamed(RoutesName.FORGOT_EMAIL_SCREEN_NAME);
+                          },
+                          child: Text(
+                            "FORGOT PASSWORD",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                    color: Color(0xff6B7580), fontSize: 14),
+                          ),
+                        ),
+                        20.hx,
+                        Text(
+                          "OR",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                  color: Color(0xff242D35), fontSize: 14),
+                        ),
+                        20.hx,
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text("Don't hava an account?"),
+                            Text(
+                              "Don't hava an account?",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.copyWith(
+                                      color: const Color(0xff242D35),
+                                      fontSize: 16),
+                            ),
                             5.wx,
                             InkWell(
                               onTap: () {
                                 context.goNamed(RoutesName.signUpScreen2);
                               },
                               child: Text(
-                                "Sign Up",
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: purple,
-                                    decorationColor: purple),
+                                "Register Here",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                        color: purple,
+                                        fontSize: 16,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: purple),
                               ),
                             )
                           ],

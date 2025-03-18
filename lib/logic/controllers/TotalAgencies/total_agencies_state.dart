@@ -6,7 +6,7 @@ sealed class TotalAgenciesState {}
 final class TotalAgenciesInitial extends TotalAgenciesState {}
 
 final class TotalAgenciesLoadSuccess extends TotalAgenciesState {
-  final List<TotalAgencyModel> totalAgencies;
+  final List<AgencyModel> totalAgencies;
   TotalAgenciesLoadSuccess({required this.totalAgencies});
 }
 

@@ -24,9 +24,25 @@ class RoutesName {
   static String otherExpensesScreen = "/otherExpensesScreen";
   static String editProfileScreen = "/editProfileScreen";
 
-  //contact us
+  ///============================================================================
+  ///=============== Parties ====================================================
+  ///============================================================================
+
+  //add party particular
   static String ADD_PARTICULAR_PARTY_SCREEN_PATH = "/addPartyParticulara";
   static String ADD_PARTICULAR_PARTY_SCREEN_NAME = "/addPartyParticulara";
+
+  //Add Billing Party
+  static String ADD_BILLING_PARTY_SCREEN_PATH = "/addBillingParty";
+  static String ADD_BILLING_PARTY_SCREEN_NAME = "/addBillingParty";
+
+  //Add Material Party
+  static String ADD_MATERIAL_PARTY_SCREEN_PATH = "/addMaterialParty";
+  static String ADD_MATERIAL_PARTY_SCREEN_NAME = "/addMaterialParty";
+
+  //Add Rent Party
+  static String ADD_RENT_PARTY_SCREEN_PATH = "/addRentParty";
+  static String ADD_RENT_PARTY_SCREEN_NAME = "/addRentParty";
 
   //New details screen
   static String NEW_DETAIL_SCREEN_PATH = "/newDetails";
@@ -39,4 +55,12 @@ class RoutesName {
   //contact us
   static String CONTACT_US_SCREEN_PATH = "/contactUs";
   static String CONTACT_US_SCREEN_NAME = "/contactUs";
+
+  //Forgot email screen
+  static String FORGOT_EMAIL_SCREEN_PATH = "/forgotEmail";
+  static String FORGOT_EMAIL_SCREEN_NAME = "/forgotEmail";
+
+  //New password screen
+  static String NEW_PASSWORD_SCREEN_PATH = "/newPassword";
+  static String NEW_PASSWORD_SCREEN_NAME = "/newPassword";
 }

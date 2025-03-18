@@ -1,5 +1,7 @@
 import 'package:construction_mate/data/datasource/billing_party_data_source.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class BillingPartyRepository {
@@ -12,13 +14,12 @@ abstract class BillingPartyRepository {
       required String shippingAddress,
       required String billingAddress});
 
-  Future<List<BillingPartyModel>> getAllParties();
+  Future<List<AgencyModel>> getAllParties();
 
-  Future<List<BillingPartyModel>> getAllPartiesByProject({required String projectId});
-
+  Future<List<AgencyModel>> getAllPartiesByProject({required String projectId});
 }
 
-@LazySingleton(as:BillingPartyRepository)
+@LazySingleton(as: BillingPartyRepository)
 class BillingRepositoryImpl extends BillingPartyRepository {
   final BillingPartyDataSource billingPartyDataSource = BillingPartyImpl();
   @override
@@ -31,7 +32,7 @@ class BillingRepositoryImpl extends BillingPartyRepository {
       required String shippingAddress,
       required String billingAddress}) async {
     try {
-     await billingPartyDataSource.addBillingParty(
+      await billingPartyDataSource.addBillingParty(
           projectId: projectId,
           partyName: partyName,
           gstNo: gstNo,
@@ -45,8 +46,8 @@ class BillingRepositoryImpl extends BillingPartyRepository {
   }
 
   @override
-  Future<List<BillingPartyModel>> getAllParties() async {
-    List<BillingPartyModel> billingItems = [];
+  Future<List<AgencyModel>> getAllParties() async {
+    List<AgencyModel> billingItems = [];
     try {
       billingItems = await billingPartyDataSource.getAllParties();
     } catch (e) {
@@ -56,10 +57,14 @@ class BillingRepositoryImpl extends BillingPartyRepository {
   }
 
   @override
-  Future<List<BillingPartyModel>> getAllPartiesByProject({required String projectId}) async{
-     List<BillingPartyModel> billingItems = [];
+  Future<List<AgencyModel>> getAllPartiesByProject(
+      {required String projectId}) async {
+    List<AgencyModel> billingItems = [];
     try {
-      billingItems = await billingPartyDataSource.getAllPartiesByProject(projectId: projectId);
+      billingItems = await billingPartyDataSource.getAllPartiesByProject(
+          projectId: projectId);
+
+      debugPrint("============ listin repository $billingItems ==============");
     } catch (e) {
       print(e.toString());
     }

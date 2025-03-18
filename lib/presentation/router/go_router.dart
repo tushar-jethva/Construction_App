@@ -17,6 +17,8 @@ import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_an
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionIndividualAgency/transactions_individual_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/FloorNameAndFeet/floor_name_and_feet_bloc.dart';
+import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_eye_bloc.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
@@ -24,6 +26,8 @@ import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
+import 'package:construction_mate/presentation/screens/authentication/forgot_password/forgot_email_screen.dart';
+import 'package:construction_mate/presentation/screens/authentication/forgot_password/new_password_screen.dart';
 import 'package:construction_mate/presentation/screens/authentication/signin/sign_in_screen.dart';
 import 'package:construction_mate/presentation/screens/authentication/signup/sign_up_screen.dart';
 import 'package:construction_mate/presentation/screens/authentication/signup/widgets/sign_up_step_2.dart';
@@ -33,8 +37,10 @@ import 'package:construction_mate/presentation/screens/bills/pdf_preview.dart';
 import 'package:construction_mate/presentation/screens/bills/sheet_view_screen.dart';
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/onboard/onboard_step1.dart';
+import 'package:construction_mate/presentation/screens/parties/material_party/material_party_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
+import 'package:construction_mate/presentation/screens/parties/rent_party/rent_party_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/widget/add_particular_party_screen.dart';
 import 'package:construction_mate/presentation/screens/profile/edit_profile/edit_profile_screen.dart';
 import 'package:construction_mate/presentation/screens/profile/gst/gst_screen.dart';
@@ -49,6 +55,7 @@ import 'package:construction_mate/presentation/screens/project/working_agency_de
 import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:construction_mate/presentation/screens/subscription/contact_us_screen.dart';
 import 'package:construction_mate/presentation/screens/subscription/subscription_screen.dart';
+import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_billing_party_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/floors_and_foot_screen.dart';
 import 'package:flutter/material.dart';
@@ -75,20 +82,59 @@ class Routes {
         GoRoute(
           path: RoutesName.signUpScreen,
           name: RoutesName.signUpScreen,
-          builder: (contex, state) => SignUpScreen(),
+          builder: (contex, state) {
+            contex
+                .read<VisibilityEyeBloc>()
+                .add(const VisibilityEyeEvent.initialize());
+            return SignUpScreen();
+          },
         ),
         GoRoute(
           path: RoutesName.signUpScreen2,
           name: RoutesName.signUpScreen2,
           builder: (contex, state) {
-            contex.read<SignUpBloc>().add(SignUpEvent.initial());
+            contex
+                .read<VisibilityEyeBloc>()
+                .add(const VisibilityEyeEvent.initialize());
+            contex.read<SignUpBloc>().add(const SignUpEvent.initial());
             return const SignUpStep2();
           },
         ),
         GoRoute(
           path: RoutesName.signInScreen,
           name: RoutesName.signInScreen,
-          builder: (contex, state) => SignInScreen(),
+          builder: (contex, state) {
+            contex
+                .read<VisibilityEyeBloc>()
+                .add(const VisibilityEyeEvent.initialize());
+            return SignInScreen();
+          },
+        ),
+
+        ///-----------------------------------------------------------
+        ///--------------- Forgot Email
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.FORGOT_EMAIL_SCREEN_NAME,
+          name: RoutesName.FORGOT_EMAIL_SCREEN_PATH,
+          builder: (context, state) {
+            return ForgotEmailScreen();
+          },
+        ),
+
+        ///-----------------------------------------------------------
+        ///--------------- New Password
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.NEW_PASSWORD_SCREEN_NAME,
+          name: RoutesName.NEW_PASSWORD_SCREEN_PATH,
+          builder: (context, state) {
+            context
+                .read<VisibilityEyeBloc>()
+                .add(const VisibilityEyeEvent.initialize());
+                
+            return NewPasswordScreen();
+          },
         ),
         GoRoute(
           path: RoutesName.bottomBar,
@@ -182,8 +228,7 @@ class Routes {
           path: RoutesName.transactionOfAgencyPartiesScreen,
           name: RoutesName.transactionOfAgencyPartiesScreen,
           builder: (context, state) {
-            final TotalAgencyModel totalAgencyModel =
-                state.extra as TotalAgencyModel;
+            final AgencyModel totalAgencyModel = state.extra as AgencyModel;
             return BlocProvider(
               create: (context) => TransactionByAgencyBloc(
                   transactionRepository: TransactionRepositoryImpl(
@@ -331,6 +376,39 @@ class Routes {
           name: RoutesName.ADD_PARTICULAR_PARTY_SCREEN_NAME,
           builder: (context, state) {
             return const AddParticularPartyScreen();
+          },
+        ),
+
+        ///-----------------------------------------------------------
+        ///--------------- Add Billing Party
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.ADD_BILLING_PARTY_SCREEN_NAME,
+          name: RoutesName.ADD_BILLING_PARTY_SCREEN_PATH,
+          builder: (context, state) {
+            return const MyAddBillingPartyBottomSheet();
+          },
+        ),
+
+        ///-----------------------------------------------------------
+        ///--------------- Add Material Party
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.ADD_MATERIAL_PARTY_SCREEN_NAME,
+          name: RoutesName.ADD_MATERIAL_PARTY_SCREEN_PATH,
+          builder: (context, state) {
+            return const MyMaterialPartyBottomSheet();
+          },
+        ),
+
+        ///-----------------------------------------------------------
+        ///--------------- Add Rent Party
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.ADD_RENT_PARTY_SCREEN_NAME,
+          name: RoutesName.ADD_RENT_PARTY_SCREEN_PATH,
+          builder: (context, state) {
+            return const MyRentPartyScreen();
           },
         ),
         GoRoute(

@@ -2,7 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -22,11 +24,13 @@ class ProjectPaymentInBloc
         },
         fetchAgencies: (_FetchAgencies value) async {
           emit(state.copyWith(agencyState: RequestState.loading));
+
+          debugPrint("--- in in bloc");
           final agencies = await billingPartyRepository.getAllPartiesByProject(
               projectId: value.projectId);
-          print(agencies);
-          agencies.insert(
-              0, BillingPartyModel(name: "--Select Agency--", sId: '0'));
+
+          debugPrint('========== investor projects $agencies ==========');
+          agencies.insert(0, AgencyModel(name: "--Select Agency--", sId: '0'));
           emit(state.copyWith(
               agencyState: RequestState.loaded, agencies: agencies));
         },

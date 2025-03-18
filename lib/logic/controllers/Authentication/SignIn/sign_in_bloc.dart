@@ -32,7 +32,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         },
         loginUser: (_LoginUser value) async {
           emit(state.copyWith(state: RequestState.loading));
-          print("--------- in bloc ${state.email} ${state.password}");
 
           final token = await authenticationRepository.signIn(
               email: state.email, password: state.password);

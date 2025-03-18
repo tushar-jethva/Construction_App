@@ -10,6 +10,7 @@ import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkTypeSelection/agency_work_types_selection_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/presentation/screens/parties/widget/add_all_parties_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
@@ -174,7 +175,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
     );
   }
 
-  Padding agenyOneWidget(ThemeData theme, TotalAgencyModel agency, int index) {
+  Padding agenyOneWidget(ThemeData theme, AgencyModel agency, int index) {
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
       child: Container(

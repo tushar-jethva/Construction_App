@@ -1,4 +1,5 @@
 import 'package:construction_mate/common/enter_otp_dialog.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class EnterOptwidget extends StatelessWidget {
 
           // context.goNamed(RoutesName.signUpScreen2);
         } else if (state.state1.isError) {
-          showTopSnackBar(context, "Wrong OTP!");
+          showTopSnackBar(context, "Wrong OTP!", messageType: MessageType.error);
         }
       },
       builder: (context, state) {
@@ -39,7 +40,7 @@ class EnterOptwidget extends StatelessWidget {
           theme: Theme.of(context),
           onVerifyTap: () {
             if (state.otp.isEmpty) {
-              showTopSnackBar(context, "Please Enter otp!");
+              showTopSnackBar(context, "Please Enter otp!", messageType: MessageType.warning);
             } else {
               context.read<SignUpBloc>().add(const SignUpEvent.verifyOtp());
             }
