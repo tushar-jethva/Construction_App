@@ -1,19 +1,31 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/get_rental_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/logic/models/project_partie_model.dart';
+import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/presentation/screens/project/rent/rental_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/pop_up_menu_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+
+import '../../../widgets/common/common_icon_circle_widget.dart';
 
 class RentalScreen extends StatefulWidget {
   final ProjectModel project;
@@ -35,26 +47,26 @@ class _RentalScreenState extends State<RentalScreen> {
     //     AddMaterialEvent.fetchAllMaterial(projectId: widget.project.sId ?? ""));
   }
 
-  openBottomSheetOfMaterial(
-      {required BuildContext context,
-      required RentalModel material,
-      bool? isUpdate}) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        showDragHandle: true,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        context: context,
-        builder: (context) {
-          return BlocProvider(
-            create: (context) => DateBlocBloc(),
-            child: MyRentalAddBottomSheet(
-              projectId: widget.project.sId ?? "",
-              material: material,
-              isUpdate: isUpdate,
-            ),
-          );
-        });
-  }
+  // openBottomSheetOfMaterial(
+  //     {required BuildContext context,
+  //     required RentalModel material,
+  //     bool? isUpdate}) {
+  //   showModalBottomSheet(
+  //       isScrollControlled: true,
+  //       showDragHandle: true,
+  //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+  //       context: context,
+  //       builder: (context) {
+  //         return BlocProvider(
+  //           create: (context) => DateBlocBloc(),
+  //           child: MyRentalAddBottomSheet(
+  //             projectId: widget.project.sId ?? "",
+  //             material: material,
+  //             isUpdate: isUpdate,
+  //           ),
+  //         );
+  //       });
+  // }
 
   Future<void> onRefresh() async {
     context.read<AddRentalProductBloc>().add(
@@ -68,7 +80,8 @@ class _RentalScreenState extends State<RentalScreen> {
     return RefreshIndicator(
       onRefresh: onRefresh,
       color: purple,
-      child: BlocBuilder<AddRentalProductBloc, AddRentalProductState>(
+      child:
+          BlocBuilder<GetRentalPartieProjectBloc, GetRentalPartieProjectState>(
         builder: (context, state) {
           return state.state.isLoading
               ? Skeletonizer(
@@ -77,102 +90,142 @@ class _RentalScreenState extends State<RentalScreen> {
                       itemCount: 5,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return materialWidget(
+                        return agenyOneWidget(
                             theme,
-                            RentalModel(
-                                name: "Helloo",
-                                priceperunit: 0,
-                                quantity: 0,
-                                unit: "bags",
-                                description: "Description desctiptio ",
-                                date: DateTime.now().toString()));
+                            ProjectPartieModel(
+                              name: "Helloo",
+                            ),
+                            0);
                       }))
-              : state.rentalList.isNotEmpty
+              : state.rentalParties.isNotEmpty
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height * 0.73,
                       child: ListView.builder(
-                          itemCount: state.rentalList.length,
+                          itemCount: state.rentalParties.length,
                           controller: widget.scrollController,
                           itemBuilder: (context, index) {
-                            final material = state.rentalList[index];
-                            return materialWidget(theme, material);
+                            final material = state.rentalParties[index];
+                            return GestureDetector(
+                                onTap: () {
+                                  context.read<RentalByPartieIdBloc>().add(
+                                      RentalByPartieIdEvent.getRentalByPartie(
+                                          partieId: material.sId ?? ''));
+
+                                  context.pushNamed(
+                                      RoutesName
+                                          .RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                                      extra: widget.project);
+                                },
+                                child: agenyOneWidget(theme, material, index));
                           }),
                     )
                   : SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      child: ListView(children: [
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            child: const Center(
-                                child: Text("No Rental Products added"))),
-                      ]),
+                      child: ListView(
+                        children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.5,
+                              child: const Center(
+                                  child: Text("No Rental Products added"))),
+                        ],
+                      ),
                     );
         },
       ),
     );
   }
 
-  Widget materialWidget(ThemeData theme, RentalModel material) {
+  Padding agenyOneWidget(
+      ThemeData theme, ProjectPartieModel agency, int index) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: PopUpMenuWidget(
-              theme: theme,
-              onUpdateButtonPressed: () {
-                openBottomSheetOfMaterial(
-                    context: context, material: material, isUpdate: true);
-              },
-              onDeleteButtonPressed: () {},
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    material.name ?? '',
-                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 20),
-                  ),
-                  Text(
-                    material.description ?? '',
-                    style: theme.textTheme.titleMedium?.copyWith(
-                        fontSize: 14, color: const Color(0xff6B7580)),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
+      padding:
+          const EdgeInsets.only(left: 15.0, right: 15, bottom: 10, top: 10),
+      child: Container(
+        color: transparent,
+        child: Column(
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                IconCircleWidget(
+                  radius: 10,
+                  isSvg: true,
+                  svgpath: userIcons[index % userIcons.length],
+                  backgroundColor: theme.cardColor,
+                ),
+                10.wx,
+                Expanded(
+                  child: Column(
                     children: [
-                      Text(
-                        "Quantity: ",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontSize: 14, color: theme.canvasColor),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            agency.name ?? "",
+                            style: theme.textTheme.titleLarge
+                                ?.copyWith(fontSize: 14),
+                          ),
+                          Row(
+                            children: [
+                              SvgPicture.asset(Assets.svg.remaining.path),
+                              5.wx,
+                              Text(
+                                "Remaining: ",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                "₹ ${agency.totalCost ?? 0}",
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                    color: Colors.orange, fontSize: 13),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
-                      Text(
-                        (material.quantity ?? 0).toString(),
-                        style: theme.textTheme.titleLarge
-                            ?.copyWith(fontSize: 16, color: theme.canvasColor),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Total Paid:",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                " ₹ ${0}",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(color: green, fontSize: 13),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Total Payable: ",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                "₹ ${0}",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(color: red, fontSize: 13),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ],
                   ),
-                  10.wx,
-                  Text(
-                    ReusableFunctions.getFormattedDate(material.date ?? ''),
-                    style: theme.textTheme.bodyMedium?.copyWith(color: gray500),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const Divider()
-        ],
+                ),
+              ],
+            ),
+            const Divider()
+          ],
+        ),
       ),
     );
   }

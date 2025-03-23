@@ -8,10 +8,12 @@ class PaymentOutDropDownState {
   final List<ProjectModel> projects;
   final List<BuildingModel> buildings;
   final List<DropDownAgencyModel> agencies;
+  final PartyType partyType;
   PaymentOutDropDownState({
     this.projectValue = '',
     this.buildingValue = '',
     this.agencyValue = '',
+    this.partyType = PartyType.SubContractor,
     this.projects = const [],
     this.buildings = const [],
     this.agencies = const [],
@@ -21,6 +23,7 @@ class PaymentOutDropDownState {
     String? projectValue,
     String? buildingValue,
     String? agencyValue,
+    PartyType? partyType,
     List<ProjectModel>? projects,
     List<BuildingModel>? buildings,
     List<DropDownAgencyModel>? agencies,
@@ -29,6 +32,7 @@ class PaymentOutDropDownState {
       projectValue: projectValue ?? this.projectValue,
       buildingValue: buildingValue ?? this.buildingValue,
       agencyValue: agencyValue ?? this.agencyValue,
+      partyType: partyType ?? this.partyType,
       projects: projects ?? this.projects,
       buildings: buildings ?? this.buildings,
       agencies: agencies ?? this.agencies,
@@ -43,7 +47,8 @@ class ProjectsLoadingState extends PaymentOutDropDownState {
       required super.agencyValue,
       required super.projects,
       required super.buildings,
-      required super.agencies});
+      required super.agencies,
+      required super.partyType});
 }
 
 class ProjectsLoadedState extends PaymentOutDropDownState {
@@ -63,7 +68,8 @@ class BuildingsLoadingState extends PaymentOutDropDownState {
       required super.agencyValue,
       required super.projects,
       required super.buildings,
-      required super.agencies});
+      required super.agencies,
+      required super.partyType});
 }
 
 class BuildingsLoadedState extends PaymentOutDropDownState {
@@ -73,7 +79,8 @@ class BuildingsLoadedState extends PaymentOutDropDownState {
       required super.agencyValue,
       required super.projects,
       required super.buildings,
-      required super.agencies});
+      required super.agencies,
+      required super.partyType});
 }
 
 class AgenciesLoadingState extends PaymentOutDropDownState {
@@ -83,7 +90,8 @@ class AgenciesLoadingState extends PaymentOutDropDownState {
       required super.agencyValue,
       required super.projects,
       required super.buildings,
-      required super.agencies});
+      required super.agencies,
+      required super.partyType});
 }
 
 class AgenciesLoadedState extends PaymentOutDropDownState {
@@ -93,34 +101,39 @@ class AgenciesLoadedState extends PaymentOutDropDownState {
       required super.agencyValue,
       required super.projects,
       required super.buildings,
-      required super.agencies});
+      required super.agencies,
+      required super.partyType});
 }
 
-class PaymentOutAddLoading extends PaymentOutDropDownState{
-    PaymentOutAddLoading(
+class PaymentOutAddLoading extends PaymentOutDropDownState {
+  PaymentOutAddLoading(
       {required super.projectValue,
       required super.buildingValue,
       required super.agencyValue,
       required super.projects,
       required super.buildings,
-      required super.agencies});
-}
-class PaymentOutAddSuccess extends PaymentOutDropDownState{
-    PaymentOutAddSuccess(
-      {required super.projectValue,
-      required super.buildingValue,
-      required super.agencyValue,
-      required super.projects,
-      required super.buildings,
-      required super.agencies});
-}
-class PaymentOutAddFailure extends PaymentOutDropDownState{
-    PaymentOutAddFailure(
-      {required super.projectValue,
-      required super.buildingValue,
-      required super.agencyValue,
-      required super.projects,
-      required super.buildings,
-      required super.agencies});
+      required super.agencies,
+      required super.partyType});
 }
 
+class PaymentOutAddSuccess extends PaymentOutDropDownState {
+  PaymentOutAddSuccess(
+      {required super.projectValue,
+      required super.buildingValue,
+      required super.agencyValue,
+      required super.projects,
+      required super.buildings,
+      required super.agencies,
+      required super.partyType});
+}
+
+class PaymentOutAddFailure extends PaymentOutDropDownState {
+  PaymentOutAddFailure(
+      {required super.projectValue,
+      required super.buildingValue,
+      required super.agencyValue,
+      required super.projects,
+      required super.buildings,
+      required super.agencies,
+      required super.partyType});
+}

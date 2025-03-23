@@ -90,7 +90,8 @@ class AppTheme {
       hintColor: white,
       textTheme: _lightTextTheme,
       indicatorColor: purple,
-      canvasColor: black);
+      canvasColor: black,
+      radioTheme: RadioThemeData(fillColor: WidgetStatePropertyAll(purple)));
 
   static const TextTheme _darkTextTheme = TextTheme(
     headlineLarge: TextStyle(
@@ -175,5 +176,6 @@ class AppTheme {
       canvasColor: white,
       hintColor: darkCardColor,
       indicatorColor: purple,
-      textTheme: _darkTextTheme);
+      textTheme: _darkTextTheme,
+      radioTheme: RadioThemeData(fillColor: WidgetStatePropertyAll(purple)));
 }

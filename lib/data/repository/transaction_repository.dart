@@ -1,4 +1,5 @@
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
+import 'package:construction_mate/logic/models/other_transaction_model.dart';
 import 'package:construction_mate/logic/models/transaction_model.dart';
 import 'package:construction_mate/utilities/error_handling/error_handler.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
@@ -44,6 +45,9 @@ abstract class TransactionRepository {
       required String amount,
       required String description,
       required Transaction transactionType});
+
+  Future<Either<Failure, String>> addOtherTransactionMaterialAndRent(
+      {required OtherTransactionModel otherTransactionModel});
 }
 
 @LazySingleton(as: TransactionRepository)
@@ -160,5 +164,13 @@ class TransactionRepositoryImpl extends TransactionRepository {
         amount: amount,
         description: description,
         transactionType: transactionType));
+  }
+
+  @override
+  Future<Either<Failure, String>> addOtherTransactionMaterialAndRent(
+      {required OtherTransactionModel otherTransactionModel}) {
+    return handleErrors(() =>
+        transactionDataSource.addOtherTransactionMaterialAndRent(
+            otherTransactionModel: otherTransactionModel));
   }
 }

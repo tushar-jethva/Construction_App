@@ -5,6 +5,7 @@ import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/financial_model.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
+import 'package:flutter/material.dart';
 
 abstract class BillsDataSource {
   Future<String> addBill(
@@ -35,8 +36,6 @@ class BillsDataSourceImpl extends BillsDataSource {
       required String partyId,
       required OtherDetailsBillModel model}) async {
     try {
-  
-
       await dio.post(
         API.ADD_BILL,
         data: jsonEncode({
@@ -64,6 +63,7 @@ class BillsDataSourceImpl extends BillsDataSource {
         "${API.GET_ALL_BILLS_BY_PARTY_ID}/$partyId",
       );
       final bills = res.data;
+
       for (var bill in bills["data"]) {
         billsList.add(BillModel.fromJson(bill));
       }

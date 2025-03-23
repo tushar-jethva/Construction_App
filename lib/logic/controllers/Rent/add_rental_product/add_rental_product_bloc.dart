@@ -49,7 +49,7 @@ class AddRentalProductBloc
           projectId: value.projectId,
           partieId: getRentalSuppliersBloc.state.selectedRentalAgency,
           priceperunit: value.pricePerUnit,
-          id: value.rentalPartyId,
+          id: value.rentalProductId,
         );
         final res = value.isUpdate == false
             ? await rentalUsecase.addRental(rentalModel: model)

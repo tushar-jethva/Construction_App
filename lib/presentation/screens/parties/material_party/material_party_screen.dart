@@ -97,7 +97,7 @@ class _MyMaterialPartyBottomSheetState
                       if (value == null ||
                           value.isEmpty ||
                           !ReusableFunctions.isValidInput(value)) {
-                        return 'Please add party name!';
+                        return 'Please add party name';
                       }
                     },
                   ),
@@ -118,10 +118,10 @@ class _MyMaterialPartyBottomSheetState
                     validator: (value) {
                       if (value != null && value.isNotEmpty) {
                         if (int.tryParse(value) == null) {
-                          return 'Please enter valid digit!';
+                          return 'Please enter valid digit';
                         }
                         if (value.startsWith('-')) {
-                          return 'Please enter valid digit!';
+                          return 'Please enter valid digit';
                         }
                         if (value.length < 15) {
                           return 'Please enter correct GST number';
@@ -148,7 +148,7 @@ class _MyMaterialPartyBottomSheetState
                         final emailRegex = RegExp(
                             r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
                         if (!emailRegex.hasMatch(value.trim())) {
-                          return 'Please enter a valid email address!';
+                          return 'Please enter a valid email address';
                         }
                       }
 
@@ -172,7 +172,7 @@ class _MyMaterialPartyBottomSheetState
                     validator: (value) {
                       if (value != null && value.isNotEmpty) {
                         if (value.length < 10) {
-                          return 'Please enter correct Mobile Number';
+                          return 'Please enter correct Contact No.';
                         }
                       }
                       return null;
@@ -213,7 +213,7 @@ class _MyMaterialPartyBottomSheetState
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: CustomElevatedButton(
-                      label: "Add Party",
+                      label: "Add Material Supplier",
                       isLoading: state.state.isLoading,
                       onTap: () {
                         if (_materialFormKey.currentState!.validate()) {

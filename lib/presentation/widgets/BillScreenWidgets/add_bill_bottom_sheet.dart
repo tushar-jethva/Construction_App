@@ -145,7 +145,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                       },
                       validator: (val) {
                         if (val == state.selecteParty[0].sId) {
-                          return 'Please select one of the party!';
+                          return 'Please select Billing Party';
                         }
                       });
                 }),
@@ -154,6 +154,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                   builder: (context, state) {
                     return state.billItems.isNotEmpty
                         ? Container(
+                            margin: const EdgeInsets.only(bottom: 10),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 10),
                             decoration: BoxDecoration(
@@ -229,7 +230,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               validator: (value) {
                                 if (!ReusableFunctions.isValidInput(
                                     value ?? '')) {
-                                  return 'Enter HSN code';
+                                  return 'Please enter HSN code';
                                 }
                               },
                             ),
@@ -243,7 +244,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               validator: (value) {
                                 if (!ReusableFunctions.isValidInput(
                                     value ?? '')) {
-                                  return 'Enter description';
+                                  return 'Please enter description';
                                 }
                               },
                             ),
@@ -259,13 +260,13 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               textInputAction: TextInputAction.next,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please add foot per floor!';
+                                  return 'Please add foot per floor';
                                 }
                                 if (double.tryParse(value) == null) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                                 if (value.startsWith('-')) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                               },
                             ),
@@ -281,13 +282,13 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please add rate!';
+                                  return 'Please add rate';
                                 }
                                 if (double.tryParse(value) == null) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                                 if (value.startsWith('-')) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                               },
                             ),
@@ -353,13 +354,13 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please add SGST!';
+                                  return 'Please add SGST';
                                 }
                                 if (int.tryParse(value) == null) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                                 if (value.startsWith('-')) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                               },
                             ),
@@ -381,13 +382,13 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please add CGST!';
+                                  return 'Please add CGST';
                                 }
                                 if (int.tryParse(value) == null) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                                 if (value.startsWith('-')) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                               },
                             ),
@@ -409,13 +410,13 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               },
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please add TDS!';
+                                  return 'Please add TDS';
                                 }
                                 if (int.tryParse(value) == null) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                                 if (value.startsWith('-')) {
-                                  return 'Please enter valid digit!';
+                                  return 'Please enter valid digit';
                                 }
                               },
                             ),
@@ -527,15 +528,8 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                     hintText: "Delivery Note",
                                     maxLines: 2,
                                     textInputAction: TextInputAction.newline,
-                                    validator: (value) {
-                                      if (!ReusableFunctions.isValidInput(
-                                          value ?? '')) {
-                                        return 'Enter Deliver not';
-                                      }
-                                    },
+                                    validator: (value) {},
                                     onChanged: (value) {
-                                      print(
-                                          "---------------------textfield--------------");
                                       context.read<AddBillBloc>().add(
                                           BillDeliveryNoteChanged(
                                               value: value!));
@@ -551,12 +545,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillModeOfPaymentChanged(
                                               value: value!));
                                     },
-                                    validator: (value) {
-                                      if (!ReusableFunctions.isValidInput(
-                                          value ?? '')) {
-                                        return 'Enter mode of payment';
-                                      }
-                                    },
+                                    validator: (value) {},
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -568,12 +557,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillreferenceNoChanged(
                                               value: value!));
                                     },
-                                    validator: (value) {
-                                      if (!ReusableFunctions.isValidInput(
-                                          value ?? '')) {
-                                        return 'Enter reference no.';
-                                      }
-                                    },
+                                    validator: (value) {},
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -585,12 +569,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillOtherReferencesChanged(
                                               value: value!));
                                     },
-                                    validator: (value) {
-                                      if (!ReusableFunctions.isValidInput(
-                                          value ?? '')) {
-                                        return 'Enter other references';
-                                      }
-                                    },
+                                    validator: (value) {},
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -602,12 +581,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillBuyersOrderNoChanged(
                                               value: value!));
                                     },
-                                    validator: (value) {
-                                      if (!ReusableFunctions.isValidInput(
-                                          value ?? '')) {
-                                        return "Enter buyers's order no. code";
-                                      }
-                                    },
+                                    validator: (value) {},
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -619,12 +593,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillDispatchDocNoChanged(
                                               value: value!));
                                     },
-                                    validator: (value) {
-                                      if (!ReusableFunctions.isValidInput(
-                                          value ?? '')) {
-                                        return 'Enter dispatch no.';
-                                      }
-                                    },
+                                    validator: (value) {},
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -636,12 +605,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillDispatchedThroughChanged(
                                               value: value!));
                                     },
-                                    validator: (value) {
-                                      if (!ReusableFunctions.isValidInput(
-                                          value ?? '')) {
-                                        return 'Enter dispatched through';
-                                      }
-                                    },
+                                    validator: (value) {},
                                   ),
                                   Gap(10.h),
                                   MyCustomTextFormField(
@@ -653,12 +617,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                           BillDestinationChanged(
                                               value: value!));
                                     },
-                                    validator: (value) {
-                                      if (!ReusableFunctions.isValidInput(
-                                          value ?? '')) {
-                                        return 'Enter destination';
-                                      }
-                                    },
+                                    validator: (value) {},
                                   ),
                                 ])
                               : const SizedBox();

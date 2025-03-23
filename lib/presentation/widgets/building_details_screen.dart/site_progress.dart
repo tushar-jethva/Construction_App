@@ -112,10 +112,6 @@ class _MySiteProgressScreenWidgetState
                   child: ListView.builder(
                       itemCount: state.listOfFloorsSite.length,
                       itemBuilder: (context, index) {
-                        print(" index is  ------- $index");
-                        print(
-                            " index is  ------- ${state.listOfFloorsSite.length}");
-
                         FloorSiteModel floorSiteModel =
                             state.listOfFloorsSite[index];
                         String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')

@@ -1,5 +1,6 @@
 import 'package:construction_mate/data/datasource/building_data_source.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class BuildingRepository {
   Future<void> addBuilding(
@@ -12,6 +13,7 @@ abstract class BuildingRepository {
   Future<List<BuildingModel>> allBuildingById({required String projectId});
 }
 
+@LazySingleton(as: BuildingRepository)
 class BuildingRepositoryImpl extends BuildingRepository {
   final BuildingDataSource buildingDataSource;
   BuildingRepositoryImpl(this.buildingDataSource);

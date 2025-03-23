@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/building_repository.dart';
 import 'package:construction_mate/data/repository/project_repository.dart';
@@ -6,11 +7,14 @@ import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/logic/models/drop_down_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';
 
 part 'payment_out_drop_down_event.dart';
 part 'payment_out_drop_down_state.dart';
 
+@singleton
 class PaymentOutDropDownBloc
     extends Bloc<PaymentOutDropDownEvent, PaymentOutDropDownState> {
   final BuildingRepository buildingRepository;
@@ -30,7 +34,8 @@ class PaymentOutDropDownBloc
           agencyValue: state.agencyValue,
           projects: state.projects,
           buildings: state.buildings,
-          agencies: state.agencies));
+          agencies: state.agencies,
+          partyType: state.partyType));
       try {
         final projects = await projectRepository.allProjects();
         projects.insert(0, ProjectModel(name: "--Select Project--", sId: '0'));
@@ -47,6 +52,20 @@ class PaymentOutDropDownBloc
       }
     });
 
+    on<AgencyTypeChangeEvent>((event, emit) async {
+      emit(state.copyWith(
+        partyType: event.partyType,
+      ));
+      emit(BuildingsLoadedState(
+          projectValue: state.projectValue,
+          buildingValue: state.buildings[0].sId.toString(),
+          agencyValue: '',
+          projects: state.projects,
+          buildings: state.buildings,
+          agencies: [],
+          partyType: state.partyType));
+    });
+
     on<FetchBuildingsEvent>((event, emit) async {
       try {
         emit(BuildingsLoadingState(
@@ -55,7 +74,8 @@ class PaymentOutDropDownBloc
             agencyValue: state.agencyValue,
             projects: state.projects,
             buildings: state.buildings,
-            agencies: state.agencies));
+            agencies: state.agencies,
+            partyType: state.partyType));
         final buildings = await buildingRepository.allBuildingById(
             projectId: event.projectId);
         buildings.insert(
@@ -69,7 +89,8 @@ class PaymentOutDropDownBloc
             agencyValue: '',
             projects: state.projects,
             buildings: state.buildings,
-            agencies: []));
+            agencies: [],
+            partyType: state.partyType));
       } catch (e) {
         print(e.toString());
       }
@@ -82,7 +103,8 @@ class PaymentOutDropDownBloc
           agencyValue: state.agencyValue,
           projects: state.projects,
           buildings: state.buildings,
-          agencies: state.agencies));
+          agencies: state.agencies,
+          partyType: state.partyType));
       try {
         final agencies =
             await agencyRepository.getWorkingAgenciesOnBuildingForDropDown(
@@ -101,13 +123,15 @@ class PaymentOutDropDownBloc
             agencyValue: state.agencyValue,
             projects: state.projects,
             buildings: state.buildings,
-            agencies: state.agencies));
+            agencies: state.agencies,
+            partyType: state.partyType));
       } catch (e) {
         print(e.toString());
       }
     });
 
     on<AgencyValueChanged>((event, emit) async {
+      debugPrint("========== agency value ==== ${event.agencyId} ==========");
       emit(state.copyWith(agencyValue: event.agencyId));
       emit(AgenciesLoadedState(
           projectValue: state.projectValue,
@@ -115,7 +139,8 @@ class PaymentOutDropDownBloc
           agencyValue: state.agencyValue,
           projects: state.projects,
           buildings: state.buildings,
-          agencies: state.agencies));
+          agencies: state.agencies,
+          partyType: state.partyType));
     });
 
     on<AddPaymentOutTransaction>((event, emit) async {
@@ -126,7 +151,8 @@ class PaymentOutDropDownBloc
             agencyValue: state.agencyValue,
             projects: state.projects,
             buildings: state.buildings,
-            agencies: state.agencies));
+            agencies: state.agencies,
+            partyType: state.partyType));
         await transactionRepository.addPaymentOutTransaction(
             description: event.description,
             agencyId: state.agencyValue,
@@ -139,7 +165,8 @@ class PaymentOutDropDownBloc
             agencyValue: state.agencyValue,
             projects: state.projects,
             buildings: state.buildings,
-            agencies: state.agencies));
+            agencies: state.agencies,
+            partyType: state.partyType));
       } catch (e) {
         emit(PaymentOutAddFailure(
             projectValue: state.projectValue,
@@ -147,7 +174,8 @@ class PaymentOutDropDownBloc
             agencyValue: state.agencyValue,
             projects: state.projects,
             buildings: state.buildings,
-            agencies: state.agencies));
+            agencies: state.agencies,
+            partyType: state.partyType));
       }
     });
   }

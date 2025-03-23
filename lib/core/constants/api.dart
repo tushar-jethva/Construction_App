@@ -71,6 +71,9 @@ class API {
   static const ADD_MATERIAL = "$BASE_URL/Material/AddMaterial";
   static const GET_MATERIAL = "$BASE_URL/Material/GetMaterial";
   static const UPDATE_MATERIAL = "$BASE_URL/Material/UpdateMaterial";
+  static const GET_MATERIAL_BY_PARTIE = "$BASE_URL/Material/GetMaterial/Partie";
+  static const MATERIAL_PARTIE_BY_PROJECT =
+      "$BASE_URL/Material/GetMaterialPartieByProject";
 
   //-------------------- Transaction --------------
   static const ADD_OTHER_TRANSACTIONS =
@@ -91,6 +94,9 @@ class API {
   static const ADD_RENTAL = "$BASE_URL/Rental/AddRental";
   static const GET_RENTAL_BY_PROJECT = "$BASE_URL/Rental/GetRental";
   static const UPDATE_RENTAL = "$BASE_URL/Rental/UpdateRental";
+  static const GET_RENTAL_BY_PARTIE = "$BASE_URL/Rental/GetRental/Partie";
+  static const GET_RENTAL_PARTIE_BY_PROJECT =
+      "$BASE_URL/Rental/GetRentalPartieByProject";
 
   //------------- Forgot Password-----------
   static const FORGOT_PASSWORD_EMAIL =

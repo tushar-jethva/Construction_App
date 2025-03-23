@@ -14,7 +14,8 @@ import 'package:injectable/injectable.dart';
 abstract class AgencyDataSource {
   Future<List<AgencyModel>> getAgencyByWorkType({required String workTypeId});
 
-  Future<List<AgencyModel>> getAgencyByBuildingId({required String buildingId, required String projectId});
+  Future<List<AgencyModel>> getAgencyByBuildingId(
+      {required String buildingId, required String projectId});
 
   Future<void> addAgencyInBuilding(
       {required String workTypeId,
@@ -64,7 +65,6 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
         "${API.GET_AGENCY_BY_WORK_TYPE}/$workTypeId",
       );
 
-      res.data.log();
       final agencies = res.data;
       for (var agency in agencies["data"]) {
         allAgencyByWorkTypeList.add(AgencyModel.fromJson(agency));
@@ -90,8 +90,9 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
           "WorkTypeId": workTypeId
         }),
       );
-      res.data.log();
       final floors = res.data;
+
+
       for (var floor in floors["data"]) {
         floorList.add(FloorModel.fromJson(floor));
       }
@@ -140,8 +141,7 @@ class AgencyDataSourceDataSourceImpl extends AgencyDataSource {
       {required String buildingId, required String projectId}) async {
     List<AgencyModel> allAgencyByBuildingIdList = [];
     try {
-      final res =
-          await dio.get("${API.GET_AGENCY_BY_BUILDING_ID}/$buildingId");
+      final res = await dio.get("${API.GET_AGENCY_BY_BUILDING_ID}/$buildingId");
 
       final agencies = res.data;
       for (var agency in agencies["data"]) {

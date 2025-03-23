@@ -1,35 +1,42 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_by_partie/material_by_partie_bloc.dart';
+import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
+import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
-import 'package:construction_mate/logic/models/project_model.dart';
+import 'package:construction_mate/logic/models/get_rental_model.dart';
+import 'package:construction_mate/presentation/router/go_router.dart';
+import 'package:construction_mate/presentation/screens/project/rent/rental_bottom_sheet.dart';
+import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/common/pop_up_menu_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class MaterialScreen extends StatefulWidget {
+import '../../../../logic/models/project_model.dart';
+
+class MaterialProductsScreen extends StatefulWidget {
   final ProjectModel project;
-  final ScrollController scrollController;
-  const MaterialScreen(
-      {super.key, required this.project, required this.scrollController});
+  final String partieId;
+
+  const MaterialProductsScreen(
+      {super.key, required this.project, required this.partieId});
 
   @override
-  State<MaterialScreen> createState() => _MaterialScreenState();
+  State<MaterialProductsScreen> createState() => _MaterialProductsScreenState();
 }
 
-class _MaterialScreenState extends State<MaterialScreen> {
-  //Init
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // context.read<AddMaterialBloc>().add(
-    //     AddMaterialEvent.fetchAllMaterial(projectId: widget.project.sId ?? ""));
+class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
+  Future<void> onRefresh() async {
+    context.read<MaterialByPartieBloc>().add(
+        MaterialByPartieEvent.getMaterialByPartie(
+            partieId: widget.partieId ?? ""));
   }
 
   openBottomSheetOfMaterial(
@@ -53,59 +60,61 @@ class _MaterialScreenState extends State<MaterialScreen> {
         });
   }
 
-  Future<void> onRefresh() async {
-    context.read<AddMaterialBloc>().add(
-        AddMaterialEvent.fetchAllMaterial(projectId: widget.project.sId ?? ""));
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return RefreshIndicator(
-      onRefresh: onRefresh,
-      color: purple,
-      child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
-        builder: (context, state) {
-          return state.state.isLoading
-              ? Skeletonizer(
-                  enabled: true,
-                  child: ListView.builder(
-                      itemCount: 5,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return materialWidget(
-                            theme,
-                            GetMaterialModel(
-                                name: "Helloo",
-                                priceperunit: 0,
-                                gst: 0,
-                                hsncode: "",
-                                quantity: 0,
-                                unit: "bags",
-                                description: "Description desctiptio ",
-                                date: DateTime.now().toString()));
-                      }))
-              : state.materialList.isNotEmpty
-                  ? SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.73,
-                      child: ListView.builder(
-                          itemCount: state.materialList.length,
-                          controller: widget.scrollController,
-                          itemBuilder: (context, index) {
-                            final material = state.materialList[index];
-                            return materialWidget(theme, material);
-                          }),
-                    )
-                  : SizedBox(
-                      height: MediaQuery.of(context).size.height,
-                      child: ListView(children: [
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.5,
-                            child: const Center(
-                                child: Text("No material added!"))),
-                      ]),
-                    );
+    return Scaffold(
+      appBar: CustomAppBar(
+        title: "Material Products",
+        onTap: () {
+          context.pop();
         },
+      ),
+      body: RefreshIndicator(
+        onRefresh: onRefresh,
+        color: purple,
+        child: BlocBuilder<MaterialByPartieBloc, MaterialByPartieState>(
+          builder: (context, state) {
+            return state.state.isLoading
+                ? Skeletonizer(
+                    enabled: true,
+                    child: ListView.builder(
+                        itemCount: 5,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return materialWidget(
+                              theme,
+                              GetMaterialModel(
+                                  name: "Helloo",
+                                  priceperunit: 0,
+                                  quantity: 0,
+                                  unit: "bags",
+                                  description: "Description desctiptio ",
+                                  date: DateTime.now().toString()));
+                        }))
+                : state.listOfMaterial.isNotEmpty
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.73,
+                        child: ListView.builder(
+                            itemCount: state.listOfMaterial.length,
+                            itemBuilder: (context, index) {
+                              final material = state.listOfMaterial[index];
+                              return GestureDetector(
+                                  onTap: () {},
+                                  child: materialWidget(theme, material));
+                            }),
+                      )
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height,
+                        child: ListView(children: [
+                          SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.5,
+                              child: const Center(
+                                  child: Text("No Material Products added"))),
+                        ]),
+                      );
+          },
+        ),
       ),
     );
   }

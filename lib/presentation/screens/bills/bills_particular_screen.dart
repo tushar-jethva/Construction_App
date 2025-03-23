@@ -2,6 +2,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_particular_app_bar_widget.dart';
@@ -15,9 +16,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-
 class MyBillsParticularPartyScreen extends StatefulWidget {
-  final BillingPartyModel party;
+  final AgencyModel party;
   const MyBillsParticularPartyScreen({super.key, required this.party});
 
   @override

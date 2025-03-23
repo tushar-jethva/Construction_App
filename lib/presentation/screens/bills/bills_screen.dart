@@ -146,7 +146,8 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                                 .copyWith(
                                                     fontSize: 14, color: grey)),
                                         TextSpan(
-                                            text: " ₹ ${party.receivedAmount}",
+                                            text:
+                                                " ₹ ${party.receivedAmount?.toStringAsFixed(2)}",
                                             style: theme.textTheme.titleMedium!
                                                 .copyWith(
                                                     fontSize: 15,
@@ -161,7 +162,8 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                                 .copyWith(
                                                     fontSize: 14, color: grey)),
                                         TextSpan(
-                                            text: "₹ ${party.receivableAmount}",
+                                            text:
+                                                "₹ ${party.receivableAmount?.toStringAsFixed(2)}",
                                             style: theme.textTheme.titleMedium!
                                                 .copyWith(
                                                     fontSize: 15,

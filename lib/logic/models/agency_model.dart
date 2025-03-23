@@ -10,17 +10,17 @@ class AgencyModel {
   String? contactNumber;
   String? shippingAddress;
   String? billingAddress;
-  int? receivableAmount;
-  int? receivedAmount;
-  int? totalAmount;
+  num? receivableAmount;
+  num? receivedAmount;
+  num? totalAmount;
   String? gSTNumber;
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
-  int? iV;
-  int? totalAccount;
-  int? totalPayable;
-  int? totalPaid;
+  num? iV;
+  num? totalAccount;
+  num? totalPayable;
+  num? totalPaid;
 
   AgencyModel(
       {this.sId,
@@ -113,18 +113,18 @@ class ProjectId {
   String? sId;
   String? name;
   String? companyId;
-  int? progress;
+  num? progress;
   String? description;
-  int? paymentIn;
-  int? paymentOut;
+  num? paymentIn;
+  num? paymentOut;
   String? startDate;
   String? endDate;
   String? address;
-  int? totalBuilding;
+  num? totalBuilding;
   bool? isDeleted;
   String? createdAt;
   String? updatedAt;
-  int? iV;
+  num? iV;
 
   ProjectId(
       {this.sId,

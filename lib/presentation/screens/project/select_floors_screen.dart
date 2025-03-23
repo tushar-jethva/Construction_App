@@ -75,7 +75,9 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                             if (state.selectedFloorList[index].isCompleted!) {
                               return GestureDetector(
                                 onTap: () {
-                                  showTopSnackBar(context, "Floor is already assigned!", messageType: MessageType.warning);
+                                  showTopSnackBar(
+                                      context, "Floor is already assigned!",
+                                      messageType: MessageType.warning);
                                 },
                                 child: Container(
                                   alignment: Alignment.center,

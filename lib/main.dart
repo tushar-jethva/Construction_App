@@ -33,8 +33,11 @@ import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bl
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/MaterialSupplier/material_supplier_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_by_partie/material_by_partie_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Onboard/onboard_bloc.dart';
 import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart';
+import 'package:construction_mate/logic/controllers/PaymentOutOtherMaterailAndRentBloc/payment_out_other_material_and_rent_bloc.dart';
 import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit_profile_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
@@ -49,10 +52,13 @@ import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc
 import 'package:construction_mate/logic/controllers/Rent/add_rent_supplier/add_rent_supplier_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/get_rental_products/get_rental_products_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/get_rental_suppliers/get_rental_suppliers_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_progress_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart';
+import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
@@ -220,17 +226,28 @@ class MyMultiBlocProviders extends StatelessWidget {
 
         //Fetch material agencies
         BlocProvider(create: (_) => di.locator<MaterialAgenciesBloc>()),
+        BlocProvider(create: (_) => di.locator<MaterialByPartieBloc>()),
+        BlocProvider(create: (_) => di.locator<MaterialPartieProjectBloc>()),
 
         //Rent party
         BlocProvider(create: (_) => di.locator<AddRentSupplierBloc>()),
         BlocProvider(create: (_) => di.locator<AddRentalProductBloc>()),
         BlocProvider(create: (_) => di.locator<GetRentalProductsBloc>()),
         BlocProvider(create: (_) => di.locator<GetRentalSuppliersBloc>()),
+        BlocProvider(create: (_) => di.locator<GetRentalPartieProjectBloc>()),
+        BlocProvider(create: (_) => di.locator<RentalByPartieIdBloc>()),
 
         //Forgot password
         BlocProvider(create: (_) => di.locator<VerifyOtpBloc>()),
         BlocProvider(create: (_) => di.locator<ForgotPasswordBloc>()),
         BlocProvider(create: (_) => di.locator<ResetPasswordBloc>()),
+
+        //Tab controller
+        BlocProvider(create: (_) => di.locator<TabControlBloc>()),
+
+        //Tranaction
+        BlocProvider(
+            create: (_) => di.locator<PaymentOutOtherMaterialAndRentBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),

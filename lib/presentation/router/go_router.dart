@@ -38,6 +38,7 @@ import 'package:construction_mate/presentation/screens/bills/sheet_view_screen.d
 import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/onboard/onboard_step1.dart';
 import 'package:construction_mate/presentation/screens/parties/material_party/material_party_screen.dart';
+import 'package:construction_mate/presentation/screens/parties/material_party/material_product_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/rent_party/rent_party_screen.dart';
@@ -50,6 +51,7 @@ import 'package:construction_mate/presentation/screens/project/building_details_
 import 'package:construction_mate/presentation/screens/project/details_screen.dart';
 import 'package:construction_mate/presentation/screens/project/inidividual_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_details_n_screen.dart';
+import 'package:construction_mate/presentation/screens/project/rent/rental_products_screen.dart';
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
 import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
@@ -132,10 +134,11 @@ class Routes {
             context
                 .read<VisibilityEyeBloc>()
                 .add(const VisibilityEyeEvent.initialize());
-                
+
             return NewPasswordScreen();
           },
         ),
+
         GoRoute(
           path: RoutesName.bottomBar,
           name: RoutesName.bottomBar,
@@ -275,7 +278,7 @@ class Routes {
           path: RoutesName.billingPartyPaticularScreen,
           name: RoutesName.billingPartyPaticularScreen,
           builder: (context, state) {
-            final BillingPartyModel party = state.extra as BillingPartyModel;
+            final AgencyModel party = state.extra as AgencyModel;
             return MultiBlocProvider(
               providers: [
                 BlocProvider(
@@ -332,14 +335,14 @@ class Routes {
           path: RoutesName.CONTACT_US_SCREEN_NAME,
           name: RoutesName.CONTACT_US_SCREEN_PATH,
           builder: (context, state) {
-            return ContactUsScreen();
+            return const ContactUsScreen();
           },
         ),
         GoRoute(
           path: RoutesName.tdsScreen,
           name: RoutesName.tdsScreen,
           builder: (context, state) {
-            return TdsScreen();
+            return const TdsScreen();
           },
         ),
         GoRoute(
@@ -411,20 +414,41 @@ class Routes {
             return const MyRentPartyScreen();
           },
         ),
+
+        ///-----------------------------------------------------------
+        ///--------------- All Rent Party
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.RENT_PRODUCTS_BY_PROJECT_SCREEN_PATH,
+          name: RoutesName.RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+          builder: (context, state) {
+            final project = state.extra as ProjectModel;
+
+            return RentalProductsScreen(project: project);
+          },
+        ),
+
+        ///-----------------------------------------------------------
+        ///--------------- All Materail Party
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
+          name: RoutesName.MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+          builder: (context, state) {
+            final data = state.extra as Map<String, dynamic>;
+
+            return MaterialProductsScreen(
+              project: data['project'],
+              partieId: data['partieId'],
+            );
+          },
+        ),
         GoRoute(
           path: RoutesName.NEW_DETAIL_SCREEN_PATH,
           name: RoutesName.NEW_DETAIL_SCREEN_NAME,
           builder: (context, state) {
             final ProjectModel project = state.extra as ProjectModel;
-            context
-                .read<BuildingByIdBloc>()
-                .add(BuildingByIdEvent.getProject(project: project));
-            context
-                .read<StartAndEndDateBloc>()
-                .add(const StartAndEndDateEvent.initalize());
 
-            context.read<MenuBloc>().add(MenuEvent.onIndexChanged(index: 1));
-            // context.read<>()
             return ProjectDetailsNScreen(
               projectModel: project,
             );

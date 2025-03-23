@@ -1,7 +1,9 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
+import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
@@ -111,6 +113,10 @@ class AllProjectsWidget extends StatelessWidget {
                       ProjectModel project = state.projects[index];
                       return GestureDetector(
                         onTap: () {
+                          context.read<PaymentOutDropDownBloc>().add(
+                                AgencyTypeChangeEvent(
+                                    partyType: PartyType.SubContractor),
+                              );
                           context.pushNamed(RoutesName.NEW_DETAIL_SCREEN_NAME,
                               extra: project);
                         },

@@ -35,6 +35,7 @@ class AddAllPartiesScreen extends StatelessWidget {
                       RadioMenuButton(
                           value: PartyType.SubContractor,
                           groupValue: state.partyType,
+                          
                           onChanged: (val) {
                             context.read<AddPartiesBloc>().add(
                                 AddPartiesEvent.onPartyTypeChange(

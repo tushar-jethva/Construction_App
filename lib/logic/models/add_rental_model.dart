@@ -23,6 +23,7 @@ class AddRentalModel {
       this.id});
 
   AddRentalModel.fromJson(Map<String, dynamic> json) {
+    id = json['_id'];
     name = json['name'];
     description = json['description'];
     quantity = json['quantity'];
@@ -43,6 +44,7 @@ class AddRentalModel {
     data['unit'] = this.unit;
     data['projectId'] = this.projectId;
     data['date'] = this.date;
+    data['_id'] = this.id;
     return data;
   }
 

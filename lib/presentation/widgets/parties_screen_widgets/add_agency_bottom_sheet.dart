@@ -56,22 +56,25 @@ class _MyAddAgencyBottomSheetPartiesState
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(15.r), topRight: Radius.circular(15.r))),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Form(
             key: _formKey,
             child: Column(
               children: [
+                10.hx,
                 MyCustomTextFormField(
                   controller: _agencyNameController,
                   hintText: 'Agency Name',
                   maxLines: 1,
                   textInputType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
                   // ignore: body_might_complete_normally_nullable
                   validator: (value) {
                     if (value == null ||
                         value.isEmpty ||
                         !ReusableFunctions.isValidInput(value)) {
-                      return 'Please enter agency name!';
+                      return 'Please enter agency name';
                     }
                   },
                 ),
@@ -81,12 +84,14 @@ class _MyAddAgencyBottomSheetPartiesState
                   hintText: 'Description',
                   maxLines: 3,
                   textInputType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+
                   // ignore: body_might_complete_normally_nullable
                   validator: (value) {
                     if (value == null ||
                         value.isEmpty ||
                         !ReusableFunctions.isValidInput(value)) {
-                      return 'Please enter description!';
+                      return 'Please enter description';
                     }
                   },
                 ),
@@ -213,7 +218,7 @@ class _MyAddAgencyBottomSheetPartiesState
                             context.read<AgencyWorkTypesSelectionBloc>().add(
                                 OnMessageChanged(
                                     message:
-                                        "Please add work type and select at least one."));
+                                        "Please add work type or select at least one."));
                           } else {
                             context.read<AgencyWorkTypesSelectionBloc>().add(
                                 OnAddAgencyPartiesButtonPressed(

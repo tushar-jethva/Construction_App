@@ -199,7 +199,8 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Dated"),
-                      pw.Text("6-Jul-24",
+                      pw.Text(
+                          DateFormat.yMMMd().format(DateTime.parse(bill.date!)),
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
           ]),
@@ -210,7 +211,7 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Delivery Note"),
-                      pw.Text("",
+                      pw.Text(bill.moreDetails?.deliveryNote ?? '',
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
@@ -219,7 +220,7 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Mode/Terms of Payment"),
-                      pw.Text("",
+                      pw.Text(bill.moreDetails?.modeOfPayment ?? '',
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
           ]),
@@ -229,8 +230,8 @@ class PDFGenerator {
                 child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
-                      pw.Text("Reference No. & Date."),
-                      pw.Text("",
+                      pw.Text("Reference No."),
+                      pw.Text(bill.moreDetails?.referenceNo ?? '',
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
@@ -239,7 +240,7 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Other References"),
-                      pw.Text("",
+                      pw.Text(bill.moreDetails?.otherReferences ?? '',
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
           ]),
@@ -250,7 +251,7 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Buyer's Order No."),
-                      pw.Text("",
+                      pw.Text(bill.moreDetails?.buyersOrderNo ?? '',
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
@@ -259,7 +260,8 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Dated"),
-                      pw.Text("6-Jul-24",
+                      pw.Text(
+                          DateFormat.yMMMd().format(DateTime.parse(bill.date!)),
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
           ]),
@@ -270,7 +272,7 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Dispatch Doc No."),
-                      pw.Text("",
+                      pw.Text(bill.moreDetails?.dispatchDocNo ?? '',
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
@@ -279,7 +281,8 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Delivery Note Date"),
-                      pw.Text("6-Jul-24",
+                      pw.Text(
+                          DateFormat.yMMMd().format(DateTime.parse(bill.date!)),
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
           ]),
@@ -290,7 +293,7 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Dispatched through"),
-                      pw.Text("",
+                      pw.Text(bill.moreDetails?.dispatchedThrough ?? '',
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
             pw.Padding(
@@ -299,7 +302,7 @@ class PDFGenerator {
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
                     children: [
                       pw.Text("Destination"),
-                      pw.Text("",
+                      pw.Text(bill.moreDetails?.destination ?? '',
                           style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
                     ])),
           ]),

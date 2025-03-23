@@ -3,6 +3,7 @@ import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/utilities/error_handling/error_handler.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class ProjectRepository {
   Future<Either<Failure, String>> addProject(
@@ -16,6 +17,7 @@ abstract class ProjectRepository {
   Future<List<ProjectModel>> allProjects();
 }
 
+@LazySingleton(as: ProjectRepository)
 class ProjectRepositoryImpl extends ProjectRepository {
   ProjectRepositoryImpl(this.projectDataSource);
   final ProjectDataSource projectDataSource;

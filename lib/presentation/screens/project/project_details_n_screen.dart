@@ -2,19 +2,25 @@
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
+import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/get_rental_suppliers/get_rental_suppliers_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
+import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
+import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
 import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/screens/project/building_screen.dart';
-import 'package:construction_mate/presentation/screens/project/material_screen.dart';
+import 'package:construction_mate/presentation/screens/parties/material_party/material_screen.dart';
 import 'package:construction_mate/presentation/screens/project/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/project/rent/rent_screen.dart';
 import 'package:construction_mate/presentation/screens/project/transaction_screen.dart';
@@ -66,6 +72,13 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
             projectId: widget.projectModel.sId!));
 
     context
+        .read<BuildingByIdBloc>()
+        .add(BuildingByIdEvent.getProject(project: widget.projectModel));
+    context
+        .read<StartAndEndDateBloc>()
+        .add(const StartAndEndDateEvent.initalize());
+
+    context
         .read<BuildingsBloc>()
         .add(LoadBuildings(projectId: widget.projectModel.sId!));
 
@@ -84,6 +97,14 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         .read<GetRentalSuppliersBloc>()
         .add(const GetRentalSuppliersEvent.fetchRentalSuppliers());
 
+    context.read<MaterialPartieProjectBloc>().add(
+        MaterialPartieProjectEvent.fetchMatrialPartieByProject(
+            projectId: widget.projectModel.sId ?? ''));
+
+    context.read<GetRentalPartieProjectBloc>().add(
+        GetRentalPartieProjectEvent.fetchRentalParties(
+            projectId: widget.projectModel.sId ?? ""));
+
     context.read<TransactionBuildingBloc>().add(
         FetchAllTransactionByProjectId(projectId: widget.projectModel.sId!));
 
@@ -91,7 +112,10 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         ProjectPaymentInEvent.fetchAgencies(
             projectId: widget.projectModel.sId ?? ''));
 
+    context.read<MenuBloc>().add(const MenuEvent.onIndexChanged(index: 1));
+
     _tabController = TabController(length: 5, vsync: this, initialIndex: 1);
+
     _tabController.addListener(() {
       context
           .read<MenuBloc>()
@@ -290,7 +314,6 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                       ),
                       Expanded(
                         child: TabBarView(
-                          dragStartBehavior: DragStartBehavior.start,
                           controller: _tabController,
                           children: [
                             MyPartiesProjectScreen(
@@ -356,6 +379,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
           ),
           BlocBuilder<MenuBloc, MenuState>(
             builder: (context, state) {
+              print("======= menu index in ${state.index} =============");
               return Align(
                   alignment: Alignment.centerRight,
                   child: menus[state.index].childWidget ??
@@ -383,7 +407,7 @@ class MenuWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return BlocBuilder<MenuBloc, MenuState>(
       builder: (context, state) {
-        final isSelected = state.index == index;
+        final isSelected = tabController.index == index;
 
         return GestureDetector(
           onTap: () {

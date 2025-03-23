@@ -1,17 +1,25 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
+import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart';
+import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_bottom_widget.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 
 class PaymentInProjectDialogWidget extends StatelessWidget {
   const PaymentInProjectDialogWidget({
@@ -51,6 +59,35 @@ class PaymentInProjectDialogWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  BlocListener<AddBillingPartyBloc, AddBillingPartyState>(
+                    listener: (context, state) {
+                      if (state.isAdded == 2) {
+                        context.read<ProjectPaymentInBloc>().add(
+                            ProjectPaymentInEvent.fetchAgencies(
+                                projectId: projectId));
+                      }
+                    },
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<AddPartiesBloc>().add(
+                              const AddPartiesEvent.onPartyTypeChange(
+                                  partyType: PartyType.BillingParty));
+                          context.pushNamed(
+                              RoutesName.ADD_BILLING_PARTY_SCREEN_NAME);
+                        },
+                        child: Text(
+                          "Add Agency",
+                          style: theme.textTheme.titleMedium?.copyWith(
+                              color: purple,
+                              decoration: TextDecoration.underline,
+                              decorationColor: purple),
+                        ),
+                      ),
+                    ),
+                  ),
+                  10.hx,
                   Text(
                     "Payment In",
                     style: theme.textTheme.titleLarge,

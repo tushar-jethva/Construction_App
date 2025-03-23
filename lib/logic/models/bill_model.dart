@@ -4,6 +4,7 @@ class BillModel {
   PartieId? partieId;
   String? date;
   List<Items>? items;
+  MoreDetails? moreDetails;
   String? netAmount;
   String? totalAmount;
   String? receivableAmount;
@@ -37,6 +38,7 @@ class BillModel {
       this.isDeleted,
       this.createdAt,
       this.updatedAt,
+      this.moreDetails,
       this.iV});
 
   BillModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,9 @@ class BillModel {
         items!.add(new Items.fromJson(v));
       });
     }
+    moreDetails = json['MoreDetails'] != null
+        ? MoreDetails.fromJson(json['MoreDetails'])
+        : null;
     billNumber = json["BillNumber"];
     netAmount = (json['NetAmount'] as dynamic).toString();
     totalAmount = (json['TotalAmount'] as dynamic).toString();
@@ -198,6 +203,51 @@ class Items {
     data['Rate'] = this.rate;
     data['SqureFeet'] = this.squreFeet;
     data['_id'] = this.sId;
+    return data;
+  }
+}
+
+class MoreDetails {
+  String? deliveryNote;
+  String? modeOfPayment;
+  String? referenceNo;
+  String? otherReferences;
+  String? buyersOrderNo;
+  String? dispatchDocNo;
+  String? dispatchedThrough;
+  String? destination;
+
+  MoreDetails(
+      {this.deliveryNote,
+      this.modeOfPayment,
+      this.referenceNo,
+      this.otherReferences,
+      this.buyersOrderNo,
+      this.dispatchDocNo,
+      this.dispatchedThrough,
+      this.destination});
+
+  MoreDetails.fromJson(Map<String, dynamic> json) {
+    deliveryNote = json['deliveryNote'];
+    modeOfPayment = json['modeOfPayment'];
+    referenceNo = json['referenceNo'];
+    otherReferences = json['otherReferences'];
+    buyersOrderNo = json['buyersOrderNo'];
+    dispatchDocNo = json['dispatchDocNo'];
+    dispatchedThrough = json['dispatchedThrough'];
+    destination = json['destination'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['deliveryNote'] = this.deliveryNote;
+    data['modeOfPayment'] = this.modeOfPayment;
+    data['referenceNo'] = this.referenceNo;
+    data['otherReferences'] = this.otherReferences;
+    data['buyersOrderNo'] = this.buyersOrderNo;
+    data['dispatchDocNo'] = this.dispatchDocNo;
+    data['dispatchedThrough'] = this.dispatchedThrough;
+    data['destination'] = this.destination;
     return data;
   }
 }

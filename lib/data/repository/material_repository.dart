@@ -1,6 +1,7 @@
 import 'package:construction_mate/data/datasource/material_data_source.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/project_partie_model.dart';
 import 'package:construction_mate/utilities/error_handling/error_handler.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -14,6 +15,12 @@ abstract class MaterialRepository {
 
   Future<Either<Failure, String>> updateMaterial(
       {required MaterialModel model});
+
+  Future<Either<Failure, List<GetMaterialModel>>> getMaterialByPartie(
+      {required String partieId});
+
+  Future<Either<Failure, List<ProjectPartieModel>>> getMaterialPartyByProject(
+      {required String projectId});
 }
 
 @LazySingleton(as: MaterialRepository)
@@ -35,5 +42,19 @@ class MaterialRepositoryImpl extends MaterialRepository {
   Future<Either<Failure, String>> updateMaterial(
       {required MaterialModel model}) {
     return handleErrors(() => dataSource.updateMaterial(model: model));
+  }
+
+  @override
+  Future<Either<Failure, List<GetMaterialModel>>> getMaterialByPartie(
+      {required String partieId}) {
+    return handleErrors(
+        () => dataSource.getMaterialByPartie(partieId: partieId));
+  }
+
+  @override
+  Future<Either<Failure, List<ProjectPartieModel>>> getMaterialPartyByProject(
+      {required String projectId}) {
+    return handleErrors(
+        () => dataSource.getMaterialPartyByProject(projectId: projectId));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:construction_mate/data/repository/transaction_repository.dart';
+import 'package:construction_mate/logic/models/other_transaction_model.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
 import 'package:construction_mate/utilities/extension/transaction_extension.dart';
 import 'package:dartz/dartz.dart';
@@ -20,5 +21,11 @@ class TransactionUsecase {
         amount: amount,
         description: description,
         transactionType: transactionType);
+  }
+
+  Future<Either<Failure, String>> addOtherTransactionMaterialAndRent(
+      {required OtherTransactionModel otherTransactionModel}) {
+    return _repository.addOtherTransactionMaterialAndRent(
+        otherTransactionModel: otherTransactionModel);
   }
 }

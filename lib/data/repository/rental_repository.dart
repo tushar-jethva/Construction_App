@@ -1,6 +1,7 @@
 import 'package:construction_mate/data/datasource/rental_data_source.dart';
 import 'package:construction_mate/logic/models/add_rental_model.dart';
 import 'package:construction_mate/logic/models/get_rental_model.dart';
+import 'package:construction_mate/logic/models/project_partie_model.dart';
 import 'package:construction_mate/utilities/error_handling/error_handler.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
 import 'package:dartz/dartz.dart';
@@ -13,6 +14,10 @@ abstract class RentalRepository {
       {required String projectId});
   Future<Either<Failure, String>> updateRental(
       {required AddRentalModel rentalModel});
+  Future<Either<Failure, List<RentalModel>>> getRentalByPartie(
+      {required String partieId});
+  Future<Either<Failure, List<ProjectPartieModel>>> getProjectRentalParties(
+      {required String projectId});
 }
 
 @LazySingleton(as: RentalRepository)
@@ -37,5 +42,18 @@ class RentalRepositoryImpl implements RentalRepository {
       {required AddRentalModel rentalModel}) {
     return handleErrors(
         () => dataSource.updateRental(rentalModel: rentalModel));
+  }
+
+  @override
+  Future<Either<Failure, List<RentalModel>>> getRentalByPartie(
+      {required String partieId}) {
+    return handleErrors(() => dataSource.getRentalByPartie(partieId: partieId));
+  }
+
+  @override
+  Future<Either<Failure, List<ProjectPartieModel>>> getProjectRentalParties(
+      {required String projectId}) {
+    return handleErrors(
+        () => dataSource.getProjectRentalParties(projectId: projectId));
   }
 }

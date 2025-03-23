@@ -3,11 +3,17 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/MaterialSupplier/material_supplier_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_by_partie/material_by_partie_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
+import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
@@ -85,6 +91,9 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
         (widget.material.priceperunit ?? 0).toString();
     _hsnCodeController.text = (widget.material.hashCode ?? 0).toString();
 
+    context.read<MaterialAgenciesBloc>().add(
+        MaterialAgenciesEvent.onChangeMaterialAgency(
+            materialAgency: widget.material.partieId ?? ''));
     context.read<AddMaterialBloc>().add(
         AddMaterialEvent.onDateChanged(date: widget.material.date.toString()));
     context
@@ -130,12 +139,45 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                     key: _formKeyMaterial,
                     child: Column(
                       children: [
+                        10.hx,
+                        BlocListener<MaterialSupplierBloc,
+                            MaterialSupplierState>(
+                          listener: (context, state) {
+                            if (state.state.isLoaded) {
+                              context.read<MaterialAgenciesBloc>().add(
+                                  const MaterialAgenciesEvent
+                                      .fetchMaterialAgencies());
+                            }
+                          },
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<AddPartiesBloc>().add(
+                                    const AddPartiesEvent.onPartyTypeChange(
+                                        partyType: PartyType.Material));
+                                context.pushNamed(
+                                    RoutesName.ADD_MATERIAL_PARTY_SCREEN_NAME);
+                              },
+                              child: Text(
+                                "Add Material Supplier",
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                    color: purple,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: purple),
+                              ),
+                            ),
+                          ),
+                        ),
+                        20.hx,
                         BlocBuilder<MaterialAgenciesBloc,
                             MaterialAgenciesState>(
                           builder: (context, state) {
                             return state.state.isLoaded
                                 ? PaymentOutCustomDropDown(
-                                    value: state.listOfMaterialAgencies[0].sId,
+                                    value: widget.isUpdate == true
+                                        ? state.selectedMaterialAgency
+                                        : state.listOfMaterialAgencies[0].sId,
                                     list: state.listOfMaterialAgencies
                                         .map((e) => DropdownMenuItem(
                                               value: e.sId,
@@ -319,9 +361,14 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                     listener: (context, state) {
                       if (state.state.isLoaded) {
                         context.pop();
-                        context.read<AddMaterialBloc>().add(
-                            AddMaterialEvent.fetchAllMaterial(
-                                projectId: widget.projectId));
+                        context.read<MaterialByPartieBloc>().add(
+                            MaterialByPartieEvent.getMaterialByPartie(
+                                partieId: widget.material.partieId ?? ''));
+
+                        context.read<MaterialPartieProjectBloc>().add(
+                            MaterialPartieProjectEvent
+                                .fetchMatrialPartieByProject(
+                                    projectId: widget.projectId));
                       }
                     },
                     child: BlocBuilder<AddMaterialBloc, AddMaterialState>(

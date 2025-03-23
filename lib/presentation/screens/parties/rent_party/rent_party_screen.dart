@@ -39,9 +39,6 @@ class _MyRentPartyScreenState extends State<MyRentPartyScreen> {
       TextEditingController();
 
   @override
-  void initState() {}
-
-  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -97,7 +94,7 @@ class _MyRentPartyScreenState extends State<MyRentPartyScreen> {
                       if (value == null ||
                           value.isEmpty ||
                           !ReusableFunctions.isValidInput(value)) {
-                        return 'Please add party name!';
+                        return 'Please add party name';
                       }
                     },
                   ),
@@ -148,7 +145,7 @@ class _MyRentPartyScreenState extends State<MyRentPartyScreen> {
                         final emailRegex = RegExp(
                             r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
                         if (!emailRegex.hasMatch(value.trim())) {
-                          return 'Please enter a valid email address!';
+                          return 'Please enter a valid email address';
                         }
                       }
 
@@ -213,7 +210,7 @@ class _MyRentPartyScreenState extends State<MyRentPartyScreen> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: CustomElevatedButton(
-                      label: "Add Party",
+                      label: "Add Equipment Supplier",
                       isLoading: state.state.isLoading,
                       onTap: () {
                         if (_materialFormKey.currentState!.validate()) {

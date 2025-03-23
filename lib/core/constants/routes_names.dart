@@ -40,9 +40,19 @@ class RoutesName {
   static String ADD_MATERIAL_PARTY_SCREEN_PATH = "/addMaterialParty";
   static String ADD_MATERIAL_PARTY_SCREEN_NAME = "/addMaterialParty";
 
+  //All Materail Product by Partie
+  static String MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_PATH =
+      "/allMaterailProducts";
+  static String MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME =
+      "/allMaterialProducts";
+
   //Add Rent Party
   static String ADD_RENT_PARTY_SCREEN_PATH = "/addRentParty";
   static String ADD_RENT_PARTY_SCREEN_NAME = "/addRentParty";
+
+  //All Rental Product by Partie
+  static String RENT_PRODUCTS_BY_PROJECT_SCREEN_PATH = "/allRentProducts";
+  static String RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME = "/allRentProducts";
 
   //New details screen
   static String NEW_DETAIL_SCREEN_PATH = "/newDetails";

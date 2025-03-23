@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
+import 'package:construction_mate/logic/models/other_transaction_model.dart';
 import 'package:construction_mate/logic/models/transaction_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 import 'package:construction_mate/utilities/extension/transaction_extension.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class TransactionDataSource {
@@ -37,6 +39,9 @@ abstract class TransactionDataSource {
       required String amount,
       required String description,
       required Transaction transactionType});
+
+  Future<String> addOtherTransactionMaterialAndRent(
+      {required OtherTransactionModel otherTransactionModel});
 }
 
 @LazySingleton(as: TransactionDataSource)
@@ -219,6 +224,20 @@ class TransactionDataSourceImpl extends TransactionDataSource {
             "description": description,
             "transactionType": transactionType.name
           }));
+
+      return res.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> addOtherTransactionMaterialAndRent(
+      {required OtherTransactionModel otherTransactionModel}) async {
+    try {
+      debugPrint("========= other trans ${otherTransactionModel.toJson()}");
+      final res = await dio.post(API.ADD_OTHER_TRANSACTIONS,
+          data: jsonEncode(otherTransactionModel.toJson()));
 
       return res.data['message'];
     } catch (e) {

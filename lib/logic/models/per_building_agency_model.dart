@@ -9,6 +9,7 @@ class PerBuildingAgencyModel {
   final String? pricePerFeet;
   final String? description;
   final String? agencyId;
+
   PerBuildingAgencyModel(
       {this.workType,
       this.nameOfAgency,
@@ -30,10 +31,10 @@ class PerBuildingAgencyModel {
   factory PerBuildingAgencyModel.fromMap(Map<String, dynamic> map) {
     return PerBuildingAgencyModel(
         workType: map['workTypeName'] as String,
-        nameOfAgency: map['agencyName'] as String,
+        nameOfAgency: map['partieName'] as String,
         floors: List<String>.from((map['floorIndices'] as List<dynamic>)),
         pricePerFeet: (map['price'] as dynamic).toString(),
-        agencyId: map['agencyId'] as String);
+        agencyId: map['partieId'] as String);
   }
 
   String toJson() => json.encode(toMap());

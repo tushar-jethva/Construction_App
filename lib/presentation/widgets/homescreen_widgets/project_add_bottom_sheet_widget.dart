@@ -109,7 +109,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                             value.isEmpty ||
                             value.trim().isEmpty ||
                             !ReusableFunctions.isValidInput(value)) {
-                          return 'Please enter project name!';
+                          return 'Please enter project name';
                         }
                       },
                     ),
@@ -124,7 +124,7 @@ class _MyProjectAddBottomSheetState extends State<MyProjectAddBottomSheet> {
                         if (value == null ||
                             value.trim().isEmpty ||
                             !ReusableFunctions.isValidInput(value)) {
-                          return 'Please enter project address!';
+                          return 'Please enter project address';
                         }
                       },
                     ),

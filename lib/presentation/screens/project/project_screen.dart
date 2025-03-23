@@ -1,7 +1,9 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_suppliers/get_rental_suppliers_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
@@ -43,6 +45,14 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
         .read<OtherExpenseBloc>()
         .add(const OtherExpenseEvent.fetchOtherExpenses());
     context.read<UserWatcherBloc>().add(const UserWatcherEvent.fetchProfile());
+
+    context
+        .read<MaterialAgenciesBloc>()
+        .add(const MaterialAgenciesEvent.fetchMaterialAgencies());
+
+    context
+        .read<GetRentalSuppliersBloc>()
+        .add(const GetRentalSuppliersEvent.fetchRentalSuppliers());
   }
 
   Future<void> _refreshProjects() async {

@@ -5,6 +5,8 @@ class DropDownAgencyModel {
 
   DropDownAgencyModel({this.agencyId, this.agencyName, this.workTypes});
 
+  
+
   DropDownAgencyModel.fromJson(Map<String, dynamic> json) {
     agencyId = json['_id'];
     agencyName = json['Name'];

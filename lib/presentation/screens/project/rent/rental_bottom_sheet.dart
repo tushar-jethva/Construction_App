@@ -3,13 +3,19 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/add_rent_supplier/add_rent_supplier_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/get_rental_suppliers/get_rental_suppliers_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/get_rental_model.dart';
 import 'package:construction_mate/logic/models/material_model.dart';
@@ -90,6 +96,9 @@ class _MyRentalAddBottomSheetState extends State<MyRentalAddBottomSheet> {
     context.read<AddRentalProductBloc>().add(
         AddRentalProductEvent.onRentalPartyIdChanged(
             rentalPartyId: widget.material.partieId ?? ''));
+    context.read<GetRentalSuppliersBloc>().add(
+        GetRentalSuppliersEvent.onRentalPartyChanged(
+            rentalParty: widget.material.partieId ?? ''));
   }
 
   @override
@@ -124,6 +133,36 @@ class _MyRentalAddBottomSheetState extends State<MyRentalAddBottomSheet> {
             builder: (context, state) {
               return Column(
                 children: [
+                  10.hx,
+                  BlocListener<AddRentSupplierBloc, AddRentSupplierState>(
+                    listener: (context, state) {
+                      if (state.state.isLoaded) {
+                        context.read<GetRentalSuppliersBloc>().add(
+                            const GetRentalSuppliersEvent
+                                .fetchRentalSuppliers());
+                      }
+                    },
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.read<AddPartiesBloc>().add(
+                              const AddPartiesEvent.onPartyTypeChange(
+                                  partyType: PartyType.EquipmentSupplier));
+                          context
+                              .pushNamed(RoutesName.ADD_RENT_PARTY_SCREEN_NAME);
+                        },
+                        child: Text(
+                          "Add Equipment Supplier",
+                          style: theme.textTheme.titleMedium?.copyWith(
+                              color: purple,
+                              decoration: TextDecoration.underline,
+                              decorationColor: purple),
+                        ),
+                      ),
+                    ),
+                  ),
+                  20.hx,
                   Form(
                     key: _formKeyMaterial,
                     child: Column(
@@ -282,9 +321,18 @@ class _MyRentalAddBottomSheetState extends State<MyRentalAddBottomSheet> {
                   BlocListener<AddRentalProductBloc, AddRentalProductState>(
                     listener: (context, state) {
                       if (state.state.isLoaded) {
-                        context.read<AddRentalProductBloc>().add(
-                            AddRentalProductEvent.fetchAllRental(
+                        // context.read<AddRentalProductBloc>().add(
+                        //     AddRentalProductEvent.fetchAllRental(
+                        //         projectId: widget.projectId));
+
+                        context.read<RentalByPartieIdBloc>().add(
+                            RentalByPartieIdEvent.getRentalByPartie(
+                                partieId: widget.material.partieId ?? ''));
+
+                        context.read<GetRentalPartieProjectBloc>().add(
+                            GetRentalPartieProjectEvent.fetchRentalParties(
                                 projectId: widget.projectId));
+
                         context.pop();
                       }
                     },
@@ -304,10 +352,12 @@ class _MyRentalAddBottomSheetState extends State<MyRentalAddBottomSheet> {
                                 showTopSnackBar(context, "Enter valid quantity",
                                     messageType: MessageType.warning);
                               } else {
+                                debugPrint(
+                                    "============== id: ${material.partieId} ==========");
                                 context.read<AddRentalProductBloc>().add(
                                     AddRentalProductEvent.onAddRental(
                                         rentalProductId: material.sId ?? "",
-                                        rentalPartyId: material.sId ?? "",
+                                        rentalPartyId: material.partieId ?? "",
                                         isUpdate: widget.isUpdate ?? false,
                                         projectId: widget.projectId,
                                         materialName:

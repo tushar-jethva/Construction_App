@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/building_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
+import 'package:injectable/injectable.dart';
 
 abstract class BuildingDataSource {
   Future<void> addBuilding(
@@ -14,6 +15,7 @@ abstract class BuildingDataSource {
   Future<List<BuildingModel>> allBuildingById({required String projectId});
 }
 
+@LazySingleton(as: BuildingDataSource)
 class BuildingDataSourceImpl extends BuildingDataSource {
   final dio = BaseDataCenter().dio.dio;
 
