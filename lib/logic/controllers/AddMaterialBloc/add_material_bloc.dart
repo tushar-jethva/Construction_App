@@ -4,7 +4,7 @@ import 'package:construction_mate/data/repository/material_repository.dart';
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:meta/meta.dart';

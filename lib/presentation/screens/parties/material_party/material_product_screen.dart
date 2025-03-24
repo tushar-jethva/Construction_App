@@ -2,12 +2,14 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_by_partie/material_by_partie_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/get_rental_model.dart';
+import 'package:construction_mate/logic/models/material/all_material_model.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/presentation/screens/project/rent/rental_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
@@ -23,10 +25,14 @@ import '../../../../logic/models/project_model.dart';
 
 class MaterialProductsScreen extends StatefulWidget {
   final ProjectModel project;
+  final Rentals materials;
   final String partieId;
 
   const MaterialProductsScreen(
-      {super.key, required this.project, required this.partieId});
+      {super.key,
+      required this.project,
+      required this.partieId,
+      required this.materials});
 
   @override
   State<MaterialProductsScreen> createState() => _MaterialProductsScreenState();
@@ -34,14 +40,14 @@ class MaterialProductsScreen extends StatefulWidget {
 
 class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
   Future<void> onRefresh() async {
-    context.read<MaterialByPartieBloc>().add(
-        MaterialByPartieEvent.getMaterialByPartie(
-            partieId: widget.partieId ?? ""));
+    // context.read<MaterialByPartieBloc>().add(
+    //     MaterialByPartieEvent.getMaterialByPartie(
+    //         partieId: widget.partieId ?? ""));
   }
 
   openBottomSheetOfMaterial(
       {required BuildContext context,
-      required GetMaterialModel material,
+      required Details material,
       bool? isUpdate}) {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -55,6 +61,7 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
               projectId: widget.project.sId ?? "",
               material: material,
               isUpdate: isUpdate,
+              partieId: widget.partieId,
             ),
           );
         });
@@ -73,7 +80,8 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
       body: RefreshIndicator(
         onRefresh: onRefresh,
         color: purple,
-        child: BlocBuilder<MaterialByPartieBloc, MaterialByPartieState>(
+        child:
+            BlocBuilder<MaterialPartieProjectBloc, MaterialPartieProjectState>(
           builder: (context, state) {
             return state.state.isLoading
                 ? Skeletonizer(
@@ -82,26 +90,19 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                         itemCount: 5,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return materialWidget(
-                              theme,
-                              GetMaterialModel(
-                                  name: "Helloo",
-                                  priceperunit: 0,
-                                  quantity: 0,
-                                  unit: "bags",
-                                  description: "Description desctiptio ",
-                                  date: DateTime.now().toString()));
+                          return materialWidget(theme, Details());
                         }))
-                : state.listOfMaterial.isNotEmpty
+                : widget.materials.details?.isNotEmpty ?? false
                     ? SizedBox(
                         height: MediaQuery.of(context).size.height * 0.73,
                         child: ListView.builder(
-                            itemCount: state.listOfMaterial.length,
+                            itemCount: widget.materials.details?.length ?? 0,
                             itemBuilder: (context, index) {
-                              final material = state.listOfMaterial[index];
+                              final material = widget.materials.details?[index];
                               return GestureDetector(
                                   onTap: () {},
-                                  child: materialWidget(theme, material));
+                                  child: materialWidget(
+                                      theme, material ?? Details()));
                             }),
                       )
                     : SizedBox(
@@ -119,7 +120,7 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
     );
   }
 
-  Widget materialWidget(ThemeData theme, GetMaterialModel material) {
+  Widget materialWidget(ThemeData theme, Details material) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(

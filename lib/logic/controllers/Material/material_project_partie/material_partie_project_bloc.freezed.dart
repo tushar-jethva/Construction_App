@@ -523,8 +523,8 @@ mixin _$MaterialPartieProjectState {
   RequestState get state => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   String get selectedMaterialAgency => throw _privateConstructorUsedError;
-  List<ProjectPartieModel> get listOfMaterialPartie =>
-      throw _privateConstructorUsedError;
+  AllMaterialModel? get materialData => throw _privateConstructorUsedError;
+  List<Data> get listOfMaterialParty => throw _privateConstructorUsedError;
 
   /// Create a copy of MaterialPartieProjectState
   /// with the given fields replaced by the non-null parameter values.
@@ -544,7 +544,8 @@ abstract class $MaterialPartieProjectStateCopyWith<$Res> {
       {RequestState state,
       String message,
       String selectedMaterialAgency,
-      List<ProjectPartieModel> listOfMaterialPartie});
+      AllMaterialModel? materialData,
+      List<Data> listOfMaterialParty});
 }
 
 /// @nodoc
@@ -566,7 +567,8 @@ class _$MaterialPartieProjectStateCopyWithImpl<$Res,
     Object? state = null,
     Object? message = null,
     Object? selectedMaterialAgency = null,
-    Object? listOfMaterialPartie = null,
+    Object? materialData = freezed,
+    Object? listOfMaterialParty = null,
   }) {
     return _then(_value.copyWith(
       state: null == state
@@ -581,10 +583,14 @@ class _$MaterialPartieProjectStateCopyWithImpl<$Res,
           ? _value.selectedMaterialAgency
           : selectedMaterialAgency // ignore: cast_nullable_to_non_nullable
               as String,
-      listOfMaterialPartie: null == listOfMaterialPartie
-          ? _value.listOfMaterialPartie
-          : listOfMaterialPartie // ignore: cast_nullable_to_non_nullable
-              as List<ProjectPartieModel>,
+      materialData: freezed == materialData
+          ? _value.materialData
+          : materialData // ignore: cast_nullable_to_non_nullable
+              as AllMaterialModel?,
+      listOfMaterialParty: null == listOfMaterialParty
+          ? _value.listOfMaterialParty
+          : listOfMaterialParty // ignore: cast_nullable_to_non_nullable
+              as List<Data>,
     ) as $Val);
   }
 }
@@ -602,7 +608,8 @@ abstract class _$$MaterialPartieProjectStateImplCopyWith<$Res>
       {RequestState state,
       String message,
       String selectedMaterialAgency,
-      List<ProjectPartieModel> listOfMaterialPartie});
+      AllMaterialModel? materialData,
+      List<Data> listOfMaterialParty});
 }
 
 /// @nodoc
@@ -623,7 +630,8 @@ class __$$MaterialPartieProjectStateImplCopyWithImpl<$Res>
     Object? state = null,
     Object? message = null,
     Object? selectedMaterialAgency = null,
-    Object? listOfMaterialPartie = null,
+    Object? materialData = freezed,
+    Object? listOfMaterialParty = null,
   }) {
     return _then(_$MaterialPartieProjectStateImpl(
       state: null == state
@@ -638,10 +646,14 @@ class __$$MaterialPartieProjectStateImplCopyWithImpl<$Res>
           ? _value.selectedMaterialAgency
           : selectedMaterialAgency // ignore: cast_nullable_to_non_nullable
               as String,
-      listOfMaterialPartie: null == listOfMaterialPartie
-          ? _value._listOfMaterialPartie
-          : listOfMaterialPartie // ignore: cast_nullable_to_non_nullable
-              as List<ProjectPartieModel>,
+      materialData: freezed == materialData
+          ? _value.materialData
+          : materialData // ignore: cast_nullable_to_non_nullable
+              as AllMaterialModel?,
+      listOfMaterialParty: null == listOfMaterialParty
+          ? _value._listOfMaterialParty
+          : listOfMaterialParty // ignore: cast_nullable_to_non_nullable
+              as List<Data>,
     ));
   }
 }
@@ -653,8 +665,9 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
       {required this.state,
       required this.message,
       required this.selectedMaterialAgency,
-      required final List<ProjectPartieModel> listOfMaterialPartie})
-      : _listOfMaterialPartie = listOfMaterialPartie;
+      required this.materialData,
+      required final List<Data> listOfMaterialParty})
+      : _listOfMaterialParty = listOfMaterialParty;
 
   @override
   final RequestState state;
@@ -662,18 +675,20 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
   final String message;
   @override
   final String selectedMaterialAgency;
-  final List<ProjectPartieModel> _listOfMaterialPartie;
   @override
-  List<ProjectPartieModel> get listOfMaterialPartie {
-    if (_listOfMaterialPartie is EqualUnmodifiableListView)
-      return _listOfMaterialPartie;
+  final AllMaterialModel? materialData;
+  final List<Data> _listOfMaterialParty;
+  @override
+  List<Data> get listOfMaterialParty {
+    if (_listOfMaterialParty is EqualUnmodifiableListView)
+      return _listOfMaterialParty;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_listOfMaterialPartie);
+    return EqualUnmodifiableListView(_listOfMaterialParty);
   }
 
   @override
   String toString() {
-    return 'MaterialPartieProjectState(state: $state, message: $message, selectedMaterialAgency: $selectedMaterialAgency, listOfMaterialPartie: $listOfMaterialPartie)';
+    return 'MaterialPartieProjectState(state: $state, message: $message, selectedMaterialAgency: $selectedMaterialAgency, materialData: $materialData, listOfMaterialParty: $listOfMaterialParty)';
   }
 
   @override
@@ -685,8 +700,10 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.selectedMaterialAgency, selectedMaterialAgency) ||
                 other.selectedMaterialAgency == selectedMaterialAgency) &&
+            (identical(other.materialData, materialData) ||
+                other.materialData == materialData) &&
             const DeepCollectionEquality()
-                .equals(other._listOfMaterialPartie, _listOfMaterialPartie));
+                .equals(other._listOfMaterialParty, _listOfMaterialParty));
   }
 
   @override
@@ -695,7 +712,8 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
       state,
       message,
       selectedMaterialAgency,
-      const DeepCollectionEquality().hash(_listOfMaterialPartie));
+      materialData,
+      const DeepCollectionEquality().hash(_listOfMaterialParty));
 
   /// Create a copy of MaterialPartieProjectState
   /// with the given fields replaced by the non-null parameter values.
@@ -713,7 +731,8 @@ abstract class _MaterialPartieProjectState
           {required final RequestState state,
           required final String message,
           required final String selectedMaterialAgency,
-          required final List<ProjectPartieModel> listOfMaterialPartie}) =
+          required final AllMaterialModel? materialData,
+          required final List<Data> listOfMaterialParty}) =
       _$MaterialPartieProjectStateImpl;
 
   @override
@@ -723,7 +742,9 @@ abstract class _MaterialPartieProjectState
   @override
   String get selectedMaterialAgency;
   @override
-  List<ProjectPartieModel> get listOfMaterialPartie;
+  AllMaterialModel? get materialData;
+  @override
+  List<Data> get listOfMaterialParty;
 
   /// Create a copy of MaterialPartieProjectState
   /// with the given fields replaced by the non-null parameter values.

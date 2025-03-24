@@ -1,7 +1,8 @@
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/material/all_material_model.dart';
+import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,9 @@ class MaterialChildWidget extends StatelessWidget {
 
   openBottomSheetOfMaterial(
       {required BuildContext context,
-      required GetMaterialModel material,
-      bool? isUpdate}) {
+      required Details material,
+      bool? isUpdate,
+      required String partieId}) {
     showModalBottomSheet(
         isScrollControlled: true,
         showDragHandle: true,
@@ -28,6 +30,7 @@ class MaterialChildWidget extends StatelessWidget {
                   projectId: state.project?.sId ?? "",
                   material: material,
                   isUpdate: isUpdate,
+                  partieId: partieId,
                 );
               },
             ),
@@ -46,16 +49,8 @@ class MaterialChildWidget extends StatelessWidget {
             openBottomSheetOfMaterial(
                 context: context,
                 isUpdate: false,
-                material: GetMaterialModel(
-                    name: "",
-                    priceperunit: 0,
-                    gst: 0,
-                    hsncode: '',
-                    partieId: '',
-                    quantity: 0,
-                    unit: "",
-                    description: "",
-                    date: ""));
+                material: Details(),
+                partieId: '');
           }),
     );
   }

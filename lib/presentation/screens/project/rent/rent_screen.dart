@@ -11,7 +11,7 @@ import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_
 import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/get_rental_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';

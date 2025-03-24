@@ -1,6 +1,7 @@
 import 'package:construction_mate/data/repository/material_repository.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/material/all_material_model.dart';
+import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -29,8 +30,8 @@ class MaterialUsecase {
     return materialRepository.getMaterialByPartie(partieId: partieId);
   }
 
-  Future<Either<Failure, List<ProjectPartieModel>>> getMaterialPartyByProject(
+  Future<Either<Failure, AllMaterialModel>> getMaterialPartyByProject(
       {required String projectId}) {
-    return  materialRepository.getMaterialPartyByProject(projectId: projectId);
+    return materialRepository.getMaterialPartyByProject(projectId: projectId);
   }
 }

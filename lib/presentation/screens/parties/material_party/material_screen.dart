@@ -8,7 +8,8 @@ import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart
 import 'package:construction_mate/logic/controllers/Material/material_by_partie/material_by_partie_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/material/all_material_model.dart';
+import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
@@ -43,26 +44,26 @@ class _MaterialScreenState extends State<MaterialScreen> {
     //     AddMaterialEvent.fetchAllMaterial(projectId: widget.project.sId ?? ""));
   }
 
-  openBottomSheetOfMaterial(
-      {required BuildContext context,
-      required GetMaterialModel material,
-      bool? isUpdate}) {
-    showModalBottomSheet(
-        isScrollControlled: true,
-        showDragHandle: true,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        context: context,
-        builder: (context) {
-          return BlocProvider(
-            create: (context) => DateBlocBloc(),
-            child: MyMaterialAddBottomSheet(
-              projectId: widget.project.sId ?? "",
-              material: material,
-              isUpdate: isUpdate,
-            ),
-          );
-        });
-  }
+  // openBottomSheetOfMaterial(
+  //     {required BuildContext context,
+  //     required GetMaterialModel material,
+  //     bool? isUpdate}) {
+  //   showModalBottomSheet(
+  //       isScrollControlled: true,
+  //       showDragHandle: true,
+  //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+  //       context: context,
+  //       builder: (context) {
+  //         return BlocProvider(
+  //           create: (context) => DateBlocBloc(),
+  //           child: MyMaterialAddBottomSheet(
+  //             projectId: widget.project.sId ?? "",
+  //             material: material,
+  //             isUpdate: isUpdate,
+  //           ),
+  //         );
+  //       });
+  // }
 
   Future<void> onRefresh() async {
     context.read<AddMaterialBloc>().add(
@@ -72,11 +73,14 @@ class _MaterialScreenState extends State<MaterialScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return RefreshIndicator(
       onRefresh: onRefresh,
       color: purple,
       child: BlocBuilder<MaterialPartieProjectBloc, MaterialPartieProjectState>(
         builder: (context, state) {
+          print(
+              "============ data is ${state.listOfMaterialParty} ===========");
           return state.state.isLoading
               ? Skeletonizer(
                   enabled: true,
@@ -84,38 +88,35 @@ class _MaterialScreenState extends State<MaterialScreen> {
                       itemCount: 5,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return agenyOneWidget(
-                            theme,
-                            ProjectPartieModel(
-                              name: "Helloo",
-                            ),
-                            0);
+                        return agenyOneWidget(theme, Data(name: "Material"), 0);
                       }))
-              : state.listOfMaterialPartie.isNotEmpty
+              : state.listOfMaterialParty.isNotEmpty
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height * 0.73,
                       child: ListView.builder(
-                          itemCount: state.listOfMaterialPartie.length,
-                          controller: widget.scrollController,
-                          itemBuilder: (context, index) {
-                            final materialPartie =
-                                state.listOfMaterialPartie[index];
-                            return GestureDetector(
-                                onTap: () {
-                                  context.read<MaterialByPartieBloc>().add(
-                                      MaterialByPartieEvent.getMaterialByPartie(
-                                          partieId: materialPartie.sId ?? ''));
-                                  context.pushNamed(
-                                      RoutesName
-                                          .MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
-                                      extra: {
-                                        'project': widget.project,
-                                        'partieId': materialPartie.sId
-                                      });
-                                },
-                                child: agenyOneWidget(
-                                    theme, materialPartie, index));
-                          }),
+                        itemCount: state.listOfMaterialParty.length,
+                        controller: widget.scrollController,
+                        itemBuilder: (context, index) {
+                          final materialPartie =
+                              state.listOfMaterialParty[index];
+                          return GestureDetector(
+                              onTap: () {
+                                // context.read<MaterialByPartieBloc>().add(
+                                //     MaterialByPartieEvent.getMaterialByPartie(
+                                //         partieId: materialPartie.da ?? ''));
+                                context.pushNamed(
+                                    RoutesName
+                                        .ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                                    extra: {
+                                      'project': widget.project,
+                                      'partieId': materialPartie.sId,
+                                      'material': materialPartie
+                                    });
+                              },
+                              child:
+                                  agenyOneWidget(theme, materialPartie, index));
+                        },
+                      ),
                     )
                   : SizedBox(
                       height: MediaQuery.of(context).size.height,
@@ -131,8 +132,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
     );
   }
 
-  Padding agenyOneWidget(
-      ThemeData theme, ProjectPartieModel agency, int index) {
+  Padding agenyOneWidget(ThemeData theme, Data agency, int index) {
     return Padding(
       padding:
           const EdgeInsets.only(left: 15.0, right: 15, bottom: 10, top: 10),
@@ -167,7 +167,7 @@ class _MaterialScreenState extends State<MaterialScreen> {
                               SvgPicture.asset(Assets.svg.remaining.path),
                               5.wx,
                               Text(
-                                "Remaining: ",
+                                "Total Cost: ",
                                 style: theme.textTheme.titleMedium
                                     ?.copyWith(color: grey, fontSize: 12),
                               ),
@@ -192,26 +192,26 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                     ?.copyWith(color: grey, fontSize: 12),
                               ),
                               Text(
-                                " ₹ ${0}",
+                                " ₹ ${agency.paidCost ?? 0}",
                                 style: theme.textTheme.titleLarge
                                     ?.copyWith(color: green, fontSize: 13),
                               )
                             ],
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                "Total Payable: ",
-                                style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
-                              ),
-                              Text(
-                                "₹ ${0}",
-                                style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: red, fontSize: 13),
-                              ),
-                            ],
-                          )
+                          // Row(
+                          //   children: [
+                          //     Text(
+                          //       "Total Payable: ",
+                          //       style: theme.textTheme.titleMedium
+                          //           ?.copyWith(color: grey, fontSize: 12),
+                          //     ),
+                          //     Text(
+                          //       "₹ ${0}",
+                          //       style: theme.textTheme.titleLarge
+                          //           ?.copyWith(color: red, fontSize: 13),
+                          //     ),
+                          //   ],
+                          // )
                         ],
                       ),
                     ],

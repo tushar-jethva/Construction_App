@@ -46,6 +46,12 @@ class RoutesName {
   static String MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME =
       "/allMaterialProducts";
 
+  //All Material Thing
+  static String ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_PATH =
+      "/allMaterailThing";
+  static String ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME =
+      "/allMaterialThing";
+
   //Add Rent Party
   static String ADD_RENT_PARTY_SCREEN_PATH = "/addRentParty";
   static String ADD_RENT_PARTY_SCREEN_NAME = "/addRentParty";

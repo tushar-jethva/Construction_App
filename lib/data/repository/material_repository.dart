@@ -1,6 +1,7 @@
 import 'package:construction_mate/data/datasource/material_data_source.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/material/all_material_model.dart';
+import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
 import 'package:construction_mate/utilities/error_handling/error_handler.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
@@ -19,7 +20,7 @@ abstract class MaterialRepository {
   Future<Either<Failure, List<GetMaterialModel>>> getMaterialByPartie(
       {required String partieId});
 
-  Future<Either<Failure, List<ProjectPartieModel>>> getMaterialPartyByProject(
+  Future<Either<Failure, AllMaterialModel>> getMaterialPartyByProject(
       {required String projectId});
 }
 
@@ -52,7 +53,7 @@ class MaterialRepositoryImpl extends MaterialRepository {
   }
 
   @override
-  Future<Either<Failure, List<ProjectPartieModel>>> getMaterialPartyByProject(
+  Future<Either<Failure, AllMaterialModel>> getMaterialPartyByProject(
       {required String projectId}) {
     return handleErrors(
         () => dataSource.getMaterialPartyByProject(projectId: projectId));

@@ -15,7 +15,8 @@ import 'package:construction_mate/logic/controllers/Material/material_by_partie/
 import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/material/all_material_model.dart';
+import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/custom_text_form_field.dart';
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
@@ -29,12 +30,14 @@ import 'package:go_router/go_router.dart';
 
 class MyMaterialAddBottomSheet extends StatefulWidget {
   final String projectId;
-  final GetMaterialModel material;
+  final Details material;
   final bool? isUpdate;
+  final String partieId;
   const MyMaterialAddBottomSheet(
       {super.key,
       required this.projectId,
       required this.material,
+      required this.partieId,
       this.isUpdate = false});
 
   @override
@@ -86,14 +89,14 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
     _materialNameController.text = widget.material.name ?? '';
     _quantityController.text = (widget.material.quantity ?? 0).toString();
     _descriptionController.text = widget.material.description ?? '';
-    _gstController.text = (widget.material.gst ?? 0).toString();
+    _gstController.text = (0).toString();
     _pricePerUnitController.text =
         (widget.material.priceperunit ?? 0).toString();
     _hsnCodeController.text = (widget.material.hashCode ?? 0).toString();
 
     context.read<MaterialAgenciesBloc>().add(
         MaterialAgenciesEvent.onChangeMaterialAgency(
-            materialAgency: widget.material.partieId ?? ''));
+            materialAgency: widget.partieId));
     context.read<AddMaterialBloc>().add(
         AddMaterialEvent.onDateChanged(date: widget.material.date.toString()));
     context
@@ -363,7 +366,7 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                         context.pop();
                         context.read<MaterialByPartieBloc>().add(
                             MaterialByPartieEvent.getMaterialByPartie(
-                                partieId: widget.material.partieId ?? ''));
+                                partieId: widget.partieId ?? ''));
 
                         context.read<MaterialPartieProjectBloc>().add(
                             MaterialPartieProjectEvent
@@ -389,7 +392,7 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                               } else {
                                 context.read<AddMaterialBloc>().add(
                                     AddMaterialEvent.onAddMaterialTap(
-                                        materialId: material.sId ?? "",
+                                        materialId: material.materialId ?? "",
                                         isUpdate: widget.isUpdate ?? false,
                                         projectId: widget.projectId,
                                         materialName:

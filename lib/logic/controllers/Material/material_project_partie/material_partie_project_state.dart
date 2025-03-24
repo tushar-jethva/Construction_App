@@ -6,12 +6,14 @@ class MaterialPartieProjectState with _$MaterialPartieProjectState {
           {required RequestState state,
           required String message,
           required String selectedMaterialAgency,
-          required List<ProjectPartieModel> listOfMaterialPartie}) =
+          required AllMaterialModel? materialData,
+          required List<Data> listOfMaterialParty}) =
       _MaterialPartieProjectState;
   factory MaterialPartieProjectState.initial() =>
       const MaterialPartieProjectState(
           state: RequestState.empty,
           message: '',
-          listOfMaterialPartie: [],
-          selectedMaterialAgency: '');
+          materialData: null,
+          selectedMaterialAgency: '',
+          listOfMaterialParty: []);
 }

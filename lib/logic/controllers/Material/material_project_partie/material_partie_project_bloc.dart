@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/usecases/material_usecase.dart';
+import 'package:construction_mate/logic/models/material/all_material_model.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -16,24 +17,33 @@ class MaterialPartieProjectBloc
       : super(MaterialPartieProjectState.initial()) {
     on<MaterialPartieProjectEvent>((event, emit) async {
       await event.map(
-          initialize: (_Initialize value) {
-            emit(MaterialPartieProjectState.initial());
-          },
-          onChangeMaterialAgency: (value) {},
-          fetchMatrialPartieByProject:
-              (_FetchMatrialPartieByProject value) async {
-            emit(state.copyWith(state: RequestState.loading));
+        initialize: (_Initialize value) {
+          emit(MaterialPartieProjectState.initial());
+        },
+        onChangeMaterialAgency: (value) {},
+        fetchMatrialPartieByProject:
+            (_FetchMatrialPartieByProject value) async {
+          emit(state.copyWith(state: RequestState.loading));
 
-            final res = await materialUsecase.getMaterialPartyByProject(
-                projectId: value.projectId);
+          final res = await materialUsecase.getMaterialPartyByProject(
+              projectId: value.projectId);
 
-            res.fold((l) {
-              emit(state.copyWith(state: RequestState.error));
-            }, (r) {
+          res.fold(
+            (l) {
               emit(state.copyWith(
-                  state: RequestState.loaded, listOfMaterialPartie: r));
-            });
-          });
+                  state: RequestState.error, message: l.message));
+            },
+            (r) {
+              emit(
+                state.copyWith(
+                    state: RequestState.loaded,
+                    materialData: r,
+                    listOfMaterialParty: r.data ?? []),
+              );
+            },
+          );
+        },
+      );
     });
   }
 

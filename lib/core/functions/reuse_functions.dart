@@ -77,7 +77,11 @@ class ReusableFunctions {
   }
 
   static String getFormattedDate(String date) {
-    return DateFormat.yMMMd().format(DateTime.parse(date));
+    DateTime parsedDate = DateTime.parse(date).toLocal();
+
+    // Format the date
+    String formattedDate = DateFormat.yMMMd().format(parsedDate);
+    return formattedDate;
   }
 
   static Future<String> uploadToCloudinary(XFile image) async {

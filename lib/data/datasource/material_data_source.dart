@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/api.dart';
 import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/material_model.dart';
+import 'package:construction_mate/logic/models/material/all_material_model.dart';
+import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
 import 'package:construction_mate/utilities/dio_config/base_data_center.dart';
 import 'package:injectable/injectable.dart';
@@ -15,7 +16,7 @@ abstract class MaterialDataSource {
   Future<List<GetMaterialModel>> getMaterialByPartie(
       {required String partieId});
 
-  Future<List<ProjectPartieModel>> getMaterialPartyByProject(
+  Future<AllMaterialModel> getMaterialPartyByProject(
       {required String projectId});
 }
 
@@ -86,19 +87,16 @@ class MaterialDataSourceImpl extends MaterialDataSource {
   }
 
   @override
-  Future<List<ProjectPartieModel>> getMaterialPartyByProject(
+  Future<AllMaterialModel> getMaterialPartyByProject(
       {required String projectId}) async {
     try {
       final res = await dio.get("${API.MATERIAL_PARTIE_BY_PROJECT}/$projectId");
 
       final data = res.data;
-      List<ProjectPartieModel> list = [];
 
-      for (var partie in data['data']) {
-        list.add(ProjectPartieModel.fromJson(partie));
-      }
+      print("=============== material ${data['data']} ==============");
 
-      return list;
+      return AllMaterialModel.fromJson(data);
     } catch (e) {
       rethrow;
     }

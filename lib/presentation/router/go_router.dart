@@ -39,6 +39,7 @@ import 'package:construction_mate/presentation/screens/bottom_bar.dart';
 import 'package:construction_mate/presentation/screens/onboard/onboard_step1.dart';
 import 'package:construction_mate/presentation/screens/parties/material_party/material_party_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/material_party/material_product_screen.dart';
+import 'package:construction_mate/presentation/screens/parties/material_party/material_thing_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/rent_party/rent_party_screen.dart';
@@ -440,6 +441,23 @@ class Routes {
             return MaterialProductsScreen(
               project: data['project'],
               partieId: data['partieId'],
+              materials: data['material'],
+            );
+          },
+        ),
+        ///-----------------------------------------------------------
+        ///--------------- All Materail Thing
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
+          name: RoutesName.ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+          builder: (context, state) {
+            final data = state.extra as Map<String, dynamic>;
+
+            return MaterialThingScreen (
+              project: data['project'],
+              partieId: data['partieId'],
+              material: data['material'],
             );
           },
         ),
