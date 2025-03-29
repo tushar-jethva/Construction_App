@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/usecases/rental_usecase.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
+import 'package:construction_mate/logic/models/rental/rental_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,6 +18,12 @@ class GetRentalPartieProjectBloc
     on<GetRentalPartieProjectEvent>((event, emit) async {
       await event.map(initialize: (_Initialize value) {
         emit(GetRentalPartieProjectState.initial());
+      }, onPartieIndexChanged: (value) {
+        emit(state.copyWith(
+            state: RequestState.empty, partieIndex: value.index));
+      }, onProductIndexChanged: (value) {
+        emit(state.copyWith(
+            state: RequestState.empty, productIndex: value.index));
       }, fetchRentalParties: (_FetchRentalParties value) async {
         emit(state.copyWith(state: RequestState.loading));
 
@@ -26,7 +33,10 @@ class GetRentalPartieProjectBloc
         res.fold((l) {
           emit(state.copyWith(state: RequestState.error, message: l.message));
         }, (r) {
-          emit(state.copyWith(state: RequestState.loaded, rentalParties: r));
+          emit(state.copyWith(
+              state: RequestState.loaded,
+              rental: r,
+              renalParties: r.data ?? []));
         });
       });
     });

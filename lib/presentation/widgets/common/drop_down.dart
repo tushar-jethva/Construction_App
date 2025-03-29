@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 class CustomDropDown extends StatelessWidget {
   const CustomDropDown(
-      {super.key, required this.items, this.onChanged, this.initialValue});
+      {super.key, required this.items, this.onChanged, this.initialValue, this.validator});
 
   final List<String> items;
   final Function(String?)? onChanged;
   final String? initialValue;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -47,11 +48,7 @@ class CustomDropDown extends StatelessWidget {
           .toList(),
       onChanged: onChanged,
       // ignore: body_might_complete_normally_nullable
-      validator: (value) {
-        if (value == items[0]) {
-          return 'Please select one of the names!';
-        }
-      },
+      validator: validator,
     );
   }
 }

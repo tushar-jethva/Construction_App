@@ -51,7 +51,7 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
-          return PaymentInWidget();
+          return const PaymentInWidget();
         });
   }
 
@@ -62,7 +62,10 @@ class _TransactionBottomWidgetState extends State<TransactionBottomWidget> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
-          return PaymentOutWidget();
+          // context
+          //     .read<PaymentOutDropDownBloc>()
+          //     .add(AgencyTypeChangeEvent(partyType: PartyType.none));
+          return const PaymentOutWidget();
         });
   }
 
@@ -209,7 +212,6 @@ class _PaymentOutWidgetState extends State<PaymentOutWidget> {
                                     children: [
                                       CustomDropDown(
                                         items: const [
-                                          "-Select Agency Type-",
                                           "Labour",
                                           "Material supplier",
                                           "Equipment supplier"
@@ -221,7 +223,7 @@ class _PaymentOutWidgetState extends State<PaymentOutWidget> {
                                               return e.apiValue == val;
                                             },
                                             orElse: () => PartyType
-                                                .BillingParty, // default value if not found
+                                                .none, // default value if not found
                                           );
 
                                           context
@@ -232,7 +234,6 @@ class _PaymentOutWidgetState extends State<PaymentOutWidget> {
                                                         selectedPartyType),
                                               );
                                         },
-                                        initialValue: "-Select Agency Type-",
                                       ),
                                       15.hx,
                                       BlocBuilder<PaymentOutDropDownBloc,

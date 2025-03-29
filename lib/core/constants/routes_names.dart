@@ -60,6 +60,10 @@ class RoutesName {
   static String RENT_PRODUCTS_BY_PROJECT_SCREEN_PATH = "/allRentProducts";
   static String RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME = "/allRentProducts";
 
+  //All Material Thing
+  static String ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_PATH = "/allRentalThing";
+  static String ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_NAME = "/allRentalThing";
+
   //New details screen
   static String NEW_DETAIL_SCREEN_PATH = "/newDetails";
   static String NEW_DETAIL_SCREEN_NAME = "/newDetails";

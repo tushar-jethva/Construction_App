@@ -123,298 +123,319 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
     final theme = Theme.of(context);
     return Padding(
       padding: mediaQueryData.viewInsets,
-      child: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          decoration: BoxDecoration(
-            color: theme.scaffoldBackgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.r),
-              topRight: Radius.circular(15.r),
+      child: FractionallySizedBox(
+        heightFactor: 0.8,
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            decoration: BoxDecoration(
+              color: theme.scaffoldBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15.r),
+                topRight: Radius.circular(15.r),
+              ),
             ),
-          ),
-          child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
-            builder: (context, state) {
-              return Column(
-                children: [
-                  Form(
-                    key: _formKeyMaterial,
-                    child: Column(
-                      children: [
-                        10.hx,
-                        BlocListener<MaterialSupplierBloc,
-                            MaterialSupplierState>(
-                          listener: (context, state) {
-                            if (state.state.isLoaded) {
-                              context.read<MaterialAgenciesBloc>().add(
-                                  const MaterialAgenciesEvent
-                                      .fetchMaterialAgencies());
-                            }
-                          },
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: () {
-                                context.read<AddPartiesBloc>().add(
-                                    const AddPartiesEvent.onPartyTypeChange(
-                                        partyType: PartyType.Material));
-                                context.pushNamed(
-                                    RoutesName.ADD_MATERIAL_PARTY_SCREEN_NAME);
-                              },
-                              child: Text(
-                                "Add Material Supplier",
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                    color: purple,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: purple),
+            child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    Form(
+                      key: _formKeyMaterial,
+                      child: Column(
+                        children: [
+                          10.hx,
+                          BlocListener<MaterialSupplierBloc,
+                              MaterialSupplierState>(
+                            listener: (context, state) {
+                              if (state.state.isLoaded) {
+                                context.read<MaterialAgenciesBloc>().add(
+                                    const MaterialAgenciesEvent
+                                        .fetchMaterialAgencies());
+                              }
+                            },
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: GestureDetector(
+                                onTap: () {
+                                  context.read<AddPartiesBloc>().add(
+                                      const AddPartiesEvent.onPartyTypeChange(
+                                          partyType: PartyType.Material));
+                                  context.pushNamed(RoutesName
+                                      .ADD_MATERIAL_PARTY_SCREEN_NAME);
+                                },
+                                child: Text(
+                                  "Add Material Supplier",
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                      color: purple,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: purple),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        20.hx,
-                        BlocBuilder<MaterialAgenciesBloc,
-                            MaterialAgenciesState>(
-                          builder: (context, state) {
-                            return state.state.isLoaded
-                                ? PaymentOutCustomDropDown(
-                                    value: widget.isUpdate == true
-                                        ? state.selectedMaterialAgency
-                                        : state.listOfMaterialAgencies[0].sId,
-                                    list: state.listOfMaterialAgencies
-                                        .map((e) => DropdownMenuItem(
-                                              value: e.sId,
-                                              child: SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.4, // Set a specific width here
-                                                child: Text(
-                                                  e.name!,
-                                                  maxLines: 2,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                          20.hx,
+                          BlocBuilder<MaterialAgenciesBloc,
+                              MaterialAgenciesState>(
+                            builder: (context, state) {
+                              return state.state.isLoaded
+                                  ? PaymentOutCustomDropDown(
+                                      value: widget.isUpdate == true
+                                          ? state.selectedMaterialAgency
+                                          : state.listOfMaterialAgencies
+                                                  .isNotEmpty
+                                              ? state
+                                                  .listOfMaterialAgencies[0].sId
+                                              : 0,
+                                      list: state.listOfMaterialAgencies
+                                          .map((e) => DropdownMenuItem(
+                                                value: e.sId,
+                                                child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.4, // Set a specific width here
+                                                  child: Text(
+                                                    e.name!,
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
                                                 ),
-                                              ),
-                                            ))
-                                        .toList(),
-                                    onChanged: (val) {
-                                      val != state.listOfMaterialAgencies[0].sId
-                                          ? context
-                                              .read<MaterialAgenciesBloc>()
-                                              .add(MaterialAgenciesEvent
-                                                  .onChangeMaterialAgency(
-                                                      materialAgency: val))
-                                          : {};
-                                    },
-                                    // ignore: body_might_complete_normally_nullable
-                                    validator: (val) {
-                                      if (val ==
-                                          state.listOfMaterialAgencies[0].sId) {
-                                        return 'Please select one of the agency!';
-                                      }
-                                    },
-                                  )
-                                : CustomDropDown(items: nameOfAgency);
-                          },
-                        ),
-                        15.hx,
-                        CustomDropDown(
-                          initialValue:
-                              widget.isUpdate == true ? state.unit : null,
-                          items: units,
-                          onChanged: (val) {
-                            context.read<AddMaterialBloc>().add(
-                                AddMaterialEvent.onUnitChanged(
-                                    unit: val ?? ""));
-                          },
-                        ),
-                        15.hx,
-                        MyCustomTextFormField(
-                          controller: _materialNameController,
-                          hintText: 'Material Name',
-                          maxLines: 1,
-                          textInputType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          validator: (value) {
-                            if (!ReusableFunctions.isValidInput(value ?? '')) {
-                              return 'Enter destination';
-                            }
-                          },
-                        ),
-                        15.hx,
-                        MyCustomTextFormField(
-                          controller: _quantityController,
-                          hintText: 'Project Quantity',
-                          maxLines: 1,
-                          textInputAction: TextInputAction.next,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Enter project quantity';
-                            }
-                            if (int.tryParse(value) == null) {
-                              return 'Please enter valid digit!';
-                            }
-                            if (value.startsWith('-')) {
-                              return 'Please enter valid digit!';
-                            }
-                          },
-                        ),
-                        15.hx,
-                        MyCustomTextFormField(
-                          controller: _pricePerUnitController,
-                          hintText: 'Price Per Unit',
-                          maxLines: 1,
-                          textInputAction: TextInputAction.next,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Enter project quantity';
-                            }
-                            if (int.tryParse(value) == null) {
-                              return 'Please enter valid digit!';
-                            }
-                            if (value.startsWith('-')) {
-                              return 'Please enter valid digit!';
-                            }
-                          },
-                        ),
-                        15.hx,
-                        MyCustomTextFormField(
-                          controller: _gstController,
-                          hintText: 'GST',
-                          maxLines: 1,
-                          maxLength: 11,
-                          textInputType: TextInputType.number,
-                          textInputAction: TextInputAction.next,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Enter project quantity';
-                            }
-                            if (int.tryParse(value) == null) {
-                              return 'Please enter valid digit!';
-                            }
-                            if (value.startsWith('-')) {
-                              return 'Please enter valid digit!';
-                            }
-                          },
-                        ),
-                        15.hx,
-                        MyCustomTextFormField(
-                          controller: _hsnCodeController,
-                          hintText: 'HSN Code',
-                          maxLines: 1,
-                          textInputType: TextInputType.number,
-                          textInputAction: TextInputAction.next,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'Enter project quantity';
-                            }
-                            if (int.tryParse(value) == null) {
-                              return 'Please enter valid digit!';
-                            }
-                            if (value.startsWith('-')) {
-                              return 'Please enter valid digit!';
-                            }
-                          },
-                        ),
-                        15.hx,
-                        MyCustomTextFormField(
-                          controller: _descriptionController,
-                          hintText: 'Project Description',
-                          maxLines: 3,
-                          textInputType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          validator: (value) {
-                            if (!ReusableFunctions.isValidInput(value ?? '')) {
-                              return 'Enter destination';
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Gap(15.h),
-                  GestureDetector(
-                    onTap: () {
-                      _selectDate(context);
-                    },
-                    child: Container(
-                      height: 50.h,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 15.h),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: grey),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                              "Date: ${ReusableFunctions.getFormattedDate(state.date)}"),
-                          Icon(
-                            Icons.calendar_month,
-                            color: theme.canvasColor,
+                                              ))
+                                          .toList(),
+                                      onChanged: (val) {
+                                        val !=
+                                                state.listOfMaterialAgencies[0]
+                                                    .sId
+                                            ? context
+                                                .read<MaterialAgenciesBloc>()
+                                                .add(MaterialAgenciesEvent
+                                                    .onChangeMaterialAgency(
+                                                        materialAgency: val))
+                                            : {};
+                                      },
+                                      // ignore: body_might_complete_normally_nullable
+                                      validator: (val) {
+                                        if (val ==
+                                            state.listOfMaterialAgencies[0]
+                                                .sId) {
+                                          return 'Please select one of the agency!';
+                                        }
+                                      },
+                                    )
+                                  : CustomDropDown(items: nameOfAgency);
+                            },
+                          ),
+                          15.hx,
+                          CustomDropDown(
+                            initialValue:
+                                widget.isUpdate == true ? state.unit : null,
+                            items: units,
+                            onChanged: (val) {
+                              context.read<AddMaterialBloc>().add(
+                                  AddMaterialEvent.onUnitChanged(
+                                      unit: val ?? ""));
+                            },
+                            validator: (value) {
+                              if (value == units[0]) {
+                                return 'Please select one of unit!';
+                              }
+                            },
+                          ),
+                          15.hx,
+                          MyCustomTextFormField(
+                            controller: _materialNameController,
+                            hintText: 'Material Name',
+                            maxLines: 1,
+                            textInputType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (!ReusableFunctions.isValidInput(
+                                  value ?? '')) {
+                                return 'Enter material name';
+                              }
+                            },
+                          ),
+                          15.hx,
+                          MyCustomTextFormField(
+                            controller: _quantityController,
+                            hintText: 'Quantity',
+                            maxLines: 1,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Enter quantity';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter valid digit!';
+                              }
+                              if (value.startsWith('-')) {
+                                return 'Please enter valid digit!';
+                              }
+                            },
+                          ),
+                          15.hx,
+                          MyCustomTextFormField(
+                            controller: _pricePerUnitController,
+                            hintText: 'Price Per Unit',
+                            maxLines: 1,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Enter price per unit';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter valid digit!';
+                              }
+                              if (value.startsWith('-')) {
+                                return 'Please enter valid digit!';
+                              }
+                            },
+                          ),
+                          15.hx,
+                          MyCustomTextFormField(
+                            controller: _gstController,
+                            hintText: 'GST',
+                            maxLines: 1,
+                            maxLength: 11,
+                            textInputType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Enter GST';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter valid digit!';
+                              }
+                              if (value.startsWith('-')) {
+                                return 'Please enter valid digit!';
+                              }
+                            },
+                          ),
+                          15.hx,
+                          MyCustomTextFormField(
+                            controller: _hsnCodeController,
+                            hintText: 'HSN Code',
+                            maxLines: 1,
+                            textInputType: TextInputType.number,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Enter HSN Code';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter valid digit!';
+                              }
+                              if (value.startsWith('-')) {
+                                return 'Please enter valid digit!';
+                              }
+                            },
+                          ),
+                          15.hx,
+                          MyCustomTextFormField(
+                            controller: _descriptionController,
+                            hintText: 'Project Description',
+                            maxLines: 3,
+                            textInputType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            validator: (value) {
+                              if (!ReusableFunctions.isValidInput(
+                                  value ?? '')) {
+                                return 'Enter Description';
+                              }
+                            },
                           ),
                         ],
                       ),
                     ),
-                  ),
-                  Gap(20.h),
-                  BlocListener<AddMaterialBloc, AddMaterialState>(
-                    listener: (context, state) {
-                      if (state.state.isLoaded) {
-                        context.pop();
-                        context.read<MaterialByPartieBloc>().add(
-                            MaterialByPartieEvent.getMaterialByPartie(
-                                partieId: widget.partieId ?? ''));
-
-                        context.read<MaterialPartieProjectBloc>().add(
-                            MaterialPartieProjectEvent
-                                .fetchMatrialPartieByProject(
-                                    projectId: widget.projectId));
-                      }
-                    },
-                    child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
-                      builder: (context, state) {
-                        return Padding(
-                          padding: EdgeInsets.only(bottom: 10.h),
-                          child: CustomElevatedButton(
-                            isLoading: state.state.isLoading,
-                            label: widget.isUpdate == true
-                                ? 'Update'
-                                : 'Add Material',
-                            onTap: () async {
-                              if (!_formKeyMaterial.currentState!.validate()) {
-                              } else if (int.parse(_quantityController.text) <=
-                                  0) {
-                                showTopSnackBar(context, "Enter valid quantity",
-                                    messageType: MessageType.warning);
-                              } else {
-                                context.read<AddMaterialBloc>().add(
-                                    AddMaterialEvent.onAddMaterialTap(
-                                        materialId: material.materialId ?? "",
-                                        isUpdate: widget.isUpdate ?? false,
-                                        projectId: widget.projectId,
-                                        materialName:
-                                            _materialNameController.text,
-                                        quantity: _quantityController.text,
-                                        gst: _gstController.text,
-                                        pricePerUnit:
-                                            _pricePerUnitController.text,
-                                        hsnCode: _hsnCodeController.text,
-                                        description:
-                                            _descriptionController.text));
-                              }
-                            },
-                          ),
-                        );
+                    Gap(15.h),
+                    GestureDetector(
+                      onTap: () {
+                        _selectDate(context);
                       },
+                      child: Container(
+                        height: 50.h,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 15.h),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: grey),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                                "Date: ${ReusableFunctions.getFormattedDate(state.date)}"),
+                            Icon(
+                              Icons.calendar_month,
+                              color: theme.canvasColor,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                  20.hx,
-                ],
-              );
-            },
+                    Gap(20.h),
+                    BlocListener<AddMaterialBloc, AddMaterialState>(
+                      listener: (context, state) {
+                        if (state.state.isLoaded) {
+                          context.read<MaterialPartieProjectBloc>().add(
+                              MaterialPartieProjectEvent
+                                  .fetchMatrialPartieByProject(
+                                      projectId: widget.projectId));
+
+                          showTopSnackBar(
+                              context, 'Material Added Successfully!',
+                              messageType: MessageType.done);
+
+                          context.pop();
+                        }
+                      },
+                      child: BlocBuilder<AddMaterialBloc, AddMaterialState>(
+                        builder: (context, state) {
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 10.h),
+                            child: CustomElevatedButton(
+                              isLoading: state.state.isLoading,
+                              label: widget.isUpdate == true
+                                  ? 'Update'
+                                  : 'Add Material',
+                              onTap: () async {
+                                if (!_formKeyMaterial.currentState!
+                                    .validate()) {
+                                } else if (int.parse(
+                                        _quantityController.text) <=
+                                    0) {
+                                  showTopSnackBar(
+                                      context, "Enter valid quantity",
+                                      messageType: MessageType.warning);
+                                } else {
+                                  context.read<AddMaterialBloc>().add(
+                                      AddMaterialEvent.onAddMaterialTap(
+                                          materialId: material.materialId ?? "",
+                                          isUpdate: widget.isUpdate ?? false,
+                                          projectId: widget.projectId,
+                                          materialName:
+                                              _materialNameController.text,
+                                          quantity: _quantityController.text,
+                                          gst: _gstController.text,
+                                          pricePerUnit:
+                                              _pricePerUnitController.text,
+                                          hsnCode: _hsnCodeController.text,
+                                          description:
+                                              _descriptionController.text));
+                                }
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    20.hx,
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

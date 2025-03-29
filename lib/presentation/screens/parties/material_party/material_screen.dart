@@ -101,9 +101,10 @@ class _MaterialScreenState extends State<MaterialScreen> {
                               state.listOfMaterialParty[index];
                           return GestureDetector(
                               onTap: () {
-                                // context.read<MaterialByPartieBloc>().add(
-                                //     MaterialByPartieEvent.getMaterialByPartie(
-                                //         partieId: materialPartie.da ?? ''));
+                                context.read<MaterialPartieProjectBloc>().add(
+                                    MaterialPartieProjectEvent
+                                        .onPartieIndexChanged(
+                                            partieIndex: index));
                                 context.pushNamed(
                                     RoutesName
                                         .ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,

@@ -41,8 +41,8 @@ class PDFGenerator {
   Future<Uint8List> createInvoicePDF(
       {required BillModel bill, required ProfileModel? profile}) async {
     final pdf = pw.Document();
-    final Uint8List imageData =
-        await getImageFromUrl(profile?.logo ?? 'assets/logos/s2p.jpeg');
+    final Uint8List imageData = await getImageFromUrl(profile?.logo ??
+        "https://media.istockphoto.com/id/502011582/photo/home-under-construction.jpg?s=612x612&w=0&k=20&c=8pnjGOCQyqJE1E_7bkVA7Srh5Jte8yzwCpsEaFPKij4=");
     final String formattedDate =
         DateFormat.yMMMd().format(DateTime.parse(bill.date!));
 

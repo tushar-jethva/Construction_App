@@ -3,6 +3,7 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
 import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
 import 'package:construction_mate/logic/models/get_rental_model.dart';
@@ -17,11 +18,18 @@ import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../logic/models/project_model.dart';
+import '../../../../logic/models/rental/rental_model.dart';
 
 class RentalProductsScreen extends StatefulWidget {
   final ProjectModel project;
+  final Rentals rental;
+  final String partieId;
 
-  const RentalProductsScreen({super.key, required this.project});
+  const RentalProductsScreen(
+      {super.key,
+      required this.project,
+      required this.rental,
+      required this.partieId});
 
   @override
   State<RentalProductsScreen> createState() => _RentalProductsScreenState();
@@ -36,7 +44,7 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
 
   openBottomSheetOfMaterial(
       {required BuildContext context,
-      required RentalModel material,
+      required Details? material,
       bool? isUpdate}) {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -50,6 +58,7 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
               projectId: widget.project.sId ?? "",
               material: material,
               isUpdate: isUpdate,
+              partieId: widget.partieId,
             ),
           );
         });
@@ -68,7 +77,8 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
       body: RefreshIndicator(
         onRefresh: onRefresh,
         color: purple,
-        child: BlocBuilder<RentalByPartieIdBloc, RentalByPartieIdState>(
+        child: BlocBuilder<GetRentalPartieProjectBloc,
+            GetRentalPartieProjectState>(
           builder: (context, state) {
             return state.state.isLoading
                 ? Skeletonizer(
@@ -79,7 +89,7 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                         itemBuilder: (context, index) {
                           return materialWidget(
                               theme,
-                              RentalModel(
+                              Details(
                                   name: "Helloo",
                                   priceperunit: 0,
                                   quantity: 0,
@@ -87,16 +97,26 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                                   description: "Description desctiptio ",
                                   date: DateTime.now().toString()));
                         }))
-                : state.listOfRentals.isNotEmpty
+                : state.renalParties[state.partieIndex]
+                            .rentals?[state.productIndex].details?.isNotEmpty ??
+                        false
                     ? SizedBox(
                         height: MediaQuery.of(context).size.height * 0.73,
                         child: ListView.builder(
-                            itemCount: state.listOfRentals.length,
+                            itemCount: state
+                                    .renalParties[state.partieIndex]
+                                    .rentals?[state.productIndex]
+                                    .details
+                                    ?.length ??
+                                0,
                             itemBuilder: (context, index) {
-                              final material = state.listOfRentals[index];
+                              final rentalDetails = state
+                                  .renalParties[state.partieIndex]
+                                  .rentals?[state.productIndex]
+                                  .details?[index];
                               return GestureDetector(
                                   onTap: () {},
-                                  child: materialWidget(theme, material));
+                                  child: materialWidget(theme, rentalDetails));
                             }),
                       )
                     : SizedBox(
@@ -114,7 +134,7 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
     );
   }
 
-  Widget materialWidget(ThemeData theme, RentalModel material) {
+  Widget materialWidget(ThemeData theme, Details? rental) {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -126,7 +146,7 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
               theme: theme,
               onUpdateButtonPressed: () {
                 openBottomSheetOfMaterial(
-                    context: context, material: material, isUpdate: true);
+                    context: context, material: rental, isUpdate: true);
               },
               onDeleteButtonPressed: () {},
             ),
@@ -138,11 +158,11 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    material.name ?? '',
+                    rental?.name ?? '',
                     style: theme.textTheme.titleLarge?.copyWith(fontSize: 20),
                   ),
                   Text(
-                    material.description ?? '',
+                    rental?.description ?? '',
                     style: theme.textTheme.titleMedium?.copyWith(
                         fontSize: 14, color: const Color(0xff6B7580)),
                   ),
@@ -158,7 +178,7 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                             ?.copyWith(fontSize: 14, color: theme.canvasColor),
                       ),
                       Text(
-                        (material.quantity ?? 0).toString(),
+                        (rental?.quantity ?? 0).toString(),
                         style: theme.textTheme.titleLarge
                             ?.copyWith(fontSize: 16, color: theme.canvasColor),
                       ),
@@ -166,7 +186,7 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                   ),
                   10.wx,
                   Text(
-                    ReusableFunctions.getFormattedDate(material.date ?? ''),
+                    ReusableFunctions.getFormattedDate(rental?.date ?? ''),
                     style: theme.textTheme.bodyMedium?.copyWith(color: gray500),
                   ),
                 ],

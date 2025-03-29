@@ -1,34 +1,32 @@
-class AllMaterialModel {
+class RentalModel {
   bool? status;
-  num? totalProjectMaterialCost;
-  num? totalProjectMaterialPaidCost;
+  num? totalProjectRentalCost;
+  num? totalProjectRentalPaidCost;
   List<Data>? data;
 
-  AllMaterialModel(
+  RentalModel(
       {this.status,
-      this.totalProjectMaterialCost,
-      this.totalProjectMaterialPaidCost,
+      this.totalProjectRentalCost,
+      this.totalProjectRentalPaidCost,
       this.data});
 
-  AllMaterialModel.fromJson(Map<String, dynamic> json) {
+  RentalModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
-    totalProjectMaterialCost = json['totalProjectMaterialCost'];
-    totalProjectMaterialPaidCost = json['totalProjectMaterialPaidCost'];
+    totalProjectRentalCost = json['totalProjectRentalCost'];
+    totalProjectRentalPaidCost = json['totalProjectRentalPaidCost'];
     if (json['data'] != null) {
       data = <Data>[];
-      json['data'].forEach(
-        (v) {
-          data!.add(Data.fromJson(v));
-        },
-      );
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
+      });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
-    data['totalProjectMaterialCost'] = this.totalProjectMaterialCost;
-    data['totalProjectMaterialPaidCost'] = this.totalProjectMaterialPaidCost;
+    data['totalProjectRentalCost'] = this.totalProjectRentalCost;
+    data['totalProjectRentalPaidCost'] = this.totalProjectRentalPaidCost;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -44,6 +42,7 @@ class Data {
   String? name;
   String? agencyType;
   String? contactNumber;
+  String? gSTNumber;
   String? email;
 
   Data(
@@ -54,13 +53,14 @@ class Data {
       this.name,
       this.agencyType,
       this.contactNumber,
+      this.gSTNumber,
       this.email});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['rentals'] != null) {
       rentals = <Rentals>[];
       json['rentals'].forEach((v) {
-        rentals!.add(Rentals.fromJson(v));
+        rentals!.add(new Rentals.fromJson(v));
       });
     }
     totalCost = json['totalCost'];
@@ -69,6 +69,7 @@ class Data {
     name = json['Name'];
     agencyType = json['agencyType'];
     contactNumber = json['ContactNumber'];
+    gSTNumber = json['GSTNumber'];
     email = json['Email'];
   }
 
@@ -83,6 +84,7 @@ class Data {
     data['Name'] = this.name;
     data['agencyType'] = this.agencyType;
     data['ContactNumber'] = this.contactNumber;
+    data['GSTNumber'] = this.gSTNumber;
     data['Email'] = this.email;
     return data;
   }
@@ -103,7 +105,7 @@ class Rentals {
     if (json['details'] != null) {
       details = <Details>[];
       json['details'].forEach((v) {
-        details!.add(Details.fromJson(v));
+        details!.add(new Details.fromJson(v));
       });
     }
   }
@@ -121,7 +123,7 @@ class Rentals {
 }
 
 class Details {
-  String? materialId;
+  String? rentalId;
   String? name;
   num? quantity;
   num? priceperunit;
@@ -131,7 +133,7 @@ class Details {
   String? description;
 
   Details(
-      {this.materialId,
+      {this.rentalId,
       this.name,
       this.quantity,
       this.priceperunit,
@@ -141,7 +143,7 @@ class Details {
       this.description});
 
   Details.fromJson(Map<String, dynamic> json) {
-    materialId = json['materialId'];
+    rentalId = json['rentalId'];
     name = json['name'];
     quantity = json['quantity'];
     priceperunit = json['priceperunit'];
@@ -153,7 +155,7 @@ class Details {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['materialId'] = this.materialId;
+    data['rentalId'] = this.rentalId;
     data['name'] = this.name;
     data['quantity'] = this.quantity;
     data['priceperunit'] = this.priceperunit;

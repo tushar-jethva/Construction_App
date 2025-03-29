@@ -92,13 +92,23 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                         itemBuilder: (context, index) {
                           return materialWidget(theme, Details());
                         }))
-                : widget.materials.details?.isNotEmpty ?? false
+                : state.listOfMaterialParty[state.partieIndex]
+                            .rentals?[state.productIndex].details?.isNotEmpty ??
+                        false
                     ? SizedBox(
                         height: MediaQuery.of(context).size.height * 0.73,
                         child: ListView.builder(
-                            itemCount: widget.materials.details?.length ?? 0,
+                            itemCount: state
+                                    .listOfMaterialParty[state.partieIndex]
+                                    .rentals?[state.productIndex]
+                                    .details
+                                    ?.length ??
+                                0,
                             itemBuilder: (context, index) {
-                              final material = widget.materials.details?[index];
+                              final material = state
+                                  .listOfMaterialParty[state.partieIndex]
+                                  .rentals?[state.productIndex]
+                                  .details?[index];
                               return GestureDetector(
                                   onTap: () {},
                                   child: materialWidget(
@@ -172,7 +182,8 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                   ),
                   10.wx,
                   Text(
-                    ReusableFunctions.getFormattedDate(material.date ?? ''),
+                    ReusableFunctions.getFormattedDate(
+                        material.date ?? DateTime.now().toString()),
                     style: theme.textTheme.bodyMedium?.copyWith(color: gray500),
                   ),
                 ],

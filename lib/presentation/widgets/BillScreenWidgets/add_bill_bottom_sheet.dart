@@ -1,11 +1,16 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/core/constants/lists.dart';
+import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
+import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart';
+import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/logic/models/bill_item_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
@@ -18,6 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class MyAddBillBottomSheet extends StatefulWidget {
@@ -102,10 +108,10 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
     final theme = Theme.of(context);
 
-    return FractionallySizedBox(
-      heightFactor: 0.9,
-      child: Padding(
-        padding: mediaQueryData.viewInsets,
+    return Padding(
+      padding: mediaQueryData.viewInsets,
+      child: FractionallySizedBox(
+        heightFactor: 0.8,
         child: SingleChildScrollView(
           child: Container(
             width: double.infinity,
@@ -117,6 +123,37 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                     topRight: Radius.circular(15.r))),
             child: Column(
               children: [
+                BlocListener<AddBillingPartyBloc, AddBillingPartyState>(
+                  listener: (context, state) {
+                    if (state.isAdded == 2) {
+                      context
+                          .read<PaymentInDropDownBloc>()
+                          .add(FetchAgencyInEvent());
+
+                      context.read<AddBillBloc>().add(BillGetAllPartiesEvent());
+                    }
+                  },
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.read<AddPartiesBloc>().add(
+                            const AddPartiesEvent.onPartyTypeChange(
+                                partyType: PartyType.BillingParty));
+                        context.pushNamed(
+                            RoutesName.ADD_BILLING_PARTY_SCREEN_NAME);
+                      },
+                      child: Text(
+                        "Add Agency",
+                        style: theme.textTheme.titleMedium?.copyWith(
+                            color: purple,
+                            decoration: TextDecoration.underline,
+                            decorationColor: purple),
+                      ),
+                    ),
+                  ),
+                ),
+                5.hx,
                 BlocBuilder<AddBillBloc, AddBillState>(
                     builder: (context, state) {
                   if (!state.isLoadingParties) {

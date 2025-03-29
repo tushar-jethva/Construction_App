@@ -20,6 +20,14 @@ class MaterialPartieProjectBloc
         initialize: (_Initialize value) {
           emit(MaterialPartieProjectState.initial());
         },
+        onPartieIndexChanged: (value) {
+          emit(state.copyWith(
+              state: RequestState.empty, partieIndex: value.partieIndex));
+        },
+        onProductIndexChanged: (value) {
+          emit(state.copyWith(
+              state: RequestState.empty, productIndex: value.productIndex));
+        },
         onChangeMaterialAgency: (value) {},
         fetchMatrialPartieByProject:
             (_FetchMatrialPartieByProject value) async {

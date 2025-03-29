@@ -19,18 +19,24 @@ mixin _$GetRentalPartieProjectEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(int index) onPartieIndexChanged,
+    required TResult Function(int index) onProductIndexChanged,
     required TResult Function(String projectId) fetchRentalParties,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(int index)? onPartieIndexChanged,
+    TResult? Function(int index)? onProductIndexChanged,
     TResult? Function(String projectId)? fetchRentalParties,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(int index)? onPartieIndexChanged,
+    TResult Function(int index)? onProductIndexChanged,
     TResult Function(String projectId)? fetchRentalParties,
     required TResult orElse(),
   }) =>
@@ -38,18 +44,25 @@ mixin _$GetRentalPartieProjectEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
     required TResult Function(_FetchRentalParties value) fetchRentalParties,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_FetchRentalParties value)? fetchRentalParties,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_FetchRentalParties value)? fetchRentalParties,
     required TResult orElse(),
   }) =>
@@ -122,6 +135,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(int index) onPartieIndexChanged,
+    required TResult Function(int index) onProductIndexChanged,
     required TResult Function(String projectId) fetchRentalParties,
   }) {
     return initialize();
@@ -131,6 +146,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(int index)? onPartieIndexChanged,
+    TResult? Function(int index)? onProductIndexChanged,
     TResult? Function(String projectId)? fetchRentalParties,
   }) {
     return initialize?.call();
@@ -140,6 +157,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(int index)? onPartieIndexChanged,
+    TResult Function(int index)? onProductIndexChanged,
     TResult Function(String projectId)? fetchRentalParties,
     required TResult orElse(),
   }) {
@@ -153,6 +172,9 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
     required TResult Function(_FetchRentalParties value) fetchRentalParties,
   }) {
     return initialize(this);
@@ -162,6 +184,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_FetchRentalParties value)? fetchRentalParties,
   }) {
     return initialize?.call(this);
@@ -171,6 +195,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_FetchRentalParties value)? fetchRentalParties,
     required TResult orElse(),
   }) {
@@ -183,6 +209,320 @@ class _$InitializeImpl implements _Initialize {
 
 abstract class _Initialize implements GetRentalPartieProjectEvent {
   const factory _Initialize() = _$InitializeImpl;
+}
+
+/// @nodoc
+abstract class _$$OnPartieIndexChangedImplCopyWith<$Res> {
+  factory _$$OnPartieIndexChangedImplCopyWith(_$OnPartieIndexChangedImpl value,
+          $Res Function(_$OnPartieIndexChangedImpl) then) =
+      __$$OnPartieIndexChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$OnPartieIndexChangedImplCopyWithImpl<$Res>
+    extends _$GetRentalPartieProjectEventCopyWithImpl<$Res,
+        _$OnPartieIndexChangedImpl>
+    implements _$$OnPartieIndexChangedImplCopyWith<$Res> {
+  __$$OnPartieIndexChangedImplCopyWithImpl(_$OnPartieIndexChangedImpl _value,
+      $Res Function(_$OnPartieIndexChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$OnPartieIndexChangedImpl(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
+  const _$OnPartieIndexChangedImpl({required this.index});
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'GetRentalPartieProjectEvent.onPartieIndexChanged(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnPartieIndexChangedImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnPartieIndexChangedImplCopyWith<_$OnPartieIndexChangedImpl>
+      get copyWith =>
+          __$$OnPartieIndexChangedImplCopyWithImpl<_$OnPartieIndexChangedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(int index) onPartieIndexChanged,
+    required TResult Function(int index) onProductIndexChanged,
+    required TResult Function(String projectId) fetchRentalParties,
+  }) {
+    return onPartieIndexChanged(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(int index)? onPartieIndexChanged,
+    TResult? Function(int index)? onProductIndexChanged,
+    TResult? Function(String projectId)? fetchRentalParties,
+  }) {
+    return onPartieIndexChanged?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(int index)? onPartieIndexChanged,
+    TResult Function(int index)? onProductIndexChanged,
+    TResult Function(String projectId)? fetchRentalParties,
+    required TResult orElse(),
+  }) {
+    if (onPartieIndexChanged != null) {
+      return onPartieIndexChanged(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
+    required TResult Function(_FetchRentalParties value) fetchRentalParties,
+  }) {
+    return onPartieIndexChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult? Function(_FetchRentalParties value)? fetchRentalParties,
+  }) {
+    return onPartieIndexChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult Function(_FetchRentalParties value)? fetchRentalParties,
+    required TResult orElse(),
+  }) {
+    if (onPartieIndexChanged != null) {
+      return onPartieIndexChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnPartieIndexChanged implements GetRentalPartieProjectEvent {
+  const factory _OnPartieIndexChanged({required final int index}) =
+      _$OnPartieIndexChangedImpl;
+
+  int get index;
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnPartieIndexChangedImplCopyWith<_$OnPartieIndexChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnProductIndexChangedImplCopyWith<$Res> {
+  factory _$$OnProductIndexChangedImplCopyWith(
+          _$OnProductIndexChangedImpl value,
+          $Res Function(_$OnProductIndexChangedImpl) then) =
+      __$$OnProductIndexChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int index});
+}
+
+/// @nodoc
+class __$$OnProductIndexChangedImplCopyWithImpl<$Res>
+    extends _$GetRentalPartieProjectEventCopyWithImpl<$Res,
+        _$OnProductIndexChangedImpl>
+    implements _$$OnProductIndexChangedImplCopyWith<$Res> {
+  __$$OnProductIndexChangedImplCopyWithImpl(_$OnProductIndexChangedImpl _value,
+      $Res Function(_$OnProductIndexChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? index = null,
+  }) {
+    return _then(_$OnProductIndexChangedImpl(
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
+  const _$OnProductIndexChangedImpl({required this.index});
+
+  @override
+  final int index;
+
+  @override
+  String toString() {
+    return 'GetRentalPartieProjectEvent.onProductIndexChanged(index: $index)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnProductIndexChangedImpl &&
+            (identical(other.index, index) || other.index == index));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, index);
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnProductIndexChangedImplCopyWith<_$OnProductIndexChangedImpl>
+      get copyWith => __$$OnProductIndexChangedImplCopyWithImpl<
+          _$OnProductIndexChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(int index) onPartieIndexChanged,
+    required TResult Function(int index) onProductIndexChanged,
+    required TResult Function(String projectId) fetchRentalParties,
+  }) {
+    return onProductIndexChanged(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(int index)? onPartieIndexChanged,
+    TResult? Function(int index)? onProductIndexChanged,
+    TResult? Function(String projectId)? fetchRentalParties,
+  }) {
+    return onProductIndexChanged?.call(index);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(int index)? onPartieIndexChanged,
+    TResult Function(int index)? onProductIndexChanged,
+    TResult Function(String projectId)? fetchRentalParties,
+    required TResult orElse(),
+  }) {
+    if (onProductIndexChanged != null) {
+      return onProductIndexChanged(index);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
+    required TResult Function(_FetchRentalParties value) fetchRentalParties,
+  }) {
+    return onProductIndexChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult? Function(_FetchRentalParties value)? fetchRentalParties,
+  }) {
+    return onProductIndexChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult Function(_FetchRentalParties value)? fetchRentalParties,
+    required TResult orElse(),
+  }) {
+    if (onProductIndexChanged != null) {
+      return onProductIndexChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnProductIndexChanged implements GetRentalPartieProjectEvent {
+  const factory _OnProductIndexChanged({required final int index}) =
+      _$OnProductIndexChangedImpl;
+
+  int get index;
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnProductIndexChangedImplCopyWith<_$OnProductIndexChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -257,6 +597,8 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(int index) onPartieIndexChanged,
+    required TResult Function(int index) onProductIndexChanged,
     required TResult Function(String projectId) fetchRentalParties,
   }) {
     return fetchRentalParties(projectId);
@@ -266,6 +608,8 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(int index)? onPartieIndexChanged,
+    TResult? Function(int index)? onProductIndexChanged,
     TResult? Function(String projectId)? fetchRentalParties,
   }) {
     return fetchRentalParties?.call(projectId);
@@ -275,6 +619,8 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(int index)? onPartieIndexChanged,
+    TResult Function(int index)? onProductIndexChanged,
     TResult Function(String projectId)? fetchRentalParties,
     required TResult orElse(),
   }) {
@@ -288,6 +634,9 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
     required TResult Function(_FetchRentalParties value) fetchRentalParties,
   }) {
     return fetchRentalParties(this);
@@ -297,6 +646,8 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_FetchRentalParties value)? fetchRentalParties,
   }) {
     return fetchRentalParties?.call(this);
@@ -306,6 +657,8 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_FetchRentalParties value)? fetchRentalParties,
     required TResult orElse(),
   }) {
@@ -333,8 +686,10 @@ abstract class _FetchRentalParties implements GetRentalPartieProjectEvent {
 mixin _$GetRentalPartieProjectState {
   RequestState get state => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
-  List<ProjectPartieModel> get rentalParties =>
-      throw _privateConstructorUsedError;
+  RentalModel? get rental => throw _privateConstructorUsedError;
+  List<Data> get renalParties => throw _privateConstructorUsedError;
+  int get partieIndex => throw _privateConstructorUsedError;
+  int get productIndex => throw _privateConstructorUsedError;
 
   /// Create a copy of GetRentalPartieProjectState
   /// with the given fields replaced by the non-null parameter values.
@@ -354,7 +709,10 @@ abstract class $GetRentalPartieProjectStateCopyWith<$Res> {
   $Res call(
       {RequestState state,
       String message,
-      List<ProjectPartieModel> rentalParties});
+      RentalModel? rental,
+      List<Data> renalParties,
+      int partieIndex,
+      int productIndex});
 }
 
 /// @nodoc
@@ -375,7 +733,10 @@ class _$GetRentalPartieProjectStateCopyWithImpl<$Res,
   $Res call({
     Object? state = null,
     Object? message = null,
-    Object? rentalParties = null,
+    Object? rental = freezed,
+    Object? renalParties = null,
+    Object? partieIndex = null,
+    Object? productIndex = null,
   }) {
     return _then(_value.copyWith(
       state: null == state
@@ -386,10 +747,22 @@ class _$GetRentalPartieProjectStateCopyWithImpl<$Res,
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      rentalParties: null == rentalParties
-          ? _value.rentalParties
-          : rentalParties // ignore: cast_nullable_to_non_nullable
-              as List<ProjectPartieModel>,
+      rental: freezed == rental
+          ? _value.rental
+          : rental // ignore: cast_nullable_to_non_nullable
+              as RentalModel?,
+      renalParties: null == renalParties
+          ? _value.renalParties
+          : renalParties // ignore: cast_nullable_to_non_nullable
+              as List<Data>,
+      partieIndex: null == partieIndex
+          ? _value.partieIndex
+          : partieIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      productIndex: null == productIndex
+          ? _value.productIndex
+          : productIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -406,7 +779,10 @@ abstract class _$$GetRentalPartieProjectStateImplCopyWith<$Res>
   $Res call(
       {RequestState state,
       String message,
-      List<ProjectPartieModel> rentalParties});
+      RentalModel? rental,
+      List<Data> renalParties,
+      int partieIndex,
+      int productIndex});
 }
 
 /// @nodoc
@@ -426,7 +802,10 @@ class __$$GetRentalPartieProjectStateImplCopyWithImpl<$Res>
   $Res call({
     Object? state = null,
     Object? message = null,
-    Object? rentalParties = null,
+    Object? rental = freezed,
+    Object? renalParties = null,
+    Object? partieIndex = null,
+    Object? productIndex = null,
   }) {
     return _then(_$GetRentalPartieProjectStateImpl(
       state: null == state
@@ -437,10 +816,22 @@ class __$$GetRentalPartieProjectStateImplCopyWithImpl<$Res>
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
               as String,
-      rentalParties: null == rentalParties
-          ? _value._rentalParties
-          : rentalParties // ignore: cast_nullable_to_non_nullable
-              as List<ProjectPartieModel>,
+      rental: freezed == rental
+          ? _value.rental
+          : rental // ignore: cast_nullable_to_non_nullable
+              as RentalModel?,
+      renalParties: null == renalParties
+          ? _value._renalParties
+          : renalParties // ignore: cast_nullable_to_non_nullable
+              as List<Data>,
+      partieIndex: null == partieIndex
+          ? _value.partieIndex
+          : partieIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      productIndex: null == productIndex
+          ? _value.productIndex
+          : productIndex // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -452,24 +843,34 @@ class _$GetRentalPartieProjectStateImpl
   const _$GetRentalPartieProjectStateImpl(
       {required this.state,
       required this.message,
-      required final List<ProjectPartieModel> rentalParties})
-      : _rentalParties = rentalParties;
+      required this.rental,
+      required final List<Data> renalParties,
+      required this.partieIndex,
+      required this.productIndex})
+      : _renalParties = renalParties;
 
   @override
   final RequestState state;
   @override
   final String message;
-  final List<ProjectPartieModel> _rentalParties;
   @override
-  List<ProjectPartieModel> get rentalParties {
-    if (_rentalParties is EqualUnmodifiableListView) return _rentalParties;
+  final RentalModel? rental;
+  final List<Data> _renalParties;
+  @override
+  List<Data> get renalParties {
+    if (_renalParties is EqualUnmodifiableListView) return _renalParties;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_rentalParties);
+    return EqualUnmodifiableListView(_renalParties);
   }
 
   @override
+  final int partieIndex;
+  @override
+  final int productIndex;
+
+  @override
   String toString() {
-    return 'GetRentalPartieProjectState(state: $state, message: $message, rentalParties: $rentalParties)';
+    return 'GetRentalPartieProjectState(state: $state, message: $message, rental: $rental, renalParties: $renalParties, partieIndex: $partieIndex, productIndex: $productIndex)';
   }
 
   @override
@@ -479,13 +880,24 @@ class _$GetRentalPartieProjectStateImpl
             other is _$GetRentalPartieProjectStateImpl &&
             (identical(other.state, state) || other.state == state) &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.rental, rental) || other.rental == rental) &&
             const DeepCollectionEquality()
-                .equals(other._rentalParties, _rentalParties));
+                .equals(other._renalParties, _renalParties) &&
+            (identical(other.partieIndex, partieIndex) ||
+                other.partieIndex == partieIndex) &&
+            (identical(other.productIndex, productIndex) ||
+                other.productIndex == productIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, state, message,
-      const DeepCollectionEquality().hash(_rentalParties));
+  int get hashCode => Object.hash(
+      runtimeType,
+      state,
+      message,
+      rental,
+      const DeepCollectionEquality().hash(_renalParties),
+      partieIndex,
+      productIndex);
 
   /// Create a copy of GetRentalPartieProjectState
   /// with the given fields replaced by the non-null parameter values.
@@ -500,17 +912,25 @@ class _$GetRentalPartieProjectStateImpl
 abstract class _GetRentalPartieProjectState
     implements GetRentalPartieProjectState {
   const factory _GetRentalPartieProjectState(
-          {required final RequestState state,
-          required final String message,
-          required final List<ProjectPartieModel> rentalParties}) =
-      _$GetRentalPartieProjectStateImpl;
+      {required final RequestState state,
+      required final String message,
+      required final RentalModel? rental,
+      required final List<Data> renalParties,
+      required final int partieIndex,
+      required final int productIndex}) = _$GetRentalPartieProjectStateImpl;
 
   @override
   RequestState get state;
   @override
   String get message;
   @override
-  List<ProjectPartieModel> get rentalParties;
+  RentalModel? get rental;
+  @override
+  List<Data> get renalParties;
+  @override
+  int get partieIndex;
+  @override
+  int get productIndex;
 
   /// Create a copy of GetRentalPartieProjectState
   /// with the given fields replaced by the non-null parameter values.

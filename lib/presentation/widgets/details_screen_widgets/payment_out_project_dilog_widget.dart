@@ -4,9 +4,11 @@ import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
+import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutDropDownBloc/payment_out_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentOutOtherMaterailAndRentBloc/payment_out_other_material_and_rent_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentTotalProjectWiseBloc/payment_total_project_bloc.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/get_rental_suppliers/get_rental_suppliers_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionBuilding/transaction_building_bloc.dart';
@@ -70,7 +72,6 @@ class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
                       20.hx,
                       CustomDropDown(
                         items: const [
-                          '-Select Agency Type-',
                           "Labour",
                           "Material supplier",
                           "Equipment supplier"
@@ -80,8 +81,8 @@ class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
                             (e) {
                               return e.apiValue == val;
                             },
-                            orElse: () => PartyType
-                                .BillingParty, // default value if not found
+                            orElse: () =>
+                                PartyType.none, // default value if not found
                           );
 
                           context.read<PaymentOutDropDownBloc>().add(
@@ -89,7 +90,6 @@ class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
                                     partyType: selectedPartyType),
                               );
                         },
-                        initialValue: '-Select Agency Type-',
                       ),
                       15.hx,
                       Container(
@@ -345,6 +345,8 @@ class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
                                   context.read<TransactionBuildingBloc>().add(
                                       FetchAllTransactionByProjectId(
                                           projectId: projectId));
+                                  _priceOutController.clear();
+                                  _descriptionController.clear();
                                   showTopSnackBar(context,
                                       "Transaction added successfully!",
                                       messageType: MessageType.done);
@@ -392,6 +394,17 @@ class PaymentOutProjectDialogBoxWidget extends StatelessWidget {
                                   context.read<TotalPaymentOutBloc>().add(
                                       const TotalPaymentOutEvent
                                           .fetchTotalPayments());
+                                  context.read<MaterialPartieProjectBloc>().add(
+                                      MaterialPartieProjectEvent
+                                          .fetchMatrialPartieByProject(
+                                              projectId: projectId));
+                                  context
+                                      .read<GetRentalPartieProjectBloc>()
+                                      .add(GetRentalPartieProjectEvent
+                                          .fetchRentalParties(
+                                              projectId: projectId));
+                                  _priceOutController.clear();
+                                  _descriptionController.clear();
                                 } else if (state.state.isError) {
                                   Navigator.pop(context);
                                   showTopSnackBar(context, "Payment failed!",

@@ -58,7 +58,9 @@ class PaymentOutDropDownBloc
       ));
       emit(BuildingsLoadedState(
           projectValue: state.projectValue,
-          buildingValue: state.buildings[0].sId.toString(),
+          buildingValue: state.buildings.isNotEmpty
+              ? state.buildings[0].sId.toString()
+              : "",
           agencyValue: '',
           projects: state.projects,
           buildings: state.buildings,

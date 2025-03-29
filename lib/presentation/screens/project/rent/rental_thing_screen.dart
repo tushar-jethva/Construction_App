@@ -3,7 +3,7 @@ import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
-import 'package:construction_mate/logic/models/material/all_material_model.dart';
+import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
@@ -13,24 +13,25 @@ import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../logic/models/project_model.dart';
+import '../../../../logic/models/rental/rental_model.dart';
 import '../../../widgets/common/common_icon_circle_widget.dart';
 
-class MaterialThingScreen extends StatefulWidget {
+class RentThingScreen extends StatefulWidget {
   final ProjectModel project;
-  final Data material;
+  final Data rental;
   final String partieId;
 
-  const MaterialThingScreen(
+  const RentThingScreen(
       {super.key,
       required this.project,
       required this.partieId,
-      required this.material});
+      required this.rental});
 
   @override
-  State<MaterialThingScreen> createState() => _MaterialThingScreenState();
+  State<RentThingScreen> createState() => _RentThingScreenState();
 }
 
-class _MaterialThingScreenState extends State<MaterialThingScreen> {
+class _RentThingScreenState extends State<RentThingScreen> {
   Future<void> onRefresh() async {
     // context.read<MaterialByPartieBloc>().add(
     //     MaterialByPartieEvent.getMaterialByPartie(
@@ -42,7 +43,7 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Material Products",
+        title: "Rental Products",
         onTap: () {
           context.pop();
         },
@@ -50,8 +51,8 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
       body: RefreshIndicator(
         onRefresh: onRefresh,
         color: purple,
-        child:
-            BlocBuilder<MaterialPartieProjectBloc, MaterialPartieProjectState>(
+        child: BlocBuilder<GetRentalPartieProjectBloc,
+            GetRentalPartieProjectState>(
           builder: (context, state) {
             return state.state.isLoading
                 ? Skeletonizer(
@@ -61,38 +62,37 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return agenyOneWidget(
-                              theme, Rentals(name: "Material"), index);
+                              theme, Rentals(name: "Rental"), index);
                         }))
-                : state.listOfMaterialParty[state.partieIndex].rentals
-                            ?.isNotEmpty ??
+                : state.renalParties[state.partieIndex].rentals?.isNotEmpty ??
                         false
                     ? SizedBox(
                         height: MediaQuery.of(context).size.height * 0.73,
                         child: ListView.builder(
-                            itemCount: widget.material.rentals?.length ?? 0,
+                            itemCount: widget.rental.rentals?.length ?? 0,
                             itemBuilder: (context, index) {
-                              final material = state
-                                  .listOfMaterialParty[state.partieIndex]
+                              final rental = state
+                                  .renalParties[state.partieIndex]
                                   .rentals?[index];
                               return GestureDetector(
                                   onTap: () {
                                     context
-                                        .read<MaterialPartieProjectBloc>()
-                                        .add(MaterialPartieProjectEvent
+                                        .read<GetRentalPartieProjectBloc>()
+                                        .add(GetRentalPartieProjectEvent
                                             .onProductIndexChanged(
-                                                productIndex: index));
+                                                index: index));
                                     context.pushNamed(
                                       RoutesName
-                                          .MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                                          .RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME,
                                       extra: {
                                         'project': widget.project,
-                                        'partieId': widget.material.sId,
-                                        'material': material
+                                        'partieId': widget.partieId,
+                                        'rental': rental
                                       },
                                     );
                                   },
                                   child: agenyOneWidget(
-                                      theme, material ?? Rentals(), index));
+                                      theme, rental ?? Rentals(), index));
                             }),
                       )
                     : SizedBox(
@@ -101,7 +101,7 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
                           SizedBox(
                               height: MediaQuery.of(context).size.height * 0.5,
                               child: const Center(
-                                  child: Text("No Material Products added"))),
+                                  child: Text("No Rental Products added"))),
                         ]),
                       );
           },

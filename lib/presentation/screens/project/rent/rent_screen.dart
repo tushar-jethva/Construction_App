@@ -14,6 +14,7 @@ import 'package:construction_mate/logic/models/get_rental_model.dart';
 import 'package:construction_mate/logic/models/material/material_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
+import 'package:construction_mate/logic/models/rental/rental_model.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/presentation/screens/project/rent/rental_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/pop_up_menu_widget.dart';
@@ -92,29 +93,38 @@ class _RentalScreenState extends State<RentalScreen> {
                       itemBuilder: (context, index) {
                         return agenyOneWidget(
                             theme,
-                            ProjectPartieModel(
+                            Data(
                               name: "Helloo",
                             ),
                             0);
                       }))
-              : state.rentalParties.isNotEmpty
+              : state.renalParties.isNotEmpty
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height * 0.73,
                       child: ListView.builder(
-                          itemCount: state.rentalParties.length,
+                          itemCount: state.renalParties.length,
                           controller: widget.scrollController,
                           itemBuilder: (context, index) {
-                            final material = state.rentalParties[index];
+                            final material = state.renalParties[index];
                             return GestureDetector(
                                 onTap: () {
-                                  context.read<RentalByPartieIdBloc>().add(
-                                      RentalByPartieIdEvent.getRentalByPartie(
-                                          partieId: material.sId ?? ''));
+                                  // context.read<RentalByPartieIdBloc>().add(
+                                  //     RentalByPartieIdEvent.getRentalByPartie(
+                                  //         partieId: material.sId ?? ''));
+
+                                  context
+                                      .read<GetRentalPartieProjectBloc>()
+                                      .add(GetRentalPartieProjectEvent
+                                          .onPartieIndexChanged(index: index));
 
                                   context.pushNamed(
                                       RoutesName
-                                          .RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME,
-                                      extra: widget.project);
+                                          .ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                                      extra: {
+                                        'project': widget.project,
+                                        'partieId': material.sId,
+                                        'rental': material
+                                      });
                                 },
                                 child: agenyOneWidget(theme, material, index));
                           }),
@@ -135,8 +145,7 @@ class _RentalScreenState extends State<RentalScreen> {
     );
   }
 
-  Padding agenyOneWidget(
-      ThemeData theme, ProjectPartieModel agency, int index) {
+  Padding agenyOneWidget(ThemeData theme, Data rental, int index) {
     return Padding(
       padding:
           const EdgeInsets.only(left: 15.0, right: 15, bottom: 10, top: 10),
@@ -162,7 +171,7 @@ class _RentalScreenState extends State<RentalScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            agency.name ?? "",
+                            rental.name ?? "",
                             style: theme.textTheme.titleLarge
                                 ?.copyWith(fontSize: 14),
                           ),
@@ -171,12 +180,12 @@ class _RentalScreenState extends State<RentalScreen> {
                               SvgPicture.asset(Assets.svg.remaining.path),
                               5.wx,
                               Text(
-                                "Remaining: ",
+                                "Total Cost: ",
                                 style: theme.textTheme.titleMedium
                                     ?.copyWith(color: grey, fontSize: 12),
                               ),
                               Text(
-                                "₹ ${agency.totalCost ?? 0}",
+                                "₹ ${rental.totalCost ?? 0}",
                                 style: theme.textTheme.titleLarge?.copyWith(
                                     color: Colors.orange, fontSize: 13),
                               ),
@@ -196,26 +205,26 @@ class _RentalScreenState extends State<RentalScreen> {
                                     ?.copyWith(color: grey, fontSize: 12),
                               ),
                               Text(
-                                " ₹ ${0}",
+                                " ₹ ${rental.paidCost ?? 0}",
                                 style: theme.textTheme.titleLarge
                                     ?.copyWith(color: green, fontSize: 13),
                               )
                             ],
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                "Total Payable: ",
-                                style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
-                              ),
-                              Text(
-                                "₹ ${0}",
-                                style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: red, fontSize: 13),
-                              ),
-                            ],
-                          )
+                          // Row(
+                          //   children: [
+                          //     Text(
+                          //       "Total Payable: ",
+                          //       style: theme.textTheme.titleMedium
+                          //           ?.copyWith(color: grey, fontSize: 12),
+                          //     ),
+                          //     Text(
+                          //       "₹ ${0}",
+                          //       style: theme.textTheme.titleLarge
+                          //           ?.copyWith(color: red, fontSize: 13),
+                          //     ),
+                          //   ],
+                          // )
                         ],
                       ),
                     ],

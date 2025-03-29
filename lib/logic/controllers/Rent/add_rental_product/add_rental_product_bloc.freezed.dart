@@ -1371,7 +1371,7 @@ mixin _$AddRentalProductState {
   String get message => throw _privateConstructorUsedError;
   String get unit => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
-  List<RentalModel> get rentalList => throw _privateConstructorUsedError;
+  List<GetRentalModel> get rentalList => throw _privateConstructorUsedError;
   String get rentalPartyId => throw _privateConstructorUsedError;
 
   /// Create a copy of AddRentalProductState
@@ -1392,7 +1392,7 @@ abstract class $AddRentalProductStateCopyWith<$Res> {
       String message,
       String unit,
       String date,
-      List<RentalModel> rentalList,
+      List<GetRentalModel> rentalList,
       String rentalPartyId});
 }
 
@@ -1439,7 +1439,7 @@ class _$AddRentalProductStateCopyWithImpl<$Res,
       rentalList: null == rentalList
           ? _value.rentalList
           : rentalList // ignore: cast_nullable_to_non_nullable
-              as List<RentalModel>,
+              as List<GetRentalModel>,
       rentalPartyId: null == rentalPartyId
           ? _value.rentalPartyId
           : rentalPartyId // ignore: cast_nullable_to_non_nullable
@@ -1462,7 +1462,7 @@ abstract class _$$AddRentalProductStateImplCopyWith<$Res>
       String message,
       String unit,
       String date,
-      List<RentalModel> rentalList,
+      List<GetRentalModel> rentalList,
       String rentalPartyId});
 }
 
@@ -1507,7 +1507,7 @@ class __$$AddRentalProductStateImplCopyWithImpl<$Res>
       rentalList: null == rentalList
           ? _value._rentalList
           : rentalList // ignore: cast_nullable_to_non_nullable
-              as List<RentalModel>,
+              as List<GetRentalModel>,
       rentalPartyId: null == rentalPartyId
           ? _value.rentalPartyId
           : rentalPartyId // ignore: cast_nullable_to_non_nullable
@@ -1524,7 +1524,7 @@ class _$AddRentalProductStateImpl implements _AddRentalProductState {
       required this.message,
       required this.unit,
       required this.date,
-      required final List<RentalModel> rentalList,
+      required final List<GetRentalModel> rentalList,
       required this.rentalPartyId})
       : _rentalList = rentalList;
 
@@ -1536,9 +1536,9 @@ class _$AddRentalProductStateImpl implements _AddRentalProductState {
   final String unit;
   @override
   final String date;
-  final List<RentalModel> _rentalList;
+  final List<GetRentalModel> _rentalList;
   @override
-  List<RentalModel> get rentalList {
+  List<GetRentalModel> get rentalList {
     if (_rentalList is EqualUnmodifiableListView) return _rentalList;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_rentalList);
@@ -1587,7 +1587,7 @@ abstract class _AddRentalProductState implements AddRentalProductState {
       required final String message,
       required final String unit,
       required final String date,
-      required final List<RentalModel> rentalList,
+      required final List<GetRentalModel> rentalList,
       required final String rentalPartyId}) = _$AddRentalProductStateImpl;
 
   @override
@@ -1599,7 +1599,7 @@ abstract class _AddRentalProductState implements AddRentalProductState {
   @override
   String get date;
   @override
-  List<RentalModel> get rentalList;
+  List<GetRentalModel> get rentalList;
   @override
   String get rentalPartyId;
 

@@ -1,4 +1,4 @@
-class RentalModel {
+class GetRentalModel {
   String? sId;
   String? companyId;
   String? partieId;
@@ -15,7 +15,7 @@ class RentalModel {
   String? updatedAt;
   int? iV;
 
-  RentalModel(
+  GetRentalModel(
       {this.sId,
       this.companyId,
       this.partieId,
@@ -32,7 +32,7 @@ class RentalModel {
       this.updatedAt,
       this.iV});
 
-  RentalModel.fromJson(Map<String, dynamic> json) {
+  GetRentalModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     companyId = json['companyId'];
     partieId = json['partieId'];

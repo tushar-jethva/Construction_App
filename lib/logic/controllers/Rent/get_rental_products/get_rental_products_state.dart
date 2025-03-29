@@ -5,7 +5,7 @@ class GetRentalProductsState with _$GetRentalProductsState {
   const factory GetRentalProductsState(
       {required RequestState state,
       required String message,
-      required List<RentalModel> rentalProducts}) = _GetRentalProductsState;
+      required List<GetRentalModel> rentalProducts}) = _GetRentalProductsState;
   factory GetRentalProductsState.initial() => const GetRentalProductsState(
       state: RequestState.empty, message: '', rentalProducts: []);
 }

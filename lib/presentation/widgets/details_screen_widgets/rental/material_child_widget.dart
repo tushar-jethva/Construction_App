@@ -3,6 +3,7 @@ import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart
 import 'package:construction_mate/logic/models/get_material_model.dart';
 import 'package:construction_mate/logic/models/get_rental_model.dart';
 import 'package:construction_mate/logic/models/material/material_model.dart';
+import 'package:construction_mate/logic/models/rental/rental_model.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/screens/project/rent/rental_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
@@ -14,7 +15,7 @@ class RentalChildWidget extends StatelessWidget {
 
   openBottomSheetOfMaterial(
       {required BuildContext context,
-      required RentalModel material,
+      required Details material,
       bool? isUpdate}) {
     showModalBottomSheet(
         isScrollControlled: true,
@@ -30,6 +31,7 @@ class RentalChildWidget extends StatelessWidget {
                   projectId: state.project?.sId ?? "",
                   material: material,
                   isUpdate: isUpdate,
+                  partieId: '',
                 );
               },
             ),
@@ -48,10 +50,10 @@ class RentalChildWidget extends StatelessWidget {
             openBottomSheetOfMaterial(
                 context: context,
                 isUpdate: false,
-                material: RentalModel(
+                material: Details(
+                    rentalId: '',
                     name: "",
                     priceperunit: 0,
-                    partieId: '',
                     quantity: 0,
                     unit: "",
                     description: "",

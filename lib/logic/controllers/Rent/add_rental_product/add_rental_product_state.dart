@@ -7,7 +7,7 @@ class AddRentalProductState with _$AddRentalProductState {
     required String message,
     required String unit,
     required String date,
-    required List<RentalModel> rentalList,
+    required List<GetRentalModel> rentalList,
     required String rentalPartyId,
   }) = _AddRentalProductState;
   factory AddRentalProductState.initial() => AddRentalProductState(

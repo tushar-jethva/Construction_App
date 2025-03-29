@@ -28,7 +28,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
                 name: user?.name ?? '',
                 email: user?.email ?? '',
                 gst: user?.gSTNumber ?? '',
-                mobileNo: user?.mobile.toString() ?? '',
+                mobileNo: user?.mobile.toString() ?? '0',
                 imageUrl: user?.logo ?? '',
                 address: user?.address ?? ''));
           },
@@ -67,7 +67,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
                 name: state.name,
                 email: state.email,
                 gst: state.gst,
-                phoneNumber: state.mobileNo,
+                phoneNumber: state.mobileNo == '0' ? "0" : state.mobileNo,
                 imageUrl: url.isEmpty
                     ? (userWatcherBloc.state.profile?.logo ?? "")
                     : url,

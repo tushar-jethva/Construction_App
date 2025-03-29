@@ -330,7 +330,7 @@ abstract class _GetRentalByPartie implements RentalByPartieIdEvent {
 mixin _$RentalByPartieIdState {
   RequestState get state => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
-  List<RentalModel> get listOfRentals => throw _privateConstructorUsedError;
+  List<GetRentalModel> get listOfRentals => throw _privateConstructorUsedError;
 
   /// Create a copy of RentalByPartieIdState
   /// with the given fields replaced by the non-null parameter values.
@@ -346,7 +346,7 @@ abstract class $RentalByPartieIdStateCopyWith<$Res> {
       _$RentalByPartieIdStateCopyWithImpl<$Res, RentalByPartieIdState>;
   @useResult
   $Res call(
-      {RequestState state, String message, List<RentalModel> listOfRentals});
+      {RequestState state, String message, List<GetRentalModel> listOfRentals});
 }
 
 /// @nodoc
@@ -381,7 +381,7 @@ class _$RentalByPartieIdStateCopyWithImpl<$Res,
       listOfRentals: null == listOfRentals
           ? _value.listOfRentals
           : listOfRentals // ignore: cast_nullable_to_non_nullable
-              as List<RentalModel>,
+              as List<GetRentalModel>,
     ) as $Val);
   }
 }
@@ -396,7 +396,7 @@ abstract class _$$RentalByPartieIdStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {RequestState state, String message, List<RentalModel> listOfRentals});
+      {RequestState state, String message, List<GetRentalModel> listOfRentals});
 }
 
 /// @nodoc
@@ -429,7 +429,7 @@ class __$$RentalByPartieIdStateImplCopyWithImpl<$Res>
       listOfRentals: null == listOfRentals
           ? _value._listOfRentals
           : listOfRentals // ignore: cast_nullable_to_non_nullable
-              as List<RentalModel>,
+              as List<GetRentalModel>,
     ));
   }
 }
@@ -440,16 +440,16 @@ class _$RentalByPartieIdStateImpl implements _RentalByPartieIdState {
   const _$RentalByPartieIdStateImpl(
       {required this.state,
       required this.message,
-      required final List<RentalModel> listOfRentals})
+      required final List<GetRentalModel> listOfRentals})
       : _listOfRentals = listOfRentals;
 
   @override
   final RequestState state;
   @override
   final String message;
-  final List<RentalModel> _listOfRentals;
+  final List<GetRentalModel> _listOfRentals;
   @override
-  List<RentalModel> get listOfRentals {
+  List<GetRentalModel> get listOfRentals {
     if (_listOfRentals is EqualUnmodifiableListView) return _listOfRentals;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_listOfRentals);
@@ -489,7 +489,7 @@ abstract class _RentalByPartieIdState implements RentalByPartieIdState {
   const factory _RentalByPartieIdState(
           {required final RequestState state,
           required final String message,
-          required final List<RentalModel> listOfRentals}) =
+          required final List<GetRentalModel> listOfRentals}) =
       _$RentalByPartieIdStateImpl;
 
   @override
@@ -497,7 +497,7 @@ abstract class _RentalByPartieIdState implements RentalByPartieIdState {
   @override
   String get message;
   @override
-  List<RentalModel> get listOfRentals;
+  List<GetRentalModel> get listOfRentals;
 
   /// Create a copy of RentalByPartieIdState
   /// with the given fields replaced by the non-null parameter values.

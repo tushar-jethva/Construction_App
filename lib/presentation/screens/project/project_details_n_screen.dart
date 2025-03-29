@@ -155,6 +155,9 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
+          context
+              .read<PaymentOutDropDownBloc>()
+              .add(AgencyTypeChangeEvent(partyType: PartyType.SubContractor));
           return PaymentOutProjectDialogBoxWidget(
               formPaymentOutKey: formPaymentOutKey,
               projectId: widget.projectModel.sId ?? "",
@@ -225,6 +228,9 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                 backgroundColor: red,
                 borderColor: transparent,
                 onTap: () {
+                  context
+                      .read<PaymentOutDropDownBloc>()
+                      .add(AgencyTypeChangeEvent(partyType: PartyType.none));
                   context
                       .read<PaymentOutDropDownBloc>()
                       .add(FetchBuildingsEvent(widget.projectModel.sId!));

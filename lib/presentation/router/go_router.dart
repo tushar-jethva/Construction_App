@@ -53,6 +53,7 @@ import 'package:construction_mate/presentation/screens/project/details_screen.da
 import 'package:construction_mate/presentation/screens/project/inidividual_transaction_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_details_n_screen.dart';
 import 'package:construction_mate/presentation/screens/project/rent/rental_products_screen.dart';
+import 'package:construction_mate/presentation/screens/project/rent/rental_thing_screen.dart';
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
 import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
@@ -423,9 +424,30 @@ class Routes {
           path: RoutesName.RENT_PRODUCTS_BY_PROJECT_SCREEN_PATH,
           name: RoutesName.RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME,
           builder: (context, state) {
-            final project = state.extra as ProjectModel;
+            final data = state.extra as Map<String, dynamic>;
 
-            return RentalProductsScreen(project: project);
+            return RentalProductsScreen(
+              project: data['project'],
+              partieId: data['partieId'],
+              rental: data['rental'],
+            );
+          },
+        ),
+
+        ///-----------------------------------------------------------
+        ///--------------- All Rental Thing
+        ///-----------------------------------------------------------
+        GoRoute(
+          path: RoutesName.ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
+          name: RoutesName.ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+          builder: (context, state) {
+            final data = state.extra as Map<String, dynamic>;
+
+            return RentThingScreen(
+              project: data['project'],
+              partieId: data['partieId'],
+              rental: data['rental'],
+            );
           },
         ),
 
@@ -445,6 +467,7 @@ class Routes {
             );
           },
         ),
+
         ///-----------------------------------------------------------
         ///--------------- All Materail Thing
         ///-----------------------------------------------------------
@@ -454,7 +477,7 @@ class Routes {
           builder: (context, state) {
             final data = state.extra as Map<String, dynamic>;
 
-            return MaterialThingScreen (
+            return MaterialThingScreen(
               project: data['project'],
               partieId: data['partieId'],
               material: data['material'],

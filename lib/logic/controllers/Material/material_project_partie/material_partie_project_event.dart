@@ -5,7 +5,15 @@ class MaterialPartieProjectEvent with _$MaterialPartieProjectEvent {
   //Initialize
   const factory MaterialPartieProjectEvent.initialize() = _Initialize;
 
-   //Selected agency
+  //partie index
+  const factory MaterialPartieProjectEvent.onPartieIndexChanged(
+      {required int partieIndex}) = _OnPartieIndexChanged;
+
+  //project index
+  const factory MaterialPartieProjectEvent.onProductIndexChanged(
+      {required int productIndex}) = _OnProductIndexChanged;
+
+  //Selected agency
   const factory MaterialPartieProjectEvent.onChangeMaterialAgency(
       {required String materialAgency}) = _OnChangeMaterialAgency;
 

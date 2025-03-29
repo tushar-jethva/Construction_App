@@ -2,6 +2,7 @@ import 'package:construction_mate/data/repository/rental_repository.dart';
 import 'package:construction_mate/logic/models/add_rental_model.dart';
 import 'package:construction_mate/logic/models/get_rental_model.dart';
 import 'package:construction_mate/logic/models/project_partie_model.dart';
+import 'package:construction_mate/logic/models/rental/rental_model.dart';
 import 'package:construction_mate/utilities/error_handling/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -16,7 +17,7 @@ class RentalUsecase {
     return _repository.addRental(rentalModel: rentalModel);
   }
 
-  Future<Either<Failure, List<RentalModel>>> getRentals(
+  Future<Either<Failure, List<GetRentalModel>>> getRentals(
       {required String projectId}) {
     return _repository.getRentals(projectId: projectId);
   }
@@ -26,12 +27,12 @@ class RentalUsecase {
     return _repository.updateRental(rentalModel: rentalModel);
   }
 
-  Future<Either<Failure, List<RentalModel>>> getRentalByPartie(
+  Future<Either<Failure, List<GetRentalModel>>> getRentalByPartie(
       {required String partieId}) {
     return _repository.getRentalByPartie(partieId: partieId);
   }
 
-  Future<Either<Failure, List<ProjectPartieModel>>> getProjectRentalParties(
+  Future<Either<Failure, RentalModel>> getProjectRentalParties(
       {required String projectId}) {
     return _repository.getProjectRentalParties(projectId: projectId);
   }

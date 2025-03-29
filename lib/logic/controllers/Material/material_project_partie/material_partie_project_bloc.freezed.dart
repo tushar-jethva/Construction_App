@@ -19,6 +19,8 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(int partieIndex) onPartieIndexChanged,
+    required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
     required TResult Function(String projectId) fetchMatrialPartieByProject,
   }) =>
@@ -26,6 +28,8 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(int partieIndex)? onPartieIndexChanged,
+    TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
     TResult? Function(String projectId)? fetchMatrialPartieByProject,
   }) =>
@@ -33,6 +37,8 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(int partieIndex)? onPartieIndexChanged,
+    TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
     TResult Function(String projectId)? fetchMatrialPartieByProject,
     required TResult orElse(),
@@ -41,6 +47,9 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
     required TResult Function(_OnChangeMaterialAgency value)
         onChangeMaterialAgency,
     required TResult Function(_FetchMatrialPartieByProject value)
@@ -50,6 +59,8 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
     TResult? Function(_FetchMatrialPartieByProject value)?
         fetchMatrialPartieByProject,
@@ -58,6 +69,8 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
     TResult Function(_FetchMatrialPartieByProject value)?
         fetchMatrialPartieByProject,
@@ -131,6 +144,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(int partieIndex) onPartieIndexChanged,
+    required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
     required TResult Function(String projectId) fetchMatrialPartieByProject,
   }) {
@@ -141,6 +156,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(int partieIndex)? onPartieIndexChanged,
+    TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
     TResult? Function(String projectId)? fetchMatrialPartieByProject,
   }) {
@@ -151,6 +168,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(int partieIndex)? onPartieIndexChanged,
+    TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
     TResult Function(String projectId)? fetchMatrialPartieByProject,
     required TResult orElse(),
@@ -165,6 +184,9 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
     required TResult Function(_OnChangeMaterialAgency value)
         onChangeMaterialAgency,
     required TResult Function(_FetchMatrialPartieByProject value)
@@ -177,6 +199,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
     TResult? Function(_FetchMatrialPartieByProject value)?
         fetchMatrialPartieByProject,
@@ -188,6 +212,8 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
     TResult Function(_FetchMatrialPartieByProject value)?
         fetchMatrialPartieByProject,
@@ -202,6 +228,342 @@ class _$InitializeImpl implements _Initialize {
 
 abstract class _Initialize implements MaterialPartieProjectEvent {
   const factory _Initialize() = _$InitializeImpl;
+}
+
+/// @nodoc
+abstract class _$$OnPartieIndexChangedImplCopyWith<$Res> {
+  factory _$$OnPartieIndexChangedImplCopyWith(_$OnPartieIndexChangedImpl value,
+          $Res Function(_$OnPartieIndexChangedImpl) then) =
+      __$$OnPartieIndexChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int partieIndex});
+}
+
+/// @nodoc
+class __$$OnPartieIndexChangedImplCopyWithImpl<$Res>
+    extends _$MaterialPartieProjectEventCopyWithImpl<$Res,
+        _$OnPartieIndexChangedImpl>
+    implements _$$OnPartieIndexChangedImplCopyWith<$Res> {
+  __$$OnPartieIndexChangedImplCopyWithImpl(_$OnPartieIndexChangedImpl _value,
+      $Res Function(_$OnPartieIndexChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? partieIndex = null,
+  }) {
+    return _then(_$OnPartieIndexChangedImpl(
+      partieIndex: null == partieIndex
+          ? _value.partieIndex
+          : partieIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
+  const _$OnPartieIndexChangedImpl({required this.partieIndex});
+
+  @override
+  final int partieIndex;
+
+  @override
+  String toString() {
+    return 'MaterialPartieProjectEvent.onPartieIndexChanged(partieIndex: $partieIndex)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnPartieIndexChangedImpl &&
+            (identical(other.partieIndex, partieIndex) ||
+                other.partieIndex == partieIndex));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, partieIndex);
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnPartieIndexChangedImplCopyWith<_$OnPartieIndexChangedImpl>
+      get copyWith =>
+          __$$OnPartieIndexChangedImplCopyWithImpl<_$OnPartieIndexChangedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(int partieIndex) onPartieIndexChanged,
+    required TResult Function(int productIndex) onProductIndexChanged,
+    required TResult Function(String materialAgency) onChangeMaterialAgency,
+    required TResult Function(String projectId) fetchMatrialPartieByProject,
+  }) {
+    return onPartieIndexChanged(partieIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(int partieIndex)? onPartieIndexChanged,
+    TResult? Function(int productIndex)? onProductIndexChanged,
+    TResult? Function(String materialAgency)? onChangeMaterialAgency,
+    TResult? Function(String projectId)? fetchMatrialPartieByProject,
+  }) {
+    return onPartieIndexChanged?.call(partieIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(int partieIndex)? onPartieIndexChanged,
+    TResult Function(int productIndex)? onProductIndexChanged,
+    TResult Function(String materialAgency)? onChangeMaterialAgency,
+    TResult Function(String projectId)? fetchMatrialPartieByProject,
+    required TResult orElse(),
+  }) {
+    if (onPartieIndexChanged != null) {
+      return onPartieIndexChanged(partieIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
+    required TResult Function(_OnChangeMaterialAgency value)
+        onChangeMaterialAgency,
+    required TResult Function(_FetchMatrialPartieByProject value)
+        fetchMatrialPartieByProject,
+  }) {
+    return onPartieIndexChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
+    TResult? Function(_FetchMatrialPartieByProject value)?
+        fetchMatrialPartieByProject,
+  }) {
+    return onPartieIndexChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
+    TResult Function(_FetchMatrialPartieByProject value)?
+        fetchMatrialPartieByProject,
+    required TResult orElse(),
+  }) {
+    if (onPartieIndexChanged != null) {
+      return onPartieIndexChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnPartieIndexChanged implements MaterialPartieProjectEvent {
+  const factory _OnPartieIndexChanged({required final int partieIndex}) =
+      _$OnPartieIndexChangedImpl;
+
+  int get partieIndex;
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnPartieIndexChangedImplCopyWith<_$OnPartieIndexChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnProductIndexChangedImplCopyWith<$Res> {
+  factory _$$OnProductIndexChangedImplCopyWith(
+          _$OnProductIndexChangedImpl value,
+          $Res Function(_$OnProductIndexChangedImpl) then) =
+      __$$OnProductIndexChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int productIndex});
+}
+
+/// @nodoc
+class __$$OnProductIndexChangedImplCopyWithImpl<$Res>
+    extends _$MaterialPartieProjectEventCopyWithImpl<$Res,
+        _$OnProductIndexChangedImpl>
+    implements _$$OnProductIndexChangedImplCopyWith<$Res> {
+  __$$OnProductIndexChangedImplCopyWithImpl(_$OnProductIndexChangedImpl _value,
+      $Res Function(_$OnProductIndexChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? productIndex = null,
+  }) {
+    return _then(_$OnProductIndexChangedImpl(
+      productIndex: null == productIndex
+          ? _value.productIndex
+          : productIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
+  const _$OnProductIndexChangedImpl({required this.productIndex});
+
+  @override
+  final int productIndex;
+
+  @override
+  String toString() {
+    return 'MaterialPartieProjectEvent.onProductIndexChanged(productIndex: $productIndex)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnProductIndexChangedImpl &&
+            (identical(other.productIndex, productIndex) ||
+                other.productIndex == productIndex));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, productIndex);
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnProductIndexChangedImplCopyWith<_$OnProductIndexChangedImpl>
+      get copyWith => __$$OnProductIndexChangedImplCopyWithImpl<
+          _$OnProductIndexChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(int partieIndex) onPartieIndexChanged,
+    required TResult Function(int productIndex) onProductIndexChanged,
+    required TResult Function(String materialAgency) onChangeMaterialAgency,
+    required TResult Function(String projectId) fetchMatrialPartieByProject,
+  }) {
+    return onProductIndexChanged(productIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(int partieIndex)? onPartieIndexChanged,
+    TResult? Function(int productIndex)? onProductIndexChanged,
+    TResult? Function(String materialAgency)? onChangeMaterialAgency,
+    TResult? Function(String projectId)? fetchMatrialPartieByProject,
+  }) {
+    return onProductIndexChanged?.call(productIndex);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(int partieIndex)? onPartieIndexChanged,
+    TResult Function(int productIndex)? onProductIndexChanged,
+    TResult Function(String materialAgency)? onChangeMaterialAgency,
+    TResult Function(String projectId)? fetchMatrialPartieByProject,
+    required TResult orElse(),
+  }) {
+    if (onProductIndexChanged != null) {
+      return onProductIndexChanged(productIndex);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
+    required TResult Function(_OnChangeMaterialAgency value)
+        onChangeMaterialAgency,
+    required TResult Function(_FetchMatrialPartieByProject value)
+        fetchMatrialPartieByProject,
+  }) {
+    return onProductIndexChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
+    TResult? Function(_FetchMatrialPartieByProject value)?
+        fetchMatrialPartieByProject,
+  }) {
+    return onProductIndexChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
+    TResult Function(_FetchMatrialPartieByProject value)?
+        fetchMatrialPartieByProject,
+    required TResult orElse(),
+  }) {
+    if (onProductIndexChanged != null) {
+      return onProductIndexChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnProductIndexChanged implements MaterialPartieProjectEvent {
+  const factory _OnProductIndexChanged({required final int productIndex}) =
+      _$OnProductIndexChangedImpl;
+
+  int get productIndex;
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnProductIndexChangedImplCopyWith<_$OnProductIndexChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -278,6 +640,8 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(int partieIndex) onPartieIndexChanged,
+    required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
     required TResult Function(String projectId) fetchMatrialPartieByProject,
   }) {
@@ -288,6 +652,8 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(int partieIndex)? onPartieIndexChanged,
+    TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
     TResult? Function(String projectId)? fetchMatrialPartieByProject,
   }) {
@@ -298,6 +664,8 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(int partieIndex)? onPartieIndexChanged,
+    TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
     TResult Function(String projectId)? fetchMatrialPartieByProject,
     required TResult orElse(),
@@ -312,6 +680,9 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
     required TResult Function(_OnChangeMaterialAgency value)
         onChangeMaterialAgency,
     required TResult Function(_FetchMatrialPartieByProject value)
@@ -324,6 +695,8 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
     TResult? Function(_FetchMatrialPartieByProject value)?
         fetchMatrialPartieByProject,
@@ -335,6 +708,8 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
     TResult Function(_FetchMatrialPartieByProject value)?
         fetchMatrialPartieByProject,
@@ -435,6 +810,8 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(int partieIndex) onPartieIndexChanged,
+    required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
     required TResult Function(String projectId) fetchMatrialPartieByProject,
   }) {
@@ -445,6 +822,8 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(int partieIndex)? onPartieIndexChanged,
+    TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
     TResult? Function(String projectId)? fetchMatrialPartieByProject,
   }) {
@@ -455,6 +834,8 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(int partieIndex)? onPartieIndexChanged,
+    TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
     TResult Function(String projectId)? fetchMatrialPartieByProject,
     required TResult orElse(),
@@ -469,6 +850,9 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
     required TResult Function(_OnChangeMaterialAgency value)
         onChangeMaterialAgency,
     required TResult Function(_FetchMatrialPartieByProject value)
@@ -481,6 +865,8 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
     TResult? Function(_FetchMatrialPartieByProject value)?
         fetchMatrialPartieByProject,
@@ -492,6 +878,8 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
     TResult Function(_FetchMatrialPartieByProject value)?
         fetchMatrialPartieByProject,
@@ -523,6 +911,8 @@ mixin _$MaterialPartieProjectState {
   RequestState get state => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   String get selectedMaterialAgency => throw _privateConstructorUsedError;
+  int get partieIndex => throw _privateConstructorUsedError;
+  int get productIndex => throw _privateConstructorUsedError;
   AllMaterialModel? get materialData => throw _privateConstructorUsedError;
   List<Data> get listOfMaterialParty => throw _privateConstructorUsedError;
 
@@ -544,6 +934,8 @@ abstract class $MaterialPartieProjectStateCopyWith<$Res> {
       {RequestState state,
       String message,
       String selectedMaterialAgency,
+      int partieIndex,
+      int productIndex,
       AllMaterialModel? materialData,
       List<Data> listOfMaterialParty});
 }
@@ -567,6 +959,8 @@ class _$MaterialPartieProjectStateCopyWithImpl<$Res,
     Object? state = null,
     Object? message = null,
     Object? selectedMaterialAgency = null,
+    Object? partieIndex = null,
+    Object? productIndex = null,
     Object? materialData = freezed,
     Object? listOfMaterialParty = null,
   }) {
@@ -583,6 +977,14 @@ class _$MaterialPartieProjectStateCopyWithImpl<$Res,
           ? _value.selectedMaterialAgency
           : selectedMaterialAgency // ignore: cast_nullable_to_non_nullable
               as String,
+      partieIndex: null == partieIndex
+          ? _value.partieIndex
+          : partieIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      productIndex: null == productIndex
+          ? _value.productIndex
+          : productIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       materialData: freezed == materialData
           ? _value.materialData
           : materialData // ignore: cast_nullable_to_non_nullable
@@ -608,6 +1010,8 @@ abstract class _$$MaterialPartieProjectStateImplCopyWith<$Res>
       {RequestState state,
       String message,
       String selectedMaterialAgency,
+      int partieIndex,
+      int productIndex,
       AllMaterialModel? materialData,
       List<Data> listOfMaterialParty});
 }
@@ -630,6 +1034,8 @@ class __$$MaterialPartieProjectStateImplCopyWithImpl<$Res>
     Object? state = null,
     Object? message = null,
     Object? selectedMaterialAgency = null,
+    Object? partieIndex = null,
+    Object? productIndex = null,
     Object? materialData = freezed,
     Object? listOfMaterialParty = null,
   }) {
@@ -646,6 +1052,14 @@ class __$$MaterialPartieProjectStateImplCopyWithImpl<$Res>
           ? _value.selectedMaterialAgency
           : selectedMaterialAgency // ignore: cast_nullable_to_non_nullable
               as String,
+      partieIndex: null == partieIndex
+          ? _value.partieIndex
+          : partieIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      productIndex: null == productIndex
+          ? _value.productIndex
+          : productIndex // ignore: cast_nullable_to_non_nullable
+              as int,
       materialData: freezed == materialData
           ? _value.materialData
           : materialData // ignore: cast_nullable_to_non_nullable
@@ -665,6 +1079,8 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
       {required this.state,
       required this.message,
       required this.selectedMaterialAgency,
+      required this.partieIndex,
+      required this.productIndex,
       required this.materialData,
       required final List<Data> listOfMaterialParty})
       : _listOfMaterialParty = listOfMaterialParty;
@@ -675,6 +1091,10 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
   final String message;
   @override
   final String selectedMaterialAgency;
+  @override
+  final int partieIndex;
+  @override
+  final int productIndex;
   @override
   final AllMaterialModel? materialData;
   final List<Data> _listOfMaterialParty;
@@ -688,7 +1108,7 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
 
   @override
   String toString() {
-    return 'MaterialPartieProjectState(state: $state, message: $message, selectedMaterialAgency: $selectedMaterialAgency, materialData: $materialData, listOfMaterialParty: $listOfMaterialParty)';
+    return 'MaterialPartieProjectState(state: $state, message: $message, selectedMaterialAgency: $selectedMaterialAgency, partieIndex: $partieIndex, productIndex: $productIndex, materialData: $materialData, listOfMaterialParty: $listOfMaterialParty)';
   }
 
   @override
@@ -700,6 +1120,10 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.selectedMaterialAgency, selectedMaterialAgency) ||
                 other.selectedMaterialAgency == selectedMaterialAgency) &&
+            (identical(other.partieIndex, partieIndex) ||
+                other.partieIndex == partieIndex) &&
+            (identical(other.productIndex, productIndex) ||
+                other.productIndex == productIndex) &&
             (identical(other.materialData, materialData) ||
                 other.materialData == materialData) &&
             const DeepCollectionEquality()
@@ -712,6 +1136,8 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
       state,
       message,
       selectedMaterialAgency,
+      partieIndex,
+      productIndex,
       materialData,
       const DeepCollectionEquality().hash(_listOfMaterialParty));
 
@@ -731,6 +1157,8 @@ abstract class _MaterialPartieProjectState
           {required final RequestState state,
           required final String message,
           required final String selectedMaterialAgency,
+          required final int partieIndex,
+          required final int productIndex,
           required final AllMaterialModel? materialData,
           required final List<Data> listOfMaterialParty}) =
       _$MaterialPartieProjectStateImpl;
@@ -741,6 +1169,10 @@ abstract class _MaterialPartieProjectState
   String get message;
   @override
   String get selectedMaterialAgency;
+  @override
+  int get partieIndex;
+  @override
+  int get productIndex;
   @override
   AllMaterialModel? get materialData;
   @override
