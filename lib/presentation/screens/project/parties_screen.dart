@@ -92,7 +92,7 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                   child: ListView.builder(
                       itemCount: state.totalAgencies.length,
                       // primary: false,
-                      controller: widget.scrollController, 
+                      controller: widget.scrollController,
                       // physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         final agency = state.totalAgencies[index];
@@ -121,42 +121,45 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
       child: Padding(
         padding:
             const EdgeInsets.only(left: 15.0, right: 15, bottom: 10, top: 15),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    IconCircleWidget(
-                      radius: 10,
-                      isSvg: true,
-                      svgpath: userIcons[index % userIcons.length],
-                      backgroundColor: theme.cardColor,
-                    ),
-                    10.wx,
-                    Text(
-                      agency.name ?? "",
-                      style: theme.textTheme.titleLarge?.copyWith(
-                        fontSize: 16,
+        child: Container(
+          color: transparent,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      IconCircleWidget(
+                        radius: 10,
+                        isSvg: true,
+                        svgpath: userIcons[index % userIcons.length],
+                        backgroundColor: theme.cardColor,
                       ),
-                    ),
-                  ],
-                ),
-                Text(
-                  agency.totalAccount!.startsWith('-')
-                      ? "₹ ${agency.totalAccount!.substring(1, agency.totalAccount!.length)}"
-                      : "₹ ${agency.totalAccount ?? 0}",
-                  style: theme.textTheme.titleLarge?.copyWith(
-                      fontSize: 16,
-                      color:
-                          agency.totalAccount!.startsWith('-') ? red : green),
-                )
-              ],
-            ),
-            5.hx,
-            const Divider()
-          ],
+                      10.wx,
+                      Text(
+                        agency.name ?? "",
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    agency.totalAccount!.startsWith('-')
+                        ? "₹ ${agency.totalAccount!.substring(1, agency.totalAccount!.length)}"
+                        : "₹ ${agency.totalAccount ?? 0}",
+                    style: theme.textTheme.titleLarge?.copyWith(
+                        fontSize: 16,
+                        color:
+                            agency.totalAccount!.startsWith('-') ? red : green),
+                  )
+                ],
+              ),
+              5.hx,
+              const Divider()
+            ],
+          ),
         ),
       ),
     );

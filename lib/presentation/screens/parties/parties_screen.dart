@@ -91,10 +91,9 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: theme.cardColor,
-      resizeToAvoidBottomInset: false,
-      body: Stack(
+    return Container(
+      color: theme.cardColor,
+      child: Stack(
         children: [
           searchWidget(context, theme),
           scrollableSheetWidget(context, theme)
@@ -327,7 +326,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
       BuildContext context, ThemeData theme) {
     return DraggableScrollableSheetCommonComp(
       draggableScrollableController: DraggableScrollableController(),
-      stops: const [0.89, 0.98],
+      stops: const [0.89, 0.891],
       initialSize: 0.89,
       minChildSize: 0.89,
       radius: 20,

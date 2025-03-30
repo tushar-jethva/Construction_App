@@ -54,6 +54,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
       builder: (context, state) {
         return Scaffold(
           key: _scaffoldKey,
+          resizeToAvoidBottomInset: false,
           appBar: PreferredSize(
               preferredSize: Size(
                   double.infinity, MediaQuery.of(context).size.height * 0.1),

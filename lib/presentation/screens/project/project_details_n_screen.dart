@@ -114,12 +114,17 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
 
     context.read<MenuBloc>().add(const MenuEvent.onIndexChanged(index: 1));
 
-    _tabController = TabController(length: 5, vsync: this, initialIndex: 1);
-
-    _tabController.addListener(() {
-      context
-          .read<MenuBloc>()
-          .add(MenuEvent.onIndexChanged(index: _tabController.index));
+    _tabController = TabController(
+        length: 5,
+        vsync: this,
+        animationDuration: const Duration(milliseconds: 100),
+        initialIndex: 1);
+    _tabController.animation?.addListener(() {
+      final int temp = _tabController.animation!.value.round();
+      final menuIndex = context.read<MenuBloc>().state.index;
+      if (menuIndex != temp) {
+        context.read<MenuBloc>().add(MenuEvent.onIndexChanged(index: temp));
+      }
     });
   }
 
@@ -155,9 +160,6 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         context: context,
         builder: (context) {
-          context
-              .read<PaymentOutDropDownBloc>()
-              .add(AgencyTypeChangeEvent(partyType: PartyType.SubContractor));
           return PaymentOutProjectDialogBoxWidget(
               formPaymentOutKey: formPaymentOutKey,
               projectId: widget.projectModel.sId ?? "",
@@ -171,7 +173,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         backgroundColor: theme.cardColor,
         appBar: CustomAppBar(
           onTap: () {
@@ -230,10 +232,10 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                 onTap: () {
                   context
                       .read<PaymentOutDropDownBloc>()
-                      .add(AgencyTypeChangeEvent(partyType: PartyType.none));
-                  context
-                      .read<PaymentOutDropDownBloc>()
                       .add(FetchBuildingsEvent(widget.projectModel.sId!));
+                  context.read<PaymentOutDropDownBloc>().add(
+                      AgencyTypeChangeEvent(
+                          partyType: PartyType.SubContractor));
                   _showPaymentOutDialog(theme: theme);
                 },
               ),
@@ -413,7 +415,7 @@ class MenuWidget extends StatelessWidget {
     final theme = Theme.of(context);
     return BlocBuilder<MenuBloc, MenuState>(
       builder: (context, state) {
-        final isSelected = tabController.index == index;
+        final isSelected = state.index == index;
 
         return GestureDetector(
           onTap: () {

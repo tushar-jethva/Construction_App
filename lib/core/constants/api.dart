@@ -40,7 +40,7 @@ class API {
   static const GET_TOTAL_AGENCIES = "$BASE_URL/Partie/GetPartiesByType";
   static const GET_TRANSACTOIN_BY_AGENCY_ID =
       "$BASE_URL/Transaction/GetTransactionByAgency";
-  static const GET_AGENCY_BY_PROJECT = "$BASE_URL/Agency/GetAgencyByProject";
+  static const GET_AGENCY_BY_PROJECT = "$BASE_URL/Partie/GetPartieByProject";
   static const ADD_WORK_TYPE = "$BASE_URL/Worktype/AddWorktype";
   static const ADD_AGENCY = "$BASE_URL/Agency/AddAgency";
   static const GET_TOTAL_PAYMENT_OUT = "$BASE_URL/Project/GetPayOut";
