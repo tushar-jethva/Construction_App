@@ -19,6 +19,7 @@ mixin _$GetRentalPartieProjectEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
     required TResult Function(int index) onPartieIndexChanged,
     required TResult Function(int index) onProductIndexChanged,
     required TResult Function(String projectId) fetchRentalParties,
@@ -27,6 +28,7 @@ mixin _$GetRentalPartieProjectEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
     TResult? Function(int index)? onPartieIndexChanged,
     TResult? Function(int index)? onProductIndexChanged,
     TResult? Function(String projectId)? fetchRentalParties,
@@ -35,6 +37,7 @@ mixin _$GetRentalPartieProjectEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
     TResult Function(int index)? onPartieIndexChanged,
     TResult Function(int index)? onProductIndexChanged,
     TResult Function(String projectId)? fetchRentalParties,
@@ -44,6 +47,7 @@ mixin _$GetRentalPartieProjectEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -53,6 +57,7 @@ mixin _$GetRentalPartieProjectEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_FetchRentalParties value)? fetchRentalParties,
@@ -61,6 +66,7 @@ mixin _$GetRentalPartieProjectEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_FetchRentalParties value)? fetchRentalParties,
@@ -135,6 +141,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
     required TResult Function(int index) onPartieIndexChanged,
     required TResult Function(int index) onProductIndexChanged,
     required TResult Function(String projectId) fetchRentalParties,
@@ -146,6 +153,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
     TResult? Function(int index)? onPartieIndexChanged,
     TResult? Function(int index)? onProductIndexChanged,
     TResult? Function(String projectId)? fetchRentalParties,
@@ -157,6 +165,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
     TResult Function(int index)? onPartieIndexChanged,
     TResult Function(int index)? onProductIndexChanged,
     TResult Function(String projectId)? fetchRentalParties,
@@ -172,6 +181,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -184,6 +194,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_FetchRentalParties value)? fetchRentalParties,
@@ -195,6 +206,7 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_FetchRentalParties value)? fetchRentalParties,
@@ -209,6 +221,170 @@ class _$InitializeImpl implements _Initialize {
 
 abstract class _Initialize implements GetRentalPartieProjectEvent {
   const factory _Initialize() = _$InitializeImpl;
+}
+
+/// @nodoc
+abstract class _$$OnSearchQueryChangedImplCopyWith<$Res> {
+  factory _$$OnSearchQueryChangedImplCopyWith(_$OnSearchQueryChangedImpl value,
+          $Res Function(_$OnSearchQueryChangedImpl) then) =
+      __$$OnSearchQueryChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String searchQuery});
+}
+
+/// @nodoc
+class __$$OnSearchQueryChangedImplCopyWithImpl<$Res>
+    extends _$GetRentalPartieProjectEventCopyWithImpl<$Res,
+        _$OnSearchQueryChangedImpl>
+    implements _$$OnSearchQueryChangedImplCopyWith<$Res> {
+  __$$OnSearchQueryChangedImplCopyWithImpl(_$OnSearchQueryChangedImpl _value,
+      $Res Function(_$OnSearchQueryChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? searchQuery = null,
+  }) {
+    return _then(_$OnSearchQueryChangedImpl(
+      searchQuery: null == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnSearchQueryChangedImpl implements _OnSearchQueryChanged {
+  const _$OnSearchQueryChangedImpl({required this.searchQuery});
+
+  @override
+  final String searchQuery;
+
+  @override
+  String toString() {
+    return 'GetRentalPartieProjectEvent.onSearchQueryChanged(searchQuery: $searchQuery)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnSearchQueryChangedImpl &&
+            (identical(other.searchQuery, searchQuery) ||
+                other.searchQuery == searchQuery));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, searchQuery);
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnSearchQueryChangedImplCopyWith<_$OnSearchQueryChangedImpl>
+      get copyWith =>
+          __$$OnSearchQueryChangedImplCopyWithImpl<_$OnSearchQueryChangedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(int index) onPartieIndexChanged,
+    required TResult Function(int index) onProductIndexChanged,
+    required TResult Function(String projectId) fetchRentalParties,
+  }) {
+    return onSearchQueryChanged(searchQuery);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(int index)? onPartieIndexChanged,
+    TResult? Function(int index)? onProductIndexChanged,
+    TResult? Function(String projectId)? fetchRentalParties,
+  }) {
+    return onSearchQueryChanged?.call(searchQuery);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(int index)? onPartieIndexChanged,
+    TResult Function(int index)? onProductIndexChanged,
+    TResult Function(String projectId)? fetchRentalParties,
+    required TResult orElse(),
+  }) {
+    if (onSearchQueryChanged != null) {
+      return onSearchQueryChanged(searchQuery);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
+    required TResult Function(_FetchRentalParties value) fetchRentalParties,
+  }) {
+    return onSearchQueryChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult? Function(_FetchRentalParties value)? fetchRentalParties,
+  }) {
+    return onSearchQueryChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult Function(_FetchRentalParties value)? fetchRentalParties,
+    required TResult orElse(),
+  }) {
+    if (onSearchQueryChanged != null) {
+      return onSearchQueryChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnSearchQueryChanged implements GetRentalPartieProjectEvent {
+  const factory _OnSearchQueryChanged({required final String searchQuery}) =
+      _$OnSearchQueryChangedImpl;
+
+  String get searchQuery;
+
+  /// Create a copy of GetRentalPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnSearchQueryChangedImplCopyWith<_$OnSearchQueryChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -283,6 +459,7 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
     required TResult Function(int index) onPartieIndexChanged,
     required TResult Function(int index) onProductIndexChanged,
     required TResult Function(String projectId) fetchRentalParties,
@@ -294,6 +471,7 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
     TResult? Function(int index)? onPartieIndexChanged,
     TResult? Function(int index)? onProductIndexChanged,
     TResult? Function(String projectId)? fetchRentalParties,
@@ -305,6 +483,7 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
     TResult Function(int index)? onPartieIndexChanged,
     TResult Function(int index)? onProductIndexChanged,
     TResult Function(String projectId)? fetchRentalParties,
@@ -320,6 +499,7 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -332,6 +512,7 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_FetchRentalParties value)? fetchRentalParties,
@@ -343,6 +524,7 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_FetchRentalParties value)? fetchRentalParties,
@@ -440,6 +622,7 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
     required TResult Function(int index) onPartieIndexChanged,
     required TResult Function(int index) onProductIndexChanged,
     required TResult Function(String projectId) fetchRentalParties,
@@ -451,6 +634,7 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
     TResult? Function(int index)? onPartieIndexChanged,
     TResult? Function(int index)? onProductIndexChanged,
     TResult? Function(String projectId)? fetchRentalParties,
@@ -462,6 +646,7 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
     TResult Function(int index)? onPartieIndexChanged,
     TResult Function(int index)? onProductIndexChanged,
     TResult Function(String projectId)? fetchRentalParties,
@@ -477,6 +662,7 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -489,6 +675,7 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_FetchRentalParties value)? fetchRentalParties,
@@ -500,6 +687,7 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_FetchRentalParties value)? fetchRentalParties,
@@ -597,6 +785,7 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
     required TResult Function(int index) onPartieIndexChanged,
     required TResult Function(int index) onProductIndexChanged,
     required TResult Function(String projectId) fetchRentalParties,
@@ -608,6 +797,7 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
     TResult? Function(int index)? onPartieIndexChanged,
     TResult? Function(int index)? onProductIndexChanged,
     TResult? Function(String projectId)? fetchRentalParties,
@@ -619,6 +809,7 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
     TResult Function(int index)? onPartieIndexChanged,
     TResult Function(int index)? onProductIndexChanged,
     TResult Function(String projectId)? fetchRentalParties,
@@ -634,6 +825,7 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -646,6 +838,7 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_FetchRentalParties value)? fetchRentalParties,
@@ -657,6 +850,7 @@ class _$FetchRentalPartiesImpl implements _FetchRentalParties {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_FetchRentalParties value)? fetchRentalParties,
@@ -686,6 +880,7 @@ abstract class _FetchRentalParties implements GetRentalPartieProjectEvent {
 mixin _$GetRentalPartieProjectState {
   RequestState get state => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
+  String get searchQuery => throw _privateConstructorUsedError;
   RentalModel? get rental => throw _privateConstructorUsedError;
   List<Data> get renalParties => throw _privateConstructorUsedError;
   int get partieIndex => throw _privateConstructorUsedError;
@@ -709,6 +904,7 @@ abstract class $GetRentalPartieProjectStateCopyWith<$Res> {
   $Res call(
       {RequestState state,
       String message,
+      String searchQuery,
       RentalModel? rental,
       List<Data> renalParties,
       int partieIndex,
@@ -733,6 +929,7 @@ class _$GetRentalPartieProjectStateCopyWithImpl<$Res,
   $Res call({
     Object? state = null,
     Object? message = null,
+    Object? searchQuery = null,
     Object? rental = freezed,
     Object? renalParties = null,
     Object? partieIndex = null,
@@ -746,6 +943,10 @@ class _$GetRentalPartieProjectStateCopyWithImpl<$Res,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      searchQuery: null == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
               as String,
       rental: freezed == rental
           ? _value.rental
@@ -779,6 +980,7 @@ abstract class _$$GetRentalPartieProjectStateImplCopyWith<$Res>
   $Res call(
       {RequestState state,
       String message,
+      String searchQuery,
       RentalModel? rental,
       List<Data> renalParties,
       int partieIndex,
@@ -802,6 +1004,7 @@ class __$$GetRentalPartieProjectStateImplCopyWithImpl<$Res>
   $Res call({
     Object? state = null,
     Object? message = null,
+    Object? searchQuery = null,
     Object? rental = freezed,
     Object? renalParties = null,
     Object? partieIndex = null,
@@ -815,6 +1018,10 @@ class __$$GetRentalPartieProjectStateImplCopyWithImpl<$Res>
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
+              as String,
+      searchQuery: null == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
               as String,
       rental: freezed == rental
           ? _value.rental
@@ -843,6 +1050,7 @@ class _$GetRentalPartieProjectStateImpl
   const _$GetRentalPartieProjectStateImpl(
       {required this.state,
       required this.message,
+      required this.searchQuery,
       required this.rental,
       required final List<Data> renalParties,
       required this.partieIndex,
@@ -853,6 +1061,8 @@ class _$GetRentalPartieProjectStateImpl
   final RequestState state;
   @override
   final String message;
+  @override
+  final String searchQuery;
   @override
   final RentalModel? rental;
   final List<Data> _renalParties;
@@ -870,7 +1080,7 @@ class _$GetRentalPartieProjectStateImpl
 
   @override
   String toString() {
-    return 'GetRentalPartieProjectState(state: $state, message: $message, rental: $rental, renalParties: $renalParties, partieIndex: $partieIndex, productIndex: $productIndex)';
+    return 'GetRentalPartieProjectState(state: $state, message: $message, searchQuery: $searchQuery, rental: $rental, renalParties: $renalParties, partieIndex: $partieIndex, productIndex: $productIndex)';
   }
 
   @override
@@ -880,6 +1090,8 @@ class _$GetRentalPartieProjectStateImpl
             other is _$GetRentalPartieProjectStateImpl &&
             (identical(other.state, state) || other.state == state) &&
             (identical(other.message, message) || other.message == message) &&
+            (identical(other.searchQuery, searchQuery) ||
+                other.searchQuery == searchQuery) &&
             (identical(other.rental, rental) || other.rental == rental) &&
             const DeepCollectionEquality()
                 .equals(other._renalParties, _renalParties) &&
@@ -894,6 +1106,7 @@ class _$GetRentalPartieProjectStateImpl
       runtimeType,
       state,
       message,
+      searchQuery,
       rental,
       const DeepCollectionEquality().hash(_renalParties),
       partieIndex,
@@ -914,6 +1127,7 @@ abstract class _GetRentalPartieProjectState
   const factory _GetRentalPartieProjectState(
       {required final RequestState state,
       required final String message,
+      required final String searchQuery,
       required final RentalModel? rental,
       required final List<Data> renalParties,
       required final int partieIndex,
@@ -923,6 +1137,8 @@ abstract class _GetRentalPartieProjectState
   RequestState get state;
   @override
   String get message;
+  @override
+  String get searchQuery;
   @override
   RentalModel? get rental;
   @override

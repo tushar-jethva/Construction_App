@@ -170,7 +170,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     hintText: "Enter GST No.",
                     maxLength: 15,
                     textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.number,
+                    textInputType: TextInputType.text,
                     alignLableWithHint: true,
                     onChanged: (value) {
                       context

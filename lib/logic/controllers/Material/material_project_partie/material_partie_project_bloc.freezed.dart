@@ -19,6 +19,9 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(List<Rentals> listOfMaterialSearch)
+        onMaterialSearchListChange,
     required TResult Function(int partieIndex) onPartieIndexChanged,
     required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
@@ -28,6 +31,9 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult? Function(int partieIndex)? onPartieIndexChanged,
     TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
@@ -37,6 +43,9 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult Function(int partieIndex)? onPartieIndexChanged,
     TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
@@ -47,6 +56,9 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnMaterialSearchListChange value)
+        onMaterialSearchListChange,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -59,6 +71,9 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -69,6 +84,9 @@ mixin _$MaterialPartieProjectEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -144,6 +162,9 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(List<Rentals> listOfMaterialSearch)
+        onMaterialSearchListChange,
     required TResult Function(int partieIndex) onPartieIndexChanged,
     required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
@@ -156,6 +177,9 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult? Function(int partieIndex)? onPartieIndexChanged,
     TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
@@ -168,6 +192,9 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult Function(int partieIndex)? onPartieIndexChanged,
     TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
@@ -184,6 +211,9 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnMaterialSearchListChange value)
+        onMaterialSearchListChange,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -199,6 +229,9 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -212,6 +245,9 @@ class _$InitializeImpl implements _Initialize {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -228,6 +264,390 @@ class _$InitializeImpl implements _Initialize {
 
 abstract class _Initialize implements MaterialPartieProjectEvent {
   const factory _Initialize() = _$InitializeImpl;
+}
+
+/// @nodoc
+abstract class _$$OnSearchQueryChangedImplCopyWith<$Res> {
+  factory _$$OnSearchQueryChangedImplCopyWith(_$OnSearchQueryChangedImpl value,
+          $Res Function(_$OnSearchQueryChangedImpl) then) =
+      __$$OnSearchQueryChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String searchQuery});
+}
+
+/// @nodoc
+class __$$OnSearchQueryChangedImplCopyWithImpl<$Res>
+    extends _$MaterialPartieProjectEventCopyWithImpl<$Res,
+        _$OnSearchQueryChangedImpl>
+    implements _$$OnSearchQueryChangedImplCopyWith<$Res> {
+  __$$OnSearchQueryChangedImplCopyWithImpl(_$OnSearchQueryChangedImpl _value,
+      $Res Function(_$OnSearchQueryChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? searchQuery = null,
+  }) {
+    return _then(_$OnSearchQueryChangedImpl(
+      searchQuery: null == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnSearchQueryChangedImpl implements _OnSearchQueryChanged {
+  const _$OnSearchQueryChangedImpl({required this.searchQuery});
+
+  @override
+  final String searchQuery;
+
+  @override
+  String toString() {
+    return 'MaterialPartieProjectEvent.onSearchQueryChanged(searchQuery: $searchQuery)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnSearchQueryChangedImpl &&
+            (identical(other.searchQuery, searchQuery) ||
+                other.searchQuery == searchQuery));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, searchQuery);
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnSearchQueryChangedImplCopyWith<_$OnSearchQueryChangedImpl>
+      get copyWith =>
+          __$$OnSearchQueryChangedImplCopyWithImpl<_$OnSearchQueryChangedImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(List<Rentals> listOfMaterialSearch)
+        onMaterialSearchListChange,
+    required TResult Function(int partieIndex) onPartieIndexChanged,
+    required TResult Function(int productIndex) onProductIndexChanged,
+    required TResult Function(String materialAgency) onChangeMaterialAgency,
+    required TResult Function(String projectId) fetchMatrialPartieByProject,
+  }) {
+    return onSearchQueryChanged(searchQuery);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
+    TResult? Function(int partieIndex)? onPartieIndexChanged,
+    TResult? Function(int productIndex)? onProductIndexChanged,
+    TResult? Function(String materialAgency)? onChangeMaterialAgency,
+    TResult? Function(String projectId)? fetchMatrialPartieByProject,
+  }) {
+    return onSearchQueryChanged?.call(searchQuery);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
+    TResult Function(int partieIndex)? onPartieIndexChanged,
+    TResult Function(int productIndex)? onProductIndexChanged,
+    TResult Function(String materialAgency)? onChangeMaterialAgency,
+    TResult Function(String projectId)? fetchMatrialPartieByProject,
+    required TResult orElse(),
+  }) {
+    if (onSearchQueryChanged != null) {
+      return onSearchQueryChanged(searchQuery);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnMaterialSearchListChange value)
+        onMaterialSearchListChange,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
+    required TResult Function(_OnChangeMaterialAgency value)
+        onChangeMaterialAgency,
+    required TResult Function(_FetchMatrialPartieByProject value)
+        fetchMatrialPartieByProject,
+  }) {
+    return onSearchQueryChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
+    TResult? Function(_FetchMatrialPartieByProject value)?
+        fetchMatrialPartieByProject,
+  }) {
+    return onSearchQueryChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
+    TResult Function(_FetchMatrialPartieByProject value)?
+        fetchMatrialPartieByProject,
+    required TResult orElse(),
+  }) {
+    if (onSearchQueryChanged != null) {
+      return onSearchQueryChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnSearchQueryChanged implements MaterialPartieProjectEvent {
+  const factory _OnSearchQueryChanged({required final String searchQuery}) =
+      _$OnSearchQueryChangedImpl;
+
+  String get searchQuery;
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnSearchQueryChangedImplCopyWith<_$OnSearchQueryChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnMaterialSearchListChangeImplCopyWith<$Res> {
+  factory _$$OnMaterialSearchListChangeImplCopyWith(
+          _$OnMaterialSearchListChangeImpl value,
+          $Res Function(_$OnMaterialSearchListChangeImpl) then) =
+      __$$OnMaterialSearchListChangeImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<Rentals> listOfMaterialSearch});
+}
+
+/// @nodoc
+class __$$OnMaterialSearchListChangeImplCopyWithImpl<$Res>
+    extends _$MaterialPartieProjectEventCopyWithImpl<$Res,
+        _$OnMaterialSearchListChangeImpl>
+    implements _$$OnMaterialSearchListChangeImplCopyWith<$Res> {
+  __$$OnMaterialSearchListChangeImplCopyWithImpl(
+      _$OnMaterialSearchListChangeImpl _value,
+      $Res Function(_$OnMaterialSearchListChangeImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? listOfMaterialSearch = null,
+  }) {
+    return _then(_$OnMaterialSearchListChangeImpl(
+      listOfMaterialSearch: null == listOfMaterialSearch
+          ? _value._listOfMaterialSearch
+          : listOfMaterialSearch // ignore: cast_nullable_to_non_nullable
+              as List<Rentals>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnMaterialSearchListChangeImpl implements _OnMaterialSearchListChange {
+  const _$OnMaterialSearchListChangeImpl(
+      {required final List<Rentals> listOfMaterialSearch})
+      : _listOfMaterialSearch = listOfMaterialSearch;
+
+  final List<Rentals> _listOfMaterialSearch;
+  @override
+  List<Rentals> get listOfMaterialSearch {
+    if (_listOfMaterialSearch is EqualUnmodifiableListView)
+      return _listOfMaterialSearch;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_listOfMaterialSearch);
+  }
+
+  @override
+  String toString() {
+    return 'MaterialPartieProjectEvent.onMaterialSearchListChange(listOfMaterialSearch: $listOfMaterialSearch)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnMaterialSearchListChangeImpl &&
+            const DeepCollectionEquality()
+                .equals(other._listOfMaterialSearch, _listOfMaterialSearch));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_listOfMaterialSearch));
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnMaterialSearchListChangeImplCopyWith<_$OnMaterialSearchListChangeImpl>
+      get copyWith => __$$OnMaterialSearchListChangeImplCopyWithImpl<
+          _$OnMaterialSearchListChangeImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(List<Rentals> listOfMaterialSearch)
+        onMaterialSearchListChange,
+    required TResult Function(int partieIndex) onPartieIndexChanged,
+    required TResult Function(int productIndex) onProductIndexChanged,
+    required TResult Function(String materialAgency) onChangeMaterialAgency,
+    required TResult Function(String projectId) fetchMatrialPartieByProject,
+  }) {
+    return onMaterialSearchListChange(listOfMaterialSearch);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
+    TResult? Function(int partieIndex)? onPartieIndexChanged,
+    TResult? Function(int productIndex)? onProductIndexChanged,
+    TResult? Function(String materialAgency)? onChangeMaterialAgency,
+    TResult? Function(String projectId)? fetchMatrialPartieByProject,
+  }) {
+    return onMaterialSearchListChange?.call(listOfMaterialSearch);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
+    TResult Function(int partieIndex)? onPartieIndexChanged,
+    TResult Function(int productIndex)? onProductIndexChanged,
+    TResult Function(String materialAgency)? onChangeMaterialAgency,
+    TResult Function(String projectId)? fetchMatrialPartieByProject,
+    required TResult orElse(),
+  }) {
+    if (onMaterialSearchListChange != null) {
+      return onMaterialSearchListChange(listOfMaterialSearch);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnMaterialSearchListChange value)
+        onMaterialSearchListChange,
+    required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
+    required TResult Function(_OnProductIndexChanged value)
+        onProductIndexChanged,
+    required TResult Function(_OnChangeMaterialAgency value)
+        onChangeMaterialAgency,
+    required TResult Function(_FetchMatrialPartieByProject value)
+        fetchMatrialPartieByProject,
+  }) {
+    return onMaterialSearchListChange(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
+    TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
+    TResult? Function(_FetchMatrialPartieByProject value)?
+        fetchMatrialPartieByProject,
+  }) {
+    return onMaterialSearchListChange?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
+    TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
+    TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
+    TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
+    TResult Function(_FetchMatrialPartieByProject value)?
+        fetchMatrialPartieByProject,
+    required TResult orElse(),
+  }) {
+    if (onMaterialSearchListChange != null) {
+      return onMaterialSearchListChange(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnMaterialSearchListChange
+    implements MaterialPartieProjectEvent {
+  const factory _OnMaterialSearchListChange(
+          {required final List<Rentals> listOfMaterialSearch}) =
+      _$OnMaterialSearchListChangeImpl;
+
+  List<Rentals> get listOfMaterialSearch;
+
+  /// Create a copy of MaterialPartieProjectEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnMaterialSearchListChangeImplCopyWith<_$OnMaterialSearchListChangeImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -303,6 +723,9 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(List<Rentals> listOfMaterialSearch)
+        onMaterialSearchListChange,
     required TResult Function(int partieIndex) onPartieIndexChanged,
     required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
@@ -315,6 +738,9 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult? Function(int partieIndex)? onPartieIndexChanged,
     TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
@@ -327,6 +753,9 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult Function(int partieIndex)? onPartieIndexChanged,
     TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
@@ -343,6 +772,9 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnMaterialSearchListChange value)
+        onMaterialSearchListChange,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -358,6 +790,9 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -371,6 +806,9 @@ class _$OnPartieIndexChangedImpl implements _OnPartieIndexChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -471,6 +909,9 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(List<Rentals> listOfMaterialSearch)
+        onMaterialSearchListChange,
     required TResult Function(int partieIndex) onPartieIndexChanged,
     required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
@@ -483,6 +924,9 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult? Function(int partieIndex)? onPartieIndexChanged,
     TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
@@ -495,6 +939,9 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult Function(int partieIndex)? onPartieIndexChanged,
     TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
@@ -511,6 +958,9 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnMaterialSearchListChange value)
+        onMaterialSearchListChange,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -526,6 +976,9 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -539,6 +992,9 @@ class _$OnProductIndexChangedImpl implements _OnProductIndexChanged {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -640,6 +1096,9 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(List<Rentals> listOfMaterialSearch)
+        onMaterialSearchListChange,
     required TResult Function(int partieIndex) onPartieIndexChanged,
     required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
@@ -652,6 +1111,9 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult? Function(int partieIndex)? onPartieIndexChanged,
     TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
@@ -664,6 +1126,9 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult Function(int partieIndex)? onPartieIndexChanged,
     TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
@@ -680,6 +1145,9 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnMaterialSearchListChange value)
+        onMaterialSearchListChange,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -695,6 +1163,9 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -708,6 +1179,9 @@ class _$OnChangeMaterialAgencyImpl implements _OnChangeMaterialAgency {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -810,6 +1284,9 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initialize,
+    required TResult Function(String searchQuery) onSearchQueryChanged,
+    required TResult Function(List<Rentals> listOfMaterialSearch)
+        onMaterialSearchListChange,
     required TResult Function(int partieIndex) onPartieIndexChanged,
     required TResult Function(int productIndex) onProductIndexChanged,
     required TResult Function(String materialAgency) onChangeMaterialAgency,
@@ -822,6 +1299,9 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initialize,
+    TResult? Function(String searchQuery)? onSearchQueryChanged,
+    TResult? Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult? Function(int partieIndex)? onPartieIndexChanged,
     TResult? Function(int productIndex)? onProductIndexChanged,
     TResult? Function(String materialAgency)? onChangeMaterialAgency,
@@ -834,6 +1314,9 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialize,
+    TResult Function(String searchQuery)? onSearchQueryChanged,
+    TResult Function(List<Rentals> listOfMaterialSearch)?
+        onMaterialSearchListChange,
     TResult Function(int partieIndex)? onPartieIndexChanged,
     TResult Function(int productIndex)? onProductIndexChanged,
     TResult Function(String materialAgency)? onChangeMaterialAgency,
@@ -850,6 +1333,9 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnSearchQueryChanged value) onSearchQueryChanged,
+    required TResult Function(_OnMaterialSearchListChange value)
+        onMaterialSearchListChange,
     required TResult Function(_OnPartieIndexChanged value) onPartieIndexChanged,
     required TResult Function(_OnProductIndexChanged value)
         onProductIndexChanged,
@@ -865,6 +1351,9 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult? Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult? Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult? Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult? Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -878,6 +1367,9 @@ class _$FetchMatrialPartieByProjectImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnSearchQueryChanged value)? onSearchQueryChanged,
+    TResult Function(_OnMaterialSearchListChange value)?
+        onMaterialSearchListChange,
     TResult Function(_OnPartieIndexChanged value)? onPartieIndexChanged,
     TResult Function(_OnProductIndexChanged value)? onProductIndexChanged,
     TResult Function(_OnChangeMaterialAgency value)? onChangeMaterialAgency,
@@ -915,6 +1407,9 @@ mixin _$MaterialPartieProjectState {
   int get productIndex => throw _privateConstructorUsedError;
   AllMaterialModel? get materialData => throw _privateConstructorUsedError;
   List<Data> get listOfMaterialParty => throw _privateConstructorUsedError;
+  List<Rentals> get listOfMaterialPartySearched =>
+      throw _privateConstructorUsedError;
+  String get searchQuery => throw _privateConstructorUsedError;
 
   /// Create a copy of MaterialPartieProjectState
   /// with the given fields replaced by the non-null parameter values.
@@ -937,7 +1432,9 @@ abstract class $MaterialPartieProjectStateCopyWith<$Res> {
       int partieIndex,
       int productIndex,
       AllMaterialModel? materialData,
-      List<Data> listOfMaterialParty});
+      List<Data> listOfMaterialParty,
+      List<Rentals> listOfMaterialPartySearched,
+      String searchQuery});
 }
 
 /// @nodoc
@@ -963,6 +1460,8 @@ class _$MaterialPartieProjectStateCopyWithImpl<$Res,
     Object? productIndex = null,
     Object? materialData = freezed,
     Object? listOfMaterialParty = null,
+    Object? listOfMaterialPartySearched = null,
+    Object? searchQuery = null,
   }) {
     return _then(_value.copyWith(
       state: null == state
@@ -993,6 +1492,14 @@ class _$MaterialPartieProjectStateCopyWithImpl<$Res,
           ? _value.listOfMaterialParty
           : listOfMaterialParty // ignore: cast_nullable_to_non_nullable
               as List<Data>,
+      listOfMaterialPartySearched: null == listOfMaterialPartySearched
+          ? _value.listOfMaterialPartySearched
+          : listOfMaterialPartySearched // ignore: cast_nullable_to_non_nullable
+              as List<Rentals>,
+      searchQuery: null == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -1013,7 +1520,9 @@ abstract class _$$MaterialPartieProjectStateImplCopyWith<$Res>
       int partieIndex,
       int productIndex,
       AllMaterialModel? materialData,
-      List<Data> listOfMaterialParty});
+      List<Data> listOfMaterialParty,
+      List<Rentals> listOfMaterialPartySearched,
+      String searchQuery});
 }
 
 /// @nodoc
@@ -1038,6 +1547,8 @@ class __$$MaterialPartieProjectStateImplCopyWithImpl<$Res>
     Object? productIndex = null,
     Object? materialData = freezed,
     Object? listOfMaterialParty = null,
+    Object? listOfMaterialPartySearched = null,
+    Object? searchQuery = null,
   }) {
     return _then(_$MaterialPartieProjectStateImpl(
       state: null == state
@@ -1068,6 +1579,14 @@ class __$$MaterialPartieProjectStateImplCopyWithImpl<$Res>
           ? _value._listOfMaterialParty
           : listOfMaterialParty // ignore: cast_nullable_to_non_nullable
               as List<Data>,
+      listOfMaterialPartySearched: null == listOfMaterialPartySearched
+          ? _value._listOfMaterialPartySearched
+          : listOfMaterialPartySearched // ignore: cast_nullable_to_non_nullable
+              as List<Rentals>,
+      searchQuery: null == searchQuery
+          ? _value.searchQuery
+          : searchQuery // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1082,8 +1601,11 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
       required this.partieIndex,
       required this.productIndex,
       required this.materialData,
-      required final List<Data> listOfMaterialParty})
-      : _listOfMaterialParty = listOfMaterialParty;
+      required final List<Data> listOfMaterialParty,
+      required final List<Rentals> listOfMaterialPartySearched,
+      required this.searchQuery})
+      : _listOfMaterialParty = listOfMaterialParty,
+        _listOfMaterialPartySearched = listOfMaterialPartySearched;
 
   @override
   final RequestState state;
@@ -1106,9 +1628,21 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
     return EqualUnmodifiableListView(_listOfMaterialParty);
   }
 
+  final List<Rentals> _listOfMaterialPartySearched;
+  @override
+  List<Rentals> get listOfMaterialPartySearched {
+    if (_listOfMaterialPartySearched is EqualUnmodifiableListView)
+      return _listOfMaterialPartySearched;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_listOfMaterialPartySearched);
+  }
+
+  @override
+  final String searchQuery;
+
   @override
   String toString() {
-    return 'MaterialPartieProjectState(state: $state, message: $message, selectedMaterialAgency: $selectedMaterialAgency, partieIndex: $partieIndex, productIndex: $productIndex, materialData: $materialData, listOfMaterialParty: $listOfMaterialParty)';
+    return 'MaterialPartieProjectState(state: $state, message: $message, selectedMaterialAgency: $selectedMaterialAgency, partieIndex: $partieIndex, productIndex: $productIndex, materialData: $materialData, listOfMaterialParty: $listOfMaterialParty, listOfMaterialPartySearched: $listOfMaterialPartySearched, searchQuery: $searchQuery)';
   }
 
   @override
@@ -1127,7 +1661,12 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
             (identical(other.materialData, materialData) ||
                 other.materialData == materialData) &&
             const DeepCollectionEquality()
-                .equals(other._listOfMaterialParty, _listOfMaterialParty));
+                .equals(other._listOfMaterialParty, _listOfMaterialParty) &&
+            const DeepCollectionEquality().equals(
+                other._listOfMaterialPartySearched,
+                _listOfMaterialPartySearched) &&
+            (identical(other.searchQuery, searchQuery) ||
+                other.searchQuery == searchQuery));
   }
 
   @override
@@ -1139,7 +1678,9 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
       partieIndex,
       productIndex,
       materialData,
-      const DeepCollectionEquality().hash(_listOfMaterialParty));
+      const DeepCollectionEquality().hash(_listOfMaterialParty),
+      const DeepCollectionEquality().hash(_listOfMaterialPartySearched),
+      searchQuery);
 
   /// Create a copy of MaterialPartieProjectState
   /// with the given fields replaced by the non-null parameter values.
@@ -1154,14 +1695,15 @@ class _$MaterialPartieProjectStateImpl implements _MaterialPartieProjectState {
 abstract class _MaterialPartieProjectState
     implements MaterialPartieProjectState {
   const factory _MaterialPartieProjectState(
-          {required final RequestState state,
-          required final String message,
-          required final String selectedMaterialAgency,
-          required final int partieIndex,
-          required final int productIndex,
-          required final AllMaterialModel? materialData,
-          required final List<Data> listOfMaterialParty}) =
-      _$MaterialPartieProjectStateImpl;
+      {required final RequestState state,
+      required final String message,
+      required final String selectedMaterialAgency,
+      required final int partieIndex,
+      required final int productIndex,
+      required final AllMaterialModel? materialData,
+      required final List<Data> listOfMaterialParty,
+      required final List<Rentals> listOfMaterialPartySearched,
+      required final String searchQuery}) = _$MaterialPartieProjectStateImpl;
 
   @override
   RequestState get state;
@@ -1177,6 +1719,10 @@ abstract class _MaterialPartieProjectState
   AllMaterialModel? get materialData;
   @override
   List<Data> get listOfMaterialParty;
+  @override
+  List<Rentals> get listOfMaterialPartySearched;
+  @override
+  String get searchQuery;
 
   /// Create a copy of MaterialPartieProjectState
   /// with the given fields replaced by the non-null parameter values.

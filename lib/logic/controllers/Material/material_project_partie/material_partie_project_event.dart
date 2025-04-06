@@ -5,6 +5,14 @@ class MaterialPartieProjectEvent with _$MaterialPartieProjectEvent {
   //Initialize
   const factory MaterialPartieProjectEvent.initialize() = _Initialize;
 
+  //search query change
+  const factory MaterialPartieProjectEvent.onSearchQueryChanged(
+      {required String searchQuery}) = _OnSearchQueryChanged;
+
+  //material search list change
+  const factory MaterialPartieProjectEvent.onMaterialSearchListChange(
+      {required List<Rentals> listOfMaterialSearch}) = _OnMaterialSearchListChange;
+
   //partie index
   const factory MaterialPartieProjectEvent.onPartieIndexChanged(
       {required int partieIndex}) = _OnPartieIndexChanged;

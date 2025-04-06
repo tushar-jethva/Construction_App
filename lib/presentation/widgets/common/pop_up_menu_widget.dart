@@ -28,7 +28,7 @@ class PopUpMenuWidget extends StatelessWidget {
           ),
         ),
       ],
-      icon: SvgPicture.asset(Assets.svg.moreVert.path),
+      icon: const Icon(Icons.more_vert),
       padding: EdgeInsets.zero,
     );
   }

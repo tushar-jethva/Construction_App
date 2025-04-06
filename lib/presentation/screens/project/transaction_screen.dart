@@ -96,8 +96,16 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
                           state.listOfTransactions[index];
                       String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
                           .format(DateTime.parse(transaction.date!));
+
+                      String formattedDate2 = DateFormat('dd-MM-yyyy')
+                          .format(DateTime.parse(transaction.date!));
                       return transactionWidget(
-                          context, transaction, theme, formattedDate);
+                          context,
+                          transaction,
+                          theme,
+                          transaction.entryType == 'Credit'
+                              ? formattedDate2
+                              : formattedDate);
                     },
                   ),
                 );
@@ -111,7 +119,8 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
       TransactionModel transaction, ThemeData theme, String formattedDate) {
     return GestureDetector(
       onTap: () {
-        showTopSnackBar(context, transaction.description ?? "", messageType: MessageType.done);
+        showTopSnackBar(context, transaction.description ?? "",
+            messageType: MessageType.done);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),

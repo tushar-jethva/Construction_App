@@ -9,7 +9,9 @@ class MaterialPartieProjectState with _$MaterialPartieProjectState {
       required int partieIndex,
       required int productIndex,
       required AllMaterialModel? materialData,
-      required List<Data> listOfMaterialParty}) = _MaterialPartieProjectState;
+      required List<Data> listOfMaterialParty,
+      required List<Rentals> listOfMaterialPartySearched,
+      required String searchQuery}) = _MaterialPartieProjectState;
   factory MaterialPartieProjectState.initial() =>
       const MaterialPartieProjectState(
           state: RequestState.empty,
@@ -17,6 +19,8 @@ class MaterialPartieProjectState with _$MaterialPartieProjectState {
           materialData: null,
           selectedMaterialAgency: '',
           listOfMaterialParty: [],
+          listOfMaterialPartySearched: [],
           partieIndex: 0,
-          productIndex: 0);
+          productIndex: 0,
+          searchQuery: '');
 }

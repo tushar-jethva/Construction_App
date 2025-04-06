@@ -107,6 +107,18 @@ class $AssetsImagesGen {
   AssetGenImage get linkedin =>
       const AssetGenImage('assets/images/linkedin.png');
 
+  /// File path: assets/images/m1.png
+  AssetGenImage get m1 => const AssetGenImage('assets/images/m1.png');
+
+  /// File path: assets/images/m2.png
+  AssetGenImage get m2 => const AssetGenImage('assets/images/m2.png');
+
+  /// File path: assets/images/m3.png
+  AssetGenImage get m3 => const AssetGenImage('assets/images/m3.png');
+
+  /// File path: assets/images/m4.png
+  AssetGenImage get m4 => const AssetGenImage('assets/images/m4.png');
+
   /// File path: assets/images/onboard1.png
   AssetGenImage get onboard1 =>
       const AssetGenImage('assets/images/onboard1.png');
@@ -118,6 +130,18 @@ class $AssetsImagesGen {
   /// File path: assets/images/onboard3.png
   AssetGenImage get onboard3 =>
       const AssetGenImage('assets/images/onboard3.png');
+
+  /// File path: assets/images/r1.png
+  AssetGenImage get r1 => const AssetGenImage('assets/images/r1.png');
+
+  /// File path: assets/images/r2.png
+  AssetGenImage get r2 => const AssetGenImage('assets/images/r2.png');
+
+  /// File path: assets/images/r3.png
+  AssetGenImage get r3 => const AssetGenImage('assets/images/r3.png');
+
+  /// File path: assets/images/r4.png
+  AssetGenImage get r4 => const AssetGenImage('assets/images/r4.png');
 
   /// File path: assets/images/tds_icon.png
   AssetGenImage get tdsIcon =>
@@ -148,9 +172,17 @@ class $AssetsImagesGen {
         floorsPlan,
         gstIcon,
         linkedin,
+        m1,
+        m2,
+        m3,
+        m4,
         onboard1,
         onboard2,
         onboard3,
+        r1,
+        r2,
+        r3,
+        r4,
         tdsIcon,
         user1,
         user2,

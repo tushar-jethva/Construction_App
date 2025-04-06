@@ -133,14 +133,12 @@ class _MyAddBillingPartyBottomSheetState
                       hintText: "GST No.",
                       maxLines: 1,
                       maxLength: 15,
-                      textInputType: TextInputType.number,
+                      textInputType: TextInputType.text,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please add GST Number';
                         }
-                        if (int.tryParse(value) == null) {
-                          return 'Please enter valid digit!';
-                        }
+                       
                         if (value.startsWith('-')) {
                           return 'Please enter valid digit!';
                         }

@@ -20,6 +20,15 @@ class MaterialPartieProjectBloc
         initialize: (_Initialize value) {
           emit(MaterialPartieProjectState.initial());
         },
+        onSearchQueryChanged: (value) {
+          emit(state.copyWith(
+              state: RequestState.empty, searchQuery: value.searchQuery));
+        },
+        onMaterialSearchListChange: (value) {
+          emit(state.copyWith(
+              state: RequestState.loaded,
+              listOfMaterialPartySearched: value.listOfMaterialSearch));
+        },
         onPartieIndexChanged: (value) {
           emit(state.copyWith(
               state: RequestState.empty, partieIndex: value.partieIndex));
@@ -46,7 +55,8 @@ class MaterialPartieProjectBloc
                 state.copyWith(
                     state: RequestState.loaded,
                     materialData: r,
-                    listOfMaterialParty: r.data ?? []),
+                    listOfMaterialParty: r.data ?? [],
+                      ),
               );
             },
           );

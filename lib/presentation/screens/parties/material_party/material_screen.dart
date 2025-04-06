@@ -105,6 +105,9 @@ class _MaterialScreenState extends State<MaterialScreen> {
                                     MaterialPartieProjectEvent
                                         .onPartieIndexChanged(
                                             partieIndex: index));
+                                context.read<MaterialPartieProjectBloc>().add(
+                                    const MaterialPartieProjectEvent
+                                        .onSearchQueryChanged(searchQuery: ''));
                                 context.pushNamed(
                                     RoutesName
                                         .ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
@@ -168,17 +171,17 @@ class _MaterialScreenState extends State<MaterialScreen> {
                               SvgPicture.asset(Assets.svg.remaining.path),
                               5.wx,
                               Text(
-                                "Total Cost: ",
+                                "Remaining: ",
                                 style: theme.textTheme.titleMedium
                                     ?.copyWith(color: grey, fontSize: 12),
                               ),
                               Text(
-                                "₹ ${agency.totalCost ?? 0}",
+                                "₹ ${(agency.totalCost ?? 0) - (agency.paidCost ?? 0)}",
                                 style: theme.textTheme.titleLarge?.copyWith(
                                     color: Colors.orange, fontSize: 13),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                       Row(
@@ -199,20 +202,20 @@ class _MaterialScreenState extends State<MaterialScreen> {
                               )
                             ],
                           ),
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       "Total Payable: ",
-                          //       style: theme.textTheme.titleMedium
-                          //           ?.copyWith(color: grey, fontSize: 12),
-                          //     ),
-                          //     Text(
-                          //       "₹ ${0}",
-                          //       style: theme.textTheme.titleLarge
-                          //           ?.copyWith(color: red, fontSize: 13),
-                          //     ),
-                          //   ],
-                          // )
+                          Row(
+                            children: [
+                              Text(
+                                "Total Payable: ",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                "₹ ${agency.totalCost ?? 0}",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(color: red, fontSize: 13),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ],

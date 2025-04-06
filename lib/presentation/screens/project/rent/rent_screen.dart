@@ -180,17 +180,17 @@ class _RentalScreenState extends State<RentalScreen> {
                               SvgPicture.asset(Assets.svg.remaining.path),
                               5.wx,
                               Text(
-                                "Total Cost: ",
+                                "Remaining: ",
                                 style: theme.textTheme.titleMedium
                                     ?.copyWith(color: grey, fontSize: 12),
                               ),
                               Text(
-                                "₹ ${rental.totalCost ?? 0}",
+                                "₹ ${(rental.totalCost ?? 0) - (rental.paidCost ?? 0)}",
                                 style: theme.textTheme.titleLarge?.copyWith(
                                     color: Colors.orange, fontSize: 13),
                               ),
                             ],
-                          )
+                          ),
                         ],
                       ),
                       Row(
@@ -211,20 +211,20 @@ class _RentalScreenState extends State<RentalScreen> {
                               )
                             ],
                           ),
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       "Total Payable: ",
-                          //       style: theme.textTheme.titleMedium
-                          //           ?.copyWith(color: grey, fontSize: 12),
-                          //     ),
-                          //     Text(
-                          //       "₹ ${0}",
-                          //       style: theme.textTheme.titleLarge
-                          //           ?.copyWith(color: red, fontSize: 13),
-                          //     ),
-                          //   ],
-                          // )
+                          Row(
+                            children: [
+                              Text(
+                                "Total Payable: ",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                "₹ ${rental.totalCost ?? 0}",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(color: red, fontSize: 13),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ],

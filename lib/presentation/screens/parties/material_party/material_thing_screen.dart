@@ -5,9 +5,11 @@ import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/models/material/all_material_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
+import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -41,70 +43,53 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Material Products",
-        onTap: () {
-          context.pop();
-        },
-      ),
-      body: RefreshIndicator(
-        onRefresh: onRefresh,
-        color: purple,
-        child:
-            BlocBuilder<MaterialPartieProjectBloc, MaterialPartieProjectState>(
-          builder: (context, state) {
-            return state.state.isLoading
-                ? Skeletonizer(
-                    enabled: true,
-                    child: ListView.builder(
-                        itemCount: 5,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return agenyOneWidget(
-                              theme, Rentals(name: "Material"), index);
-                        }))
-                : state.listOfMaterialParty[state.partieIndex].rentals
-                            ?.isNotEmpty ??
-                        false
-                    ? SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.73,
-                        child: ListView.builder(
-                            itemCount: widget.material.rentals?.length ?? 0,
-                            itemBuilder: (context, index) {
-                              final material = state
-                                  .listOfMaterialParty[state.partieIndex]
-                                  .rentals?[index];
-                              return GestureDetector(
-                                  onTap: () {
-                                    context
-                                        .read<MaterialPartieProjectBloc>()
-                                        .add(MaterialPartieProjectEvent
-                                            .onProductIndexChanged(
-                                                productIndex: index));
-                                    context.pushNamed(
-                                      RoutesName
-                                          .MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
-                                      extra: {
-                                        'project': widget.project,
-                                        'partieId': widget.material.sId,
-                                        'material': material
-                                      },
-                                    );
-                                  },
-                                  child: agenyOneWidget(
-                                      theme, material ?? Rentals(), index));
-                            }),
-                      )
-                    : SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: ListView(children: [
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.5,
-                              child: const Center(
-                                  child: Text("No Material Products added"))),
-                        ]),
-                      );
+        backgroundColor: theme.cardColor,
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBar(
+          title: "Material Products",
+          onTap: () {
+            context.pop();
           },
+        ),
+        body: Stack(
+          children: [
+            searchSection(theme),
+            scrollableSheetWidget(context, theme)
+          ],
+        ));
+  }
+
+  Widget searchSection(ThemeData theme) {
+    return Padding(
+      padding: EdgeInsets.only(top: 15.h, left: 10.w, bottom: 10.h),
+      child: TextField(
+        maxLines: 1,
+        onChanged: (value) {
+          context.read<MaterialPartieProjectBloc>().add(
+              MaterialPartieProjectEvent.onSearchQueryChanged(
+                  searchQuery: value));
+        },
+        onTapOutside: (event) {
+          FocusScope.of(context).unfocus();
+        },
+        style: theme.textTheme.titleMedium,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: theme.scaffoldBackgroundColor,
+          prefixIcon: const Icon(
+            Icons.search_rounded,
+            color: grey,
+          ),
+          hintText: 'Search transactions',
+          hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
+          contentPadding: EdgeInsets.symmetric(vertical: 5.h),
+          border: InputBorder.none,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: grey, width: 1)),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: const BorderSide(color: transparent, width: 1)),
         ),
       ),
     );
@@ -123,9 +108,13 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
               children: [
                 IconCircleWidget(
                   radius: 10,
-                  isSvg: true,
-                  svgpath: userIcons[index % userIcons.length],
+                  isSvg: false,
                   backgroundColor: theme.cardColor,
+                  imagewidget: Image.asset(
+                    materialIcons[index % materialIcons.length],
+                    height: 20,
+                    width: 20,
+                  ),
                 ),
                 10.wx,
                 Expanded(
@@ -170,7 +159,7 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
                                     ?.copyWith(color: grey, fontSize: 12),
                               ),
                               Text(
-                                "₹ ${agency.totalPrice}",
+                                "₹ ${agency.totalPrice ?? 0}",
                                 style: theme.textTheme.titleLarge
                                     ?.copyWith(color: green, fontSize: 13),
                               )
@@ -198,6 +187,98 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
               ],
             ),
             const Divider()
+          ],
+        ),
+      ),
+    );
+  }
+
+  DraggableScrollableSheetCommonComp scrollableSheetWidget(
+      BuildContext context, ThemeData theme) {
+    return DraggableScrollableSheetCommonComp(
+      draggableScrollableController: DraggableScrollableController(),
+      stops: const [0.9, 0.98],
+      initialSize: 0.9,
+      minChildSize: 0.9,
+      radius: 20,
+      isDraggerShow: false,
+      widget: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Column(
+          children: [
+            RefreshIndicator(
+              onRefresh: onRefresh,
+              color: purple,
+              child: BlocBuilder<MaterialPartieProjectBloc,
+                  MaterialPartieProjectState>(
+                builder: (context, state) {
+                  final listOfMaterialThing =
+                      (state.listOfMaterialParty[state.partieIndex].rentals ??
+                              [])
+                          .where(
+                            (r) => (r.name ?? '')
+                                .replaceAll(' ', '')
+                                .toLowerCase()
+                                .contains(state.searchQuery),
+                          )
+                          .toList();
+
+                  context.read<MaterialPartieProjectBloc>().add(
+                      MaterialPartieProjectEvent.onMaterialSearchListChange(
+                          listOfMaterialSearch: listOfMaterialThing));
+
+                  return state.state.isLoading
+                      ? Skeletonizer(
+                          enabled: true,
+                          child: ListView.builder(
+                              itemCount: 5,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return agenyOneWidget(
+                                    theme, Rentals(name: "Material"), index);
+                              }))
+                      : listOfMaterialThing.isNotEmpty
+                          ? SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.73,
+                              child: ListView.builder(
+                                  itemCount: listOfMaterialThing.length,
+                                  itemBuilder: (context, index) {
+                                    final material = listOfMaterialThing[index];
+                                    return GestureDetector(
+                                        onTap: () {
+                                          context
+                                              .read<MaterialPartieProjectBloc>()
+                                              .add(MaterialPartieProjectEvent
+                                                  .onProductIndexChanged(
+                                                      productIndex: index));
+                                          context.pushNamed(
+                                            RoutesName
+                                                .MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                                            extra: {
+                                              'project': widget.project,
+                                              'partieId': widget.material.sId,
+                                              'material': material
+                                            },
+                                          );
+                                        },
+                                        child: agenyOneWidget(
+                                            theme, material, index));
+                                  }),
+                            )
+                          : SizedBox(
+                              height: MediaQuery.of(context).size.height,
+                              child: ListView(children: [
+                                SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.5,
+                                    child: const Center(
+                                        child: Text(
+                                            "No Material Products added"))),
+                              ]),
+                            );
+                },
+              ),
+            ),
           ],
         ),
       ),

@@ -5,6 +5,10 @@ class GetRentalPartieProjectEvent with _$GetRentalPartieProjectEvent {
   //Initialize
   const factory GetRentalPartieProjectEvent.initialize() = _Initialize;
 
+  //Search query change
+  const factory GetRentalPartieProjectEvent.onSearchQueryChanged(
+      {required String searchQuery}) = _OnSearchQueryChanged;
+
   // partie index changes
   const factory GetRentalPartieProjectEvent.onPartieIndexChanged(
       {required int index}) = _OnPartieIndexChanged;

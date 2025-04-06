@@ -18,10 +18,16 @@ class GetRentalPartieProjectBloc
     on<GetRentalPartieProjectEvent>((event, emit) async {
       await event.map(initialize: (_Initialize value) {
         emit(GetRentalPartieProjectState.initial());
-      }, onPartieIndexChanged: (value) {
+      },
+      onSearchQueryChanged: (_OnSearchQueryChanged value){
+        emit(state.copyWith(
+            state: RequestState.empty, searchQuery: value.searchQuery));
+      },
+       onPartieIndexChanged: (value) {
         emit(state.copyWith(
             state: RequestState.empty, partieIndex: value.index));
-      }, onProductIndexChanged: (value) {
+      },
+       onProductIndexChanged: (value) {
         emit(state.copyWith(
             state: RequestState.empty, productIndex: value.index));
       }, fetchRentalParties: (_FetchRentalParties value) async {

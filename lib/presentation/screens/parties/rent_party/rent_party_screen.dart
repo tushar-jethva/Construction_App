@@ -105,7 +105,7 @@ class _MyRentPartyScreenState extends State<MyRentPartyScreen> {
                     hintText: "GST No.",
                     maxLines: 1,
                     maxLength: 15,
-                    textInputType: TextInputType.number,
+                    textInputType: TextInputType.text,
                     onChanged: (value) {
                       context.read<AddRentSupplierBloc>().add(
                             AddRentSupplierEvent.gstNoChanged(
@@ -114,9 +114,7 @@ class _MyRentPartyScreenState extends State<MyRentPartyScreen> {
                     },
                     validator: (value) {
                       if (value != null && value.isNotEmpty) {
-                        if (int.tryParse(value) == null) {
-                          return 'Please enter valid digit!';
-                        }
+                        
                         if (value.startsWith('-')) {
                           return 'Please enter valid digit!';
                         }

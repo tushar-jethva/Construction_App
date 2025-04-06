@@ -65,6 +65,7 @@ class _MyBillsParticularPartyScreenState
             MyBillScreenParticularAppBarWidget(
               partyId: widget.party.sId ?? '',
             ),
+            
             scrollableSheetWidget(context, theme)
           ],
         ),

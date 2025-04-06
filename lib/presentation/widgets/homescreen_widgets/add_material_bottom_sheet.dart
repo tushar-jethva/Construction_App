@@ -296,18 +296,16 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                           15.hx,
                           MyCustomTextFormField(
                             controller: _gstController,
-                            hintText: 'GST',
+                            hintText: 'GST No.',
                             maxLines: 1,
-                            maxLength: 11,
-                            textInputType: TextInputType.number,
+                            maxLength: 15,
+                            textInputType: TextInputType.text,
                             textInputAction: TextInputAction.next,
                             validator: (value) {
                               if (value == null || value.trim().isEmpty) {
-                                return 'Enter GST';
+                                return 'Enter GST No.';
                               }
-                              if (int.tryParse(value) == null) {
-                                return 'Please enter valid digit!';
-                              }
+
                               if (value.startsWith('-')) {
                                 return 'Please enter valid digit!';
                               }
@@ -410,6 +408,13 @@ class _MyMaterialAddBottomSheetState extends State<MyMaterialAddBottomSheet> {
                                       context, "Enter valid quantity",
                                       messageType: MessageType.warning);
                                 } else {
+                                  widget.isUpdate == true
+                                      ? context
+                                          .read<MaterialPartieProjectBloc>()
+                                          .add(const MaterialPartieProjectEvent
+                                              .onSearchQueryChanged(
+                                              searchQuery: ''))
+                                      : null;
                                   context.read<AddMaterialBloc>().add(
                                       AddMaterialEvent.onAddMaterialTap(
                                           materialId: material.materialId ?? "",

@@ -92,22 +92,22 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                         itemBuilder: (context, index) {
                           return materialWidget(theme, Details());
                         }))
-                : state.listOfMaterialParty[state.partieIndex]
-                            .rentals?[state.productIndex].details?.isNotEmpty ??
+                : state.listOfMaterialPartySearched[state.productIndex].details
+                            ?.isNotEmpty ??
                         false
                     ? SizedBox(
                         height: MediaQuery.of(context).size.height * 0.73,
                         child: ListView.builder(
                             itemCount: state
-                                    .listOfMaterialParty[state.partieIndex]
-                                    .rentals?[state.productIndex]
+                                    .listOfMaterialPartySearched[
+                                        state.productIndex]
                                     .details
                                     ?.length ??
                                 0,
                             itemBuilder: (context, index) {
                               final material = state
-                                  .listOfMaterialParty[state.partieIndex]
-                                  .rentals?[state.productIndex]
+                                  .listOfMaterialPartySearched[
+                                      state.productIndex]
                                   .details?[index];
                               return GestureDetector(
                                   onTap: () {},
@@ -136,17 +136,6 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: PopUpMenuWidget(
-              theme: theme,
-              onUpdateButtonPressed: () {
-                openBottomSheetOfMaterial(
-                    context: context, material: material, isUpdate: true);
-              },
-              onDeleteButtonPressed: () {},
-            ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -164,27 +153,46 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                   ),
                 ],
               ),
-              Column(
+              Row(
                 children: [
-                  Row(
+                  Column(
                     children: [
-                      Text(
-                        "Quantity: ",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontSize: 14, color: theme.canvasColor),
+                      Row(
+                        children: [
+                          Text(
+                            "Quantity: ",
+                            style: theme.textTheme.titleMedium?.copyWith(
+                                fontSize: 14, color: theme.canvasColor),
+                          ),
+                          Text(
+                            (material.quantity ?? 0).toString(),
+                            style: theme.textTheme.titleLarge?.copyWith(
+                                fontSize: 16, color: theme.canvasColor),
+                          ),
+                        ],
                       ),
+                      10.wx,
                       Text(
-                        (material.quantity ?? 0).toString(),
-                        style: theme.textTheme.titleLarge
-                            ?.copyWith(fontSize: 16, color: theme.canvasColor),
+                        ReusableFunctions.getFormattedDate(
+                            material.date ?? DateTime.now().toString()),
+                        style: theme.textTheme.bodyMedium
+                            ?.copyWith(color: gray500),
                       ),
                     ],
                   ),
-                  10.wx,
-                  Text(
-                    ReusableFunctions.getFormattedDate(
-                        material.date ?? DateTime.now().toString()),
-                    style: theme.textTheme.bodyMedium?.copyWith(color: gray500),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: PopUpMenuWidget(
+                    
+                      theme: theme,
+                      onUpdateButtonPressed: () {
+                        openBottomSheetOfMaterial(
+                            context: context,
+                            material: material,
+                            isUpdate: true);
+                      },
+                      onDeleteButtonPressed: () {},
+                    ),
                   ),
                 ],
               ),

@@ -140,17 +140,6 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: PopUpMenuWidget(
-              theme: theme,
-              onUpdateButtonPressed: () {
-                openBottomSheetOfMaterial(
-                    context: context, material: rental, isUpdate: true);
-              },
-              onDeleteButtonPressed: () {},
-            ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -168,26 +157,39 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                   ),
                 ],
               ),
-              Column(
+              Row(
                 children: [
-                  Row(
+                  Column(
                     children: [
-                      Text(
-                        "Quantity: ",
-                        style: theme.textTheme.titleMedium
-                            ?.copyWith(fontSize: 14, color: theme.canvasColor),
+                      Row(
+                        children: [
+                          Text(
+                            "Quantity: ",
+                            style: theme.textTheme.titleMedium?.copyWith(
+                                fontSize: 14, color: theme.canvasColor),
+                          ),
+                          Text(
+                            (rental?.quantity ?? 0).toString(),
+                            style: theme.textTheme.titleLarge?.copyWith(
+                                fontSize: 16, color: theme.canvasColor),
+                          ),
+                        ],
                       ),
+                      10.wx,
                       Text(
-                        (rental?.quantity ?? 0).toString(),
-                        style: theme.textTheme.titleLarge
-                            ?.copyWith(fontSize: 16, color: theme.canvasColor),
+                        ReusableFunctions.getFormattedDate(rental?.date ?? ''),
+                        style: theme.textTheme.bodyMedium
+                            ?.copyWith(color: gray500),
                       ),
                     ],
                   ),
-                  10.wx,
-                  Text(
-                    ReusableFunctions.getFormattedDate(rental?.date ?? ''),
-                    style: theme.textTheme.bodyMedium?.copyWith(color: gray500),
+                  PopUpMenuWidget(
+                    theme: theme,
+                    onUpdateButtonPressed: () {
+                      openBottomSheetOfMaterial(
+                          context: context, material: rental, isUpdate: true);
+                    },
+                    onDeleteButtonPressed: () {},
                   ),
                 ],
               ),

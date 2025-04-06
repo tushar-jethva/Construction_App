@@ -70,7 +70,7 @@ class PDFGenerator {
     pdf.addPage(
       pw.MultiPage(
         margin:
-            const pw.EdgeInsets.only(left: 15, right: 15, top: 30, bottom: 30),
+            const pw.EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 15),
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
           return [
@@ -105,8 +105,8 @@ class PDFGenerator {
       children: [
         pw.Row(children: [pw.Text("Ack Date: "), pw.Text(date)]),
         pw.Container(
-          width: 100, // Set width & height to make it circular
-          height: 100,
+          width: 80, // Set width & height to make it circular
+          height: 80,
           decoration: pw.BoxDecoration(
             shape: pw.BoxShape.circle, // Makes the container circular
             image: pw.DecorationImage(
@@ -123,192 +123,219 @@ class PDFGenerator {
   // Billing and Supply details section
   pw.Widget _buildBillingAndSupplyDetails(
       {required BillModel bill, required ProfileModel? profile}) {
-    return pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-      pw.Expanded(
-        child: pw.Table(border: pw.TableBorder.all(), children: [
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.only(
-                    left: 6, right: 20, top: 10, bottom: 10),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text(profile?.name ?? "",
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                      pw.SizedBox(height: 7),
-                      pw.Text(profile?.address ?? "",
-                          overflow: pw.TextOverflow.clip),
-                      pw.Text("GSTIN/UIN: ${profile?.gSTNumber ?? ''}"),
-                      pw.Text("Phone number: ${profile?.mobile ?? ''}"),
-                      pw.Text("E-Mail: ${profile?.email ?? ''}")
-                    ])),
+    return pw.Row(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Expanded(
+          child: pw.Table(border: pw.TableBorder.all(), children: [
+            pw.TableRow(children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.only(
+                      left: 6, right: 20, top: 10, bottom: 10),
+                  child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text(profile?.name ?? "",
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        pw.SizedBox(height: 7),
+                        pw.Text(profile?.address ?? "",
+                            overflow: pw.TextOverflow.clip),
+                        pw.Text("GSTIN/UIN: ${profile?.gSTNumber ?? ''}"),
+                        pw.Text("Phone number: ${profile?.mobile ?? ''}"),
+                        pw.Text("E-Mail: ${profile?.email ?? ''}")
+                      ])),
+            ]),
+            pw.TableRow(children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.only(
+                      left: 6, right: 20, top: 10, bottom: 10),
+                  child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text("Consignee (Ship to)"),
+                        pw.SizedBox(height: 5),
+                        pw.Text("${bill.partieId!.name}",
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        pw.SizedBox(height: 7),
+                        pw.Text("${bill.partieId!.shippingAddress}",
+                            overflow: pw.TextOverflow.clip),
+                        pw.Text("GSTIN/UIN: ${bill.partieId!.gSTnumber}"),
+                        pw.Text("E-Mail : ${bill.partieId!.email}")
+                      ])),
+            ]),
+            pw.TableRow(children: [
+              pw.Padding(
+                  padding: const pw.EdgeInsets.only(
+                      left: 6, right: 20, top: 10, bottom: 10),
+                  child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text("Buyer (Bill to)"),
+                        pw.SizedBox(height: 5),
+                        pw.Text("${bill.partieId!.name}",
+                            style:
+                                pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+                        pw.SizedBox(height: 7),
+                        pw.Text("${bill.partieId!.billingAddress}",
+                            overflow: pw.TextOverflow.clip),
+                        pw.Text("GSTIN/UIN: ${bill.partieId!.gSTnumber}"),
+                        pw.Text("E-Mail : ${bill.partieId!.email}")
+                      ])),
+            ]),
           ]),
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.only(
-                    left: 6, right: 20, top: 10, bottom: 10),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Consignee (Ship to)"),
-                      pw.SizedBox(height: 5),
-                      pw.Text("${bill.partieId!.name}",
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                      pw.SizedBox(height: 7),
-                      pw.Text("${bill.partieId!.shippingAddress}",
-                          overflow: pw.TextOverflow.clip),
-                      pw.Text("GSTIN/UIN: ${bill.partieId!.gSTnumber}"),
-                      pw.Text("E-Mail : ${bill.partieId!.email}")
-                    ])),
-          ]),
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.only(
-                    left: 6, right: 20, top: 10, bottom: 10),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Buyer (Bill to)"),
-                      pw.SizedBox(height: 5),
-                      pw.Text("${bill.partieId!.name}",
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
-                      pw.SizedBox(height: 7),
-                      pw.Text("${bill.partieId!.billingAddress}",
-                          overflow: pw.TextOverflow.clip),
-                      pw.Text("GSTIN/UIN: ${bill.partieId!.gSTnumber}"),
-                      pw.Text("E-Mail : ${bill.partieId!.email}")
-                    ])),
-          ]),
-        ]),
-      ),
-      pw.Expanded(
-        child: pw.Table(border: pw.TableBorder.all(), children: [
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Invoice No."),
-                      pw.Text("${bill.billNumber}",
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Dated"),
-                      pw.Text(
-                          DateFormat.yMMMd().format(DateTime.parse(bill.date!)),
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-          ]),
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Delivery Note"),
-                      pw.Text(bill.moreDetails?.deliveryNote ?? '',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Mode/Terms of Payment"),
-                      pw.Text(bill.moreDetails?.modeOfPayment ?? '',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-          ]),
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Reference No."),
-                      pw.Text(bill.moreDetails?.referenceNo ?? '',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Other References"),
-                      pw.Text(bill.moreDetails?.otherReferences ?? '',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-          ]),
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Buyer's Order No."),
-                      pw.Text(bill.moreDetails?.buyersOrderNo ?? '',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Dated"),
-                      pw.Text(
-                          DateFormat.yMMMd().format(DateTime.parse(bill.date!)),
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-          ]),
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Dispatch Doc No."),
-                      pw.Text(bill.moreDetails?.dispatchDocNo ?? '',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Delivery Note Date"),
-                      pw.Text(
-                          DateFormat.yMMMd().format(DateTime.parse(bill.date!)),
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-          ]),
-          pw.TableRow(children: [
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Dispatched through"),
-                      pw.Text(bill.moreDetails?.dispatchedThrough ?? '',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-            pw.Padding(
-                padding: const pw.EdgeInsets.all(8),
-                child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text("Destination"),
-                      pw.Text(bill.moreDetails?.destination ?? '',
-                          style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
-                    ])),
-          ]),
-        ]),
-      )
-    ]);
+        ),
+        pw.Expanded(
+          child: pw.Table(
+            border: pw.TableBorder.all(),
+            children: [
+              pw.TableRow(children: [
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Invoice No."),
+                          pw.Text("${bill.billNumber}",
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Dated"),
+                          pw.Text(
+                              DateFormat.yMMMd()
+                                  .format(DateTime.parse(bill.date!)),
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+              ]),
+              pw.TableRow(children: [
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Delivery Note"),
+                          pw.Text(bill.moreDetails?.deliveryNote ?? '',
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Mode/Terms of Payment"),
+                          pw.Text(bill.moreDetails?.modeOfPayment ?? '',
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+              ]),
+              pw.TableRow(children: [
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Reference No."),
+                          pw.Text(bill.moreDetails?.referenceNo ?? '',
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Other References"),
+                          pw.Text(bill.moreDetails?.otherReferences ?? '',
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+              ]),
+              pw.TableRow(children: [
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Buyer's Order No."),
+                          pw.Text(bill.moreDetails?.buyersOrderNo ?? '',
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Dated"),
+                          pw.Text(
+                              DateFormat.yMMMd()
+                                  .format(DateTime.parse(bill.date!)),
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+              ]),
+              pw.TableRow(children: [
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Dispatch Doc No."),
+                          pw.Text(bill.moreDetails?.dispatchDocNo ?? '',
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+                pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text("Delivery Note Date"),
+                          pw.Text(
+                              DateFormat.yMMMd()
+                                  .format(DateTime.parse(bill.date!)),
+                              style:
+                                  pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                        ])),
+              ]),
+              pw.TableRow(
+                children: [
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.all(8),
+                      child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text("Dispatched through"),
+                            pw.Text(bill.moreDetails?.dispatchedThrough ?? '',
+                                style: pw.TextStyle(
+                                    fontWeight: pw.FontWeight.bold))
+                          ])),
+                  pw.Padding(
+                    padding: const pw.EdgeInsets.all(8),
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Text("Destination"),
+                        pw.Text(bill.moreDetails?.destination ?? '',
+                            style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        )
+      ],
+    );
   }
 
   // Define the `toElement` helper function to map `Items` to a List<String>

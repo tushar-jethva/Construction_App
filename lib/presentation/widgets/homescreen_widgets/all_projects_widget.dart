@@ -171,9 +171,7 @@ class AllProjectsWidget extends StatelessWidget {
                   ),
                 );
         } else {
-          return const SliverToBoxAdapter(
-            child: Center(child: Text('Failed to load projects')),
-          );
+          return Center(child: Text('Failed to load projects'));
         }
       },
     );

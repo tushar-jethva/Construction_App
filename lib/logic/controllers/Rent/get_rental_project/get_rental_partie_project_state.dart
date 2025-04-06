@@ -5,6 +5,7 @@ class GetRentalPartieProjectState with _$GetRentalPartieProjectState {
   const factory GetRentalPartieProjectState(
       {required RequestState state,
       required String message,
+      required String searchQuery,
       required RentalModel? rental,
       required List<Data> renalParties,
       required int partieIndex,
@@ -13,6 +14,7 @@ class GetRentalPartieProjectState with _$GetRentalPartieProjectState {
       const GetRentalPartieProjectState(
           state: RequestState.empty,
           message: '',
+          searchQuery: '',
           rental: null,
           renalParties: [],
           partieIndex: 0,

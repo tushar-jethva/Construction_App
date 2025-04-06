@@ -63,6 +63,22 @@ List<String> userIcons = [
   Assets.svg.user3.path,
 ];
 
+//---------------------------- material icons -------------
+List<String> materialIcons = [
+  Assets.images.m1.path,
+  Assets.images.m2.path,
+  Assets.images.m3.path,
+  Assets.images.m4.path,
+];
+
+//---------------------------- rental icons -------------
+List<String> rentalIcons = [
+  Assets.images.r1.path,
+  Assets.images.r2.path,
+  Assets.images.r3.path,
+  Assets.images.r4.path,
+];
+
 //---------------storage
 const String IS_FIRST_TIME = 'is_first_time';
 

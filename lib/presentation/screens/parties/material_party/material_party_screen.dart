@@ -108,7 +108,7 @@ class _MyMaterialPartyBottomSheetState
                     hintText: "GST No.",
                     maxLines: 1,
                     maxLength: 15,
-                    textInputType: TextInputType.number,
+                    textInputType: TextInputType.text,
                     onChanged: (value) {
                       context.read<MaterialSupplierBloc>().add(
                             MaterialSupplierEvent.gstNoChanged(
@@ -117,9 +117,7 @@ class _MyMaterialPartyBottomSheetState
                     },
                     validator: (value) {
                       if (value != null && value.isNotEmpty) {
-                        if (int.tryParse(value) == null) {
-                          return 'Please enter valid digit';
-                        }
+                        
                         if (value.startsWith('-')) {
                           return 'Please enter valid digit';
                         }
