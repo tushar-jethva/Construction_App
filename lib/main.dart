@@ -18,6 +18,7 @@ import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/injections/injection.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
+import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
@@ -27,10 +28,12 @@ import 'package:construction_mate/logic/controllers/Authentication/forgot_passwo
 import 'package:construction_mate/logic/controllers/Authentication/reset_password/reset_password_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/verify_otp/verify_otp_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
+import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/FinancialByParty/financialy_by_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/MaterialSupplier/material_supplier_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_by_partie/material_by_partie_bloc.dart';
@@ -201,6 +204,21 @@ class MyMultiBlocProviders extends StatelessWidget {
             create: (context) => TransactionBuildingBloc(
                 transactionRepository: TransactionRepositoryImpl(
                     transactionDataSource: TransactionDataSourceImpl()))),
+
+        //Billl bloc
+        BlocProvider(
+          create: (context) => AddBillBloc(
+              agencyRepository: AgencyRepositoryImpl(
+                  agencyDataSource: AgencyDataSourceDataSourceImpl()),
+              billsRepository: BillsRepositoryImpl()),
+        ),
+        BlocProvider(
+            create: (context) =>
+                FinancialyByPartyBloc(billsRepository: BillsRepositoryImpl())),
+        BlocProvider(
+            create: (context) => BillingPartyParticularBloc(
+                billsRepository: BillsRepositoryImpl())),
+                
         BlocProvider(create: (_) => di.locator<AgencyWorksProjectsBloc>()),
         BlocProvider(create: (_) => di.locator<AddMaterialBloc>()),
         BlocProvider(create: (_) => di.locator<BottomsheetBloc>()),

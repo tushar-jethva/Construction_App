@@ -143,6 +143,7 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
                 child: ListView.builder(
                     itemCount: state.agencies.length,
                     itemBuilder: (context, index) {
+                    
                       PerBuildingAgencyModel agency = state.agencies[index];
                       return InkWell(
                         onTap: () {

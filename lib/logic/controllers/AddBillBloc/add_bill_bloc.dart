@@ -23,6 +23,37 @@ class AddBillBloc extends Bloc<AddBillEvent, AddBillState> {
       emit(state.copyWith(billItems: listOfBillItems, isAddedBill: 0));
     });
 
+    on<AddBillInitialize>((event, emit) {
+      emit(state.copyWith(
+          selecteParty: [],
+          isLoadingParties: false,
+          partyValue: '',
+          date: DateTime.now(),
+          isAddedBill: 0,
+          billItems: [],
+          cgst: 9,
+          sgst: 9,
+          tds: 2,
+          state: RequestState.empty,
+          deliveryNote: "",
+          modeOfPayment: "",
+          referenceNo: "",
+          otherReferences: "",
+          buyersOrderNo: "",
+          dispatchedThrough: "",
+          dispatchDocNo: "",
+          destination: "",
+          otherDetailsMode: OtherDetailsBillModel(
+              deliveryNote: "",
+              modeOfPayment: "",
+              referenceNo: "",
+              otherReferences: "",
+              buyersOrderNo: "",
+              dispatchDocNo: "",
+              dispatchedThrough: "",
+              destination: "")));
+    });
+
     on<BillSGSTChangedEvent>((event, emit) {
       emit(state.copyWith(sgst: event.sgst, isAddedBill: 0));
     });

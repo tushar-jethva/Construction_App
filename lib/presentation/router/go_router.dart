@@ -281,18 +281,8 @@ class Routes {
           name: RoutesName.billingPartyPaticularScreen,
           builder: (context, state) {
             final AgencyModel party = state.extra as AgencyModel;
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                    create: (context) => FinancialyByPartyBloc(
-                        billsRepository: BillsRepositoryImpl())),
-                BlocProvider(
-                    create: (context) => BillingPartyParticularBloc(
-                        billsRepository: BillsRepositoryImpl()))
-              ],
-              child: MyBillsParticularPartyScreen(
-                party: party,
-              ),
+            return MyBillsParticularPartyScreen(
+              party: party,
             );
           },
         ),

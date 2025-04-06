@@ -8,7 +8,9 @@ import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddBillingPartyBloc/add_billing_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
+import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/FinancialByParty/financialy_by_party_bloc.dart';
 import 'package:construction_mate/logic/controllers/Parties/add_parties/add_parties_bloc.dart';
 import 'package:construction_mate/logic/controllers/PaymentInDropDownBloc/payment_in_drop_down_bloc.dart';
 import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
@@ -27,7 +29,10 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class MyAddBillBottomSheet extends StatefulWidget {
-  const MyAddBillBottomSheet({super.key});
+  final String? partyId;
+  final String? partyName;
+
+  const MyAddBillBottomSheet({super.key, this.partyId, this.partyName});
 
   @override
   State<MyAddBillBottomSheet> createState() => _MyAddBillBottomSheetState();
@@ -55,6 +60,12 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
     _sgstController.text = "9";
     _cgstController.text = "9";
     _tdsController.text = "2";
+
+    if (widget.partyId != null) {
+      context
+          .read<AddBillBloc>()
+          .add(BillPartyNameChanged(partyId: widget.partyId!));
+    }
   }
 
   @override
@@ -123,69 +134,91 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                     topRight: Radius.circular(15.r))),
             child: Column(
               children: [
-                BlocListener<AddBillingPartyBloc, AddBillingPartyState>(
-                  listener: (context, state) {
-                    if (state.isAdded == 2) {
-                      context
-                          .read<PaymentInDropDownBloc>()
-                          .add(FetchAgencyInEvent());
+                widget.partyId == null
+                    ? BlocListener<AddBillingPartyBloc, AddBillingPartyState>(
+                        listener: (context, state) {
+                          if (state.isAdded == 2) {
+                            context
+                                .read<PaymentInDropDownBloc>()
+                                .add(FetchAgencyInEvent());
 
-                      context.read<AddBillBloc>().add(BillGetAllPartiesEvent());
-                    }
-                  },
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: () {
-                        context.read<AddPartiesBloc>().add(
-                            const AddPartiesEvent.onPartyTypeChange(
-                                partyType: PartyType.BillingParty));
-                        context.pushNamed(
-                            RoutesName.ADD_BILLING_PARTY_SCREEN_NAME);
-                      },
-                      child: Text(
-                        "Add Agency",
-                        style: theme.textTheme.titleMedium?.copyWith(
-                            color: purple,
-                            decoration: TextDecoration.underline,
-                            decorationColor: purple),
-                      ),
-                    ),
-                  ),
-                ),
-                5.hx,
-                BlocBuilder<AddBillBloc, AddBillState>(
-                    builder: (context, state) {
-                  if (!state.isLoadingParties) {
-                    return CustomDropDown(items: selectParties);
-                  }
-                  return PaymentOutCustomDropDown(
-                      value: state.selecteParty[0].sId,
-                      list: state.selecteParty
-                          .map((e) => DropdownMenuItem(
-                                value: e.sId,
-                                child: SizedBox(
-                                  width: MediaQuery.of(context).size.width *
-                                      0.4, // Set a specific width here
-                                  child: Text(
-                                    e.name!,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ))
-                          .toList(),
-                      onChanged: (val) {
-                        context
-                            .read<AddBillBloc>()
-                            .add(BillPartyNameChanged(partyId: val));
-                      },
-                      validator: (val) {
-                        if (val == state.selecteParty[0].sId) {
-                          return 'Please select Billing Party';
+                            context
+                                .read<AddBillBloc>()
+                                .add(BillGetAllPartiesEvent());
+                          }
+                        },
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: GestureDetector(
+                            onTap: () {
+                              context.read<AddPartiesBloc>().add(
+                                  const AddPartiesEvent.onPartyTypeChange(
+                                      partyType: PartyType.BillingParty));
+                              context.pushNamed(
+                                  RoutesName.ADD_BILLING_PARTY_SCREEN_NAME);
+                            },
+                            child: Text(
+                              "Add Agency",
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                  color: purple,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: purple),
+                            ),
+                          ),
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                widget.partyId == null ? 5.hx : const SizedBox.shrink(),
+                widget.partyId == null
+                    ? BlocBuilder<AddBillBloc, AddBillState>(
+                        builder: (context, state) {
+                        if (!state.isLoadingParties) {
+                          return CustomDropDown(items: selectParties);
                         }
-                      });
-                }),
+                        return PaymentOutCustomDropDown(
+                            value: state.selecteParty[0].sId,
+                            list: state.selecteParty
+                                .map((e) => DropdownMenuItem(
+                                      value: e.sId,
+                                      child: SizedBox(
+                                        width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                            0.4, // Set a specific width here
+                                        child: Text(
+                                          e.name!,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ))
+                                .toList(),
+                            onChanged: (val) {
+                              context
+                                  .read<AddBillBloc>()
+                                  .add(BillPartyNameChanged(partyId: val));
+                            },
+                            validator: (val) {
+                              if (val == state.selecteParty[0].sId) {
+                                return 'Please select Billing Party';
+                              }
+                            });
+                      })
+                    : Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: grey, width: 1)),
+                        child: TextField(
+                          readOnly: true,
+                          decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 10.w),
+                            border: InputBorder.none,
+                            hintStyle: theme.textTheme.titleMedium,
+                            hintText: widget.partyName ?? '',
+                          ),
+                        )),
                 Gap(10.h),
                 BlocBuilder<AddBillBloc, AddBillState>(
                   builder: (context, state) {
@@ -667,9 +700,18 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                             context
                                 .read<BillingPartiesHomeBloc>()
                                 .add(BillingPartiesLoadEvent());
-                            Navigator.of(context).pop();
                             showTopSnackBar(context, "Bill added successfully!",
                                 messageType: MessageType.done);
+                            context.read<BillingPartyParticularBloc>().add(
+                                BillingPartyParticularLoadBills(
+                                    partyId: widget.partyId ?? ''));
+                            context
+                                .read<FinancialBloc>()
+                                .add(const FinancialEvent.fetchFinancials());
+                            context.read<FinancialyByPartyBloc>().add(
+                                FinancialyByPartyEvent.fetchFinancialsByParty(
+                                    partyId: widget.partyId ?? ''));
+                            Navigator.of(context).pop();
                           } else if (state.isAddedBill == 3) {
                             Navigator.of(context).pop();
                             showTopSnackBar(

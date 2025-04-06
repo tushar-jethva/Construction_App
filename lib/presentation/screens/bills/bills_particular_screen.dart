@@ -1,10 +1,17 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/data/datasource/agency_data_source.dart';
+import 'package:construction_mate/data/repository/agency_repository.dart';
+import 'package:construction_mate/data/repository/bills_repository.dart';
+import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/billing_party_particular_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
+import 'package:construction_mate/logic/controllers/SwitchBloc/switch_bloc.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:construction_mate/logic/models/billing_party_model.dart';
+import 'package:construction_mate/presentation/screens/project/project_screen.dart';
+import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_bill_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_particular_app_bar_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
@@ -47,6 +54,28 @@ class _MyBillsParticularPartyScreenState
     context.read<FinancialBloc>().add(const FinancialEvent.fetchFinancials());
   }
 
+  openBottomSheetOfBill({required BuildContext context}) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        showDragHandle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        context: context,
+        builder: (context) {
+          context.read<AddBillBloc>().add(AddBillInitialize());
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (context) => SwitchBloc(),
+              ),
+            ],
+            child: MyAddBillBottomSheet(
+              partyId: widget.party.sId ?? '',
+              partyName: widget.party.name ?? '',
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -65,7 +94,6 @@ class _MyBillsParticularPartyScreenState
             MyBillScreenParticularAppBarWidget(
               partyId: widget.party.sId ?? '',
             ),
-            
             scrollableSheetWidget(context, theme)
           ],
         ),
@@ -255,7 +283,23 @@ class _MyBillsParticularPartyScreenState
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(20), topRight: Radius.circular(20)),
           ),
-          child: allBillsWidget(theme, scrollController),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                  child: CommonButton2(
+                    buttonName: "Add Bill",
+                    onTap: () {
+                      openBottomSheetOfBill(context: context);
+                    },
+                  ),
+                ),
+              ),
+              Expanded(child: allBillsWidget(theme, scrollController)),
+            ],
+          ),
         );
       },
     );

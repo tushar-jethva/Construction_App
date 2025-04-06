@@ -2,6 +2,8 @@ part of 'add_bill_bloc.dart';
 
 class AddBillEvent {}
 
+class AddBillInitialize extends AddBillEvent {}
+
 class BillGetAllPartiesEvent extends AddBillEvent {}
 
 class BillItemAddedEvent extends AddBillEvent {

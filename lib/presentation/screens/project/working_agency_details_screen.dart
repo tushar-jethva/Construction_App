@@ -83,6 +83,19 @@ class _MyWorkingAgencyDetailsScreenState
       newWidget: (context, scrollController) {
         PerBuildingAgencyModel perBuildingAgency = widget.perBuildingAgency;
 
+// Copy and sort by numeric value extracted from each floor string
+        final sortedFloors = [...perBuildingAgency.floors!]..sort((a, b) {
+            int extractNumber(String name) {
+              final match =
+                  RegExp(r'\d+').firstMatch(name); // grabs first number
+              return match != null
+                  ? int.parse(match.group(0)!)
+                  : 9999; // push no-number floors to bottom
+            }
+
+            return extractNumber(a).compareTo(extractNumber(b));
+          });
+
         return Container(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           decoration: BoxDecoration(
@@ -103,7 +116,7 @@ class _MyWorkingAgencyDetailsScreenState
                   child: GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: perBuildingAgency.floors!.length,
+                      itemCount: sortedFloors.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 20.w,
@@ -130,7 +143,7 @@ class _MyWorkingAgencyDetailsScreenState
                                   ),
                                   10.wx,
                                   Text(
-                                    perBuildingAgency.floors?[index] ?? "",
+                                    sortedFloors[index] ?? "",
                                     style: TextStyle(
                                         color: theme.canvasColor,
                                         fontWeight: FontWeight.w500,

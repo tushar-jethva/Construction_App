@@ -112,12 +112,27 @@ class _MySiteProgressScreenWidgetState
                   child: ListView.builder(
                       itemCount: state.listOfFloorsSite.length,
                       itemBuilder: (context, index) {
-                        FloorSiteModel floorSiteModel =
-                            state.listOfFloorsSite[index];
+                        // Create a new list and sort it by numeric value inside floorName
+                        final sortedFloors = [...state.listOfFloorsSite]
+                          ..sort((a, b) {
+                            int extractNumber(String name) {
+                              final match = RegExp(r'\d+').firstMatch(name);
+                              return match != null
+                                  ? int.parse(match.group(0)!)
+                                  : 0;
+                            }
+
+                            return extractNumber(a.floorName ?? '')
+                                .compareTo(extractNumber(b.floorName ?? ''));
+                          });
+
+                        FloorSiteModel floorSiteModel = sortedFloors[index];
                         String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
                             .format(
                                 DateTime.parse(floorSiteModel.completedDate!));
 
+                        debugPrint(
+                            "floor name: ${floorSiteModel.floorName} floor index: $index");
                         return InkWell(
                           onTap: () {
                             context.pushNamed(
