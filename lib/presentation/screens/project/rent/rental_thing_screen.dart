@@ -2,7 +2,6 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
-import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
@@ -34,6 +33,8 @@ class RentThingScreen extends StatefulWidget {
 }
 
 class _RentThingScreenState extends State<RentThingScreen> {
+
+  //On Refresh
   Future<void> onRefresh() async {
     // context.read<MaterialByPartieBloc>().add(
     //     MaterialByPartieEvent.getMaterialByPartie(

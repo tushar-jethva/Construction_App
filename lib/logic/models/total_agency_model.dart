@@ -8,7 +8,7 @@ class TotalAgencyModel {
   String? createdAt;
   String? updatedAt;
   int? iV;
-  String? totalAccount;
+  num? totalAccount;
   num? totalPayable;
   num? totalPaid;
 
@@ -41,7 +41,7 @@ class TotalAgencyModel {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
-    totalAccount = (json['TotalAccount'] as dynamic).toString();
+    totalAccount = json['TotalAccount'] ;
     totalPayable = json['TotalPayable'] ?? 0;
     totalPaid = json['TotalPaid'] ?? 0;
   }

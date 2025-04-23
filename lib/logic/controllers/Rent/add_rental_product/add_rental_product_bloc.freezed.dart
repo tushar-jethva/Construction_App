@@ -22,6 +22,8 @@ mixin _$AddRentalProductEvent {
     required TResult Function(String unit) onUnitChanged,
     required TResult Function(String date) onDateChanged,
     required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
     required TResult Function(
             String projectId,
             String materialName,
@@ -41,6 +43,8 @@ mixin _$AddRentalProductEvent {
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
     TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
     TResult? Function(
             String projectId,
             String materialName,
@@ -60,6 +64,8 @@ mixin _$AddRentalProductEvent {
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
     TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
     TResult Function(
             String projectId,
             String materialName,
@@ -81,6 +87,8 @@ mixin _$AddRentalProductEvent {
     required TResult Function(_onDateChanged value) onDateChanged,
     required TResult Function(_OnRentalPartyIdChanged value)
         onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
     required TResult Function(_OnAddRental value) onAddRental,
     required TResult Function(_FetchAllRental value) fetchAllRental,
   }) =>
@@ -91,6 +99,8 @@ mixin _$AddRentalProductEvent {
     TResult? Function(_OnUnitChanged value)? onUnitChanged,
     TResult? Function(_onDateChanged value)? onDateChanged,
     TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult? Function(_OnAddRental value)? onAddRental,
     TResult? Function(_FetchAllRental value)? fetchAllRental,
   }) =>
@@ -101,6 +111,8 @@ mixin _$AddRentalProductEvent {
     TResult Function(_OnUnitChanged value)? onUnitChanged,
     TResult Function(_onDateChanged value)? onDateChanged,
     TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult Function(_OnAddRental value)? onAddRental,
     TResult Function(_FetchAllRental value)? fetchAllRental,
     required TResult orElse(),
@@ -175,6 +187,8 @@ class _$InitializeImpl implements _Initialize {
     required TResult Function(String unit) onUnitChanged,
     required TResult Function(String date) onDateChanged,
     required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
     required TResult Function(
             String projectId,
             String materialName,
@@ -197,6 +211,8 @@ class _$InitializeImpl implements _Initialize {
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
     TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
     TResult? Function(
             String projectId,
             String materialName,
@@ -219,6 +235,8 @@ class _$InitializeImpl implements _Initialize {
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
     TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
     TResult Function(
             String projectId,
             String materialName,
@@ -246,6 +264,8 @@ class _$InitializeImpl implements _Initialize {
     required TResult Function(_onDateChanged value) onDateChanged,
     required TResult Function(_OnRentalPartyIdChanged value)
         onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
     required TResult Function(_OnAddRental value) onAddRental,
     required TResult Function(_FetchAllRental value) fetchAllRental,
   }) {
@@ -259,6 +279,8 @@ class _$InitializeImpl implements _Initialize {
     TResult? Function(_OnUnitChanged value)? onUnitChanged,
     TResult? Function(_onDateChanged value)? onDateChanged,
     TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult? Function(_OnAddRental value)? onAddRental,
     TResult? Function(_FetchAllRental value)? fetchAllRental,
   }) {
@@ -272,6 +294,8 @@ class _$InitializeImpl implements _Initialize {
     TResult Function(_OnUnitChanged value)? onUnitChanged,
     TResult Function(_onDateChanged value)? onDateChanged,
     TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult Function(_OnAddRental value)? onAddRental,
     TResult Function(_FetchAllRental value)? fetchAllRental,
     required TResult orElse(),
@@ -359,6 +383,8 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
     required TResult Function(String unit) onUnitChanged,
     required TResult Function(String date) onDateChanged,
     required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
     required TResult Function(
             String projectId,
             String materialName,
@@ -381,6 +407,8 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
     TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
     TResult? Function(
             String projectId,
             String materialName,
@@ -403,6 +431,8 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
     TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
     TResult Function(
             String projectId,
             String materialName,
@@ -430,6 +460,8 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
     required TResult Function(_onDateChanged value) onDateChanged,
     required TResult Function(_OnRentalPartyIdChanged value)
         onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
     required TResult Function(_OnAddRental value) onAddRental,
     required TResult Function(_FetchAllRental value) fetchAllRental,
   }) {
@@ -443,6 +475,8 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
     TResult? Function(_OnUnitChanged value)? onUnitChanged,
     TResult? Function(_onDateChanged value)? onDateChanged,
     TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult? Function(_OnAddRental value)? onAddRental,
     TResult? Function(_FetchAllRental value)? fetchAllRental,
   }) {
@@ -456,6 +490,8 @@ class _$OnUnitChangedImpl implements _OnUnitChanged {
     TResult Function(_OnUnitChanged value)? onUnitChanged,
     TResult Function(_onDateChanged value)? onDateChanged,
     TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult Function(_OnAddRental value)? onAddRental,
     TResult Function(_FetchAllRental value)? fetchAllRental,
     required TResult orElse(),
@@ -552,6 +588,8 @@ class _$onDateChangedImpl implements _onDateChanged {
     required TResult Function(String unit) onUnitChanged,
     required TResult Function(String date) onDateChanged,
     required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
     required TResult Function(
             String projectId,
             String materialName,
@@ -574,6 +612,8 @@ class _$onDateChangedImpl implements _onDateChanged {
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
     TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
     TResult? Function(
             String projectId,
             String materialName,
@@ -596,6 +636,8 @@ class _$onDateChangedImpl implements _onDateChanged {
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
     TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
     TResult Function(
             String projectId,
             String materialName,
@@ -623,6 +665,8 @@ class _$onDateChangedImpl implements _onDateChanged {
     required TResult Function(_onDateChanged value) onDateChanged,
     required TResult Function(_OnRentalPartyIdChanged value)
         onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
     required TResult Function(_OnAddRental value) onAddRental,
     required TResult Function(_FetchAllRental value) fetchAllRental,
   }) {
@@ -636,6 +680,8 @@ class _$onDateChangedImpl implements _onDateChanged {
     TResult? Function(_OnUnitChanged value)? onUnitChanged,
     TResult? Function(_onDateChanged value)? onDateChanged,
     TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult? Function(_OnAddRental value)? onAddRental,
     TResult? Function(_FetchAllRental value)? fetchAllRental,
   }) {
@@ -649,6 +695,8 @@ class _$onDateChangedImpl implements _onDateChanged {
     TResult Function(_OnUnitChanged value)? onUnitChanged,
     TResult Function(_onDateChanged value)? onDateChanged,
     TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult Function(_OnAddRental value)? onAddRental,
     TResult Function(_FetchAllRental value)? fetchAllRental,
     required TResult orElse(),
@@ -750,6 +798,8 @@ class _$OnRentalPartyIdChangedImpl implements _OnRentalPartyIdChanged {
     required TResult Function(String unit) onUnitChanged,
     required TResult Function(String date) onDateChanged,
     required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
     required TResult Function(
             String projectId,
             String materialName,
@@ -772,6 +822,8 @@ class _$OnRentalPartyIdChangedImpl implements _OnRentalPartyIdChanged {
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
     TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
     TResult? Function(
             String projectId,
             String materialName,
@@ -794,6 +846,8 @@ class _$OnRentalPartyIdChangedImpl implements _OnRentalPartyIdChanged {
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
     TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
     TResult Function(
             String projectId,
             String materialName,
@@ -821,6 +875,8 @@ class _$OnRentalPartyIdChangedImpl implements _OnRentalPartyIdChanged {
     required TResult Function(_onDateChanged value) onDateChanged,
     required TResult Function(_OnRentalPartyIdChanged value)
         onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
     required TResult Function(_OnAddRental value) onAddRental,
     required TResult Function(_FetchAllRental value) fetchAllRental,
   }) {
@@ -834,6 +890,8 @@ class _$OnRentalPartyIdChangedImpl implements _OnRentalPartyIdChanged {
     TResult? Function(_OnUnitChanged value)? onUnitChanged,
     TResult? Function(_onDateChanged value)? onDateChanged,
     TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult? Function(_OnAddRental value)? onAddRental,
     TResult? Function(_FetchAllRental value)? fetchAllRental,
   }) {
@@ -847,6 +905,8 @@ class _$OnRentalPartyIdChangedImpl implements _OnRentalPartyIdChanged {
     TResult Function(_OnUnitChanged value)? onUnitChanged,
     TResult Function(_onDateChanged value)? onDateChanged,
     TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult Function(_OnAddRental value)? onAddRental,
     TResult Function(_FetchAllRental value)? fetchAllRental,
     required TResult orElse(),
@@ -869,6 +929,419 @@ abstract class _OnRentalPartyIdChanged implements AddRentalProductEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OnRentalPartyIdChangedImplCopyWith<_$OnRentalPartyIdChangedImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnStartDateChangedImplCopyWith<$Res> {
+  factory _$$OnStartDateChangedImplCopyWith(_$OnStartDateChangedImpl value,
+          $Res Function(_$OnStartDateChangedImpl) then) =
+      __$$OnStartDateChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DateTime startDate});
+}
+
+/// @nodoc
+class __$$OnStartDateChangedImplCopyWithImpl<$Res>
+    extends _$AddRentalProductEventCopyWithImpl<$Res, _$OnStartDateChangedImpl>
+    implements _$$OnStartDateChangedImplCopyWith<$Res> {
+  __$$OnStartDateChangedImplCopyWithImpl(_$OnStartDateChangedImpl _value,
+      $Res Function(_$OnStartDateChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AddRentalProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? startDate = null,
+  }) {
+    return _then(_$OnStartDateChangedImpl(
+      startDate: null == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnStartDateChangedImpl implements _OnStartDateChanged {
+  const _$OnStartDateChangedImpl({required this.startDate});
+
+  @override
+  final DateTime startDate;
+
+  @override
+  String toString() {
+    return 'AddRentalProductEvent.onStartDateChanged(startDate: $startDate)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnStartDateChangedImpl &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, startDate);
+
+  /// Create a copy of AddRentalProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnStartDateChangedImplCopyWith<_$OnStartDateChangedImpl> get copyWith =>
+      __$$OnStartDateChangedImplCopyWithImpl<_$OnStartDateChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String unit) onUnitChanged,
+    required TResult Function(String date) onDateChanged,
+    required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
+    required TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String pricePerUnit,
+            String? rentalPartyId,
+            String rentalProductId)
+        onAddRental,
+    required TResult Function(String projectId) fetchAllRental,
+  }) {
+    return onStartDateChanged(startDate);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String unit)? onUnitChanged,
+    TResult? Function(String date)? onDateChanged,
+    TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
+    TResult? Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String pricePerUnit,
+            String? rentalPartyId,
+            String rentalProductId)?
+        onAddRental,
+    TResult? Function(String projectId)? fetchAllRental,
+  }) {
+    return onStartDateChanged?.call(startDate);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String unit)? onUnitChanged,
+    TResult Function(String date)? onDateChanged,
+    TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
+    TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String pricePerUnit,
+            String? rentalPartyId,
+            String rentalProductId)?
+        onAddRental,
+    TResult Function(String projectId)? fetchAllRental,
+    required TResult orElse(),
+  }) {
+    if (onStartDateChanged != null) {
+      return onStartDateChanged(startDate);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnUnitChanged value) onUnitChanged,
+    required TResult Function(_onDateChanged value) onDateChanged,
+    required TResult Function(_OnRentalPartyIdChanged value)
+        onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
+    required TResult Function(_OnAddRental value) onAddRental,
+    required TResult Function(_FetchAllRental value) fetchAllRental,
+  }) {
+    return onStartDateChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnUnitChanged value)? onUnitChanged,
+    TResult? Function(_onDateChanged value)? onDateChanged,
+    TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
+    TResult? Function(_OnAddRental value)? onAddRental,
+    TResult? Function(_FetchAllRental value)? fetchAllRental,
+  }) {
+    return onStartDateChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnUnitChanged value)? onUnitChanged,
+    TResult Function(_onDateChanged value)? onDateChanged,
+    TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
+    TResult Function(_OnAddRental value)? onAddRental,
+    TResult Function(_FetchAllRental value)? fetchAllRental,
+    required TResult orElse(),
+  }) {
+    if (onStartDateChanged != null) {
+      return onStartDateChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnStartDateChanged implements AddRentalProductEvent {
+  const factory _OnStartDateChanged({required final DateTime startDate}) =
+      _$OnStartDateChangedImpl;
+
+  DateTime get startDate;
+
+  /// Create a copy of AddRentalProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnStartDateChangedImplCopyWith<_$OnStartDateChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$OnEndDateChangedImplCopyWith<$Res> {
+  factory _$$OnEndDateChangedImplCopyWith(_$OnEndDateChangedImpl value,
+          $Res Function(_$OnEndDateChangedImpl) then) =
+      __$$OnEndDateChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DateTime endDate});
+}
+
+/// @nodoc
+class __$$OnEndDateChangedImplCopyWithImpl<$Res>
+    extends _$AddRentalProductEventCopyWithImpl<$Res, _$OnEndDateChangedImpl>
+    implements _$$OnEndDateChangedImplCopyWith<$Res> {
+  __$$OnEndDateChangedImplCopyWithImpl(_$OnEndDateChangedImpl _value,
+      $Res Function(_$OnEndDateChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AddRentalProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? endDate = null,
+  }) {
+    return _then(_$OnEndDateChangedImpl(
+      endDate: null == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnEndDateChangedImpl implements _OnEndDateChanged {
+  const _$OnEndDateChangedImpl({required this.endDate});
+
+  @override
+  final DateTime endDate;
+
+  @override
+  String toString() {
+    return 'AddRentalProductEvent.onEndDateChanged(endDate: $endDate)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OnEndDateChangedImpl &&
+            (identical(other.endDate, endDate) || other.endDate == endDate));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, endDate);
+
+  /// Create a copy of AddRentalProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OnEndDateChangedImplCopyWith<_$OnEndDateChangedImpl> get copyWith =>
+      __$$OnEndDateChangedImplCopyWithImpl<_$OnEndDateChangedImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String unit) onUnitChanged,
+    required TResult Function(String date) onDateChanged,
+    required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
+    required TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String pricePerUnit,
+            String? rentalPartyId,
+            String rentalProductId)
+        onAddRental,
+    required TResult Function(String projectId) fetchAllRental,
+  }) {
+    return onEndDateChanged(endDate);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String unit)? onUnitChanged,
+    TResult? Function(String date)? onDateChanged,
+    TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
+    TResult? Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String pricePerUnit,
+            String? rentalPartyId,
+            String rentalProductId)?
+        onAddRental,
+    TResult? Function(String projectId)? fetchAllRental,
+  }) {
+    return onEndDateChanged?.call(endDate);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String unit)? onUnitChanged,
+    TResult Function(String date)? onDateChanged,
+    TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
+    TResult Function(
+            String projectId,
+            String materialName,
+            String quantity,
+            String description,
+            bool isUpdate,
+            String pricePerUnit,
+            String? rentalPartyId,
+            String rentalProductId)?
+        onAddRental,
+    TResult Function(String projectId)? fetchAllRental,
+    required TResult orElse(),
+  }) {
+    if (onEndDateChanged != null) {
+      return onEndDateChanged(endDate);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_OnUnitChanged value) onUnitChanged,
+    required TResult Function(_onDateChanged value) onDateChanged,
+    required TResult Function(_OnRentalPartyIdChanged value)
+        onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
+    required TResult Function(_OnAddRental value) onAddRental,
+    required TResult Function(_FetchAllRental value) fetchAllRental,
+  }) {
+    return onEndDateChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_OnUnitChanged value)? onUnitChanged,
+    TResult? Function(_onDateChanged value)? onDateChanged,
+    TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
+    TResult? Function(_OnAddRental value)? onAddRental,
+    TResult? Function(_FetchAllRental value)? fetchAllRental,
+  }) {
+    return onEndDateChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_OnUnitChanged value)? onUnitChanged,
+    TResult Function(_onDateChanged value)? onDateChanged,
+    TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
+    TResult Function(_OnAddRental value)? onAddRental,
+    TResult Function(_FetchAllRental value)? fetchAllRental,
+    required TResult orElse(),
+  }) {
+    if (onEndDateChanged != null) {
+      return onEndDateChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnEndDateChanged implements AddRentalProductEvent {
+  const factory _OnEndDateChanged({required final DateTime endDate}) =
+      _$OnEndDateChangedImpl;
+
+  DateTime get endDate;
+
+  /// Create a copy of AddRentalProductEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$OnEndDateChangedImplCopyWith<_$OnEndDateChangedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1032,6 +1505,8 @@ class _$OnAddRentalImpl implements _OnAddRental {
     required TResult Function(String unit) onUnitChanged,
     required TResult Function(String date) onDateChanged,
     required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
     required TResult Function(
             String projectId,
             String materialName,
@@ -1055,6 +1530,8 @@ class _$OnAddRentalImpl implements _OnAddRental {
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
     TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
     TResult? Function(
             String projectId,
             String materialName,
@@ -1078,6 +1555,8 @@ class _$OnAddRentalImpl implements _OnAddRental {
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
     TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
     TResult Function(
             String projectId,
             String materialName,
@@ -1106,6 +1585,8 @@ class _$OnAddRentalImpl implements _OnAddRental {
     required TResult Function(_onDateChanged value) onDateChanged,
     required TResult Function(_OnRentalPartyIdChanged value)
         onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
     required TResult Function(_OnAddRental value) onAddRental,
     required TResult Function(_FetchAllRental value) fetchAllRental,
   }) {
@@ -1119,6 +1600,8 @@ class _$OnAddRentalImpl implements _OnAddRental {
     TResult? Function(_OnUnitChanged value)? onUnitChanged,
     TResult? Function(_onDateChanged value)? onDateChanged,
     TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult? Function(_OnAddRental value)? onAddRental,
     TResult? Function(_FetchAllRental value)? fetchAllRental,
   }) {
@@ -1132,6 +1615,8 @@ class _$OnAddRentalImpl implements _OnAddRental {
     TResult Function(_OnUnitChanged value)? onUnitChanged,
     TResult Function(_onDateChanged value)? onDateChanged,
     TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult Function(_OnAddRental value)? onAddRental,
     TResult Function(_FetchAllRental value)? fetchAllRental,
     required TResult orElse(),
@@ -1244,6 +1729,8 @@ class _$FetchAllRentalImpl implements _FetchAllRental {
     required TResult Function(String unit) onUnitChanged,
     required TResult Function(String date) onDateChanged,
     required TResult Function(String rentalPartyId) onRentalPartyIdChanged,
+    required TResult Function(DateTime startDate) onStartDateChanged,
+    required TResult Function(DateTime endDate) onEndDateChanged,
     required TResult Function(
             String projectId,
             String materialName,
@@ -1266,6 +1753,8 @@ class _$FetchAllRentalImpl implements _FetchAllRental {
     TResult? Function(String unit)? onUnitChanged,
     TResult? Function(String date)? onDateChanged,
     TResult? Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult? Function(DateTime startDate)? onStartDateChanged,
+    TResult? Function(DateTime endDate)? onEndDateChanged,
     TResult? Function(
             String projectId,
             String materialName,
@@ -1288,6 +1777,8 @@ class _$FetchAllRentalImpl implements _FetchAllRental {
     TResult Function(String unit)? onUnitChanged,
     TResult Function(String date)? onDateChanged,
     TResult Function(String rentalPartyId)? onRentalPartyIdChanged,
+    TResult Function(DateTime startDate)? onStartDateChanged,
+    TResult Function(DateTime endDate)? onEndDateChanged,
     TResult Function(
             String projectId,
             String materialName,
@@ -1315,6 +1806,8 @@ class _$FetchAllRentalImpl implements _FetchAllRental {
     required TResult Function(_onDateChanged value) onDateChanged,
     required TResult Function(_OnRentalPartyIdChanged value)
         onRentalPartyIdChanged,
+    required TResult Function(_OnStartDateChanged value) onStartDateChanged,
+    required TResult Function(_OnEndDateChanged value) onEndDateChanged,
     required TResult Function(_OnAddRental value) onAddRental,
     required TResult Function(_FetchAllRental value) fetchAllRental,
   }) {
@@ -1328,6 +1821,8 @@ class _$FetchAllRentalImpl implements _FetchAllRental {
     TResult? Function(_OnUnitChanged value)? onUnitChanged,
     TResult? Function(_onDateChanged value)? onDateChanged,
     TResult? Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult? Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult? Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult? Function(_OnAddRental value)? onAddRental,
     TResult? Function(_FetchAllRental value)? fetchAllRental,
   }) {
@@ -1341,6 +1836,8 @@ class _$FetchAllRentalImpl implements _FetchAllRental {
     TResult Function(_OnUnitChanged value)? onUnitChanged,
     TResult Function(_onDateChanged value)? onDateChanged,
     TResult Function(_OnRentalPartyIdChanged value)? onRentalPartyIdChanged,
+    TResult Function(_OnStartDateChanged value)? onStartDateChanged,
+    TResult Function(_OnEndDateChanged value)? onEndDateChanged,
     TResult Function(_OnAddRental value)? onAddRental,
     TResult Function(_FetchAllRental value)? fetchAllRental,
     required TResult orElse(),
@@ -1373,6 +1870,8 @@ mixin _$AddRentalProductState {
   String get date => throw _privateConstructorUsedError;
   List<GetRentalModel> get rentalList => throw _privateConstructorUsedError;
   String get rentalPartyId => throw _privateConstructorUsedError;
+  DateTime get startDate => throw _privateConstructorUsedError;
+  DateTime get endDate => throw _privateConstructorUsedError;
 
   /// Create a copy of AddRentalProductState
   /// with the given fields replaced by the non-null parameter values.
@@ -1393,7 +1892,9 @@ abstract class $AddRentalProductStateCopyWith<$Res> {
       String unit,
       String date,
       List<GetRentalModel> rentalList,
-      String rentalPartyId});
+      String rentalPartyId,
+      DateTime startDate,
+      DateTime endDate});
 }
 
 /// @nodoc
@@ -1418,6 +1919,8 @@ class _$AddRentalProductStateCopyWithImpl<$Res,
     Object? date = null,
     Object? rentalList = null,
     Object? rentalPartyId = null,
+    Object? startDate = null,
+    Object? endDate = null,
   }) {
     return _then(_value.copyWith(
       state: null == state
@@ -1444,6 +1947,14 @@ class _$AddRentalProductStateCopyWithImpl<$Res,
           ? _value.rentalPartyId
           : rentalPartyId // ignore: cast_nullable_to_non_nullable
               as String,
+      startDate: null == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      endDate: null == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -1463,7 +1974,9 @@ abstract class _$$AddRentalProductStateImplCopyWith<$Res>
       String unit,
       String date,
       List<GetRentalModel> rentalList,
-      String rentalPartyId});
+      String rentalPartyId,
+      DateTime startDate,
+      DateTime endDate});
 }
 
 /// @nodoc
@@ -1486,6 +1999,8 @@ class __$$AddRentalProductStateImplCopyWithImpl<$Res>
     Object? date = null,
     Object? rentalList = null,
     Object? rentalPartyId = null,
+    Object? startDate = null,
+    Object? endDate = null,
   }) {
     return _then(_$AddRentalProductStateImpl(
       state: null == state
@@ -1512,6 +2027,14 @@ class __$$AddRentalProductStateImplCopyWithImpl<$Res>
           ? _value.rentalPartyId
           : rentalPartyId // ignore: cast_nullable_to_non_nullable
               as String,
+      startDate: null == startDate
+          ? _value.startDate
+          : startDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      endDate: null == endDate
+          ? _value.endDate
+          : endDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -1525,7 +2048,9 @@ class _$AddRentalProductStateImpl implements _AddRentalProductState {
       required this.unit,
       required this.date,
       required final List<GetRentalModel> rentalList,
-      required this.rentalPartyId})
+      required this.rentalPartyId,
+      required this.startDate,
+      required this.endDate})
       : _rentalList = rentalList;
 
   @override
@@ -1546,10 +2071,14 @@ class _$AddRentalProductStateImpl implements _AddRentalProductState {
 
   @override
   final String rentalPartyId;
+  @override
+  final DateTime startDate;
+  @override
+  final DateTime endDate;
 
   @override
   String toString() {
-    return 'AddRentalProductState(state: $state, message: $message, unit: $unit, date: $date, rentalList: $rentalList, rentalPartyId: $rentalPartyId)';
+    return 'AddRentalProductState(state: $state, message: $message, unit: $unit, date: $date, rentalList: $rentalList, rentalPartyId: $rentalPartyId, startDate: $startDate, endDate: $endDate)';
   }
 
   @override
@@ -1564,12 +2093,23 @@ class _$AddRentalProductStateImpl implements _AddRentalProductState {
             const DeepCollectionEquality()
                 .equals(other._rentalList, _rentalList) &&
             (identical(other.rentalPartyId, rentalPartyId) ||
-                other.rentalPartyId == rentalPartyId));
+                other.rentalPartyId == rentalPartyId) &&
+            (identical(other.startDate, startDate) ||
+                other.startDate == startDate) &&
+            (identical(other.endDate, endDate) || other.endDate == endDate));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, state, message, unit, date,
-      const DeepCollectionEquality().hash(_rentalList), rentalPartyId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      state,
+      message,
+      unit,
+      date,
+      const DeepCollectionEquality().hash(_rentalList),
+      rentalPartyId,
+      startDate,
+      endDate);
 
   /// Create a copy of AddRentalProductState
   /// with the given fields replaced by the non-null parameter values.
@@ -1588,7 +2128,9 @@ abstract class _AddRentalProductState implements AddRentalProductState {
       required final String unit,
       required final String date,
       required final List<GetRentalModel> rentalList,
-      required final String rentalPartyId}) = _$AddRentalProductStateImpl;
+      required final String rentalPartyId,
+      required final DateTime startDate,
+      required final DateTime endDate}) = _$AddRentalProductStateImpl;
 
   @override
   RequestState get state;
@@ -1602,6 +2144,10 @@ abstract class _AddRentalProductState implements AddRentalProductState {
   List<GetRentalModel> get rentalList;
   @override
   String get rentalPartyId;
+  @override
+  DateTime get startDate;
+  @override
+  DateTime get endDate;
 
   /// Create a copy of AddRentalProductState
   /// with the given fields replaced by the non-null parameter values.

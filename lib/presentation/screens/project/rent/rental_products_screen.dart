@@ -84,19 +84,23 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                 ? Skeletonizer(
                     enabled: true,
                     child: ListView.builder(
-                        itemCount: 5,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return materialWidget(
-                              theme,
-                              Details(
-                                  name: "Helloo",
-                                  priceperunit: 0,
-                                  quantity: 0,
-                                  unit: "bags",
-                                  description: "Description desctiptio ",
-                                  date: DateTime.now().toString()));
-                        }))
+                      itemCount: 5,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return materialWidget(
+                          theme,
+                          Details(
+                            name: "Helloo",
+                            priceperunit: 0,
+                            quantity: 0,
+                            unit: "bags",
+                            description: "Description desctiptio ",
+                            date: DateTime.now().toString(),
+                          ),
+                        );
+                      },
+                    ),
+                  )
                 : state.renalParties[state.partieIndex]
                             .rentals?[state.productIndex].details?.isNotEmpty ??
                         false
@@ -160,14 +164,21 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
               Row(
                 children: [
                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Row(
                         children: [
-                          Text(
-                            "Quantity: ",
-                            style: theme.textTheme.titleMedium?.copyWith(
-                                fontSize: 14, color: theme.canvasColor),
-                          ),
+                          rental?.unit == "Hours"
+                              ? Text(
+                                  "Hours: ",
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                      fontSize: 14, color: theme.canvasColor),
+                                )
+                              : Text(
+                                  "Days: ",
+                                  style: theme.textTheme.titleMedium?.copyWith(
+                                      fontSize: 14, color: theme.canvasColor),
+                                ),
                           Text(
                             (rental?.quantity ?? 0).toString(),
                             style: theme.textTheme.titleLarge?.copyWith(

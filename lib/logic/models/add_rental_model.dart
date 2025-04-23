@@ -9,6 +9,8 @@ class AddRentalModel {
   String? unit;
   String? projectId;
   String? date;
+  String? startDate;
+  String? endDate;
   String? id;
 
   AddRentalModel(
@@ -20,6 +22,8 @@ class AddRentalModel {
       this.unit,
       this.projectId,
       this.date,
+      this.startDate,
+      this.endDate,
       this.id});
 
   AddRentalModel.fromJson(Map<String, dynamic> json) {
@@ -32,6 +36,8 @@ class AddRentalModel {
     unit = json['unit'];
     projectId = json['projectId'];
     date = json['date'];
+    startDate = json['startDate'];
+    endDate = json['endDate'];
   }
 
   Map<String, dynamic> toMap() {
@@ -45,6 +51,8 @@ class AddRentalModel {
     data['projectId'] = this.projectId;
     data['date'] = this.date;
     data['_id'] = this.id;
+    data['startDate'] = this.startDate;
+    data['endDate'] = this.endDate;
     return data;
   }
 

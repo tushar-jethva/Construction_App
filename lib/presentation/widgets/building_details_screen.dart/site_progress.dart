@@ -126,6 +126,7 @@ class _MySiteProgressScreenWidgetState
                                 .compareTo(extractNumber(b.floorName ?? ''));
                           });
 
+                        // Use the sorted list for display
                         FloorSiteModel floorSiteModel = sortedFloors[index];
                         String formattedDate = DateFormat('dd-MM-yyyy  hh:mm')
                             .format(

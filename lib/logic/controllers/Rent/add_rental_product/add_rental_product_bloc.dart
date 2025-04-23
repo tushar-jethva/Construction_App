@@ -27,6 +27,12 @@ class AddRentalProductBloc
       }, onRentalPartyIdChanged: (value) {
         emit(state.copyWith(
             state: RequestState.empty, rentalPartyId: value.rentalPartyId));
+      }, onStartDateChanged: (value) {
+        emit(
+          state.copyWith(startDate: value.startDate),
+        );
+      }, onEndDateChanged: (value) {
+        emit(state.copyWith(endDate: value.endDate));
       }, fetchAllRental: (value) async {
         emit(state.copyWith(state: RequestState.loading));
 
@@ -50,6 +56,8 @@ class AddRentalProductBloc
           partieId: getRentalSuppliersBloc.state.selectedRentalAgency,
           priceperunit: value.pricePerUnit,
           id: value.rentalProductId,
+          startDate: state.startDate.toString(),
+          endDate: state.endDate.toString(),
         );
         final res = value.isUpdate == false
             ? await rentalUsecase.addRental(rentalModel: model)

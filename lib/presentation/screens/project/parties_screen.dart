@@ -1,11 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
@@ -66,7 +68,7 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
               itemBuilder: (context, index) {
                 return agencyWidget(
                     theme,
-                    TotalAgencyModel(name: "Agency", totalAccount: "1000"),
+                    TotalAgencyModel(name: "Agency", totalAccount: 1000),
                     index);
               }),
         );
@@ -126,37 +128,84 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Row(
-                    children: [
-                      IconCircleWidget(
-                        radius: 10,
-                        isSvg: true,
-                        svgpath: userIcons[index % userIcons.length],
-                        backgroundColor: theme.cardColor,
-                      ),
-                      10.wx,
-                      Text(
-                        agency.name ?? "",
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
+                  IconCircleWidget(
+                    radius: 10,
+                    isSvg: true,
+                    svgpath: userIcons[index % userIcons.length],
+                    backgroundColor: theme.cardColor,
                   ),
-                  Text(
-                    agency.totalAccount!.startsWith('-')
-                        ? "₹ ${agency.totalAccount!.substring(1, agency.totalAccount!.length)}"
-                        : "₹ ${agency.totalAccount ?? 0}",
-                    style: theme.textTheme.titleLarge?.copyWith(
-                        fontSize: 16,
-                        color:
-                            agency.totalAccount!.startsWith('-') ? red : green),
-                  )
+                  10.wx,
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              agency.name ?? "",
+                              style: theme.textTheme.titleLarge
+                                  ?.copyWith(fontSize: 14),
+                            ),
+                            Row(
+                              children: [
+                                SvgPicture.asset(Assets.svg.remaining.path),
+                                5.wx,
+                                Text(
+                                  "Remaining: ",
+                                  style: theme.textTheme.titleMedium
+                                      ?.copyWith(color: grey, fontSize: 12),
+                                ),
+                                Text(
+                                  "₹ ${(agency.totalPayable ?? 0) - (agency.totalPaid ?? 0)}",
+                                  style: theme.textTheme.titleLarge?.copyWith(
+                                      color: Colors.orange, fontSize: 13),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Total Paid:",
+                                  style: theme.textTheme.titleMedium
+                                      ?.copyWith(color: grey, fontSize: 12),
+                                ),
+                                Text(
+                                  " ₹ ${agency.totalPaid ?? 0}",
+                                  style: theme.textTheme.titleLarge
+                                      ?.copyWith(color: green, fontSize: 13),
+                                )
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "Total Payable: ",
+                                  style: theme.textTheme.titleMedium
+                                      ?.copyWith(color: grey, fontSize: 12),
+                                ),
+                                Text(
+                                  "₹ ${agency.totalPayable ?? 0}",
+                                  style: theme.textTheme.titleLarge
+                                      ?.copyWith(color: red, fontSize: 13),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-              5.hx,
               const Divider()
             ],
           ),

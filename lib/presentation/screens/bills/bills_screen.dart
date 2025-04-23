@@ -1,9 +1,11 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
 import 'package:construction_mate/data/repository/bills_repository.dart';
+import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
 import 'package:construction_mate/logic/controllers/BillingPartiesHomeBloc/billing_parties_home_bloc.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
@@ -14,10 +16,14 @@ import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_bil
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/bill_screen_app_bar_widet.dart';
 import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
 import 'package:construction_mate/presentation/widgets/common/draggable_scrollable_sheet.dart';
+import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../widgets/common/common_icon_circle_widget.dart';
 
 class MyBillScreen extends StatefulWidget {
   const MyBillScreen({super.key});
@@ -78,13 +84,14 @@ class _MyBillScreenState extends State<MyBillScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-        backgroundColor: theme.cardColor,
-        body: Stack(
-          children: [
-            const MyBillScreenAppBarWidget(),
-            scrollableSheetWidget(context, theme)
-          ],
-        ));
+      backgroundColor: theme.cardColor,
+      body: Stack(
+        children: [
+          const MyBillScreenAppBarWidget(),
+          scrollableSheetWidget(context, theme)
+        ],
+      ),
+    );
   }
 
   BlocBuilder<BillingPartiesHomeBloc, BillingPartiesHomeState> allBillsWidget(
@@ -117,63 +124,85 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                 RoutesName.billingPartyPaticularScreen,
                                 extra: party);
                           },
-                          child: Card(
-                            elevation: 2,
+                          child: Container(
                             margin: const EdgeInsets.all(16),
-                            color: theme.hintColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        party.name!,
-                                        style: theme.textTheme.titleMedium,
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      RichText(
-                                          text: TextSpan(children: [
-                                        TextSpan(
-                                            text: "Received: ",
-                                            style: theme.textTheme.titleMedium!
-                                                .copyWith(
-                                                    fontSize: 14, color: grey)),
-                                        TextSpan(
-                                            text:
-                                                " ₹ ${party.receivedAmount?.toStringAsFixed(2)}",
-                                            style: theme.textTheme.titleMedium!
-                                                .copyWith(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: green))
-                                      ])),
-                                      RichText(
-                                          text: TextSpan(children: [
-                                        TextSpan(
-                                            text: "Receivable: ",
-                                            style: theme.textTheme.titleMedium!
-                                                .copyWith(
-                                                    fontSize: 14, color: grey)),
-                                        TextSpan(
-                                            text:
-                                                "₹ ${party.receivableAmount?.toStringAsFixed(2)}",
-                                            style: theme.textTheme.titleMedium!
-                                                .copyWith(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: red))
-                                      ]))
-                                    ],
-                                  )
-                                ],
-                              ),
+                            color: transparent,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      party.name ?? "",
+                                      style: theme.textTheme.titleLarge
+                                          ?.copyWith(fontSize: 14),
+                                    ),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                            Assets.svg.remaining.path),
+                                        5.wx,
+                                        Text(
+                                          "Remaining: ",
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(
+                                                  color: grey, fontSize: 12),
+                                        ),
+                                        Text(
+                                          "₹ ${(party.receivableAmount ?? 0) - (party.receivedAmount ?? 0)}",
+                                          style: theme.textTheme.titleLarge
+                                              ?.copyWith(
+                                                  color: Colors.orange,
+                                                  fontSize: 13),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Total Paid:",
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(
+                                                  color: grey, fontSize: 12),
+                                        ),
+                                        Text(
+                                          " ₹ ${party.receivedAmount ?? 0}",
+                                          style: theme.textTheme.titleLarge
+                                              ?.copyWith(
+                                                  color: green, fontSize: 13),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Total Payable: ",
+                                          style: theme.textTheme.titleMedium
+                                              ?.copyWith(
+                                                  color: grey, fontSize: 12),
+                                        ),
+                                        Text(
+                                          "₹ ${party.receivableAmount ?? 0}",
+                                          style: theme.textTheme.titleLarge
+                                              ?.copyWith(
+                                                  color: red, fontSize: 13),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                10.hx,
+                                const Divider()
+                              ],
                             ),
                           ),
                         );

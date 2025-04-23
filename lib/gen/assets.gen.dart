@@ -88,6 +88,15 @@ class $AssetsImagesGen {
   /// File path: assets/images/assets.png
   AssetGenImage get assets => const AssetGenImage('assets/images/assets.png');
 
+  /// File path: assets/images/b1.png
+  AssetGenImage get b1 => const AssetGenImage('assets/images/b1.png');
+
+  /// File path: assets/images/b2.png
+  AssetGenImage get b2 => const AssetGenImage('assets/images/b2.png');
+
+  /// File path: assets/images/b3.png
+  AssetGenImage get b3 => const AssetGenImage('assets/images/b3.png');
+
   /// File path: assets/images/crown.png
   AssetGenImage get crown => const AssetGenImage('assets/images/crown.png');
 
@@ -167,6 +176,9 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [
         a4build,
         assets,
+        b1,
+        b2,
+        b3,
         crown,
         expencesIcon,
         floorsPlan,

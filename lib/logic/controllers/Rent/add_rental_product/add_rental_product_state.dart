@@ -9,6 +9,8 @@ class AddRentalProductState with _$AddRentalProductState {
     required String date,
     required List<GetRentalModel> rentalList,
     required String rentalPartyId,
+    required DateTime startDate,
+    required DateTime endDate,
   }) = _AddRentalProductState;
   factory AddRentalProductState.initial() => AddRentalProductState(
       state: RequestState.empty,
@@ -16,5 +18,7 @@ class AddRentalProductState with _$AddRentalProductState {
       unit: '',
       date: DateTime.now().toString(),
       rentalPartyId: '',
-      rentalList: []);
+      rentalList: [],
+      startDate: DateTime.now(),
+      endDate: DateTime.now());
 }

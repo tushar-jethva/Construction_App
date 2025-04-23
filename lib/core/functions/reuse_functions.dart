@@ -84,6 +84,12 @@ class ReusableFunctions {
     return formattedDate;
   }
 
+  static String getFormattedDate2(DateTime date) {
+    // Format the date
+    String formattedDate = DateFormat.yMMMd().format(date);
+    return formattedDate;
+  }
+
   static Future<String> uploadToCloudinary(XFile image) async {
     final cloudinary = CloudinaryPublic("diarrqynw", "tgqozbcc");
 
@@ -98,32 +104,22 @@ class ReusableFunctions {
   //Show date picker
   static Future<void> showDatePicker(
       {required BuildContext context,
-      required void Function(dynamic event) onDateSelected,
+      required void Function(DateTime event) onDateSelected,
       DateTime? firstDate,
       DateTime? lastDate,
       DateTime? currentDate}) async {
     final List<DateTime?>? selectedDates = await showCalendarDatePicker2Dialog(
       context: context,
-      dialogBackgroundColor: white,
       config: CalendarDatePicker2WithActionButtonsConfig(
           calendarType: CalendarDatePicker2Type.single,
           lastDate: lastDate ?? DateTime.now(),
           firstDate: firstDate ?? DateTime(1900),
-          currentDate: currentDate ?? DateTime.now(),
-          cancelButtonTextStyle: Theme.of(context)
-              .textTheme
-              .titleLarge
-              ?.copyWith(fontSize: 14, color: purple),
-          okButtonTextStyle: Theme.of(context)
-              .textTheme
-              .titleLarge
-              ?.copyWith(fontSize: 14, color: purple),
-          selectedDayHighlightColor: purple),
+          currentDate: currentDate ?? DateTime.now()),
       dialogSize: const Size(325, 400),
     );
 
     if (selectedDates != null && selectedDates.first != null) {
-      onDateSelected(selectedDates.first);
+      onDateSelected(selectedDates.first ?? DateTime.now());
     }
   }
 

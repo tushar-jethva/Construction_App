@@ -14,6 +14,14 @@ class AddRentalProductEvent with _$AddRentalProductEvent {
   const factory AddRentalProductEvent.onRentalPartyIdChanged(
       {required String rentalPartyId}) = _OnRentalPartyIdChanged;
 
+  //on start date changed
+  const factory AddRentalProductEvent.onStartDateChanged(
+      {required DateTime startDate}) = _OnStartDateChanged;
+
+  //on end date changed
+  const factory AddRentalProductEvent.onEndDateChanged(
+      {required DateTime endDate}) = _OnEndDateChanged;
+
   //Add Rental
 
   const factory AddRentalProductEvent.onAddRental(

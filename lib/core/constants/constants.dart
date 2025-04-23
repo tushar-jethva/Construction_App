@@ -79,6 +79,13 @@ List<String> rentalIcons = [
   Assets.images.r4.path,
 ];
 
+//------------------- billing icons ----------------
+List<String> billingIcons = [
+  Assets.images.b1.path,
+  Assets.images.b2.path,
+  Assets.images.b3.path,
+];
+
 //---------------storage
 const String IS_FIRST_TIME = 'is_first_time';
 
