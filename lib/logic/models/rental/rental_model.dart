@@ -95,13 +95,17 @@ class Rentals {
   num? totalQuantity;
   num? totalPrice;
   List<Details>? details;
+  num? totalHours;
+  num? totalDays;
 
-  Rentals({this.name, this.totalQuantity, this.totalPrice, this.details});
+  Rentals({this.name, this.totalQuantity, this.totalPrice, this.details, this.totalDays, this.totalHours});
 
   Rentals.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     totalQuantity = json['totalQuantity'];
     totalPrice = json['totalPrice'];
+    totalDays = json['totalDays'];
+    totalHours = json['totalHours'];
     if (json['details'] != null) {
       details = <Details>[];
       json['details'].forEach((v) {

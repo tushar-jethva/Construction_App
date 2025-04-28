@@ -33,7 +33,6 @@ class RentThingScreen extends StatefulWidget {
 }
 
 class _RentThingScreenState extends State<RentThingScreen> {
-
   //On Refresh
   Future<void> onRefresh() async {
     // context.read<MaterialByPartieBloc>().add(
@@ -133,14 +132,14 @@ class _RentThingScreenState extends State<RentThingScreen> {
                               SvgPicture.asset(Assets.svg.remaining.path),
                               5.wx,
                               Text(
-                                "Total Quantity:",
+                                "Total Hours:",
                                 style: theme.textTheme.titleMedium
                                     ?.copyWith(color: grey, fontSize: 12),
                               ),
                               Text(
-                                "₹ ${agency.totalQuantity ?? 0}",
+                                " ${agency.totalHours ?? 0}",
                                 style: theme.textTheme.titleLarge?.copyWith(
-                                    color: Colors.orange, fontSize: 13),
+                                    color: Colors.black, fontSize: 13),
                               ),
                             ],
                           )
@@ -164,20 +163,20 @@ class _RentThingScreenState extends State<RentThingScreen> {
                               )
                             ],
                           ),
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       "Total Payable: ",
-                          //       style: theme.textTheme.titleMedium
-                          //           ?.copyWith(color: grey, fontSize: 12),
-                          //     ),
-                          //     Text(
-                          //       "₹ ${0}",
-                          //       style: theme.textTheme.titleLarge
-                          //           ?.copyWith(color: red, fontSize: 13),
-                          //     ),
-                          //   ],
-                          // )
+                          Row(
+                            children: [
+                              Text(
+                                "Total Days: ",
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: grey, fontSize: 12),
+                              ),
+                              Text(
+                                " ${agency.totalDays ?? 0}",
+                                style: theme.textTheme.titleLarge
+                                    ?.copyWith(color: black, fontSize: 13),
+                              ),
+                            ],
+                          )
                         ],
                       ),
                     ],
