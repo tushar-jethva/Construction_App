@@ -2,7 +2,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const String font1 = 'Inter';
+  static const String font1 = 'Poppins';
   static const Color _lightTextColor = black;
   static const Color _darkTextColor = white;
 

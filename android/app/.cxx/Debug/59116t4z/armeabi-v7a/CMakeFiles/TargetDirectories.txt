@@ -1,0 +1,2 @@
+/Users/Tushar/Documents/Learning Projects/Construction_App/android/app/.cxx/Debug/59116t4z/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+/Users/Tushar/Documents/Learning Projects/Construction_App/android/app/.cxx/Debug/59116t4z/armeabi-v7a/CMakeFiles/edit_cache.dir

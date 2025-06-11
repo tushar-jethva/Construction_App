@@ -1,0 +1,2 @@
+/Users/Tushar/Documents/Learning Projects/Construction_App/android/app/.cxx/RelWithDebInfo/8376q2dy/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Users/Tushar/Documents/Learning Projects/Construction_App/android/app/.cxx/RelWithDebInfo/8376q2dy/arm64-v8a/CMakeFiles/edit_cache.dir
