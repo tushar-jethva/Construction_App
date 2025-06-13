@@ -1,0 +1,7 @@
+{
+    "name": "flutter_web_app",
+    "scripts": {
+      "deploy": "gh-pages -d build/web"
+    }
+  }
+  
