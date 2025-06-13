@@ -71,6 +71,7 @@ import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_e
 import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc.dart';
+import 'package:construction_mate/logic/controllers/delete_account/delete_account_bloc.dart';
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart';
 import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';
@@ -218,7 +219,7 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(
             create: (context) => BillingPartyParticularBloc(
                 billsRepository: BillsRepositoryImpl())),
-                
+
         BlocProvider(create: (_) => di.locator<AgencyWorksProjectsBloc>()),
         BlocProvider(create: (_) => di.locator<AddMaterialBloc>()),
         BlocProvider(create: (_) => di.locator<BottomsheetBloc>()),
@@ -266,6 +267,9 @@ class MyMultiBlocProviders extends StatelessWidget {
         //Tranaction
         BlocProvider(
             create: (_) => di.locator<PaymentOutOtherMaterialAndRentBloc>()),
+
+        //Delete Account
+        BlocProvider(create: (_) => di.locator<DeleteAccountBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(392.72, 783.27),
@@ -289,7 +293,7 @@ class MyMultiBlocProviders extends StatelessWidget {
               ));
               return MaterialApp.router(
                 debugShowCheckedModeBanner: false,
-                title: 'Flutter Demo',
+                title: '4BILLD',
                 theme: state.themeData,
                 routerConfig: Routes.routes,
               );

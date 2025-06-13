@@ -220,11 +220,14 @@ class $AssetsJsonGen {
 class $AssetsLogosGen {
   const $AssetsLogosGen();
 
+  /// File path: assets/logos/bill.png
+  AssetGenImage get bill => const AssetGenImage('assets/logos/bill.png');
+
   /// File path: assets/logos/s2p.jpeg
   AssetGenImage get s2p => const AssetGenImage('assets/logos/s2p.jpeg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [s2p];
+  List<AssetGenImage> get values => [bill, s2p];
 }
 
 class $AssetsSvgGen {

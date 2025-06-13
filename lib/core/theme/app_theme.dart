@@ -34,7 +34,7 @@ class AppTheme {
       fontFamily: font1,
     ),
     titleMedium: TextStyle(
-      fontSize: 16,
+      fontSize: 14,
       color: _lightTextColor,
       fontWeight: FontWeight.w500,
       fontFamily: font1,
@@ -64,7 +64,7 @@ class AppTheme {
       fontFamily: font1,
     ),
     labelLarge: TextStyle(
-      fontSize: 14,
+      fontSize: 12,
       color: gray500,
       fontWeight: FontWeight.w300,
       fontFamily: font1,
@@ -86,11 +86,12 @@ class AppTheme {
       scaffoldBackgroundColor: white,
       cardColor: greyLight,
       hoverColor: highlightColor,
-      primaryColor: purple,
+      primaryColor: white,
       hintColor: white,
       textTheme: _lightTextTheme,
       indicatorColor: purple,
       canvasColor: black,
+      dividerColor: white,
       radioTheme: RadioThemeData(fillColor: WidgetStatePropertyAll(purple)));
 
   static const TextTheme _darkTextTheme = TextTheme(
@@ -172,7 +173,7 @@ class AppTheme {
       scaffoldBackgroundColor: blackBackgroundColor,
       cardColor: darkCardColor,
       hoverColor: darkShimmerColor,
-      primaryColor: purple,
+      primaryColor: black,
       canvasColor: white,
       hintColor: darkCardColor,
       indicatorColor: purple,

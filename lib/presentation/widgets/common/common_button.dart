@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -49,10 +50,10 @@ class CustomElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           padding: child != null ? EdgeInsets.zero : null,
           elevation: 0,
-          backgroundColor: backgroundColor ?? theme.primaryColor,
+          backgroundColor: backgroundColor ?? purple,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(radius),
-              side: BorderSide(color: borderColor ?? theme.primaryColor)),
+              side: BorderSide(color: borderColor ?? purple)),
         ),
         child: (isLoading == true)
             ? Row(

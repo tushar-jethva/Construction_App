@@ -30,8 +30,8 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
   void initState() {
     super.initState();
     transactionBuildingBloc = BlocProvider.of<TransactionBuildingBloc>(context);
-    // transactionBuildingBloc
-    //     .add(FetchAllTransactionByProjectId(projectId: widget.project.sId!));
+    transactionBuildingBloc
+        .add(FetchAllTransactionByProjectId(projectId: widget.project.sId!));
   }
 
   @override

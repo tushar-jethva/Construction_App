@@ -8,6 +8,7 @@ import 'package:construction_mate/data/datasource/work_types_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
+import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/controllers/BuildingAddBloc/buildings_bloc.dart';
 import 'package:construction_mate/logic/controllers/PerBuildingAgency/per_building_agencies_bloc.dart';
 import 'package:construction_mate/logic/controllers/ProjectListBloc/project_bloc.dart';
@@ -242,10 +243,15 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   listener: (context, state) {
                     if (state is AddAgencySuccessState) {
                       Navigator.pop(context);
-                      showTopSnackBar(context, "Agency added successfully!", messageType: MessageType.done);
+                      showTopSnackBar(context, "Agency added successfully!",
+                          messageType: MessageType.done);
                       context.read<PerBuildingAgenciesBloc>().add(LoadAgencies(
                           buildingId: buildingModel.sId!,
                           projectId: projectModel.sId!));
+
+                      context.read<AgencyWorksProjectsBloc>().add(
+                          AgencyWorksProjectsEvent.fetchAgencies(
+                              projectId: projectModel.sId ?? ''));
 
                       context.read<BuildingsBloc>().add(
                           LoadBuildings(projectId: projectModel.sId ?? ''));

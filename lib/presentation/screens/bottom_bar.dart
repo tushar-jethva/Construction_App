@@ -38,10 +38,9 @@ class _MyBottomBarState extends State<MyBottomBar> {
     // Add screens with specific callbacks (e.g., onTapProfile for MyProjectScreen)
     screens.addAll([
       const MyPartiesScreen(),
-      MyProjectScreen(onTapProfile: () {
-        _scaffoldKey.currentState
-            ?.openDrawer(); // Open the drawer when profile is tapped
-      }),
+      MyProjectScreen(
+        onTapProfile: () {},
+      ),
       const MyBillScreen(),
     ]);
   }
@@ -63,70 +62,140 @@ class _MyBottomBarState extends State<MyBottomBar> {
               })),
           drawer: drawer(context: context),
           body: screens[state.tabIndex],
-          bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(
-              splashFactory:
-                  NoSplash.splashFactory, // Disable the splash effect
-              highlightColor:
-                  Colors.transparent, // Disable the highlight effect
-            ),
-            child: BottomNavigationBar(
-                backgroundColor: theme.scaffoldBackgroundColor,
-                unselectedItemColor: grey,
-                selectedItemColor: purple,
-                unselectedIconTheme: IconThemeData(color: grey),
-                selectedIconTheme: IconThemeData(color: purple),
-                elevation: 0,
-                showSelectedLabels: true,
-                showUnselectedLabels: false,
-                currentIndex: state.tabIndex,
-                selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
-                onTap: (value) {
-                  context
-                      .read<BottomBarBloc>()
-                      .add(TabChangeEvent(tabIndex: value));
-                },
-                items: [
-                  BottomNavigationBarItem(
-                      icon: Column(
-                        children: [
-                          GradientShape(isActive: state.tabIndex == 0),
-                          3.hx,
-                          SvgPicture.asset(
-                            Assets.svg.partiesIcon.path,
-                            color: state.tabIndex == 0 ? purple : grey,
-                          ),
-                        ],
-                      ),
-                      label: 'Parties'),
-                  BottomNavigationBarItem(
-                      icon: Column(
-                        children: [
-                          GradientShape(isActive: state.tabIndex == 1),
-                          3.hx,
-                          SvgPicture.asset(
-                            Assets.svg.projectIcon.path,
-                            color: state.tabIndex == 1 ? purple : grey,
-                          ),
-                        ],
-                      ),
-                      label: "Projects"),
-                  BottomNavigationBarItem(
-                      icon: Column(
-                        children: [
-                          GradientShape(isActive: state.tabIndex == 2),
-                          3.hx,
-                          SvgPicture.asset(
-                            Assets.svg.billIcon.path,
-                            color: state.tabIndex == 2 ? purple : grey,
-                          ),
-                        ],
-                      ),
-                      label: "Bills"),
-                ]),
+          // bottomNavigationBar: Theme(
+          //   data: Theme.of(context).copyWith(
+          //     splashFactory:
+          //         NoSplash.splashFactory, // Disable the splash effect
+          //     highlightColor:
+          //         Colors.transparent, // Disable the highlight effect
+          //   ),
+          //   child: BottomNavigationBar(
+          //       backgroundColor: theme.scaffoldBackgroundColor,
+          //       unselectedItemColor: grey,
+          //       selectedItemColor: purple,
+          //       unselectedIconTheme: IconThemeData(color: grey),
+          //       selectedIconTheme: IconThemeData(color: purple),
+          //       elevation: 0,
+          //       showSelectedLabels: true,
+          //       showUnselectedLabels: false,
+          //       currentIndex: state.tabIndex,
+          //       selectedLabelStyle: TextStyle(fontWeight: FontWeight.w500),
+          //       onTap: (value) {
+          //         context
+          //             .read<BottomBarBloc>()
+          //             .add(TabChangeEvent(tabIndex: value));
+          //       },
+          //       items: [
+          //         BottomNavigationBarItem(
+          //             icon: Column(
+          //               children: [
+          //                 GradientShape(isActive: state.tabIndex == 0),
+          //                 3.hx,
+          //                 SvgPicture.asset(
+          //                   Assets.svg.partiesIcon.path,
+          //                   color: state.tabIndex == 0 ? purple : grey,
+          //                 ),
+          //               ],
+          //             ),
+          //             label: 'Parties'),
+          //         BottomNavigationBarItem(
+          //             icon: Column(
+          //               children: [
+          //                 GradientShape(isActive: state.tabIndex == 1),
+          //                 3.hx,
+          //                 SvgPicture.asset(
+          //                   Assets.svg.projectIcon.path,
+          //                   color: state.tabIndex == 1 ? purple : grey,
+          //                 ),
+          //               ],
+          //             ),
+          //             label: "Projects"),
+          //         BottomNavigationBarItem(
+          //             icon: Column(
+          //               children: [
+          //                 GradientShape(isActive: state.tabIndex == 2),
+          //                 3.hx,
+          //                 SvgPicture.asset(
+          //                   Assets.svg.billIcon.path,
+          //                   color: state.tabIndex == 2 ? purple : grey,
+          //                 ),
+          //               ],
+          //             ),
+          //             label: "Bills"),
+          //       ]),
+          // ),
+          bottomNavigationBar: CustomBottomNavExampleState(
+            selectedIndex: state.tabIndex,
           ),
         );
       },
+    );
+  }
+}
+
+class CustomBottomNavExampleState extends StatelessWidget {
+  CustomBottomNavExampleState({super.key, required this.selectedIndex});
+  final int selectedIndex;
+  final List<IconData> _icons = [
+    Icons.group,
+    Icons.work_outline,
+    Icons.receipt_long_outlined
+  ];
+  final List<String> _labels = ["Parties", "Projects", "Bills"];
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      child: Container(
+          height: 70,
+          decoration: BoxDecoration(
+            color: theme.cardColor,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(_icons.length, (index) {
+                bool isSelected = selectedIndex == index;
+                return GestureDetector(
+                  onTap: () {
+                    context
+                        .read<BottomBarBloc>()
+                        .add(TabChangeEvent(tabIndex: index));
+                  },
+                  child: AnimatedContainer(
+                    
+                    margin: EdgeInsets.symmetric(
+                        horizontal: isSelected ? 12 : 10, vertical: 10),
+                    duration: const Duration(milliseconds: 300),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: isSelected ? 20 : 10, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: isSelected ? theme.canvasColor : theme.cardColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(_icons[index],
+                            color: isSelected
+                                ? theme.primaryColor
+                                : theme.canvasColor),
+                        if (isSelected)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Text(
+                              _labels[index],
+                              style: TextStyle(
+                                  color: theme.primaryColor,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                );
+              }))),
     );
   }
 }
@@ -301,17 +370,21 @@ Widget drawer({required BuildContext context}) {
               },
             ),
             const Spacer(),
-            Text("🧡"),
+            const Text("🧡"),
             RichText(
-                text: TextSpan(children: [
-              TextSpan(
-                  text: "Built with pride in",
-                  style: theme.textTheme.titleMedium?.copyWith(fontSize: 16)),
-              TextSpan(
-                text: " Gujarat",
-                style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
-              )
-            ])),
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                      text: "Built with pride in",
+                      style:
+                          theme.textTheme.titleMedium?.copyWith(fontSize: 16)),
+                  TextSpan(
+                    text: " Gujarat",
+                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
+                  )
+                ],
+              ),
+            ),
             Text(
               'Builders Everywhere',
               textAlign: TextAlign.center,

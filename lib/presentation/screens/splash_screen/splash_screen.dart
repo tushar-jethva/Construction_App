@@ -56,16 +56,17 @@ class _SplashScreenState extends State<SplashScreen> {
             children: [
               Expanded(
                 child: Center(
-                    child: Container(
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: AssetImage(
-                                Assets.images.a4build.path,
-                              ),
-                              fit: BoxFit.contain),
-                        ))),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(Assets.logos.bill.path),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

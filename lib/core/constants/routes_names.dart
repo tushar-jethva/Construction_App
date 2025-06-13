@@ -83,4 +83,8 @@ class RoutesName {
   //New password screen
   static String NEW_PASSWORD_SCREEN_PATH = "/newPassword";
   static String NEW_PASSWORD_SCREEN_NAME = "/newPassword";
+
+  //Delete account screen
+  static String DELETE_ACCOUNT_SCREEN_PATH = "/deleteAccount";
+  static String DELETE_ACCOUNT_SCREEN_NAME = "deleteAccount";
 }

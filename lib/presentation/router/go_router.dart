@@ -26,6 +26,7 @@ import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/logic/models/per_building_agency_model.dart';
 import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
+import 'package:construction_mate/presentation/screens/Delete-Account/delete_account_page.dart';
 import 'package:construction_mate/presentation/screens/authentication/forgot_password/forgot_email_screen.dart';
 import 'package:construction_mate/presentation/screens/authentication/forgot_password/new_password_screen.dart';
 import 'package:construction_mate/presentation/screens/authentication/signin/sign_in_screen.dart';
@@ -62,6 +63,7 @@ import 'package:construction_mate/presentation/screens/subscription/subscription
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/add_billing_party_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress_details_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/floors_and_foot_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -71,419 +73,440 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 class Routes {
   static final GoRouter routes = GoRouter(
       navigatorKey: navigatorKey,
-      initialLocation: RoutesName.initialLocation,
-      routes: [
-        GoRoute(
-          path: RoutesName.initialLocation,
-          name: RoutesName.initialLocation,
-          builder: (contex, state) => const SplashScreen(),
-        ),
-        GoRoute(
-          path: RoutesName.ONBOARD_SCREEN_PATH,
-          name: RoutesName.ONBOARD_SCREEN_NAME,
-          builder: (contex, state) => const OnboardStep1(),
-        ),
-        GoRoute(
-          path: RoutesName.signUpScreen,
-          name: RoutesName.signUpScreen,
-          builder: (contex, state) {
-            contex
-                .read<VisibilityEyeBloc>()
-                .add(const VisibilityEyeEvent.initialize());
-            return SignUpScreen();
-          },
-        ),
-        GoRoute(
-          path: RoutesName.signUpScreen2,
-          name: RoutesName.signUpScreen2,
-          builder: (contex, state) {
-            contex
-                .read<VisibilityEyeBloc>()
-                .add(const VisibilityEyeEvent.initialize());
-            contex.read<SignUpBloc>().add(const SignUpEvent.initial());
-            return const SignUpStep2();
-          },
-        ),
-        GoRoute(
-          path: RoutesName.signInScreen,
-          name: RoutesName.signInScreen,
-          builder: (contex, state) {
-            contex
-                .read<VisibilityEyeBloc>()
-                .add(const VisibilityEyeEvent.initialize());
-            return SignInScreen();
-          },
-        ),
-
-        ///-----------------------------------------------------------
-        ///--------------- Forgot Email
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.FORGOT_EMAIL_SCREEN_NAME,
-          name: RoutesName.FORGOT_EMAIL_SCREEN_PATH,
-          builder: (context, state) {
-            return ForgotEmailScreen();
-          },
-        ),
-
-        ///-----------------------------------------------------------
-        ///--------------- New Password
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.NEW_PASSWORD_SCREEN_NAME,
-          name: RoutesName.NEW_PASSWORD_SCREEN_PATH,
-          builder: (context, state) {
-            context
-                .read<VisibilityEyeBloc>()
-                .add(const VisibilityEyeEvent.initialize());
-
-            return NewPasswordScreen();
-          },
-        ),
-
-        GoRoute(
-          path: RoutesName.bottomBar,
-          name: RoutesName.bottomBar,
-          builder: (contex, state) => const MyBottomBar(),
-        ),
-        GoRoute(
-          path: RoutesName.partiesScreen,
-          name: RoutesName.partiesScreen,
-          builder: (contex, state) => const MyPartiesScreen(),
-        ),
-        GoRoute(
-          path: RoutesName.billsScreen,
-          name: RoutesName.billsScreen,
-          builder: (contex, state) => const MyBillScreen(),
-        ),
-        GoRoute(
-          path: RoutesName.projectDetailsScreen,
-          name: RoutesName.projectDetailsScreen,
-          builder: (contex, state) {
-            final ProjectModel project = state.extra as ProjectModel;
-            return BlocProvider(
-              create: (context) => PaymentTotalProjectBloc(
-                  transactionRepository: TransactionRepositoryImpl(
-                      transactionDataSource: TransactionDataSourceImpl())),
-              child: MyProjectDetailsScreen(
-                projectModel: project,
+      initialLocation: kIsWeb
+          ? RoutesName.DELETE_ACCOUNT_SCREEN_PATH
+          : RoutesName.initialLocation,
+      routes: kIsWeb
+          ? <RouteBase>[
+              ///  =================================================================
+              ///  ********************** Splash Route *****************************
+              /// ==================================================================
+              GoRoute(
+                name: RoutesName.DELETE_ACCOUNT_SCREEN_NAME,
+                path: RoutesName.DELETE_ACCOUNT_SCREEN_PATH,
+                builder: (BuildContext context, GoRouterState state) {
+                  return DeleteAccountPage();
+                },
               ),
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.buildingDetailsScreen,
-          name: RoutesName.buildingDetailsScreen,
-          builder: (context, state) {
-            final args = state.extra as Map<String, dynamic>;
-            final buildingModel = args['buildingModel'] as BuildingModel;
-            final projectModel = args["projectModel"] as ProjectModel;
-            return MyBuildingDetailsScreen(
-              buildingModel: buildingModel,
-              projectModel: projectModel,
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.selectFloorsScreen,
-          name: RoutesName.selectFloorsScreen,
-          builder: (context, state) {
-            final args = state.extra as Map<String, dynamic>;
-            final buildingModel = args['buildingModel'] as BuildingModel;
-            final selectFloorsBloc = args['bloc'] as SelectFloorsBloc;
-            final workTypeId = args['workTypeId'] as String;
-            final projectModel = args['projectModel'] as ProjectModel;
-            return MySelectFloorsScreen(
-              buildingModel: buildingModel,
-              selectFloorsBloc: selectFloorsBloc,
-              projectModel: projectModel,
-              workTypeId: workTypeId,
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.workingAgencyDetailsScreen,
-          name: RoutesName.workingAgencyDetailsScreen,
-          builder: (context, state) {
-            final PerBuildingAgencyModel perBuildingAgencyModel =
-                state.extra as PerBuildingAgencyModel;
-            return MyWorkingAgencyDetailsScreen(
-              perBuildingAgency: perBuildingAgencyModel,
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.siteProgressDeailsScreen,
-          name: RoutesName.siteProgressDeailsScreen,
-          builder: (context, state) {
-            final args = state.extra as Map<String, dynamic>;
-            final floorSiteModel = args['floorSiteModel'] as FloorSiteModel;
-
-            return BlocProvider(
-              create: (context) => SiteProgressAgencyUpdateBloc(
-                  siteProgressRepository: SiteProgressRepositoryImpl(
-                      siteProgressDataSource: SiteProgressDataSourceImpl())),
-              child: MySiteProgressDetailsWidget(
-                floorSiteModel: floorSiteModel,
+            ]
+          : [
+              GoRoute(
+                path: RoutesName.initialLocation,
+                name: RoutesName.initialLocation,
+                builder: (contex, state) => const SplashScreen(),
               ),
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.transactionOfAgencyPartiesScreen,
-          name: RoutesName.transactionOfAgencyPartiesScreen,
-          builder: (context, state) {
-            final AgencyModel totalAgencyModel = state.extra as AgencyModel;
-            return BlocProvider(
-              create: (context) => TransactionByAgencyBloc(
-                  transactionRepository: TransactionRepositoryImpl(
-                      transactionDataSource: TransactionDataSourceImpl())),
-              child: MyTransactionPartiesScreen(agency: totalAgencyModel),
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.transactionIndividualScreen,
-          name: RoutesName.transactionIndividualScreen,
-          builder: (context, state) {
-            final args = state.extra as Map<String, dynamic>;
-            final agencyId = args['agencyId'] as String;
-            final projectId = args['projectId'] as String;
-            final agencyName = args['agencyName'] as String;
-
-            context
-                .read<StartAndEndDateBloc>()
-                .add(const StartAndEndDateEvent.initalize());
-            return BlocProvider(
-              create: (context) => TransactionsIndividualAgencyBloc(
-                  transactionRepository: TransactionRepositoryImpl(
-                      transactionDataSource: TransactionDataSourceImpl())),
-              child: MyTransactionIndividualScreen(
-                  agencyId: agencyId,
-                  projectId: projectId,
-                  agencyName: agencyName),
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.footAndFloorScreen,
-          name: RoutesName.footAndFloorScreen,
-          builder: (context, state) {
-            final FloorNameAndFeetBloc bloc =
-                state.extra as FloorNameAndFeetBloc;
-            return MyFootAndFloorScreen(
-              floorNameAndFeetBloc: bloc,
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.billingPartyPaticularScreen,
-          name: RoutesName.billingPartyPaticularScreen,
-          builder: (context, state) {
-            final AgencyModel party = state.extra as AgencyModel;
-            return MyBillsParticularPartyScreen(
-              party: party,
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.sheetViewScreen,
-          name: RoutesName.sheetViewScreen,
-          builder: (context, state) {
-            final args = state.extra as Map<String, dynamic>;
-            final String partyId = args['partyId'] as String;
-            final String partyName = args['partyName'] as String;
-            return BlocProvider(
-              create: (context) => BillingPartyParticularBloc(
-                  billsRepository: BillsRepositoryImpl()),
-              child: MySheetViewScreen(
-                partyId: partyId,
-                partyName: partyName,
+              GoRoute(
+                path: RoutesName.ONBOARD_SCREEN_PATH,
+                name: RoutesName.ONBOARD_SCREEN_NAME,
+                builder: (contex, state) => const OnboardStep1(),
               ),
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.pdfPreviewScreen,
-          name: RoutesName.pdfPreviewScreen,
-          builder: (context, state) {
-            final BillModel bill = state.extra as BillModel;
-            return MyPdfPreview(
-              bill: bill,
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.subscriptionScreen,
-          name: RoutesName.subscriptionScreen,
-          builder: (context, state) {
-            final bool isExpired = state.extra as bool;
-            return SubscriptionScreen(
-              isExpired: isExpired,
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.CONTACT_US_SCREEN_NAME,
-          name: RoutesName.CONTACT_US_SCREEN_PATH,
-          builder: (context, state) {
-            return const ContactUsScreen();
-          },
-        ),
-        GoRoute(
-          path: RoutesName.tdsScreen,
-          name: RoutesName.tdsScreen,
-          builder: (context, state) {
-            return const TdsScreen();
-          },
-        ),
-        GoRoute(
-          path: RoutesName.gstScreen,
-          name: RoutesName.gstScreen,
-          builder: (context, state) {
-            return const GstScreen();
-          },
-        ),
-        GoRoute(
-          path: RoutesName.otherExpensesScreen,
-          name: RoutesName.otherExpensesScreen,
-          builder: (context, state) {
-            return const OtherExpenseScreen();
-          },
-        ),
-        GoRoute(
-          path: RoutesName.editProfileScreen,
-          name: RoutesName.editProfileScreen,
-          builder: (context, state) {
-            context
-                .read<EditProfileBloc>()
-                .add(const EditProfileEvent.setData());
+              GoRoute(
+                path: RoutesName.signUpScreen,
+                name: RoutesName.signUpScreen,
+                builder: (contex, state) {
+                  contex
+                      .read<VisibilityEyeBloc>()
+                      .add(const VisibilityEyeEvent.initialize());
+                  return SignUpScreen();
+                },
+              ),
+              GoRoute(
+                path: RoutesName.signUpScreen2,
+                name: RoutesName.signUpScreen2,
+                builder: (contex, state) {
+                  contex
+                      .read<VisibilityEyeBloc>()
+                      .add(const VisibilityEyeEvent.initialize());
+                  contex.read<SignUpBloc>().add(const SignUpEvent.initial());
+                  return const SignUpStep2();
+                },
+              ),
+              GoRoute(
+                path: RoutesName.signInScreen,
+                name: RoutesName.signInScreen,
+                builder: (contex, state) {
+                  contex
+                      .read<VisibilityEyeBloc>()
+                      .add(const VisibilityEyeEvent.initialize());
+                  return SignInScreen();
+                },
+              ),
 
-            return const EditProfileScreen();
-          },
-        ),
+              ///-----------------------------------------------------------
+              ///--------------- Forgot Email
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.FORGOT_EMAIL_SCREEN_NAME,
+                name: RoutesName.FORGOT_EMAIL_SCREEN_PATH,
+                builder: (context, state) {
+                  return ForgotEmailScreen();
+                },
+              ),
 
-        ///-----------------------------------------------------------
-        ///--------------- Add particular Party
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.ADD_PARTICULAR_PARTY_SCREEN_PATH,
-          name: RoutesName.ADD_PARTICULAR_PARTY_SCREEN_NAME,
-          builder: (context, state) {
-            return const AddParticularPartyScreen();
-          },
-        ),
+              ///-----------------------------------------------------------
+              ///--------------- New Password
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.NEW_PASSWORD_SCREEN_NAME,
+                name: RoutesName.NEW_PASSWORD_SCREEN_PATH,
+                builder: (context, state) {
+                  context
+                      .read<VisibilityEyeBloc>()
+                      .add(const VisibilityEyeEvent.initialize());
 
-        ///-----------------------------------------------------------
-        ///--------------- Add Billing Party
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.ADD_BILLING_PARTY_SCREEN_NAME,
-          name: RoutesName.ADD_BILLING_PARTY_SCREEN_PATH,
-          builder: (context, state) {
-            return const MyAddBillingPartyBottomSheet();
-          },
-        ),
+                  return NewPasswordScreen();
+                },
+              ),
 
-        ///-----------------------------------------------------------
-        ///--------------- Add Material Party
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.ADD_MATERIAL_PARTY_SCREEN_NAME,
-          name: RoutesName.ADD_MATERIAL_PARTY_SCREEN_PATH,
-          builder: (context, state) {
-            return const MyMaterialPartyBottomSheet();
-          },
-        ),
+              GoRoute(
+                path: RoutesName.bottomBar,
+                name: RoutesName.bottomBar,
+                builder: (contex, state) => const MyBottomBar(),
+              ),
+              GoRoute(
+                path: RoutesName.partiesScreen,
+                name: RoutesName.partiesScreen,
+                builder: (contex, state) => const MyPartiesScreen(),
+              ),
+              GoRoute(
+                path: RoutesName.billsScreen,
+                name: RoutesName.billsScreen,
+                builder: (contex, state) => const MyBillScreen(),
+              ),
+              GoRoute(
+                path: RoutesName.projectDetailsScreen,
+                name: RoutesName.projectDetailsScreen,
+                builder: (contex, state) {
+                  final ProjectModel project = state.extra as ProjectModel;
+                  return BlocProvider(
+                    create: (context) => PaymentTotalProjectBloc(
+                        transactionRepository: TransactionRepositoryImpl(
+                            transactionDataSource:
+                                TransactionDataSourceImpl())),
+                    child: MyProjectDetailsScreen(
+                      projectModel: project,
+                    ),
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.buildingDetailsScreen,
+                name: RoutesName.buildingDetailsScreen,
+                builder: (context, state) {
+                  final args = state.extra as Map<String, dynamic>;
+                  final buildingModel = args['buildingModel'] as BuildingModel;
+                  final projectModel = args["projectModel"] as ProjectModel;
+                  return MyBuildingDetailsScreen(
+                    buildingModel: buildingModel,
+                    projectModel: projectModel,
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.selectFloorsScreen,
+                name: RoutesName.selectFloorsScreen,
+                builder: (context, state) {
+                  final args = state.extra as Map<String, dynamic>;
+                  final buildingModel = args['buildingModel'] as BuildingModel;
+                  final selectFloorsBloc = args['bloc'] as SelectFloorsBloc;
+                  final workTypeId = args['workTypeId'] as String;
+                  final projectModel = args['projectModel'] as ProjectModel;
+                  return MySelectFloorsScreen(
+                    buildingModel: buildingModel,
+                    selectFloorsBloc: selectFloorsBloc,
+                    projectModel: projectModel,
+                    workTypeId: workTypeId,
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.workingAgencyDetailsScreen,
+                name: RoutesName.workingAgencyDetailsScreen,
+                builder: (context, state) {
+                  final PerBuildingAgencyModel perBuildingAgencyModel =
+                      state.extra as PerBuildingAgencyModel;
+                  return MyWorkingAgencyDetailsScreen(
+                    perBuildingAgency: perBuildingAgencyModel,
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.siteProgressDeailsScreen,
+                name: RoutesName.siteProgressDeailsScreen,
+                builder: (context, state) {
+                  final args = state.extra as Map<String, dynamic>;
+                  final floorSiteModel =
+                      args['floorSiteModel'] as FloorSiteModel;
 
-        ///-----------------------------------------------------------
-        ///--------------- Add Rent Party
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.ADD_RENT_PARTY_SCREEN_NAME,
-          name: RoutesName.ADD_RENT_PARTY_SCREEN_PATH,
-          builder: (context, state) {
-            return const MyRentPartyScreen();
-          },
-        ),
+                  return BlocProvider(
+                    create: (context) => SiteProgressAgencyUpdateBloc(
+                        siteProgressRepository: SiteProgressRepositoryImpl(
+                            siteProgressDataSource:
+                                SiteProgressDataSourceImpl())),
+                    child: MySiteProgressDetailsWidget(
+                      floorSiteModel: floorSiteModel,
+                    ),
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.transactionOfAgencyPartiesScreen,
+                name: RoutesName.transactionOfAgencyPartiesScreen,
+                builder: (context, state) {
+                  final AgencyModel totalAgencyModel =
+                      state.extra as AgencyModel;
+                  return BlocProvider(
+                    create: (context) => TransactionByAgencyBloc(
+                        transactionRepository: TransactionRepositoryImpl(
+                            transactionDataSource:
+                                TransactionDataSourceImpl())),
+                    child: MyTransactionPartiesScreen(agency: totalAgencyModel),
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.transactionIndividualScreen,
+                name: RoutesName.transactionIndividualScreen,
+                builder: (context, state) {
+                  final args = state.extra as Map<String, dynamic>;
+                  final agencyId = args['agencyId'] as String;
+                  final projectId = args['projectId'] as String;
+                  final agencyName = args['agencyName'] as String;
 
-        ///-----------------------------------------------------------
-        ///--------------- All Rent Party
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.RENT_PRODUCTS_BY_PROJECT_SCREEN_PATH,
-          name: RoutesName.RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME,
-          builder: (context, state) {
-            final data = state.extra as Map<String, dynamic>;
+                  context
+                      .read<StartAndEndDateBloc>()
+                      .add(const StartAndEndDateEvent.initalize());
+                  return BlocProvider(
+                    create: (context) => TransactionsIndividualAgencyBloc(
+                        transactionRepository: TransactionRepositoryImpl(
+                            transactionDataSource:
+                                TransactionDataSourceImpl())),
+                    child: MyTransactionIndividualScreen(
+                        agencyId: agencyId,
+                        projectId: projectId,
+                        agencyName: agencyName),
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.footAndFloorScreen,
+                name: RoutesName.footAndFloorScreen,
+                builder: (context, state) {
+                  final FloorNameAndFeetBloc bloc =
+                      state.extra as FloorNameAndFeetBloc;
+                  return MyFootAndFloorScreen(
+                    floorNameAndFeetBloc: bloc,
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.billingPartyPaticularScreen,
+                name: RoutesName.billingPartyPaticularScreen,
+                builder: (context, state) {
+                  final AgencyModel party = state.extra as AgencyModel;
+                  return MyBillsParticularPartyScreen(
+                    party: party,
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.sheetViewScreen,
+                name: RoutesName.sheetViewScreen,
+                builder: (context, state) {
+                  final args = state.extra as Map<String, dynamic>;
+                  final String partyId = args['partyId'] as String;
+                  final String partyName = args['partyName'] as String;
+                  return BlocProvider(
+                    create: (context) => BillingPartyParticularBloc(
+                        billsRepository: BillsRepositoryImpl()),
+                    child: MySheetViewScreen(
+                      partyId: partyId,
+                      partyName: partyName,
+                    ),
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.pdfPreviewScreen,
+                name: RoutesName.pdfPreviewScreen,
+                builder: (context, state) {
+                  final BillModel bill = state.extra as BillModel;
+                  return MyPdfPreview(
+                    bill: bill,
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.subscriptionScreen,
+                name: RoutesName.subscriptionScreen,
+                builder: (context, state) {
+                  final bool isExpired = state.extra as bool;
+                  return SubscriptionScreen(
+                    isExpired: isExpired,
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.CONTACT_US_SCREEN_NAME,
+                name: RoutesName.CONTACT_US_SCREEN_PATH,
+                builder: (context, state) {
+                  return const ContactUsScreen();
+                },
+              ),
+              GoRoute(
+                path: RoutesName.tdsScreen,
+                name: RoutesName.tdsScreen,
+                builder: (context, state) {
+                  return const TdsScreen();
+                },
+              ),
+              GoRoute(
+                path: RoutesName.gstScreen,
+                name: RoutesName.gstScreen,
+                builder: (context, state) {
+                  return const GstScreen();
+                },
+              ),
+              GoRoute(
+                path: RoutesName.otherExpensesScreen,
+                name: RoutesName.otherExpensesScreen,
+                builder: (context, state) {
+                  return const OtherExpenseScreen();
+                },
+              ),
+              GoRoute(
+                path: RoutesName.editProfileScreen,
+                name: RoutesName.editProfileScreen,
+                builder: (context, state) {
+                  context
+                      .read<EditProfileBloc>()
+                      .add(const EditProfileEvent.setData());
 
-            return RentalProductsScreen(
-              project: data['project'],
-              partieId: data['partieId'],
-              rental: data['rental'],
-            );
-          },
-        ),
+                  return const EditProfileScreen();
+                },
+              ),
 
-        ///-----------------------------------------------------------
-        ///--------------- All Rental Thing
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
-          name: RoutesName.ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
-          builder: (context, state) {
-            final data = state.extra as Map<String, dynamic>;
+              ///-----------------------------------------------------------
+              ///--------------- Add particular Party
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.ADD_PARTICULAR_PARTY_SCREEN_PATH,
+                name: RoutesName.ADD_PARTICULAR_PARTY_SCREEN_NAME,
+                builder: (context, state) {
+                  return const AddParticularPartyScreen();
+                },
+              ),
 
-            return RentThingScreen(
-              project: data['project'],
-              partieId: data['partieId'],
-              rental: data['rental'],
-            );
-          },
-        ),
+              ///-----------------------------------------------------------
+              ///--------------- Add Billing Party
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.ADD_BILLING_PARTY_SCREEN_NAME,
+                name: RoutesName.ADD_BILLING_PARTY_SCREEN_PATH,
+                builder: (context, state) {
+                  return const MyAddBillingPartyBottomSheet();
+                },
+              ),
 
-        ///-----------------------------------------------------------
-        ///--------------- All Materail Party
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
-          name: RoutesName.MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
-          builder: (context, state) {
-            final data = state.extra as Map<String, dynamic>;
+              ///-----------------------------------------------------------
+              ///--------------- Add Material Party
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.ADD_MATERIAL_PARTY_SCREEN_NAME,
+                name: RoutesName.ADD_MATERIAL_PARTY_SCREEN_PATH,
+                builder: (context, state) {
+                  return const MyMaterialPartyBottomSheet();
+                },
+              ),
 
-            return MaterialProductsScreen(
-              project: data['project'],
-              partieId: data['partieId'],
-              materials: data['material'],
-            );
-          },
-        ),
+              ///-----------------------------------------------------------
+              ///--------------- Add Rent Party
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.ADD_RENT_PARTY_SCREEN_NAME,
+                name: RoutesName.ADD_RENT_PARTY_SCREEN_PATH,
+                builder: (context, state) {
+                  return const MyRentPartyScreen();
+                },
+              ),
 
-        ///-----------------------------------------------------------
-        ///--------------- All Materail Thing
-        ///-----------------------------------------------------------
-        GoRoute(
-          path: RoutesName.ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
-          name: RoutesName.ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
-          builder: (context, state) {
-            final data = state.extra as Map<String, dynamic>;
+              ///-----------------------------------------------------------
+              ///--------------- All Rent Party
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.RENT_PRODUCTS_BY_PROJECT_SCREEN_PATH,
+                name: RoutesName.RENT_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                builder: (context, state) {
+                  final data = state.extra as Map<String, dynamic>;
 
-            return MaterialThingScreen(
-              project: data['project'],
-              partieId: data['partieId'],
-              material: data['material'],
-            );
-          },
-        ),
-        GoRoute(
-          path: RoutesName.NEW_DETAIL_SCREEN_PATH,
-          name: RoutesName.NEW_DETAIL_SCREEN_NAME,
-          builder: (context, state) {
-            final ProjectModel project = state.extra as ProjectModel;
+                  return RentalProductsScreen(
+                    project: data['project'],
+                    partieId: data['partieId'],
+                    rental: data['rental'],
+                  );
+                },
+              ),
 
-            return ProjectDetailsNScreen(
-              projectModel: project,
-            );
-          },
-        ),
-      ]);
+              ///-----------------------------------------------------------
+              ///--------------- All Rental Thing
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
+                name: RoutesName.ALL_RENTAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                builder: (context, state) {
+                  final data = state.extra as Map<String, dynamic>;
+
+                  return RentThingScreen(
+                    project: data['project'],
+                    partieId: data['partieId'],
+                    rental: data['rental'],
+                  );
+                },
+              ),
+
+              ///-----------------------------------------------------------
+              ///--------------- All Materail Party
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
+                name: RoutesName.MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                builder: (context, state) {
+                  final data = state.extra as Map<String, dynamic>;
+
+                  return MaterialProductsScreen(
+                    project: data['project'],
+                    partieId: data['partieId'],
+                    materials: data['material'],
+                  );
+                },
+              ),
+
+              ///-----------------------------------------------------------
+              ///--------------- All Materail Thing
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_PATH,
+                name: RoutesName.ALL_MATERIAL_PRODUCTS_BY_PROJECT_SCREEN_NAME,
+                builder: (context, state) {
+                  final data = state.extra as Map<String, dynamic>;
+
+                  return MaterialThingScreen(
+                    project: data['project'],
+                    partieId: data['partieId'],
+                    material: data['material'],
+                  );
+                },
+              ),
+              GoRoute(
+                path: RoutesName.NEW_DETAIL_SCREEN_PATH,
+                name: RoutesName.NEW_DETAIL_SCREEN_NAME,
+                builder: (context, state) {
+                  final ProjectModel project = state.extra as ProjectModel;
+
+                  return ProjectDetailsNScreen(
+                    projectModel: project,
+                  );
+                },
+              ),
+            ]);
 }
