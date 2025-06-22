@@ -24,6 +24,7 @@ import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignUp/sign_up_bloc.dart';
+import 'package:construction_mate/logic/controllers/Authentication/delete_account/delete_account_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/forgot_password/forgot_password_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/reset_password/reset_password_bloc.dart';
 import 'package:construction_mate/logic/controllers/Authentication/verify_otp/verify_otp_bloc.dart';
@@ -71,7 +72,6 @@ import 'package:construction_mate/logic/controllers/VisibillityBloc/visibility_e
 import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart';
 import 'package:construction_mate/logic/controllers/OtherExpenseBloc/other_expense_bloc.dart';
 import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc.dart';
-import 'package:construction_mate/logic/controllers/delete_account/delete_account_bloc.dart';
 import 'package:construction_mate/logic/controllers/network/network_bloc.dart';
 import 'package:construction_mate/logic/controllers/project_payment_in/project_payment_in_bloc.dart';
 import 'package:construction_mate/presentation/router/go_router.dart';

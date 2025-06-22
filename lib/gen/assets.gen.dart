@@ -256,6 +256,9 @@ class $AssetsSvgGen {
   SvgGenImage get bxsPhoneCall =>
       const SvgGenImage('assets/svg/bxs_phone-call.svg');
 
+  /// File path: assets/svg/delete_icon.svg
+  SvgGenImage get deleteIcon => const SvgGenImage('assets/svg/delete_icon.svg');
+
   /// File path: assets/svg/discord_icon.svg
   SvgGenImage get discordIcon =>
       const SvgGenImage('assets/svg/discord_icon.svg');
@@ -282,6 +285,10 @@ class $AssetsSvgGen {
   /// File path: assets/svg/parties_icon.svg
   SvgGenImage get partiesIcon =>
       const SvgGenImage('assets/svg/parties_icon.svg');
+
+  /// File path: assets/svg/privacypolicy.svg
+  SvgGenImage get privacypolicy =>
+      const SvgGenImage('assets/svg/privacypolicy.svg');
 
   /// File path: assets/svg/project_icon.svg
   SvgGenImage get projectIcon =>
@@ -321,6 +328,7 @@ class $AssetsSvgGen {
         build2,
         build3,
         bxsPhoneCall,
+        deleteIcon,
         discordIcon,
         expences1,
         floorsPlan,
@@ -329,6 +337,7 @@ class $AssetsSvgGen {
         logout,
         moreVert,
         partiesIcon,
+        privacypolicy,
         projectIcon,
         remaining,
         tdsIcon,

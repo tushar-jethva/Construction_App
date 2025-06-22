@@ -29,7 +29,7 @@ class EnterForgotOtpWidget extends StatelessWidget {
 
           // context.goNamed(RoutesName.signUpScreen2);
         } else if (state.state.isError) {
-          showTopSnackBar(context, "Wrong OTP!",
+          showTopSnackBar(context, state.message,
               messageType: MessageType.error);
         }
       },

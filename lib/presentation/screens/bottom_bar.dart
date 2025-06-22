@@ -5,11 +5,14 @@ import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Authentication/SignIn/sign_in_bloc.dart';
+import 'package:construction_mate/logic/controllers/Authentication/delete_account/delete_account_bloc.dart';
 import 'package:construction_mate/logic/controllers/BottomBarBloc/bottom_bar_bloc.dart';
 import 'package:construction_mate/logic/controllers/Profile/user-watcher/user_watcher_bloc.dart';
+import 'package:construction_mate/logic/controllers/authenticator_watcher/authenticator_watcher_bloc.dart';
 import 'package:construction_mate/presentation/screens/bills/bills_screen.dart';
 import 'package:construction_mate/presentation/screens/parties/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
+import 'package:construction_mate/presentation/widgets/common/common_delete_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/home_screen_app_bar.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/utilities/gradient/gradient_rect.dart';
@@ -18,6 +21,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyBottomBar extends StatefulWidget {
   const MyBottomBar({super.key});
@@ -165,7 +169,6 @@ class CustomBottomNavExampleState extends StatelessWidget {
                         .add(TabChangeEvent(tabIndex: index));
                   },
                   child: AnimatedContainer(
-                    
                     margin: EdgeInsets.symmetric(
                         horizontal: isSelected ? 12 : 10, vertical: 10),
                     duration: const Duration(milliseconds: 300),
@@ -333,6 +336,71 @@ Widget drawer({required BuildContext context}) {
               ),
               onTap: () {
                 context.pushNamed(RoutesName.otherExpensesScreen);
+              },
+            ),
+            ListTile(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return BlocConsumer<DeleteAccountBloc,
+                          DeleteAccountState>(
+                        listener: (context, state) {
+                          if (state.state.isLoaded) {
+                            context
+                                .read<AuthenticatorWatcherBloc>()
+                                .add(AuthenticatorWatcherEvent.signOut());
+
+                            context
+                                .read<BottomBarBloc>()
+                                .add(TabChangeEvent(tabIndex: 1));
+
+                            showTopSnackBar(
+                                context, "Account deleted successfully!",
+                                messageType: MessageType.done);
+                            context
+                                .pushReplacementNamed(RoutesName.signInScreen);
+                          } else if (state.state.isError) {
+                            showTopSnackBar(context, state.message,
+                                messageType: MessageType.error);
+                          }
+                        },
+                        builder: (context, state) {
+                          return CommonDeleteWidget(
+                            title: 'Delete Account',
+                            des: 'Do you want to delete your account?',
+                            isLoading: state.state.isLoading,
+                            onDeletePressed: () {
+                              context.read<DeleteAccountBloc>().add(
+                                  const DeleteAccountEvent
+                                      .deleteAccountMobile());
+                            },
+                          );
+                        },
+                      );
+                    });
+              },
+              leading: SvgPicture.asset(
+                Assets.svg.deleteIcon.path,
+                height: 25,
+                color: theme.canvasColor,
+              ),
+              title: Text(
+                "Delete Account",
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+              ),
+              // trailing: const Icon(Icons.arrow_forward_ios, size: 24),
+              dense: true,
+            ),
+            ListTile(
+              leading: SvgPicture.asset(Assets.svg.privacypolicy.path),
+              title: Text(
+                "Privacy Policy",
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+              ),
+              onTap: () async {
+                await launchUrl(Uri.parse(
+                    'https://docs.google.com/document/d/17xXtID06k29X-TfJgCLLFlQfAxdWi4pukTpeBZ7k_iI/edit?tab=t.0#heading=h.c04n2rbfk6t'));
               },
             ),
             ListTile(

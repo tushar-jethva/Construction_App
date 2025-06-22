@@ -24,6 +24,10 @@ abstract class AuthenticationDatasource {
       {required String email, required String password});
 
   Future<bool> resetVerifyOtp({required String email, required String otp});
+
+  Future<String> deleteAccount({required String email});
+
+  Future<String> deleteAccountMobile();
 }
 
 @LazySingleton(as: AuthenticationDatasource)
@@ -153,6 +157,30 @@ class AuthenticationDatasourceImpl extends AuthenticationDatasource {
           data: jsonEncode({'Email': email, 'otp': otp}));
 
       return res.data["status"];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  //delete account
+  @override
+  Future<String> deleteAccount({required String email}) async {
+    try {
+      final res = await dio.delete(API.DELETE_ACCOUNT,
+          data: jsonEncode({'email': email}));
+
+      return res.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> deleteAccountMobile() async {
+    try {
+      final res = await dio.delete(API.DELETE_ACCOUNT_MOBILE);
+
+      return res.data['message'];
     } catch (e) {
       rethrow;
     }

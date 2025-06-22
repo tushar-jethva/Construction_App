@@ -12,8 +12,8 @@ Future<Either<Failure, T>> handleErrors<T>(Future<T> Function() action) async {
     return Left(ServerFailure(e.message));
   } on SocketException {
     return const Left(ConnectionFailure('No internet connection'));
-  }  on DioException catch (e) {
-    return Left(ServerFailure(e.response?.data['error'].toString() ??
+  } on DioException catch (e) {
+    return Left(ServerFailure(e.response?.data['message'].toString() ??
         "Error occurred. Please try again."));
   } catch (e) {
     return Left(ServerFailure(e.toString()));

@@ -27,6 +27,10 @@ abstract class AuthenticationRepository {
 
   Future<Either<Failure, bool>> resetVerifyOtp(
       {required String email, required String otp});
+
+  Future<Either<Failure, String>> deleteAccount({required String email});
+
+  Future<Either<Failure, String>> deleteAccountMobile();
 }
 
 @LazySingleton(as: AuthenticationRepository)
@@ -84,5 +88,15 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       {required String email, required String otp}) {
     return handleErrors(
         () => datasource.resetVerifyOtp(email: email, otp: otp));
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteAccount({required String email}) {
+    return handleErrors(() => datasource.deleteAccount(email: email));
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteAccountMobile() {
+    return handleErrors(() => datasource.deleteAccountMobile());
   }
 }

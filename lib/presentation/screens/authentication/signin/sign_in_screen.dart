@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -21,6 +22,7 @@ class SignInScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -94,8 +96,7 @@ class SignInScreen extends StatelessWidget {
                               showTopSnackBar(context, "Login successful",
                                   messageType: MessageType.done);
                             } else if (state.state.isError) {
-                              showTopSnackBar(
-                                  context, "Email or Password is wrong!",
+                              showTopSnackBar(context, state.message,
                                   messageType: MessageType.error);
                             }
                           },
@@ -171,12 +172,61 @@ class SignInScreen extends StatelessWidget {
                               ),
                             )
                           ],
-                        )
+                        ),
+                        10.hx,
                       ],
                     ),
                   ))
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Wrap(
+          spacing: 0,
+          runSpacing: 0,
+          alignment: WrapAlignment.start,
+          children: [
+            Text(
+              'By signing in, you agree to our ',
+              style: textTheme.bodyMedium?.copyWith(color: Colors.black),
+            ),
+            GestureDetector(
+              onTap: () async {
+                await launchUrl(Uri.parse(
+                    'https://docs.google.com/document/d/17xXtID06k29X-TfJgCLLFlQfAxdWi4pukTpeBZ7k_iI/edit?tab=t.0#heading=h.c04n2rbfk6t'));
+              },
+              child: Text(
+                'Terms of Use',
+                style: textTheme.bodyMedium?.copyWith(
+                    fontSize: 16,
+                    color: purple,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.underline,
+                    decorationColor: purple),
+              ),
+            ),
+            Text(
+              ' and ',
+              style: textTheme.bodyMedium?.copyWith(color: Colors.black),
+            ),
+            GestureDetector(
+              onTap: () async {
+                await launchUrl(Uri.parse(
+                    'https://docs.google.com/document/d/17xXtID06k29X-TfJgCLLFlQfAxdWi4pukTpeBZ7k_iI/edit?tab=t.0#heading=h.c04n2rbfk6t'));
+              },
+              child: Text(
+                'Privacy Policy.',
+                style: textTheme.bodyMedium?.copyWith(
+                    fontSize: 16,
+                    color: purple,
+                    fontWeight: FontWeight.w600,
+                    decoration: TextDecoration.underline,
+                    decorationColor: purple),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,4 +1,5 @@
-import 'package:construction_mate/logic/controllers/delete_account/delete_account_bloc.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
+import 'package:construction_mate/logic/controllers/Authentication/delete_account/delete_account_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
@@ -31,15 +32,15 @@ class DeleteAccountPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Enter Email address to delete your account"),
+                  const Text("Enter Email address to delete your account"),
                   CustomTextFormField(
                     hintText: "Enter Email Address",
                     textInputType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.done,
                     onChanged: (value) {
-                      // context.read<DeleteAccountBloc>().add(
-                      //       DeleteAccountEvent.emailChanged(email: value),
-                      //     );
+                      context.read<DeleteAccountBloc>().add(
+                            DeleteAccountEvent.emailOnChanged(email: value),
+                          );
                     },
                   ),
                   15.hx,
@@ -47,9 +48,15 @@ class DeleteAccountPage extends StatelessWidget {
                     listener: (context, state) {
                       if (state.state.isLoaded) {
                         context.read<DeleteAccountBloc>().add(
-                              DeleteAccountEvent.emailChanged(email: ''),
+                              const DeleteAccountEvent.emailOnChanged(
+                                  email: ''),
                             );
-                      } else if (state.state.isError) {}
+                        showTopSnackBar(context, state.message,
+                            messageType: MessageType.done);
+                      } else if (state.state.isError) {
+                        showTopSnackBar(context, state.message,
+                            messageType: MessageType.error);
+                      }
                     },
                     builder: (context, state) {
                       return Align(

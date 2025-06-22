@@ -55,7 +55,7 @@ dependencies:
   device_info_plus: ^11.2.0
   permission_handler: ^11.3.1
   cached_network_image: ^3.4.1
-  calendar_date_picker2: ^1.1.8
+  calendar_date_picker2: ^2.0.1
   dashed_line: ^0.1.0+3
   url_launcher: ^6.3.1
 

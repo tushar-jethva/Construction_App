@@ -104,4 +104,8 @@ class API {
   static const EMAIL_VERIFICATION = "$BASE_URL/Company/EmailVerify";
   static const FORGOT_PASSWORD = "$BASE_URL/Company/ForgotPassword";
   static const RESET_VERIFY_OTP = "$BASE_URL/Company/VerifyOtp";
+
+  //------------ Delete account -------------
+  static const DELETE_ACCOUNT = "$BASE_URL/Company/DeleteCompanyByEmail";
+  static const DELETE_ACCOUNT_MOBILE = "$BASE_URL/Company/DeleteCompany";
 }

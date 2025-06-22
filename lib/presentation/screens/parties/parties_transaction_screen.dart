@@ -264,10 +264,16 @@ class _MyTransactionPartiesScreenState
                               builder: (context, state) {
                                 final String formattedDate =
                                     DateFormat.yMMMd().format(state.startDate);
-                                return Text("Start Date: $formattedDate");
+                                return Text(
+                                  "Start Date: $formattedDate",
+                                  style: theme.textTheme.bodyMedium,
+                                );
                               },
                             ),
-                            const Icon(Icons.calendar_month),
+                            Icon(
+                              Icons.calendar_month,
+                              color: theme.canvasColor,
+                            ),
                           ],
                         ),
                       ),
@@ -293,10 +299,16 @@ class _MyTransactionPartiesScreenState
                               builder: (context, state) {
                                 final String formattedDate =
                                     DateFormat.yMMMd().format(state.endDate);
-                                return Text("End Date: $formattedDate");
+                                return Text(
+                                  "End Date: $formattedDate",
+                                  style: theme.textTheme.bodyMedium,
+                                );
                               },
                             ),
-                            const Icon(Icons.calendar_month),
+                            Icon(
+                              Icons.calendar_month,
+                              color: theme.canvasColor,
+                            ),
                           ],
                         ),
                       ),

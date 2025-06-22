@@ -19,6 +19,8 @@ class DioAuthInterceptor extends Interceptor {
           options.headers['authorization'] = 'Bearer $token';
           debugPrint(token);
         }
+        debugPrint("Request sent with headers: $token");
+
         handler.next(options);
       }
     });
@@ -64,7 +66,7 @@ class DioAuthInterceptor extends Interceptor {
     } else if (err.response!.statusCode == 403) {
       print("------------- token expired -----------------");
       SharedPreferenceHelper().remove("token");
-      Routes.routes.goNamed(RoutesName.subscriptionScreen,extra: true);
+      Routes.routes.goNamed(RoutesName.subscriptionScreen, extra: true);
       // navigatorKey.currentState?.pushReplacementNamed(RoutesName.signInScreen);
     } else if (err.response!.statusCode != 200 &&
         err.response!.statusCode != 404) {

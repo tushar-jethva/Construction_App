@@ -23,7 +23,8 @@ class EnterOptwidget extends StatelessWidget {
 
           // context.goNamed(RoutesName.signUpScreen2);
         } else if (state.state1.isError) {
-          showTopSnackBar(context, "Wrong OTP!", messageType: MessageType.error);
+          showTopSnackBar(context, "Wrong OTP!",
+              messageType: MessageType.error);
         }
       },
       builder: (context, state) {
@@ -40,7 +41,8 @@ class EnterOptwidget extends StatelessWidget {
           theme: Theme.of(context),
           onVerifyTap: () {
             if (state.otp.isEmpty) {
-              showTopSnackBar(context, "Please Enter otp!", messageType: MessageType.warning);
+              showTopSnackBar(context, "Please Enter otp!",
+                  messageType: MessageType.warning);
             } else {
               context.read<SignUpBloc>().add(const SignUpEvent.verifyOtp());
             }

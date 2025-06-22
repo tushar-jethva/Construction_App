@@ -53,11 +53,15 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
 
           response.fold((l) {
             emit(state.copyWith(state: RequestState.error, message: l.message));
+
+            debugPrint("Error in verifyOtp: ${l.message}");
           }, (r) {
             if (r) {
               emit(state.copyWith(state1: RequestState.loaded));
             } else {
-              emit(state.copyWith(state1: RequestState.error));
+              emit(state.copyWith(
+                state1: RequestState.error,
+              ));
             }
           });
         },

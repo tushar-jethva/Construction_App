@@ -55,6 +55,8 @@ import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material
     as _i571;
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart'
     as _i329;
+import 'package:construction_mate/logic/controllers/Authentication/delete_account/delete_account_bloc.dart'
+    as _i707;
 import 'package:construction_mate/logic/controllers/Authentication/forgot_password/forgot_password_bloc.dart'
     as _i962;
 import 'package:construction_mate/logic/controllers/Authentication/reset_password/reset_password_bloc.dart'
@@ -69,8 +71,6 @@ import 'package:construction_mate/logic/controllers/bottomsheet/bottomsheet_bloc
     as _i465;
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart'
     as _i882;
-import 'package:construction_mate/logic/controllers/delete_account/delete_account_bloc.dart'
-    as _i880;
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart' as _i487;
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart'
     as _i40;
@@ -157,8 +157,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i918.RentalDataSourceImpl());
     gh.lazySingleton<_i1040.ProfileDataSource>(
         () => _i1040.ProfileDataSourceImpl());
-    gh.singleton<_i880.DeleteAccountBloc>(
-        () => _i880.DeleteAccountBloc());
     gh.lazySingleton<_i872.ProjectDataSource>(
         () => _i872.ProjectDataSourceImpl());
     gh.lazySingleton<_i72.AgencyDataSource>(
@@ -224,6 +222,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i740.TransactionUsecase(gh<_i1072.TransactionRepository>()));
     gh.singleton<_i962.ForgotPasswordBloc>(
         () => _i962.ForgotPasswordBloc(gh<_i953.AuthenticationRepository>()));
+    gh.singleton<_i707.DeleteAccountBloc>(
+        () => _i707.DeleteAccountBloc(gh<_i953.AuthenticationRepository>()));
     gh.singleton<_i273.OtherExpenseBloc>(
         () => _i273.OtherExpenseBloc(gh<_i429.ProfileUsecase>()));
     gh.singleton<_i487.GstBloc>(

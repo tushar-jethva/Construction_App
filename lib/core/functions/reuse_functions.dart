@@ -110,7 +110,18 @@ class ReusableFunctions {
       DateTime? currentDate}) async {
     final List<DateTime?>? selectedDates = await showCalendarDatePicker2Dialog(
       context: context,
+      dialogBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
       config: CalendarDatePicker2WithActionButtonsConfig(
+          selectedDayHighlightColor: purple,
+          dayTextStyle: TextStyle(
+            color: Theme.of(context).canvasColor,
+          ),
+          weekdayLabelTextStyle:
+              const TextStyle(color: Colors.grey), // S, M, T...
+          controlsTextStyle:
+              TextStyle(color: Theme.of(context).canvasColor), // Month/Year
+          selectedDayTextStyle: TextStyle(color: Theme.of(context).canvasColor),
+          disabledDayTextStyle: const TextStyle(color: Colors.grey),
           calendarType: CalendarDatePicker2Type.single,
           lastDate: lastDate ?? DateTime.now(),
           firstDate: firstDate ?? DateTime(1900),

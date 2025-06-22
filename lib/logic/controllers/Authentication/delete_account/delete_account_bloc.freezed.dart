@@ -18,45 +18,51 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DeleteAccountEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialize,
-    required TResult Function(String email) emailChanged,
+    required TResult Function() started,
+    required TResult Function(String email) emailOnChanged,
     required TResult Function() deleteAccount,
+    required TResult Function() deleteAccountMobile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initialize,
-    TResult? Function(String email)? emailChanged,
+    TResult? Function()? started,
+    TResult? Function(String email)? emailOnChanged,
     TResult? Function()? deleteAccount,
+    TResult? Function()? deleteAccountMobile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialize,
-    TResult Function(String email)? emailChanged,
+    TResult Function()? started,
+    TResult Function(String email)? emailOnChanged,
     TResult Function()? deleteAccount,
+    TResult Function()? deleteAccountMobile,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initialize value) initialize,
-    required TResult Function(_EmailChanged value) emailChanged,
+    required TResult Function(_Initialize value) started,
+    required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_DeleteAccountMobile value) deleteAccountMobile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initialize value)? initialize,
-    TResult? Function(_EmailChanged value)? emailChanged,
+    TResult? Function(_Initialize value)? started,
+    TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_DeleteAccountMobile value)? deleteAccountMobile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initialize value)? initialize,
-    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_Initialize value)? started,
+    TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_DeleteAccountMobile value)? deleteAccountMobile,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -109,7 +115,7 @@ class _$InitializeImpl implements _Initialize {
 
   @override
   String toString() {
-    return 'DeleteAccountEvent.initialize()';
+    return 'DeleteAccountEvent.started()';
   }
 
   @override
@@ -124,33 +130,36 @@ class _$InitializeImpl implements _Initialize {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialize,
-    required TResult Function(String email) emailChanged,
+    required TResult Function() started,
+    required TResult Function(String email) emailOnChanged,
     required TResult Function() deleteAccount,
+    required TResult Function() deleteAccountMobile,
   }) {
-    return initialize();
+    return started();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initialize,
-    TResult? Function(String email)? emailChanged,
+    TResult? Function()? started,
+    TResult? Function(String email)? emailOnChanged,
     TResult? Function()? deleteAccount,
+    TResult? Function()? deleteAccountMobile,
   }) {
-    return initialize?.call();
+    return started?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialize,
-    TResult Function(String email)? emailChanged,
+    TResult Function()? started,
+    TResult Function(String email)? emailOnChanged,
     TResult Function()? deleteAccount,
+    TResult Function()? deleteAccountMobile,
     required TResult orElse(),
   }) {
-    if (initialize != null) {
-      return initialize();
+    if (started != null) {
+      return started();
     }
     return orElse();
   }
@@ -158,33 +167,36 @@ class _$InitializeImpl implements _Initialize {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initialize value) initialize,
-    required TResult Function(_EmailChanged value) emailChanged,
+    required TResult Function(_Initialize value) started,
+    required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_DeleteAccountMobile value) deleteAccountMobile,
   }) {
-    return initialize(this);
+    return started(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initialize value)? initialize,
-    TResult? Function(_EmailChanged value)? emailChanged,
+    TResult? Function(_Initialize value)? started,
+    TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_DeleteAccountMobile value)? deleteAccountMobile,
   }) {
-    return initialize?.call(this);
+    return started?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initialize value)? initialize,
-    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_Initialize value)? started,
+    TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_DeleteAccountMobile value)? deleteAccountMobile,
     required TResult orElse(),
   }) {
-    if (initialize != null) {
-      return initialize(this);
+    if (started != null) {
+      return started(this);
     }
     return orElse();
   }
@@ -195,20 +207,20 @@ abstract class _Initialize implements DeleteAccountEvent {
 }
 
 /// @nodoc
-abstract class _$$EmailChangedImplCopyWith<$Res> {
-  factory _$$EmailChangedImplCopyWith(
-          _$EmailChangedImpl value, $Res Function(_$EmailChangedImpl) then) =
-      __$$EmailChangedImplCopyWithImpl<$Res>;
+abstract class _$$EmailOnChangedImplCopyWith<$Res> {
+  factory _$$EmailOnChangedImplCopyWith(_$EmailOnChangedImpl value,
+          $Res Function(_$EmailOnChangedImpl) then) =
+      __$$EmailOnChangedImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String email});
 }
 
 /// @nodoc
-class __$$EmailChangedImplCopyWithImpl<$Res>
-    extends _$DeleteAccountEventCopyWithImpl<$Res, _$EmailChangedImpl>
-    implements _$$EmailChangedImplCopyWith<$Res> {
-  __$$EmailChangedImplCopyWithImpl(
-      _$EmailChangedImpl _value, $Res Function(_$EmailChangedImpl) _then)
+class __$$EmailOnChangedImplCopyWithImpl<$Res>
+    extends _$DeleteAccountEventCopyWithImpl<$Res, _$EmailOnChangedImpl>
+    implements _$$EmailOnChangedImplCopyWith<$Res> {
+  __$$EmailOnChangedImplCopyWithImpl(
+      _$EmailOnChangedImpl _value, $Res Function(_$EmailOnChangedImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of DeleteAccountEvent
@@ -218,7 +230,7 @@ class __$$EmailChangedImplCopyWithImpl<$Res>
   $Res call({
     Object? email = null,
   }) {
-    return _then(_$EmailChangedImpl(
+    return _then(_$EmailOnChangedImpl(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -229,22 +241,22 @@ class __$$EmailChangedImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$EmailChangedImpl implements _EmailChanged {
-  const _$EmailChangedImpl({required this.email});
+class _$EmailOnChangedImpl implements _EmailOnChanged {
+  const _$EmailOnChangedImpl({required this.email});
 
   @override
   final String email;
 
   @override
   String toString() {
-    return 'DeleteAccountEvent.emailChanged(email: $email)';
+    return 'DeleteAccountEvent.emailOnChanged(email: $email)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$EmailChangedImpl &&
+            other is _$EmailOnChangedImpl &&
             (identical(other.email, email) || other.email == email));
   }
 
@@ -256,39 +268,43 @@ class _$EmailChangedImpl implements _EmailChanged {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$EmailChangedImplCopyWith<_$EmailChangedImpl> get copyWith =>
-      __$$EmailChangedImplCopyWithImpl<_$EmailChangedImpl>(this, _$identity);
+  _$$EmailOnChangedImplCopyWith<_$EmailOnChangedImpl> get copyWith =>
+      __$$EmailOnChangedImplCopyWithImpl<_$EmailOnChangedImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialize,
-    required TResult Function(String email) emailChanged,
+    required TResult Function() started,
+    required TResult Function(String email) emailOnChanged,
     required TResult Function() deleteAccount,
+    required TResult Function() deleteAccountMobile,
   }) {
-    return emailChanged(email);
+    return emailOnChanged(email);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initialize,
-    TResult? Function(String email)? emailChanged,
+    TResult? Function()? started,
+    TResult? Function(String email)? emailOnChanged,
     TResult? Function()? deleteAccount,
+    TResult? Function()? deleteAccountMobile,
   }) {
-    return emailChanged?.call(email);
+    return emailOnChanged?.call(email);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialize,
-    TResult Function(String email)? emailChanged,
+    TResult Function()? started,
+    TResult Function(String email)? emailOnChanged,
     TResult Function()? deleteAccount,
+    TResult Function()? deleteAccountMobile,
     required TResult orElse(),
   }) {
-    if (emailChanged != null) {
-      return emailChanged(email);
+    if (emailOnChanged != null) {
+      return emailOnChanged(email);
     }
     return orElse();
   }
@@ -296,48 +312,51 @@ class _$EmailChangedImpl implements _EmailChanged {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initialize value) initialize,
-    required TResult Function(_EmailChanged value) emailChanged,
+    required TResult Function(_Initialize value) started,
+    required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_DeleteAccountMobile value) deleteAccountMobile,
   }) {
-    return emailChanged(this);
+    return emailOnChanged(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initialize value)? initialize,
-    TResult? Function(_EmailChanged value)? emailChanged,
+    TResult? Function(_Initialize value)? started,
+    TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_DeleteAccountMobile value)? deleteAccountMobile,
   }) {
-    return emailChanged?.call(this);
+    return emailOnChanged?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initialize value)? initialize,
-    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_Initialize value)? started,
+    TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_DeleteAccountMobile value)? deleteAccountMobile,
     required TResult orElse(),
   }) {
-    if (emailChanged != null) {
-      return emailChanged(this);
+    if (emailOnChanged != null) {
+      return emailOnChanged(this);
     }
     return orElse();
   }
 }
 
-abstract class _EmailChanged implements DeleteAccountEvent {
-  const factory _EmailChanged({required final String email}) =
-      _$EmailChangedImpl;
+abstract class _EmailOnChanged implements DeleteAccountEvent {
+  const factory _EmailOnChanged({required final String email}) =
+      _$EmailOnChangedImpl;
 
   String get email;
 
   /// Create a copy of DeleteAccountEvent
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$EmailChangedImplCopyWith<_$EmailChangedImpl> get copyWith =>
+  _$$EmailOnChangedImplCopyWith<_$EmailOnChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -382,9 +401,10 @@ class _$DeleteAccountImpl implements _DeleteAccount {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialize,
-    required TResult Function(String email) emailChanged,
+    required TResult Function() started,
+    required TResult Function(String email) emailOnChanged,
     required TResult Function() deleteAccount,
+    required TResult Function() deleteAccountMobile,
   }) {
     return deleteAccount();
   }
@@ -392,9 +412,10 @@ class _$DeleteAccountImpl implements _DeleteAccount {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initialize,
-    TResult? Function(String email)? emailChanged,
+    TResult? Function()? started,
+    TResult? Function(String email)? emailOnChanged,
     TResult? Function()? deleteAccount,
+    TResult? Function()? deleteAccountMobile,
   }) {
     return deleteAccount?.call();
   }
@@ -402,9 +423,10 @@ class _$DeleteAccountImpl implements _DeleteAccount {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialize,
-    TResult Function(String email)? emailChanged,
+    TResult Function()? started,
+    TResult Function(String email)? emailOnChanged,
     TResult Function()? deleteAccount,
+    TResult Function()? deleteAccountMobile,
     required TResult orElse(),
   }) {
     if (deleteAccount != null) {
@@ -416,9 +438,10 @@ class _$DeleteAccountImpl implements _DeleteAccount {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initialize value) initialize,
-    required TResult Function(_EmailChanged value) emailChanged,
+    required TResult Function(_Initialize value) started,
+    required TResult Function(_EmailOnChanged value) emailOnChanged,
     required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_DeleteAccountMobile value) deleteAccountMobile,
   }) {
     return deleteAccount(this);
   }
@@ -426,9 +449,10 @@ class _$DeleteAccountImpl implements _DeleteAccount {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initialize value)? initialize,
-    TResult? Function(_EmailChanged value)? emailChanged,
+    TResult? Function(_Initialize value)? started,
+    TResult? Function(_EmailOnChanged value)? emailOnChanged,
     TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_DeleteAccountMobile value)? deleteAccountMobile,
   }) {
     return deleteAccount?.call(this);
   }
@@ -436,9 +460,10 @@ class _$DeleteAccountImpl implements _DeleteAccount {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initialize value)? initialize,
-    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_Initialize value)? started,
+    TResult Function(_EmailOnChanged value)? emailOnChanged,
     TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_DeleteAccountMobile value)? deleteAccountMobile,
     required TResult orElse(),
   }) {
     if (deleteAccount != null) {
@@ -450,6 +475,124 @@ class _$DeleteAccountImpl implements _DeleteAccount {
 
 abstract class _DeleteAccount implements DeleteAccountEvent {
   const factory _DeleteAccount() = _$DeleteAccountImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteAccountMobileImplCopyWith<$Res> {
+  factory _$$DeleteAccountMobileImplCopyWith(_$DeleteAccountMobileImpl value,
+          $Res Function(_$DeleteAccountMobileImpl) then) =
+      __$$DeleteAccountMobileImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DeleteAccountMobileImplCopyWithImpl<$Res>
+    extends _$DeleteAccountEventCopyWithImpl<$Res, _$DeleteAccountMobileImpl>
+    implements _$$DeleteAccountMobileImplCopyWith<$Res> {
+  __$$DeleteAccountMobileImplCopyWithImpl(_$DeleteAccountMobileImpl _value,
+      $Res Function(_$DeleteAccountMobileImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DeleteAccountEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$DeleteAccountMobileImpl implements _DeleteAccountMobile {
+  const _$DeleteAccountMobileImpl();
+
+  @override
+  String toString() {
+    return 'DeleteAccountEvent.deleteAccountMobile()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteAccountMobileImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(String email) emailOnChanged,
+    required TResult Function() deleteAccount,
+    required TResult Function() deleteAccountMobile,
+  }) {
+    return deleteAccountMobile();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(String email)? emailOnChanged,
+    TResult? Function()? deleteAccount,
+    TResult? Function()? deleteAccountMobile,
+  }) {
+    return deleteAccountMobile?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(String email)? emailOnChanged,
+    TResult Function()? deleteAccount,
+    TResult Function()? deleteAccountMobile,
+    required TResult orElse(),
+  }) {
+    if (deleteAccountMobile != null) {
+      return deleteAccountMobile();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) started,
+    required TResult Function(_EmailOnChanged value) emailOnChanged,
+    required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_DeleteAccountMobile value) deleteAccountMobile,
+  }) {
+    return deleteAccountMobile(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? started,
+    TResult? Function(_EmailOnChanged value)? emailOnChanged,
+    TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_DeleteAccountMobile value)? deleteAccountMobile,
+  }) {
+    return deleteAccountMobile?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? started,
+    TResult Function(_EmailOnChanged value)? emailOnChanged,
+    TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_DeleteAccountMobile value)? deleteAccountMobile,
+    required TResult orElse(),
+  }) {
+    if (deleteAccountMobile != null) {
+      return deleteAccountMobile(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteAccountMobile implements DeleteAccountEvent {
+  const factory _DeleteAccountMobile() = _$DeleteAccountMobileImpl;
 }
 
 /// @nodoc
