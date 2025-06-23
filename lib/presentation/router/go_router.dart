@@ -68,11 +68,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
 class Routes {
   static final GoRouter routes = GoRouter(
-      navigatorKey: navigatorKey,
       initialLocation: kIsWeb
           ? RoutesName.DELETE_ACCOUNT_SCREEN_PATH
           : RoutesName.initialLocation,

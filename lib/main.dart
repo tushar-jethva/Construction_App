@@ -16,6 +16,7 @@ import 'package:construction_mate/data/repository/project_repository.dart';
 import 'package:construction_mate/data/repository/site_progress_repository.dart';
 import 'package:construction_mate/data/repository/transaction_repository.dart';
 import 'package:construction_mate/data/repository/work_type_repository.dart';
+import 'package:construction_mate/firebase_options.dart';
 import 'package:construction_mate/injections/injection.dart';
 import 'package:construction_mate/logic/controllers/AddAgencyDropDowns/add_agency_drop_downs_bloc.dart';
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart';
@@ -78,6 +79,7 @@ import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/utilities/app_bloc_observer.dart';
 import 'package:construction_mate/utilities/logger.dart';
 import 'package:construction_mate/utilities/shared_preference_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,6 +91,9 @@ void main() {
     () => runZonedGuarded(
       () async {
         WidgetsFlutterBinding.ensureInitialized();
+        await Firebase.initializeApp(
+          options: DefaultFirebaseOptions.web,
+        );
         Bloc.observer = const AppBlocObserver();
         // await ErrorStack.init();
         configureDependencies();

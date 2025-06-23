@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "site": "construction-management-4-billd",
+    "public": "build/web",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [{ "source": "**", "destination": "/index.html" }]
+  },
+  "flutter": {
+    "platforms": {
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "billd-848d8",
+          "configurations": {
+            "web": "1:1096098379882:web:33f85ec540a1559a41b213"
+          }
+        }
+      }
+    }
+  }
+}

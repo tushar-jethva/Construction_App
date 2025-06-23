@@ -251,9 +251,13 @@ class SignUpStep2 extends StatelessWidget {
                                   labelColor: white,
                                   borderColor: Colors.transparent,
                                   onTap: () {
-                                    if (formKey.currentState!.validate() &&
-                                        state.isVerified) {
-                                      if (state.password !=
+                                    if (formKey.currentState!.validate()) {
+                                      if (!state.isVerified) {
+                                        showTopSnackBar(context,
+                                            "Please verify your email first!",
+                                            messageType: MessageType.warning);
+                                        return;
+                                      } else if (state.password !=
                                           state.confirmPassword) {
                                         showTopSnackBar(context,
                                             "Password and Confirm password must be same!",

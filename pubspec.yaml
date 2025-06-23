@@ -1,7 +1,7 @@
 name: construction_mate
 description: "A new Flutter project."
 publish_to: "none"
-version: 1.0.1+2
+version: 1.0.0+4
 
 environment:
   sdk: ">=3.3.3 <4.0.0"
@@ -58,6 +58,7 @@ dependencies:
   calendar_date_picker2: ^2.0.1
   dashed_line: ^0.1.0+3
   url_launcher: ^6.3.1
+  firebase_core: ^3.14.0
 
 
 
