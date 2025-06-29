@@ -18,6 +18,7 @@ import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/utilities/gradient/gradient_rect.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -151,9 +152,9 @@ class CustomBottomNavExampleState extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.r),
       child: Container(
-          height: 70,
+          height: 80.h,
           decoration: BoxDecoration(
             color: theme.cardColor,
             borderRadius: BorderRadius.circular(50),
@@ -170,23 +171,27 @@ class CustomBottomNavExampleState extends StatelessWidget {
                   },
                   child: AnimatedContainer(
                     margin: EdgeInsets.symmetric(
-                        horizontal: isSelected ? 12 : 10, vertical: 10),
+                      horizontal: isSelected ? 16.w : 10.w,
+                    ),
                     duration: const Duration(milliseconds: 300),
                     padding: EdgeInsets.symmetric(
-                        horizontal: isSelected ? 20 : 10, vertical: 12),
+                        horizontal: isSelected ? 16.w : 10.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       color: isSelected ? theme.canvasColor : theme.cardColor,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Row(
                       children: [
-                        Icon(_icons[index],
-                            color: isSelected
-                                ? theme.primaryColor
-                                : theme.canvasColor),
+                        Icon(
+                          _icons[index],
+                          color: isSelected
+                              ? theme.primaryColor
+                              : theme.canvasColor,
+                          size: 30.h,
+                        ),
                         if (isSelected)
                           Padding(
-                            padding: const EdgeInsets.only(left: 20),
+                            padding: EdgeInsets.only(left: 20.w),
                             child: Text(
                               _labels[index],
                               style: TextStyle(
@@ -218,13 +223,13 @@ Widget drawer({required BuildContext context}) {
               child: Container(
                 color: theme.cardColor,
                 width: double.infinity,
-                padding: const EdgeInsets.only(
-                    top: 45, bottom: 10, right: 10, left: 10),
+                padding: EdgeInsets.only(
+                    top: 45.h, bottom: 10.h, right: 10.w, left: 10.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Text(
                         "My Account",
                         style: theme.textTheme.titleLarge,
@@ -258,12 +263,12 @@ Widget drawer({required BuildContext context}) {
                               Text(
                                 state.profile?.name ?? "",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(fontSize: 14),
+                                    ?.copyWith(fontSize: 14.sp),
                               ),
                               Text(
                                 "Personal Info",
                                 style: theme.textTheme.bodySmall
-                                    ?.copyWith(fontSize: 12),
+                                    ?.copyWith(fontSize: 12.sp),
                               ),
                             ],
                           ),
@@ -290,7 +295,7 @@ Widget drawer({required BuildContext context}) {
               title: Text(
                 "Upgrade",
                 style: theme.textTheme.bodyMedium
-                    ?.copyWith(fontSize: 16, color: Colors.yellow.shade800),
+                    ?.copyWith(fontSize: 16.sp, color: Colors.yellow.shade800),
               ),
               onTap: () {
                 context.pushNamed(RoutesName.subscriptionScreen, extra: false);
@@ -304,7 +309,7 @@ Widget drawer({required BuildContext context}) {
               ),
               title: Text(
                 "TDS",
-                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
               ),
               onTap: () {
                 context.pushNamed(RoutesName.tdsScreen);
@@ -318,7 +323,7 @@ Widget drawer({required BuildContext context}) {
               ),
               title: Text(
                 "GST",
-                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
               ),
               onTap: () {
                 context.pushNamed(RoutesName.gstScreen);
@@ -332,7 +337,7 @@ Widget drawer({required BuildContext context}) {
               ),
               title: Text(
                 "Other expense",
-                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
               ),
               onTap: () {
                 context.pushNamed(RoutesName.otherExpensesScreen);
@@ -387,16 +392,19 @@ Widget drawer({required BuildContext context}) {
               ),
               title: Text(
                 "Delete Account",
-                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
               ),
               // trailing: const Icon(Icons.arrow_forward_ios, size: 24),
               dense: true,
             ),
             ListTile(
-              leading: SvgPicture.asset(Assets.svg.privacypolicy.path),
+              leading: SvgPicture.asset(
+                Assets.svg.privacypolicy.path,
+                color: theme.canvasColor,
+              ),
               title: Text(
                 "Privacy Policy",
-                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
               ),
               onTap: () async {
                 await launchUrl(Uri.parse(
@@ -410,7 +418,7 @@ Widget drawer({required BuildContext context}) {
               ),
               title: Text(
                 "Logout",
-                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16),
+                style: theme.textTheme.bodyMedium?.copyWith(fontSize: 16.sp),
               ),
               onTap: () {
                 showDialog(
@@ -444,11 +452,12 @@ Widget drawer({required BuildContext context}) {
                 children: [
                   TextSpan(
                       text: "Built with pride in",
-                      style:
-                          theme.textTheme.titleMedium?.copyWith(fontSize: 16)),
+                      style: theme.textTheme.titleMedium
+                          ?.copyWith(fontSize: 16.sp)),
                   TextSpan(
                     text: " Gujarat",
-                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
+                    style:
+                        theme.textTheme.titleLarge?.copyWith(fontSize: 18.sp),
                   )
                 ],
               ),
@@ -456,7 +465,7 @@ Widget drawer({required BuildContext context}) {
             Text(
               'Builders Everywhere',
               textAlign: TextAlign.center,
-              style: theme.textTheme.titleMedium?.copyWith(fontSize: 16),
+              style: theme.textTheme.titleMedium?.copyWith(fontSize: 16.sp),
             ),
             10.hx,
           ],

@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/billing_party_repository.dart';
@@ -20,6 +21,7 @@ import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -125,7 +127,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                 extra: party);
                           },
                           child: Container(
-                            margin: const EdgeInsets.all(16),
+                            margin: EdgeInsets.all(16),
                             color: transparent,
                             child: Column(
                               children: [
@@ -137,7 +139,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                     Text(
                                       party.name ?? "",
                                       style: theme.textTheme.titleLarge
-                                          ?.copyWith(fontSize: 14),
+                                          ?.copyWith(fontSize: 14.sp),
                                     ),
                                     Row(
                                       children: [
@@ -148,14 +150,14 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                           "Remaining: ",
                                           style: theme.textTheme.titleMedium
                                               ?.copyWith(
-                                                  color: grey, fontSize: 12),
+                                                  color: grey, fontSize: 12.sp),
                                         ),
                                         Text(
-                                          "₹ ${(party.receivableAmount ?? 0) - (party.receivedAmount ?? 0)}",
+                                          "₹ ${ReusableFunctions.formatNumber((party.receivableAmount ?? 0) - (party.receivedAmount ?? 0))}",
                                           style: theme.textTheme.titleLarge
                                               ?.copyWith(
                                                   color: Colors.orange,
-                                                  fontSize: 13),
+                                                  fontSize: 13.sp),
                                         ),
                                       ],
                                     )
@@ -172,13 +174,14 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                           "Total Paid:",
                                           style: theme.textTheme.titleMedium
                                               ?.copyWith(
-                                                  color: grey, fontSize: 12),
+                                                  color: grey, fontSize: 12.sp),
                                         ),
                                         Text(
-                                          " ₹ ${party.receivedAmount ?? 0}",
+                                          " ₹ ${ReusableFunctions.formatNumber(party.receivedAmount ?? 0)}",
                                           style: theme.textTheme.titleLarge
                                               ?.copyWith(
-                                                  color: green, fontSize: 13),
+                                                  color: green,
+                                                  fontSize: 13.sp),
                                         )
                                       ],
                                     ),
@@ -188,13 +191,13 @@ class _MyBillScreenState extends State<MyBillScreen> {
                                           "Total Payable: ",
                                           style: theme.textTheme.titleMedium
                                               ?.copyWith(
-                                                  color: grey, fontSize: 12),
+                                                  color: grey, fontSize: 12.sp),
                                         ),
                                         Text(
-                                          "₹ ${party.receivableAmount ?? 0}",
+                                          "₹ ${ReusableFunctions.formatNumber(party.receivableAmount ?? 0)}",
                                           style: theme.textTheme.titleLarge
                                               ?.copyWith(
-                                                  color: red, fontSize: 13),
+                                                  color: red, fontSize: 13.sp),
                                         ),
                                       ],
                                     )
@@ -220,7 +223,7 @@ class _MyBillScreenState extends State<MyBillScreen> {
 
   Widget partyAndBillAddWidget(BuildContext context, ThemeData theme) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
+      padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 15),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

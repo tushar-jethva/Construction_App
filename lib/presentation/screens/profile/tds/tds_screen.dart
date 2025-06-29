@@ -5,6 +5,7 @@ import 'package:construction_mate/logic/models/others_transaction_data_model.dar
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,7 +20,7 @@ class TdsScreen extends StatelessWidget {
       appBar: appBarWidget(theme, context),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [totalWidget(theme), 20.hx, tdsListWidget(theme)],
@@ -86,7 +87,7 @@ class TdsScreen extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
-                padding: const EdgeInsets.all(15),
+                padding: EdgeInsets.all(15.r),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: theme.scaffoldBackgroundColor),
@@ -96,12 +97,12 @@ class TdsScreen extends StatelessWidget {
                     Text(
                       "Total",
                       style: theme.textTheme.titleLarge
-                          ?.copyWith(fontSize: 13, color: grey),
+                          ?.copyWith(fontSize: 13.sp, color: grey),
                     ),
                     Text(
-                      "₹ ${state.total}",
+                      "₹ ${ReusableFunctions.formatNumber(state.total)}",
                       style: theme.textTheme.bodyMedium
-                          ?.copyWith(fontSize: 26, color: green),
+                          ?.copyWith(fontSize: 26.sp, color: green),
                     )
                   ],
                 ),
@@ -172,7 +173,7 @@ class OtherTransactionCommonWidget extends StatelessWidget {
       color: theme.scaffoldBackgroundColor,
       elevation: 5,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,14 +182,14 @@ class OtherTransactionCommonWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "₹ ${transaction.amount ?? 0}",
-                  style: theme.textTheme.bodyMedium?.copyWith(fontSize: 22),
+                  "₹ ${ReusableFunctions.formatNumber(transaction.amount ?? 0)}",
+                  style: theme.textTheme.bodyMedium?.copyWith(fontSize: 22.sp),
                 ),
                 Text(
                   transaction.description ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14),
+                  style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14.sp),
                 ),
               ],
             ),
@@ -197,7 +198,7 @@ class OtherTransactionCommonWidget extends StatelessWidget {
               ReusableFunctions.getFormattedDate(
                   transaction.date ?? DateTime.now().toString()),
               style: theme.textTheme.titleMedium
-                  ?.copyWith(fontSize: 12, color: grey),
+                  ?.copyWith(fontSize: 12.sp, color: grey),
             )
           ],
         ),

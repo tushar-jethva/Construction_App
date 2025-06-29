@@ -2,6 +2,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class CommonAlertMessageDialog extends StatelessWidget {
@@ -55,12 +56,12 @@ class CommonAlertMessageDialog extends StatelessWidget {
           Text(title,
               textAlign: TextAlign.center,
               style: theme.textTheme.headlineMedium
-                  ?.copyWith(fontSize: 24, letterSpacing: 1.1)),
+                  ?.copyWith(fontSize: 24.sp, letterSpacing: 1.1)),
           const SizedBox(height: 15),
           Text(description,
               textAlign: TextAlign.center,
               style: theme.textTheme.titleLarge
-                  ?.copyWith(fontWeight: FontWeight.w400, fontSize: 14)),
+                  ?.copyWith(fontWeight: FontWeight.w400, fontSize: 14.sp)),
           const SizedBox(height: 20),
           isBackButtonShow
               ? CustomElevatedButton(

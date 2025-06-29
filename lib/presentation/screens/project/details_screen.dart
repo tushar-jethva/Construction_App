@@ -52,9 +52,9 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                       upperText: "Amount Received",
                       belowText: state.paymentIn,
                       upperTextStyle: theme.textTheme.titleLarge!
-                          .copyWith(color: greyELight, fontSize: 13),
+                          .copyWith(color: greyELight, fontSize: 13.sp),
                       belowTextStyle: theme.textTheme.titleLarge!
-                          .copyWith(color: green, fontSize: 13.5),
+                          .copyWith(color: green, fontSize: 13.5.sp),
                     );
                   },
                 ),
@@ -69,9 +69,9 @@ class _MyProjectDetailsScreenState extends State<MyProjectDetailsScreen> {
                       upperText: "Amount Paid",
                       belowText: state.paymentOut,
                       upperTextStyle: theme.textTheme.titleLarge!
-                          .copyWith(color: greyELight, fontSize: 13),
+                          .copyWith(color: greyELight, fontSize: 13.sp),
                       belowTextStyle: theme.textTheme.titleLarge!
-                          .copyWith(color: red, fontSize: 13.5),
+                          .copyWith(color: red, fontSize: 13.5.sp),
                     );
                   },
                 ),

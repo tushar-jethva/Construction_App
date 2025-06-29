@@ -4,6 +4,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/presentation/widgets/common/debouncer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 enum TextFieldType {
@@ -206,7 +207,7 @@ class CustomTextFormField extends StatelessWidget {
     const double SPACE12 = 12;
     const double RADIUS = 8;
     return Padding(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+      padding: EdgeInsets.only(top: 8.0.h, bottom: 8.0.h),
       child: TextFormField(
         initialValue: initialValue,
         readOnly: isReadOnly,
@@ -222,7 +223,7 @@ class CustomTextFormField extends StatelessWidget {
         obscureText: obscureText,
         style: textFieldStyle ??
             theme?.textTheme.titleMedium
-                ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                ?.copyWith(fontSize: 16.sp, fontWeight: FontWeight.w400),
         inputFormatters: inputFormatters ?? [],
         keyboardType: textInputType ?? keyboardType(textFieldType),
         validator: isValidate ? validator(textFieldType).call : null,
@@ -242,11 +243,11 @@ class CustomTextFormField extends StatelessWidget {
           hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
           labelText: alignLableWithHint ? labelText : null,
           labelStyle: theme?.textTheme.titleMedium?.copyWith(
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w400,
               color: isDarkMode ? Colors.white54 : Colors.black54),
           floatingLabelStyle: theme?.textTheme.titleMedium?.copyWith(
-              fontSize: 18,
+              fontSize: 18.sp,
               fontWeight: FontWeight.w400,
               color: isDarkMode ? Colors.white54 : Colors.black54),
           suffixIcon: suffixIcon,
@@ -254,9 +255,9 @@ class CustomTextFormField extends StatelessWidget {
           helperMaxLines: helperMaxLines,
           helperText: helperText,
           helperStyle: theme?.textTheme.titleSmall
-              ?.copyWith(fontSize: 10, fontWeight: FontWeight.w400),
+              ?.copyWith(fontSize: 10.sp, fontWeight: FontWeight.w400),
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: SPACE12, vertical: 16),
+              EdgeInsets.symmetric(horizontal: SPACE12, vertical: 16),
           border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: grey, width: 1)),

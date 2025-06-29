@@ -43,19 +43,19 @@ class _MyFootAndFloorScreenState extends State<MyFootAndFloorScreen> {
             return Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0.r),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         "Floors Name",
-                        style:
-                            theme.textTheme.titleLarge?.copyWith(fontSize: 20),
+                        style: theme.textTheme.titleLarge
+                            ?.copyWith(fontSize: 20.sp),
                       ),
                       Text(
                         "Sq. Feet",
-                        style:
-                            theme.textTheme.titleLarge?.copyWith(fontSize: 20),
+                        style: theme.textTheme.titleLarge
+                            ?.copyWith(fontSize: 20.sp),
                       ),
                     ],
                   ),
@@ -71,14 +71,14 @@ class _MyFootAndFloorScreenState extends State<MyFootAndFloorScreen> {
                             TextEditingController();
                         floorNameController.text = "Floor No. ${index + 1}";
                         return Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.0.r),
                           child: Row(
                             children: [
                               Expanded(
                                   flex: 3,
                                   child: TextField(
                                     style: theme.textTheme.titleMedium!
-                                        .copyWith(fontSize: 17),
+                                        .copyWith(fontSize: 17.sp),
                                     controller: floorNameController,
                                     keyboardType: TextInputType.name,
                                     onChanged: (value) {
@@ -97,7 +97,7 @@ class _MyFootAndFloorScreenState extends State<MyFootAndFloorScreen> {
                                 flex: 1,
                                 child: TextField(
                                     style: theme.textTheme.titleMedium!
-                                        .copyWith(fontSize: 17),
+                                        .copyWith(fontSize: 17.sp),
                                     controller: _footController,
                                     keyboardType: TextInputType.number,
                                     onChanged: (value) {
@@ -122,8 +122,8 @@ class _MyFootAndFloorScreenState extends State<MyFootAndFloorScreen> {
                     context.pop();
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 20),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 20),
                     child: Container(
                       height: 40,
                       width: double.infinity,

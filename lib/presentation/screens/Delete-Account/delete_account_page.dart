@@ -5,6 +5,7 @@ import 'package:construction_mate/presentation/widgets/common/common_text_form_f
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DeleteAccountPage extends StatelessWidget {
   const DeleteAccountPage({super.key});
@@ -14,7 +15,7 @@ class DeleteAccountPage extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -24,7 +25,7 @@ class DeleteAccountPage extends StatelessWidget {
             ),
             15.hx,
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(16.r),
               decoration: BoxDecoration(
                 border: Border.all(color: Color(0xffEDEDED)),
                 borderRadius: BorderRadius.circular(10),

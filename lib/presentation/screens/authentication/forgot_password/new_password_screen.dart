@@ -10,6 +10,7 @@ import 'package:construction_mate/presentation/widgets/common/common_text_form_f
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
@@ -48,7 +49,7 @@ class NewPasswordScreen extends StatelessWidget {
             Form(
               key: formKey,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                 child: Column(
                   children: [
                     BlocBuilder<VisibilityEyeBloc, VisibilityEyeState>(

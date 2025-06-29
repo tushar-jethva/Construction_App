@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -36,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: isCenterTitle,
       title: titleWidget ?? Text(
         title ?? "",
-        style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
+        style: theme.textTheme.titleLarge?.copyWith(fontSize: 18.sp),
       ),
     );
   }

@@ -12,6 +12,7 @@ import 'package:construction_mate/presentation/widgets/common/common_button.dart
 import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -45,7 +46,7 @@ class SignUpScreen extends StatelessWidget {
               Form(
                 key: formKey,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                   child: Column(
                     children: [
                       CustomTextFormField(

@@ -55,12 +55,12 @@ class AllProjectsWidget extends StatelessWidget {
                   return InkWell(
                     onTap: () {},
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.0.w, vertical: 8.h),
                       child: Container(
                         height: ReusableFunctions.getHeight(
                             context: context, height: 0.12),
-                        padding: const EdgeInsets.all(20),
+                        padding: EdgeInsets.all(20.r),
                         decoration: BoxDecoration(
                             color: theme.cardColor,
                             borderRadius: BorderRadius.circular(10)),
@@ -121,12 +121,12 @@ class AllProjectsWidget extends StatelessWidget {
                               extra: project);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0, vertical: 10),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16.0.w, vertical: 10.h),
                           child: ListTile(
                               contentPadding: EdgeInsets.zero,
                               leading: IconCircleWidget(
-                                radius: 10,
+                                radius: 10.r,
                                 backgroundColor: theme.cardColor,
                                 imagewidget: SvgPicture.asset(
                                   buildIcons[index % buildIcons.length],
@@ -136,19 +136,19 @@ class AllProjectsWidget extends StatelessWidget {
                               title: Text(
                                 project.name ?? '',
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.bold),
+                                    ?.copyWith(fontWeight: FontWeight.w500),
                               ),
                               subtitle: Row(
                                 children: [
                                   Text("Progress: ",
                                       style: theme.textTheme.titleMedium
                                           ?.copyWith(
-                                              fontSize: 12, color: grey)),
+                                              fontSize: 12.sp, color: grey)),
                                   Text(
                                       "${(project.progress ?? 0).toStringAsFixed(2)}%",
                                       style: theme.textTheme.titleMedium
                                           ?.copyWith(
-                                              fontSize: 13, color: green)),
+                                              fontSize: 13.sp, color: green)),
                                 ],
                               ),
                               trailing: PopUpMenuWidget(

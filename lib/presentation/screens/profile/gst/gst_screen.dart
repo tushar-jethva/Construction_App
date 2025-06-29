@@ -1,10 +1,12 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
 import 'package:construction_mate/logic/models/others_transaction_data_model.dart';
 import 'package:construction_mate/presentation/screens/profile/tds/tds_screen.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -19,7 +21,7 @@ class GstScreen extends StatelessWidget {
       appBar: appBarWidget(theme, context),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [totalWidget(theme), 20.hx, gstListWidget(theme)],
@@ -86,7 +88,7 @@ class GstScreen extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Container(
-                padding: const EdgeInsets.all(15),
+                padding: EdgeInsets.all(15.r),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: theme.scaffoldBackgroundColor),
@@ -96,12 +98,12 @@ class GstScreen extends StatelessWidget {
                     Text(
                       "Total",
                       style: theme.textTheme.titleLarge
-                          ?.copyWith(fontSize: 13, color: grey),
+                          ?.copyWith(fontSize: 13.sp, color: grey),
                     ),
                     Text(
-                      "₹ ${state.total}",
+                      "₹ ${ReusableFunctions.formatNumber(state.total)}",
                       style: theme.textTheme.bodyMedium
-                          ?.copyWith(fontSize: 26, color: green),
+                          ?.copyWith(fontSize: 26.sp, color: green),
                     )
                   ],
                 ),

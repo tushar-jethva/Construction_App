@@ -18,6 +18,7 @@ import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_ma
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -132,7 +133,7 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
 
   Widget materialWidget(ThemeData theme, Details material) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: EdgeInsets.all(15.0.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -144,12 +145,13 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                 children: [
                   Text(
                     material.name ?? '',
-                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 20),
+                    style:
+                        theme.textTheme.titleLarge?.copyWith(fontSize: 20.sp),
                   ),
                   Text(
                     material.description ?? '',
                     style: theme.textTheme.titleMedium?.copyWith(
-                        fontSize: 14, color: const Color(0xff6B7580)),
+                        fontSize: 14.sp, color: const Color(0xff6B7580)),
                   ),
                 ],
               ),
@@ -162,12 +164,12 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                           Text(
                             "Quantity: ",
                             style: theme.textTheme.titleMedium?.copyWith(
-                                fontSize: 14, color: theme.canvasColor),
+                                fontSize: 14.sp, color: theme.canvasColor),
                           ),
                           Text(
                             (material.quantity ?? 0).toString(),
                             style: theme.textTheme.titleLarge?.copyWith(
-                                fontSize: 16, color: theme.canvasColor),
+                                fontSize: 16.sp, color: theme.canvasColor),
                           ),
                         ],
                       ),
@@ -183,7 +185,6 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                   Align(
                     alignment: Alignment.topRight,
                     child: PopUpMenuWidget(
-                    
                       theme: theme,
                       onUpdateButtonPressed: () {
                         openBottomSheetOfMaterial(

@@ -10,6 +10,7 @@ import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class WorkingAgenciesSite extends StatelessWidget {
@@ -28,7 +29,8 @@ class WorkingAgenciesSite extends StatelessWidget {
       listener: (context, state) {
         if (state is SiteProgressAgencyUpdateSuccessState) {
           // Navigator.pop(context);
-          showTopSnackBar(context, "Agency updated successfully!", messageType: MessageType.done);
+          showTopSnackBar(context, "Agency updated successfully!",
+              messageType: MessageType.done);
 
           context.read<SiteProgressAgencyUpdateBloc>().add(
               FetchAlreadySelectedAgencies(
@@ -51,7 +53,7 @@ class WorkingAgenciesSite extends StatelessWidget {
           SiteProgressAgencyUpdateState>(
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+            padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 25.h),
             child: CustomElevatedButton(
               isLoading: state is SiteProgressAgencyUpdateLoadingState,
               label: 'Update',
@@ -134,7 +136,7 @@ class WorkingAgenciesSite extends StatelessWidget {
                                               .agencyName ??
                                           '',
                                       style: theme.textTheme.titleLarge
-                                          ?.copyWith(fontSize: 16),
+                                          ?.copyWith(fontSize: 16.sp),
                                     ),
                                   );
                           },

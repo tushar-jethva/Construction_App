@@ -8,6 +8,7 @@ import 'package:construction_mate/presentation/widgets/common/common_button.dart
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
@@ -37,32 +38,33 @@ class SubscriptionScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               isExpired
                   ? Text(
                       "Your 7 days free trial has ended!",
-                      style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14),
+                      style:
+                          theme.textTheme.bodyMedium?.copyWith(fontSize: 14.sp),
                     )
                   : const SizedBox.shrink(),
               3.hx,
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                padding: EdgeInsets.symmetric(horizontal: 30.0.w),
                 child: Column(
                   children: [
                     Text(
                       "Get Premium",
                       style: theme.textTheme.headlineMedium
-                          ?.copyWith(fontSize: 30),
+                          ?.copyWith(fontSize: 30.sp),
                     ),
                     10.hx,
                     Text(
                       "Unlock all the power of this mobile tool and enjoy digital experience like never before!",
                       textAlign: TextAlign.center,
                       style: theme.textTheme.titleSmall?.copyWith(
-                        fontSize: 13,
+                        fontSize: 13.sp,
                       ),
                     ),
                   ],
@@ -116,7 +118,7 @@ class SubscriptionScreen extends StatelessWidget {
 
   Widget bottomBarWidget(ThemeData theme, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 16),
+      padding: EdgeInsets.symmetric(vertical: 25.0.h, horizontal: 16.w),
       child: CustomElevatedButton(
         onTap: () {
           context.pushNamed(RoutesName.CONTACT_US_SCREEN_NAME);
@@ -151,9 +153,9 @@ class SubscriptionBoxWidget extends StatelessWidget {
               .add(SubsctiptionBoxEvent.onSelectionChanged(index: index));
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16),
+          padding: EdgeInsets.symmetric(vertical: 10.0.h, horizontal: 16.w),
           child: Container(
-            padding: const EdgeInsets.all(16),
+            padding: EdgeInsets.all(16.r),
             width: double.infinity,
             decoration: BoxDecoration(
                 color: const Color(0xff092765).withOpacity(0.05),
@@ -169,19 +171,19 @@ class SubscriptionBoxWidget extends StatelessWidget {
                     Text(
                       subscription.title,
                       style: theme.textTheme.titleLarge?.copyWith(
-                          fontSize: isSelected ? 16 : 14, color: purple),
+                          fontSize: isSelected ? 16.sp : 14.sp, color: purple),
                     ),
                     index == 1
                         ? Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10.w, vertical: 5.h),
                             decoration: BoxDecoration(
                                 color: const Color(0xff26CB63),
                                 borderRadius: BorderRadius.circular(12)),
                             child: Text(
                               "Best Value",
                               style: theme.textTheme.titleMedium
-                                  ?.copyWith(fontSize: 8, color: white),
+                                  ?.copyWith(fontSize: 8.sp, color: white),
                             ),
                           )
                         : const SizedBox.shrink()
@@ -190,8 +192,8 @@ class SubscriptionBoxWidget extends StatelessWidget {
                 5.hx,
                 Text(
                   "First 7 days free - Then ${subscription.currentPrice}",
-                  style: theme.textTheme.titleSmall
-                      ?.copyWith(fontSize: isSelected ? 12 : 11, color: purple),
+                  style: theme.textTheme.titleSmall?.copyWith(
+                      fontSize: isSelected ? 12.sp : 11.sp, color: purple),
                 ),
               ],
             ),

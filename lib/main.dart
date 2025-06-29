@@ -277,8 +277,9 @@ class MyMultiBlocProviders extends StatelessWidget {
         BlocProvider(create: (_) => di.locator<DeleteAccountBloc>()),
       ],
       child: ScreenUtilInit(
-        designSize: const Size(392.72, 783.27),
+        designSize: const Size(440, 956),
         splitScreenMode: true,
+        minTextAdapt: true,
         child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => DateBlocBloc()),

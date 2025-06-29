@@ -1,5 +1,6 @@
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TransactionStatusWidget extends StatelessWidget {
   final String upperText;
@@ -24,7 +25,7 @@ class TransactionStatusWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.all(15.r),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
               color: theme.scaffoldBackgroundColor),

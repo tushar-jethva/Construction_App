@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/enum.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/AddMaterialBloc/add_material_bloc.dart';
 import 'package:construction_mate/logic/controllers/AgencyWorkingInProject/agency_works_projects_bloc.dart';
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
@@ -183,7 +184,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
             builder: (context, state) {
               return Text(
                 menus[state.index].menuName,
-                style: theme.textTheme.titleLarge?.copyWith(fontSize: 18),
+                style: theme.textTheme.titleLarge?.copyWith(fontSize: 18.sp),
               );
             },
           ),
@@ -253,15 +254,15 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         stops: const [0.8, 0.98],
         initialSize: 0.8,
         minChildSize: 0.8,
-        radius: 20,
+        radius: 20.r,
         isDraggerShow: false,
         newWidget: (context, scrollController) {
           return Container(
             decoration: BoxDecoration(
                 color: theme.scaffoldBackgroundColor,
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.r),
+                    topRight: Radius.circular(20.r))),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
@@ -274,7 +275,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                         controller: _tabController,
                         isScrollable: true,
                         indicatorSize: TabBarIndicatorSize.tab,
-                        padding: const EdgeInsets.only(top: 20, left: 0),
+                        padding: EdgeInsets.only(top: 20.h),
                         indicator: BoxDecoration(
                           color: transparent,
                           borderRadius: BorderRadius.circular(30),
@@ -285,8 +286,8 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                         unselectedLabelColor:
                             const Color.fromARGB(255, 27, 24, 24),
                         labelColor: Colors.white,
-                        labelStyle:
-                            theme.textTheme.titleLarge?.copyWith(fontSize: 8),
+                        labelStyle: theme.textTheme.titleLarge
+                            ?.copyWith(fontSize: 10.sp),
                         tabs: [
                           Tab(
                               child: MenuWidget(
@@ -302,7 +303,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                           )),
                           Tab(
                               child: MenuWidget(
-                            name: "Material",
+                            name: "Materials",
                             index: 2,
                             tabController: _tabController,
                           )),
@@ -314,7 +315,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                           )),
                           Tab(
                               child: MenuWidget(
-                            name: "Transaction",
+                            name: "Transactions",
                             index: 4,
                             tabController: _tabController,
                           )),
@@ -355,7 +356,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
 
   Padding topAmountAndWidgetSection(ThemeData theme) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0.r),
       child: Column(
         children: [
           Row(
@@ -366,7 +367,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                   return TopAmountWidget(
                     theme: theme,
                     title: "Amount Received",
-                    amount: state.paymentIn,
+                    amount: ReusableFunctions.formatNumber(state.paymentIn),
                     color: green,
                   );
                 },
@@ -378,7 +379,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                   return TopAmountWidget(
                     theme: theme,
                     title: "Amount Paid",
-                    amount: state.paymentOut,
+                    amount: ReusableFunctions.formatNumber(state.paymentOut),
                     color: red,
                   );
                 },
@@ -387,7 +388,6 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
           ),
           BlocBuilder<MenuBloc, MenuState>(
             builder: (context, state) {
-              print("======= menu index in ${state.index} =============");
               return Align(
                   alignment: Alignment.centerRight,
                   child: menus[state.index].childWidget ??
@@ -425,7 +425,7 @@ class MenuWidget extends StatelessWidget {
                 .add(MenuEvent.onIndexChanged(index: index));
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width / 4,
             decoration: BoxDecoration(
@@ -435,7 +435,8 @@ class MenuWidget extends StatelessWidget {
             child: Text(
               name,
               style: theme.textTheme.titleLarge?.copyWith(
-                  fontSize: 12, color: isSelected ? white : theme.canvasColor),
+                  fontSize: 12.sp,
+                  color: isSelected ? white : theme.canvasColor),
             ),
           ),
         );
@@ -460,7 +461,7 @@ class TopAmountWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
         color: theme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(10),
@@ -470,13 +471,13 @@ class TopAmountWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: theme.textTheme.titleLarge?.copyWith(fontSize: 12),
+            style: theme.textTheme.titleLarge?.copyWith(fontSize: 12.sp),
           ),
           10.hx,
           Text(
             "₹ $amount",
             style: theme.textTheme.titleLarge
-                ?.copyWith(fontSize: 16, color: color),
+                ?.copyWith(fontSize: 16.sp, color: color),
           )
         ],
       ),

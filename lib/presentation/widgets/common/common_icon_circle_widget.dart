@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class IconCircleWidget extends StatelessWidget {
@@ -30,14 +31,13 @@ class IconCircleWidget extends StatelessWidget {
       width: size?.width,
       height: size?.height,
       decoration: BoxDecoration(
-        color: backgroundColor ?? const Color(0xffFFF8DB),
-        borderRadius: BorderRadius.circular(
-          radius,
-        ),
-        border: Border.all(color: borderColor ?? Colors.transparent)
-      ),
+          color: backgroundColor ?? const Color(0xffFFF8DB),
+          borderRadius: BorderRadius.circular(
+            radius,
+          ),
+          border: Border.all(color: borderColor ?? Colors.transparent)),
       child: Padding(
-        padding: padding ?? const EdgeInsets.all(12.0),
+        padding: padding ?? EdgeInsets.all(12.0.r),
         child: isSvg
             ? SvgPicture.asset(
                 svgpath,

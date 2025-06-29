@@ -16,7 +16,8 @@ class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
     _loadTheme();
   }
 
-  Future<void> _onThemeChanged(OnThemeChangeEvent event, Emitter<ThemeState> emit) async {
+  Future<void> _onThemeChanged(
+      OnThemeChangeEvent event, Emitter<ThemeState> emit) async {
     final isDarkTheme = state.themeData == AppTheme.darkTheme;
     final newThemeData = isDarkTheme ? AppTheme.lightTheme : AppTheme.darkTheme;
 

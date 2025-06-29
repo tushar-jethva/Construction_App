@@ -12,9 +12,9 @@ class MyBuildingListShimmerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(8.0.r),
       child: Container(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20.r),
         decoration: BoxDecoration(
             color: theme.cardColor, borderRadius: BorderRadius.circular(10)),
         child: Column(

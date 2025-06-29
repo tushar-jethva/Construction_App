@@ -72,7 +72,7 @@ class _MyAddBillingPartyBottomSheetState
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
           child: Column(
             children: [
               Form(
@@ -138,7 +138,7 @@ class _MyAddBillingPartyBottomSheetState
                         if (value == null || value.isEmpty) {
                           return 'Please add GST Number';
                         }
-                       
+
                         if (value.startsWith('-')) {
                           return 'Please enter valid digit!';
                         }
@@ -239,7 +239,7 @@ class _MyAddBillingPartyBottomSheetState
                               Text(
                                 "Same as Shipping Address ",
                                 style: theme.textTheme.titleMedium!
-                                    .copyWith(fontSize: 14),
+                                    .copyWith(fontSize: 14.sp),
                               ),
                             ],
                           ),
@@ -264,10 +264,9 @@ class _MyAddBillingPartyBottomSheetState
         },
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            padding: EdgeInsets.symmetric(vertical: 20.0.h),
             child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 10.0),
+              padding: EdgeInsets.only(left: 16.0.w, right: 16.0.w, bottom: 10.0.h),
               child: CustomElevatedButton(
                   label: "Add Party",
                   isLoading: state.isAdded == 1,

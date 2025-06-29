@@ -14,6 +14,7 @@ import 'package:construction_mate/presentation/widgets/common/pop_up_menu_widget
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -140,7 +141,7 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
 
   Widget materialWidget(ThemeData theme, Details? rental) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: EdgeInsets.all(15.0.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -152,12 +153,13 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                 children: [
                   Text(
                     rental?.name ?? '',
-                    style: theme.textTheme.titleLarge?.copyWith(fontSize: 20),
+                    style:
+                        theme.textTheme.titleLarge?.copyWith(fontSize: 20.sp),
                   ),
                   Text(
                     rental?.description ?? '',
                     style: theme.textTheme.titleMedium?.copyWith(
-                        fontSize: 14, color: const Color(0xff6B7580)),
+                        fontSize: 14.sp, color: const Color(0xff6B7580)),
                   ),
                 ],
               ),
@@ -172,17 +174,19 @@ class _RentalProductsScreenState extends State<RentalProductsScreen> {
                               ? Text(
                                   "Hours: ",
                                   style: theme.textTheme.titleMedium?.copyWith(
-                                      fontSize: 14, color: theme.canvasColor),
+                                      fontSize: 14.sp,
+                                      color: theme.canvasColor),
                                 )
                               : Text(
                                   "Days: ",
                                   style: theme.textTheme.titleMedium?.copyWith(
-                                      fontSize: 14, color: theme.canvasColor),
+                                      fontSize: 14.sp,
+                                      color: theme.canvasColor),
                                 ),
                           Text(
                             (rental?.quantity ?? 0).toString(),
                             style: theme.textTheme.titleLarge?.copyWith(
-                                fontSize: 16, color: theme.canvasColor),
+                                fontSize: 16.sp, color: theme.canvasColor),
                           ),
                         ],
                       ),

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -74,7 +75,7 @@ class PDFGenerator {
         pageFormat: PdfPageFormat.a4,
         build: (pw.Context context) {
           return [
-            pw.Text('TAX INVOICE', style: const pw.TextStyle(fontSize: 14)),
+            pw.Text('TAX INVOICE', style:  pw.TextStyle(fontSize: 14.sp)),
             pw.SizedBox(height: 20),
             _buildHeader(imageData: imageData, date: formattedDate),
             pw.SizedBox(height: 20),
@@ -403,12 +404,12 @@ class PDFGenerator {
       },
       headerStyle: pw.TextStyle(
         color: PdfColors.black,
-        fontSize: 10,
+        fontSize: 10.sp,
         fontWeight: pw.FontWeight.bold,
       ),
-      cellStyle: const pw.TextStyle(
+      cellStyle:  pw.TextStyle(
         color: PdfColors.black,
-        fontSize: 10,
+        fontSize: 10.sp,
       ),
       headers: List<String>.generate(
         tableHeaders.length,

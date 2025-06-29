@@ -22,6 +22,7 @@ import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_ma
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -147,8 +148,7 @@ class _RentalScreenState extends State<RentalScreen> {
 
   Padding agenyOneWidget(ThemeData theme, Data rental, int index) {
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 15.0, right: 15, bottom: 10, top: 10),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
       child: Container(
         color: transparent,
         child: Column(
@@ -173,7 +173,7 @@ class _RentalScreenState extends State<RentalScreen> {
                           Text(
                             rental.name ?? "",
                             style: theme.textTheme.titleLarge
-                                ?.copyWith(fontSize: 14),
+                                ?.copyWith(fontSize: 14.sp),
                           ),
                           Row(
                             children: [
@@ -182,12 +182,12 @@ class _RentalScreenState extends State<RentalScreen> {
                               Text(
                                 "Remaining: ",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
-                                "₹ ${(rental.totalCost ?? 0) - (rental.paidCost ?? 0)}",
+                                "₹ ${ReusableFunctions.formatNumber((rental.totalCost ?? 0) - (rental.paidCost ?? 0))}",
                                 style: theme.textTheme.titleLarge?.copyWith(
-                                    color: Colors.orange, fontSize: 13),
+                                    color: Colors.orange, fontSize: 13.sp),
                               ),
                             ],
                           ),
@@ -202,12 +202,12 @@ class _RentalScreenState extends State<RentalScreen> {
                               Text(
                                 "Total Paid:",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
-                                " ₹ ${rental.paidCost ?? 0}",
+                                " ₹ ${ReusableFunctions.formatNumber(rental.paidCost ?? 0)}",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: green, fontSize: 13),
+                                    ?.copyWith(color: green, fontSize: 13.sp),
                               )
                             ],
                           ),
@@ -216,12 +216,12 @@ class _RentalScreenState extends State<RentalScreen> {
                               Text(
                                 "Total Payable: ",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
-                                "₹ ${rental.totalCost ?? 0}",
+                                "₹ ${ReusableFunctions.formatNumber(rental.totalCost ?? 0)}",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: red, fontSize: 13),
+                                    ?.copyWith(color: red, fontSize: 13.sp),
                               ),
                             ],
                           )

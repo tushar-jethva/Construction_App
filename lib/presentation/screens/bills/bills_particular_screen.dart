@@ -1,5 +1,6 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/data/datasource/agency_data_source.dart';
 import 'package:construction_mate/data/repository/agency_repository.dart';
 import 'package:construction_mate/data/repository/bills_repository.dart';
@@ -105,7 +106,7 @@ class _MyBillsParticularPartyScreenState
             });
           },
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
             decoration: BoxDecoration(
                 color: purple, borderRadius: BorderRadius.circular(12.r)),
             child: Text(
@@ -148,10 +149,10 @@ class _MyBillsParticularPartyScreenState
                         },
                         child: Card(
                           elevation: 3,
-                          margin: const EdgeInsets.all(15),
+                          margin: EdgeInsets.all(15.r),
                           color: theme.hintColor,
                           child: Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: EdgeInsets.all(16.r),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -163,23 +164,23 @@ class _MyBillsParticularPartyScreenState
                                       theme: theme,
                                       leftText: "Total Amount:  ",
                                       rightText:
-                                          "₹ ${double.parse(bill.totalAmount.toString()).toStringAsFixed(2)}",
+                                          "₹ ${ReusableFunctions.formatNumber(bill.totalAmount)}",
                                     ),
                                     MyRichTextForPopUp(
                                       theme: theme,
                                       leftText: "Receivable Amount:  ",
                                       rightText:
-                                          "₹ ${double.parse(bill.receivableAmount.toString()).toStringAsFixed(2)}",
+                                          "₹ ${ReusableFunctions.formatNumber(bill.receivableAmount)}",
                                       rightStyle: theme.textTheme.titleMedium!
                                           .copyWith(
-                                              fontSize: 15,
+                                              fontSize: 15.sp,
                                               fontWeight: FontWeight.bold,
                                               color: red),
                                     ),
                                     Text(
                                       "Date: ${getDateFormatted(date: DateTime.parse(bill.date.toString()))}",
                                       style: theme.textTheme.labelLarge
-                                          ?.copyWith(fontSize: 12),
+                                          ?.copyWith(fontSize: 12.sp),
                                     ),
                                   ],
                                 ),
@@ -225,42 +226,109 @@ class _MyBillsParticularPartyScreenState
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Assume you have access to 'theme' and 'bill' object
+
+// Import your number formatter (if you haven't already)
+// import 'package:construction_mate/utilities/number_formatter.dart';
+
+// Import your date formatter (if you have one)
+// import 'package:construction_mate/utilities/date_formatter.dart'; // Assuming getDateFormatted is here
+
+// Use it like this:
                     MyRichTextForPopUp(
-                        theme: theme,
-                        leftText: "Date:  ",
-                        rightText: getDateFormatted(
-                            date: DateTime.parse(bill.date.toString()))),
+                      theme: theme,
+                      leftText: "Date: ", // Consistent trailing space
+                      rightText: getDateFormatted(
+                          date: DateTime.parse(bill.date.toString())),
+                      // No specific rightStyle needed here, default bold is fine
+                    ),
                     MyRichTextForPopUp(
-                        theme: theme,
-                        leftText: "TDS:  ",
-                        rightText: double.parse(bill.tDSAmount.toString())
-                            .toStringAsFixed(2)),
+                      theme: theme,
+                      leftText: "TDS: ",
+                      rightText: ReusableFunctions.formatNumber(
+                          bill.tDSAmount), // Use your flexible formatter
+                    ),
                     MyRichTextForPopUp(
-                        theme: theme,
-                        leftText: "sGST:  ",
-                        rightText: double.parse(bill.sGSTAmount.toString())
-                            .toStringAsFixed(2)),
+                      theme: theme,
+                      leftText: "SGST: ",
+                      rightText: ReusableFunctions.formatNumber(
+                          bill.sGSTAmount), // Use your flexible formatter
+                    ),
                     MyRichTextForPopUp(
-                        theme: theme,
-                        leftText: "cGST:  ",
-                        rightText: double.parse(bill.cGSTAmount.toString())
-                            .toStringAsFixed(2)),
+                      theme: theme,
+                      leftText: "CGST: ",
+                      rightText: ReusableFunctions.formatNumber(
+                          bill.cGSTAmount), // Use your flexible formatter
+                    ),
+// Emphasize important amounts with specific colors and potentially a larger font
                     MyRichTextForPopUp(
-                        theme: theme,
-                        leftText: "Total Amount:  ",
-                        rightText: double.parse(bill.totalAmount.toString())
-                            .toStringAsFixed(2)),
+                      theme: theme,
+                      leftText: "Total Amount: ",
+                      rightText: ReusableFunctions.formatNumber(
+                          bill.totalAmount), // Use your flexible formatter
+                      valueColor:
+                          Colors.deepPurple, // Example: Highlight Total Amount
+                      rightStyle: theme.textTheme.titleMedium!.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w900), // Bolder, larger
+                    ),
                     MyRichTextForPopUp(
-                        theme: theme,
-                        leftText: "Net Amount:  ",
-                        rightText: double.parse(bill.netAmount.toString())
-                            .toStringAsFixed(2)),
+                      theme: theme,
+                      leftText: "Net Amount: ",
+                      rightText: ReusableFunctions.formatNumber(
+                          bill.netAmount), // Use your flexible formatter
+                      valueColor: Colors.blue, // Example: Highlight Net Amount
+                      rightStyle: theme.textTheme.titleMedium!.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w900), // Bolder, larger
+                    ),
                     MyRichTextForPopUp(
-                        theme: theme,
-                        leftText: "Receivable Amount:  ",
-                        rightText:
-                            double.parse(bill.receivableAmount.toString())
-                                .toStringAsFixed(2)),
+                      theme: theme,
+                      leftText: "Receivable Amount: ",
+                      rightText: ReusableFunctions.formatNumber(
+                          bill.receivableAmount), // Use your flexible formatter
+                      valueColor:
+                          Colors.red, // Example: Highlight Receivable Amount
+                      rightStyle: theme.textTheme.titleMedium!.copyWith(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w900), // Bolder, larger
+                    ),
+                    // MyRichTextForPopUp(
+                    //     theme: theme,
+                    //     leftText: "Date:  ",
+                    //     rightText: getDateFormatted(
+                    //         date: DateTime.parse(bill.date.toString()))),
+                    // MyRichTextForPopUp(
+                    //     theme: theme,
+                    //     leftText: "TDS:  ",
+                    //     rightText: double.parse(bill.tDSAmount.toString())
+                    //         .toStringAsFixed(2)),
+                    // MyRichTextForPopUp(
+                    //     theme: theme,
+                    //     leftText: "sGST:  ",
+                    //     rightText: double.parse(bill.sGSTAmount.toString())
+                    //         .toStringAsFixed(2)),
+                    // MyRichTextForPopUp(
+                    //     theme: theme,
+                    //     leftText: "cGST:  ",
+                    //     rightText: double.parse(bill.cGSTAmount.toString())
+                    //         .toStringAsFixed(2)),
+                    // MyRichTextForPopUp(
+                    //     theme: theme,
+                    //     leftText: "Total Amount:  ",
+                    //     rightText: double.parse(bill.totalAmount.toString())
+                    //         .toStringAsFixed(2)),
+                    // MyRichTextForPopUp(
+                    //     theme: theme,
+                    //     leftText: "Net Amount:  ",
+                    //     rightText: double.parse(bill.netAmount.toString())
+                    //         .toStringAsFixed(2)),
+                    // MyRichTextForPopUp(
+                    //     theme: theme,
+                    //     leftText: "Receivable Amount:  ",
+                    //     rightText:
+                    //         double.parse(bill.receivableAmount.toString())
+                    //             .toStringAsFixed(2)),
                   ],
                 ),
               ));
@@ -288,7 +356,7 @@ class _MyBillsParticularPartyScreenState
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                  padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 16.h),
                   child: CommonButton2(
                     buttonName: "Add Bill",
                     onTap: () {
@@ -306,32 +374,58 @@ class _MyBillsParticularPartyScreenState
   }
 }
 
+// Assuming 'grey' and other colors are defined in your constants file
+// import 'package:construction_mate/core/constants/colors.dart';
+
 class MyRichTextForPopUp extends StatelessWidget {
   final String leftText;
   final String rightText;
   final TextStyle? rightStyle;
-  const MyRichTextForPopUp(
-      {super.key,
-      required this.theme,
-      required this.leftText,
-      required this.rightText,
-      this.rightStyle});
+  final Color? valueColor; // New: Optional color for the right text
+
+  const MyRichTextForPopUp({
+    super.key,
+    required this.theme,
+    required this.leftText,
+    required this.rightText,
+    this.rightStyle,
+    this.valueColor, // Initialize the new property
+  });
 
   final ThemeData theme;
 
   @override
   Widget build(BuildContext context) {
-    return RichText(
-        text: TextSpan(children: [
-      TextSpan(
-          text: leftText,
-          style:
-              theme.textTheme.titleMedium!.copyWith(fontSize: 14, color: grey)),
-      TextSpan(
-          text: rightText,
-          style: rightStyle ??
-              theme.textTheme.titleMedium!
-                  .copyWith(fontSize: 15, fontWeight: FontWeight.bold))
-    ]));
+    return Padding(
+      // Add padding for better spacing between rows
+      padding: EdgeInsets.symmetric(vertical: 4.0), // Adjust as needed
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: leftText,
+              style: theme.textTheme.titleMedium!.copyWith(
+                fontSize: 14.sp,
+                color: theme.textTheme.titleMedium!.color
+                    ?.withOpacity(0.7), // Slightly muted label color
+                // You might use a specific grey here if 'grey' is not part of your theme directly
+                // color: grey, // If grey is a constant color
+              ),
+            ),
+            TextSpan(
+              text: rightText,
+              style: rightStyle ??
+                  theme.textTheme.titleMedium!.copyWith(
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.bold, // Keep bold for values
+                    color: valueColor ??
+                        theme.textTheme.titleMedium!
+                            .color, // Use custom color or default text color
+                  ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

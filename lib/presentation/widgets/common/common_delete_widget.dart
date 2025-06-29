@@ -5,6 +5,7 @@ import 'package:construction_mate/presentation/widgets/common/common_button.dart
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -32,7 +33,7 @@ class CommonDeleteWidget extends StatelessWidget {
       backgroundColor: theme.scaffoldBackgroundColor,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.0.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -41,7 +42,7 @@ class CommonDeleteWidget extends StatelessWidget {
               ),
               Text(
                 title,
-                style: textTheme.titleLarge?.copyWith(fontSize: 18),
+                style: textTheme.titleLarge?.copyWith(fontSize: 18.sp),
               ),
               5.hx,
               Text(
@@ -89,7 +90,7 @@ class CircleIconContainerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(15.r),
       decoration: BoxDecoration(
         color: backgroundColor ?? borderColor,
         shape: BoxShape.circle,

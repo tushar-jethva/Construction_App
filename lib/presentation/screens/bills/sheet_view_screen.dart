@@ -4,6 +4,7 @@ import 'package:construction_mate/logic/controllers/BillingPartyParticularBloc/b
 import 'package:construction_mate/logic/models/bill_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
@@ -101,7 +102,7 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
                   DataCell(Text(
                     "Total",
                     style: theme.textTheme.titleLarge!
-                        .copyWith(fontWeight: FontWeight.bold, fontSize: 14),
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 14.sp),
                   )),
                   DataCell(Text("-")), // No total for Date
                   DataCell(Text(
@@ -131,37 +132,37 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
                 DataColumn(
                     label: Text(
                   "Bill No.",
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14.sp),
                 )),
                 DataColumn(
                     label: Text(
                   "Date",
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14.sp),
                 )),
                 DataColumn(
                     label: Text(
                   "Net Amount",
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14.sp),
                 )),
                 DataColumn(
                     label: Text(
                   "Total Amount",
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14.sp),
                 )),
                 DataColumn(
                     label: Text(
                   "TDS",
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14.sp),
                 )),
                 DataColumn(
                     label: Text(
                   "GST",
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14.sp),
                 )),
                 DataColumn(
                     label: Text(
                   "PDF",
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 14.sp),
                 )),
               ], rows: rows),
             );
@@ -169,7 +170,7 @@ class _MySheetViewScreenState extends State<MySheetViewScreen> {
             return Center(
               child: Text(
                 "Something went wrong!",
-                style: theme.textTheme.titleMedium!.copyWith(fontSize: 14),
+                style: theme.textTheme.titleMedium!.copyWith(fontSize: 14.sp),
               ),
             );
           }

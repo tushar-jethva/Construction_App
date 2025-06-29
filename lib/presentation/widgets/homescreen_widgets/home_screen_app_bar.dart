@@ -56,7 +56,7 @@ class MyHomeScreenAppBar extends StatelessWidget {
                   Gap(10.w),
                   Text(
                     "Hello, ${user?.name ?? ""} 👋",
-                    style: theme.textTheme.titleMedium?.copyWith(fontSize: 14),
+                    style: theme.textTheme.titleMedium?.copyWith(fontSize: 14.sp),
                   )
                 ],
               ),

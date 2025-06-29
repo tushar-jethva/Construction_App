@@ -16,6 +16,7 @@ import 'package:construction_mate/presentation/widgets/homescreen_widgets/transa
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../logic/controllers/Tds/tds_bloc.dart';
 
 /* Created By: Tushar Jethva
@@ -93,8 +94,8 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     return DraggableScrollableSheetCommonComp(
       draggableScrollableController: DraggableScrollableController(),
       stops: const [0.98],
-      initialSize: 0.77,
-      minChildSize: 0.77,
+      initialSize: 0.78,
+      minChildSize: 0.78,
       radius: 20,
       newWidget: (context, scrollController) {
         return Container(
@@ -122,7 +123,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
         );
       },
       // widget: Padding(
-      //   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      //   padding: EdgeInsets.symmetric(horizontal: 16.0),
       //   child: Column(
       //     children: [
       //       addProjectTextWidget(context, theme),
@@ -169,7 +170,7 @@ class CommonButton2 extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
             color: backgroundColor ?? purple),
@@ -178,7 +179,7 @@ class CommonButton2 extends StatelessWidget {
           children: [
             IconCircleWidget(
               radius: 5,
-              padding: const EdgeInsets.all(2),
+              padding: EdgeInsets.all(2.r),
               imagewidget: Icon(
                 Icons.add,
                 size: 14,
@@ -191,7 +192,7 @@ class CommonButton2 extends StatelessWidget {
             Text(
               buttonName,
               style: theme.textTheme.titleLarge!
-                  .copyWith(color: textColor ?? white, fontSize: 12.5),
+                  .copyWith(color: textColor ?? white, fontSize: 12.5.sp),
             ),
           ],
         ),

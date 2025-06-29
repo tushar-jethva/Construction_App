@@ -117,12 +117,11 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                 itemCount: 5,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(
-                        left: 15.0, right: 15, bottom: 10),
+                    padding: EdgeInsets.only(left: 15.0.w, right: 15.w, bottom: 10.h),
                     child: Container(
                       height: ReusableFunctions.getHeight(
                           context: context, height: 0.08),
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.all(20.r),
                       decoration: BoxDecoration(
                         color: theme.cardColor,
                         borderRadius: BorderRadius.circular(10),
@@ -176,7 +175,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
 
   Padding agenyOneWidget(ThemeData theme, AgencyModel agency, int index) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15.0, right: 15, bottom: 10),
+      padding: EdgeInsets.only(left: 15.0.w, right: 15.w, bottom: 10.h),
       child: Container(
         color: transparent,
         child: Column(
@@ -201,7 +200,7 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                           Text(
                             agency.name ?? "",
                             style: theme.textTheme.titleLarge
-                                ?.copyWith(fontSize: 14),
+                                ?.copyWith(fontSize: 14.sp),
                           ),
                           Row(
                             children: [
@@ -210,12 +209,12 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                               Text(
                                 "Remaining: ",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
-                                "₹ ${agency.totalAccount ?? 0}",
+                                "₹ ${ReusableFunctions.formatNumber(agency.totalAccount ?? 0)}",
                                 style: theme.textTheme.titleLarge?.copyWith(
-                                    color: Colors.orange, fontSize: 13),
+                                    color: Colors.orange, fontSize: 13.sp),
                               ),
                             ],
                           )
@@ -230,12 +229,12 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                               Text(
                                 "Total Paid:",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
-                                " ₹ ${agency.totalPaid ?? 0}",
+                                " ₹ ${ReusableFunctions.formatNumber(agency.totalPaid ?? 0)}",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: green, fontSize: 13),
+                                    ?.copyWith(color: green, fontSize: 13.sp),
                               )
                             ],
                           ),
@@ -244,12 +243,12 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
                               Text(
                                 "Total Payable: ",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
-                                "₹ ${agency.totalPayable ?? 0}",
+                                "₹ ${ReusableFunctions.formatNumber(agency.totalPayable ?? 0)}",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: red, fontSize: 13),
+                                    ?.copyWith(color: red, fontSize: 13.sp),
                               ),
                             ],
                           )
@@ -312,10 +311,10 @@ class _MyPartiesScreenState extends State<MyPartiesScreen> {
           contentPadding: EdgeInsets.symmetric(vertical: 5.h),
           border: InputBorder.none,
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.sp),
               borderSide: const BorderSide(color: grey, width: 1)),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.sp),
               borderSide: const BorderSide(color: transparent, width: 1)),
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:construction_mate/presentation/screens/project/project_screen.da
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MaterialChildWidget extends StatelessWidget {
   const MaterialChildWidget({super.key});
@@ -41,7 +42,7 @@ class MaterialChildWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 15),
+      padding: EdgeInsets.only(top: 20.h),
       child: CommonButton2(
           buttonName: 'Material',
           onTap: () {

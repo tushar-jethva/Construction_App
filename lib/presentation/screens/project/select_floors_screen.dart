@@ -62,7 +62,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                 if (!state.isLoading) {
                   return Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0.r),
                       child: GridView.builder(
                           itemCount: widget.buildingModel.totalFloor,
                           gridDelegate:
@@ -88,7 +88,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                                   child: Text(
                                     "${state.selectedFloorList[index].floorName}",
                                     style: theme.textTheme.titleMedium!
-                                        .copyWith(fontSize: 16),
+                                        .copyWith(fontSize: 16.sp),
                                   ),
                                 ),
                               );
@@ -111,7 +111,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                                   child: Text(
                                     "${state.selectedFloorList[index].floorName}",
                                     style: theme.textTheme.titleMedium!
-                                        .copyWith(fontSize: 16),
+                                        .copyWith(fontSize: 16.sp),
                                   ),
                                 ),
                               );
@@ -132,7 +132,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
                                 child: Text(
                                   "${state.selectedFloorList[index].floorName}",
                                   style: theme.textTheme.titleMedium!
-                                      .copyWith(fontSize: 16),
+                                      .copyWith(fontSize: 16.sp),
                                 ),
                               ),
                             );
@@ -144,8 +144,7 @@ class _MySelectFloorsScreenState extends State<MySelectFloorsScreen> {
               },
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 30),
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 30.h),
               child: CustomElevatedButton(
                 onTap: () {
                   context.pop();

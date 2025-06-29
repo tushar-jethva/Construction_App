@@ -168,7 +168,7 @@ class _PaymentOutWidgetState extends State<PaymentOutWidget> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(right: 15.0),
+                    padding: EdgeInsets.only(right: 15.0.w),
                     child: BlocBuilder<SwitchBloc, SwitchState>(
                       builder: (context, state) {
                         return Row(
@@ -177,7 +177,7 @@ class _PaymentOutWidgetState extends State<PaymentOutWidget> {
                             Text(
                               "Other expenses: ",
                               style: theme.textTheme.titleLarge!
-                                  .copyWith(fontSize: 15),
+                                  .copyWith(fontSize: 15.sp),
                             ),
                             Switch(
                               value: state.isSwitched,
@@ -1148,7 +1148,7 @@ class PaymentOutCustomDropDown extends StatelessWidget {
     return DropdownButtonFormField(
       dropdownColor: theme.scaffoldBackgroundColor,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(7),
+        contentPadding: EdgeInsets.all(7),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             10.r,

@@ -18,7 +18,7 @@ class MyCustomTopBillWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: EdgeInsets.all(8.r),
       width: ReusableFunctions.getwidth(context: context, width: 0.3),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.r),

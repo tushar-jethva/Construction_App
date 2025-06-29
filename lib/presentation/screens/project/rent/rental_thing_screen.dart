@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Rent/get_rental_project/get_rental_partie_project_bloc.dart';
 import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
@@ -81,7 +82,7 @@ class _RentThingScreenState extends State<RentThingScreen> {
             Icons.search_rounded,
             color: grey,
           ),
-          hintText: 'Search transactions',
+          hintText: 'Search rental',
           hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
           contentPadding: EdgeInsets.symmetric(vertical: 5.h),
           border: InputBorder.none,
@@ -98,8 +99,7 @@ class _RentThingScreenState extends State<RentThingScreen> {
 
   Padding agenyOneWidget(ThemeData theme, Rentals agency, int index) {
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 15.0, right: 15, bottom: 10, top: 10),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
       child: Container(
         color: transparent,
         child: Column(
@@ -125,7 +125,7 @@ class _RentThingScreenState extends State<RentThingScreen> {
                           Text(
                             agency.name ?? "",
                             style: theme.textTheme.titleLarge
-                                ?.copyWith(fontSize: 14),
+                                ?.copyWith(fontSize: 14.sp),
                           ),
                           Row(
                             children: [
@@ -134,12 +134,12 @@ class _RentThingScreenState extends State<RentThingScreen> {
                               Text(
                                 "Total Hours:",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
                                 " ${agency.totalHours ?? 0}",
                                 style: theme.textTheme.titleLarge?.copyWith(
-                                    color: Colors.black, fontSize: 13),
+                                    color: Colors.black, fontSize: 13.sp),
                               ),
                             ],
                           )
@@ -154,12 +154,12 @@ class _RentThingScreenState extends State<RentThingScreen> {
                               Text(
                                 "Total Price:",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
-                                "₹ ${agency.totalPrice}",
+                                "₹ ${ReusableFunctions.formatNumber(agency.totalPrice ?? 0)}",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: green, fontSize: 13),
+                                    ?.copyWith(color: green, fontSize: 13.sp),
                               )
                             ],
                           ),
@@ -168,12 +168,12 @@ class _RentThingScreenState extends State<RentThingScreen> {
                               Text(
                                 "Total Days: ",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
                                 " ${agency.totalDays ?? 0}",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: black, fontSize: 13),
+                                    ?.copyWith(color: black, fontSize: 13.sp),
                               ),
                             ],
                           )
@@ -201,7 +201,7 @@ class _RentThingScreenState extends State<RentThingScreen> {
       radius: 20,
       isDraggerShow: false,
       widget: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
         child: Column(
           children: [
             RefreshIndicator(

@@ -12,6 +12,7 @@ import 'package:construction_mate/presentation/widgets/common/common_button.dart
 import 'package:flutter/material.dart';
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class MySiteProgressDetailsWidget extends StatefulWidget {
@@ -53,7 +54,7 @@ class _MySiteProgressDetailsWidgetState
         backgroundColor: theme.scaffoldBackgroundColor,
         title: Text(
           floor.floorName.toString(),
-          style: theme.textTheme.titleMedium!.copyWith(fontSize: 20),
+          style: theme.textTheme.titleMedium!.copyWith(fontSize: 20.sp),
         ),
       ),
       body: scrollableSheetWidget(context, theme, floor),
@@ -70,7 +71,7 @@ class _MySiteProgressDetailsWidgetState
           children: [
             Text(
               "Working agency on ${floor.floorName}",
-              style: const TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 15.sp),
             ),
             ListTile(
               leading: Checkbox(
@@ -132,7 +133,8 @@ class _MySiteProgressDetailsWidgetState
                 SiteProgressAgencyUpdateState>(
               listener: (context, state) {
                 if (state is SiteProgressAgencyUpdateSuccessState) {
-                  showTopSnackBar(context, "Agency updated successfully!", messageType: MessageType.done);
+                  showTopSnackBar(context, "Agency updated successfully!",
+                      messageType: MessageType.done);
                   context.pop();
                 }
               },
@@ -140,8 +142,7 @@ class _MySiteProgressDetailsWidgetState
                   SiteProgressAgencyUpdateState>(
                 builder: (context, state) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
+                    padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
                     child: CustomElevatedButton(
                       isLoading: state is SiteProgressAgencyUpdateLoadingState,
                       label: 'Update',
@@ -175,7 +176,7 @@ class _MySiteProgressDetailsWidgetState
     FloorSiteModel floor,
   ) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       decoration: BoxDecoration(
         color: theme.scaffoldBackgroundColor,
       ),
@@ -211,7 +212,8 @@ Widget updateButton(FloorSiteModel floor) {
     listener: (context, state) {
       if (state is SiteProgressAgencyUpdateSuccessState) {
         // Navigator.pop(context);
-        showTopSnackBar(context, "Agency updated successfully!", messageType: MessageType.done);
+        showTopSnackBar(context, "Agency updated successfully!",
+            messageType: MessageType.done);
 
         context.read<SiteProgressAgencyUpdateBloc>().add(
             FetchAlreadySelectedAgencies(
@@ -226,7 +228,7 @@ Widget updateButton(FloorSiteModel floor) {
         SiteProgressAgencyUpdateState>(
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
           child: CustomElevatedButton(
             isLoading: state.isLoading,
             label: 'Update',

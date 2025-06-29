@@ -186,10 +186,13 @@ class _MyBuildingAddBottomSheetWidgetState
                         IconButton(
                             onPressed: () {
                               if (_floorController.text.isEmpty) {
-                                showTopSnackBar(context, "Please enter floor number!", messageType: MessageType.error);
+                                showTopSnackBar(
+                                    context, "Please enter floor number!",
+                                    messageType: MessageType.error);
                               } else if (_unitPerFootController.text.isEmpty) {
                                 showTopSnackBar(
-                                    context, "Please enter unit per floor", messageType: MessageType.error);
+                                    context, "Please enter unit per floor",
+                                    messageType: MessageType.error);
                               } else {
                                 context.push(RoutesName.footAndFloorScreen,
                                     extra:
@@ -225,13 +228,14 @@ class _MyBuildingAddBottomSheetWidgetState
                 listener: (context, state) {
                   if (state is BuildingAddSuccess) {
                     Navigator.pop(context);
-                    showTopSnackBar(context, "Building added", messageType: MessageType.done);
+                    showTopSnackBar(context, "Building added",
+                        messageType: MessageType.done);
                   }
                 },
                 child: BlocBuilder<BuildingsBloc, BuildingsState>(
                   builder: (context, state) {
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 25.0),
+                      padding: EdgeInsets.only(bottom: 25.0.h),
                       child: CustomElevatedButton(
                         isLoading: state is BuildingAddLoading,
                         label: 'Add Building',

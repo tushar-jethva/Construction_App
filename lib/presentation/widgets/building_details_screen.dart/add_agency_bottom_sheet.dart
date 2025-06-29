@@ -99,7 +99,7 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
       child: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.all(15.r),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15.r),
@@ -115,7 +115,8 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   children: [
                     Text(
                       "Work Type: ",
-                      style: theme.textTheme.titleLarge!.copyWith(fontSize: 16),
+                      style:
+                          theme.textTheme.titleLarge!.copyWith(fontSize: 16.sp),
                     ),
                     Expanded(
                       child: BlocBuilder<AddAgencyDropDownsBloc,
@@ -148,7 +149,8 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                   children: [
                     Text(
                       "Name of Agency: ",
-                      style: theme.textTheme.titleLarge!.copyWith(fontSize: 16),
+                      style:
+                          theme.textTheme.titleLarge!.copyWith(fontSize: 16.sp),
                     ),
                     Expanded(
                       child: BlocBuilder<AddAgencyDropDownsBloc,
@@ -263,7 +265,7 @@ class _AddAgencyBottomSheetForm extends StatelessWidget {
                       AddAgencyDropDownsState>(
                     builder: (context, state) {
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 10.0),
+                        padding: EdgeInsets.only(bottom: 10.0.h),
                         child: CustomElevatedButton(
                           isLoading: state is AddAgencyLoadingState,
                           label: 'Add Agency',

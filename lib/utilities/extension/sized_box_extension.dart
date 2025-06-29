@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 extension SizedBoxExt on num {
   Widget get hx {
-    return SizedBox(
-      height: toDouble(),
-    );
+    return toDouble().h.verticalSpace;
   }
 
   Widget get wx {
-    return SizedBox(
-      width: toDouble(),
-    );
+    return toDouble().w.horizontalSpace;
   }
 }

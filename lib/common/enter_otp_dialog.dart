@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pinput/pinput.dart';
 
 class EnterOTPDialog extends StatefulWidget {
@@ -93,16 +94,15 @@ class _EnterOTPDialogState extends State<EnterOTPDialog> {
 
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      insetPadding: const EdgeInsets.all(24),
+      insetPadding: EdgeInsets.all(24.r),
       elevation: 0,
       backgroundColor: theme.scaffoldBackgroundColor,
-      
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             widget.enterOtpText,
-            style: textTheme.titleLarge?.copyWith(fontSize: 24),
+            style: textTheme.titleLarge?.copyWith(fontSize: 24.sp),
           ),
           const SizedBox(height: 10),
           Text(
@@ -130,7 +130,7 @@ class _EnterOTPDialogState extends State<EnterOTPDialog> {
             children: [
               Text(
                 "${widget.didNotRecieveText} ",
-                style: textTheme.titleMedium?.copyWith(fontSize: 14),
+                style: textTheme.titleMedium?.copyWith(fontSize: 14.sp),
               ),
               isResendClickable
                   ? InkWell(

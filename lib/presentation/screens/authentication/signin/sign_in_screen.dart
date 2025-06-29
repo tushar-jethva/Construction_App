@@ -11,6 +11,7 @@ import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
@@ -33,7 +34,7 @@ class SignInScreen extends StatelessWidget {
               100.hx,
               SizedBox(
                 height:
-                    ReusableFunctions.getHeight(context: context, height: 0.3),
+                    ReusableFunctions.getHeight(context: context, height: 0.25),
                 child: Lottie.asset(
                   Assets.json.constructionAnim,
                   fit: BoxFit.cover,
@@ -44,7 +45,7 @@ class SignInScreen extends StatelessWidget {
               Form(
                   key: formKey,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                     child: Column(
                       children: [
                         CustomTextFormField(
@@ -129,7 +130,7 @@ class SignInScreen extends StatelessWidget {
                                 .textTheme
                                 .titleLarge
                                 ?.copyWith(
-                                    color: Color(0xff6B7580), fontSize: 14),
+                                    color: Color(0xff6B7580), fontSize: 14.sp),
                           ),
                         ),
                         20.hx,
@@ -139,7 +140,7 @@ class SignInScreen extends StatelessWidget {
                               .textTheme
                               .titleLarge
                               ?.copyWith(
-                                  color: Color(0xff242D35), fontSize: 14),
+                                  color: Color(0xff242D35), fontSize: 14.sp),
                         ),
                         20.hx,
                         Row(
@@ -152,7 +153,7 @@ class SignInScreen extends StatelessWidget {
                                   .bodyMedium
                                   ?.copyWith(
                                       color: const Color(0xff242D35),
-                                      fontSize: 16),
+                                      fontSize: 16.sp),
                             ),
                             5.wx,
                             InkWell(
@@ -166,7 +167,7 @@ class SignInScreen extends StatelessWidget {
                                     .bodyMedium
                                     ?.copyWith(
                                         color: purple,
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         decoration: TextDecoration.underline,
                                         decorationColor: purple),
                               ),
@@ -182,11 +183,11 @@ class SignInScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        padding:  EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Wrap(
           spacing: 0,
           runSpacing: 0,
-          alignment: WrapAlignment.start,
+          alignment: WrapAlignment.center,
           children: [
             Text(
               'By signing in, you agree to our ',
@@ -200,7 +201,7 @@ class SignInScreen extends StatelessWidget {
               child: Text(
                 'Terms of Use',
                 style: textTheme.bodyMedium?.copyWith(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     color: purple,
                     fontWeight: FontWeight.w600,
                     decoration: TextDecoration.underline,
@@ -219,7 +220,7 @@ class SignInScreen extends StatelessWidget {
               child: Text(
                 'Privacy Policy.',
                 style: textTheme.bodyMedium?.copyWith(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     color: purple,
                     fontWeight: FontWeight.w600,
                     decoration: TextDecoration.underline,

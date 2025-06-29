@@ -12,6 +12,7 @@ import 'package:construction_mate/presentation/widgets/common/common_button.dart
 import 'package:construction_mate/presentation/widgets/common/common_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
@@ -45,7 +46,7 @@ class SignUpStep2 extends StatelessWidget {
               Form(
                   key: formKey,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                     child: Column(
                       children: [
                         CustomTextFormField(
@@ -165,8 +166,8 @@ class SignUpStep2 extends StatelessWidget {
                                             MainAxisAlignment.end,
                                         children: [
                                           Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 15.0),
+                                            padding:  EdgeInsets.only(
+                                                right: 15.0.w),
                                             child: SpinKitThreeBounce(
                                               size: 15,
                                               color: purple,

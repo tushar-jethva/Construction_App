@@ -6,6 +6,7 @@ import 'package:construction_mate/presentation/widgets/common/common_button.dart
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class OnboardStep1 extends StatefulWidget {
@@ -23,13 +24,13 @@ class _OnboardStep1State extends State<OnboardStep1> {
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(20.0.r),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.7,
               child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (value) {
@@ -44,10 +45,10 @@ class _OnboardStep1State extends State<OnboardStep1> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.asset(onboard[index].image),
-                      20.hx,
+                      10.hx,
                       Text(
                         onboard[index].title,
-                        style: textTheme.titleLarge?.copyWith(fontSize: 18),
+                        style: textTheme.titleLarge?.copyWith(fontSize: 18.sp),
                       ),
                       5.hx,
                       Text(

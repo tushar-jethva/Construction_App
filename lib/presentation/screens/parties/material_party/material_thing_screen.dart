@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
 import 'package:construction_mate/logic/models/material/all_material_model.dart';
@@ -80,15 +81,15 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
             Icons.search_rounded,
             color: grey,
           ),
-          hintText: 'Search transactions',
+          hintText: 'Search material',
           hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
           contentPadding: EdgeInsets.symmetric(vertical: 5.h),
           border: InputBorder.none,
           focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.sp),
               borderSide: const BorderSide(color: grey, width: 1)),
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.sp),
               borderSide: const BorderSide(color: transparent, width: 1)),
         ),
       ),
@@ -97,8 +98,7 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
 
   Padding agenyOneWidget(ThemeData theme, Rentals agency, int index) {
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 15.0, right: 15, bottom: 10, top: 10),
+      padding: EdgeInsets.only(left: 15.0.w, right: 15.w, bottom: 10.h, top: 10.h),
       child: Container(
         color: transparent,
         child: Column(
@@ -127,7 +127,7 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
                           Text(
                             agency.name ?? "",
                             style: theme.textTheme.titleLarge
-                                ?.copyWith(fontSize: 14),
+                                ?.copyWith(fontSize: 14.sp),
                           ),
                           Row(
                             children: [
@@ -136,12 +136,12 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
                               Text(
                                 "Total Quantity:",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
                                 "₹ ${agency.totalQuantity ?? 0}",
                                 style: theme.textTheme.titleLarge?.copyWith(
-                                    color: Colors.orange, fontSize: 13),
+                                    color: Colors.orange, fontSize: 13.sp),
                               ),
                             ],
                           )
@@ -156,12 +156,12 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
                               Text(
                                 "Total Price:",
                                 style: theme.textTheme.titleMedium
-                                    ?.copyWith(color: grey, fontSize: 12),
+                                    ?.copyWith(color: grey, fontSize: 12.sp),
                               ),
                               Text(
-                                "₹ ${agency.totalPrice ?? 0}",
+                                "₹ ${ReusableFunctions.formatNumber(agency.totalPrice ?? 0)}",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(color: green, fontSize: 13),
+                                    ?.copyWith(color: green, fontSize: 13.sp),
                               )
                             ],
                           ),
@@ -170,12 +170,12 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
                           //     Text(
                           //       "Total Payable: ",
                           //       style: theme.textTheme.titleMedium
-                          //           ?.copyWith(color: grey, fontSize: 12),
+                          //           ?.copyWith(color: grey, fontSize: 12.sp),
                           //     ),
                           //     Text(
                           //       "₹ ${0}",
                           //       style: theme.textTheme.titleLarge
-                          //           ?.copyWith(color: red, fontSize: 13),
+                          //           ?.copyWith(color: red, fontSize: 13.sp),
                           //     ),
                           //   ],
                           // )
@@ -203,7 +203,7 @@ class _MaterialThingScreenState extends State<MaterialThingScreen> {
       radius: 20,
       isDraggerShow: false,
       widget: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
         child: Column(
           children: [
             RefreshIndicator(

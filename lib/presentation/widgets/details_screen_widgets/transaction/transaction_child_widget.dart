@@ -50,7 +50,7 @@ class TransactionChildWidget extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(top: 15.h, left: 10.w, bottom: 10.h),
+            padding: EdgeInsets.only(top: 15.h, left: 10.w, bottom: 20.h),
             child: TextField(
               controller: _searchController,
               maxLines: 1,

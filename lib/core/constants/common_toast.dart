@@ -1,5 +1,6 @@
 //---------------- top snackbar ---------------------
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum MessageType { error, done, warning }
 
@@ -79,6 +80,7 @@ class _TopSnackBarState extends State<TopSnackBar>
   Widget build(BuildContext context) {
     // Define default background colors for each message type
     final Color defaultBackgroundColor;
+    final textTheme = Theme.of(context).textTheme;
     switch (widget.messageType) {
       case MessageType.done:
         defaultBackgroundColor = Colors.green;
@@ -99,8 +101,8 @@ class _TopSnackBarState extends State<TopSnackBar>
         child: Align(
           alignment: Alignment.topCenter,
           child: Container(
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            margin:  EdgeInsets.all(10.r),
+            padding:  EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
             decoration: BoxDecoration(
               color: defaultBackgroundColor,
               borderRadius: BorderRadius.circular(10),
@@ -122,12 +124,7 @@ class _TopSnackBarState extends State<TopSnackBar>
                     widget.message,
                     maxLines: 2,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 1,
-                    ),
+                    style: textTheme.titleSmall ,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),

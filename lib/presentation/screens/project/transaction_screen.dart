@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -123,7 +124,7 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
             messageType: MessageType.done);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        padding: EdgeInsets.symmetric(horizontal: 15.0.w),
         child: Column(
           children: [
             ListTile(
@@ -146,12 +147,12 @@ class _MyTransactionScreenState extends State<MyTransactionScreen> {
               subtitle: Text(
                 formattedDate,
                 style: theme.textTheme.titleMedium!
-                    .copyWith(color: grey, fontSize: 12),
+                    .copyWith(color: grey, fontSize: 12.sp),
               ),
               trailing: Text(
-                "₹ ${transaction.amount}",
+                "₹ ${ReusableFunctions.formatNumber(transaction.amount)}",
                 style: theme.textTheme.titleLarge?.copyWith(
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     color: (transaction.isCompleted ?? false)
                         ? orange
                         : transaction.entryType == 'Credit'

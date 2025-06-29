@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -240,7 +241,7 @@ selectProfile(BuildContext context,
               }
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.r),
               child: ListTile(
                 leading: Icon(Icons.camera_alt_rounded,
                     color: Theme.of(context).canvasColor),
@@ -248,7 +249,7 @@ selectProfile(BuildContext context,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge!
-                        .copyWith(fontSize: 18)),
+                        .copyWith(fontSize: 18.sp)),
               ),
             ),
           ),
@@ -280,7 +281,7 @@ selectProfile(BuildContext context,
               }
             },
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.r),
               child: ListTile(
                 leading: Icon(
                   Icons.photo,
@@ -290,7 +291,7 @@ selectProfile(BuildContext context,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge!
-                        .copyWith(fontSize: 18)),
+                        .copyWith(fontSize: 18.sp)),
               ),
             ),
           ),
@@ -316,10 +317,10 @@ showDialogCameraPermission({String? subTitle, required BuildContext context}) {
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: const SizedBox(
+          title:  SizedBox(
             // width: 300,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.r),
               child: Column(
                 children: [
                   Text(
@@ -335,8 +336,8 @@ showDialogCameraPermission({String? subTitle, required BuildContext context}) {
           ),
           actions: <Widget>[
             CupertinoDialogAction(
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child:  Padding(
+                padding: EdgeInsets.all(8.0.r),
                 child: Text('Cancel'),
               ),
               onPressed: () {
@@ -344,8 +345,8 @@ showDialogCameraPermission({String? subTitle, required BuildContext context}) {
               },
             ),
             CupertinoDialogAction(
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child:  Padding(
+                padding: EdgeInsets.all(8.0.r),
                 child: Text('Go to Setting'),
               ),
               onPressed: () {
@@ -363,10 +364,10 @@ showDialogGalleryPermission({String? subTitle, required BuildContext context}) {
       context: context,
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
-          title: const SizedBox(
+          title:  SizedBox(
             // width: 300,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0.r),
               child: Column(
                 children: [
                   Text(
@@ -382,8 +383,8 @@ showDialogGalleryPermission({String? subTitle, required BuildContext context}) {
           ),
           actions: <Widget>[
             CupertinoDialogAction(
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child:  Padding(
+                padding: EdgeInsets.all(8.0.r),
                 child: Text('Cancel'),
               ),
               onPressed: () {
@@ -391,8 +392,8 @@ showDialogGalleryPermission({String? subTitle, required BuildContext context}) {
               },
             ),
             CupertinoDialogAction(
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
+              child:  Padding(
+                padding: EdgeInsets.all(8.0.r),
                 child: Text('Go to Setting'),
               ),
               onPressed: () {

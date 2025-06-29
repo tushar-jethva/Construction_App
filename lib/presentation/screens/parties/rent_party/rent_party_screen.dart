@@ -71,157 +71,157 @@ class _MyRentPartyScreenState extends State<MyRentPartyScreen> {
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15.r),
                 topRight: Radius.circular(15.r))),
-        child: Column(
-          children: [
-            Form(
-              key: _materialFormKey,
-              child: Column(
-                children: [
-                  10.hx,
-                  MyCustomTextFormField(
-                    controller: _rentPartyNameController,
-                    textInputAction: TextInputAction.next,
-                    hintText: "Party name",
-                    maxLines: 1,
-                    textInputType: TextInputType.name,
-                    onChanged: (value) {
-                      context.read<AddRentSupplierBloc>().add(
-                            AddRentSupplierEvent.partyNameChanged(
-                                partyName: value ?? ''),
-                          );
-                    },
-                    validator: (value) {
-                      if (value == null ||
-                          value.isEmpty ||
-                          !ReusableFunctions.isValidInput(value)) {
-                        return 'Please add party name';
-                      }
-                    },
-                  ),
-                  Gap(10.h),
-                  MyCustomTextFormField(
-                    controller: _gstNoController,
-                    textInputAction: TextInputAction.next,
-                    hintText: "GST No.",
-                    maxLines: 1,
-                    maxLength: 15,
-                    textInputType: TextInputType.text,
-                    onChanged: (value) {
-                      context.read<AddRentSupplierBloc>().add(
-                            AddRentSupplierEvent.gstNoChanged(
-                                gstNo: value ?? ''),
-                          );
-                    },
-                    validator: (value) {
-                      if (value != null && value.isNotEmpty) {
-                        
-                        if (value.startsWith('-')) {
-                          return 'Please enter valid digit!';
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Form(
+                key: _materialFormKey,
+                child: Column(
+                  children: [
+                    10.hx,
+                    MyCustomTextFormField(
+                      controller: _rentPartyNameController,
+                      textInputAction: TextInputAction.next,
+                      hintText: "Party name",
+                      maxLines: 1,
+                      textInputType: TextInputType.name,
+                      onChanged: (value) {
+                        context.read<AddRentSupplierBloc>().add(
+                              AddRentSupplierEvent.partyNameChanged(
+                                  partyName: value ?? ''),
+                            );
+                      },
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
+                          return 'Please add party name';
                         }
-                        if (value.length < 15) {
-                          return 'Please enter correct GST number';
+                      },
+                    ),
+                    Gap(10.h),
+                    MyCustomTextFormField(
+                      controller: _gstNoController,
+                      textInputAction: TextInputAction.next,
+                      hintText: "GST No.",
+                      maxLines: 1,
+                      maxLength: 15,
+                      textInputType: TextInputType.text,
+                      onChanged: (value) {
+                        context.read<AddRentSupplierBloc>().add(
+                              AddRentSupplierEvent.gstNoChanged(
+                                  gstNo: value ?? ''),
+                            );
+                      },
+                      validator: (value) {
+                        if (value != null && value.isNotEmpty) {
+                          if (value.startsWith('-')) {
+                            return 'Please enter valid digit!';
+                          }
+                          if (value.length < 15) {
+                            return 'Please enter correct GST number';
+                          }
                         }
-                      }
-                      return null;
-                    },
-                  ),
-                  Gap(10.h),
-                  MyCustomTextFormField(
-                    controller: _emailController,
-                    textInputAction: TextInputAction.next,
-                    hintText: "Email",
-                    maxLines: 1,
-                    textInputType: TextInputType.emailAddress,
-                    onChanged: (value) {
-                      context.read<AddRentSupplierBloc>().add(
-                            AddRentSupplierEvent.emailChanged(
-                                email: value ?? ''),
-                          );
-                    },
-                    validator: (value) {
-                      if (value != null && value.isNotEmpty) {
-                        final emailRegex = RegExp(
-                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
-                        if (!emailRegex.hasMatch(value.trim())) {
-                          return 'Please enter a valid email address';
+                        return null;
+                      },
+                    ),
+                    Gap(10.h),
+                    MyCustomTextFormField(
+                      controller: _emailController,
+                      textInputAction: TextInputAction.next,
+                      hintText: "Email",
+                      maxLines: 1,
+                      textInputType: TextInputType.emailAddress,
+                      onChanged: (value) {
+                        context.read<AddRentSupplierBloc>().add(
+                              AddRentSupplierEvent.emailChanged(
+                                  email: value ?? ''),
+                            );
+                      },
+                      validator: (value) {
+                        if (value != null && value.isNotEmpty) {
+                          final emailRegex = RegExp(
+                              r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+                          if (!emailRegex.hasMatch(value.trim())) {
+                            return 'Please enter a valid email address';
+                          }
                         }
-                      }
 
-                      return null;
-                    },
-                  ),
-                  Gap(10.h),
-                  MyCustomTextFormField(
-                    controller: _contactNoController,
-                    textInputAction: TextInputAction.next,
-                    hintText: "Contatct No.",
-                    maxLines: 1,
-                    maxLength: 10,
-                    textInputType: TextInputType.number,
-                    onChanged: (value) {
-                      context.read<AddRentSupplierBloc>().add(
-                            AddRentSupplierEvent.contactNoChanged(
-                                contactNo: value ?? ''),
-                          );
-                    },
-                    validator: (value) {
-                      if (value != null && value.isNotEmpty) {
-                        if (value.length < 10) {
-                          return 'Please enter correct Mobile Number';
+                        return null;
+                      },
+                    ),
+                    Gap(10.h),
+                    MyCustomTextFormField(
+                      controller: _contactNoController,
+                      textInputAction: TextInputAction.next,
+                      hintText: "Contatct No.",
+                      maxLines: 1,
+                      maxLength: 10,
+                      textInputType: TextInputType.number,
+                      onChanged: (value) {
+                        context.read<AddRentSupplierBloc>().add(
+                              AddRentSupplierEvent.contactNoChanged(
+                                  contactNo: value ?? ''),
+                            );
+                      },
+                      validator: (value) {
+                        if (value != null && value.isNotEmpty) {
+                          if (value.length < 10) {
+                            return 'Please enter correct Mobile Number';
+                          }
                         }
-                      }
-                      return null;
-                    },
-                  ),
-                  Gap(10.h),
-                  MyCustomTextFormField(
-                    controller: _shippingAddressController,
-                    textInputAction: TextInputAction.next,
-                    hintText: "Address",
-                    maxLines: 3,
-                    textInputType: TextInputType.name,
-                    onChanged: (value) {
-                      context.read<AddRentSupplierBloc>().add(
-                            AddRentSupplierEvent.addressChanged(
-                                address: value ?? ''),
-                          );
-                    },
-                    validator: (value) {
-                      return null;
-                    },
-                  ),
-                ],
+                        return null;
+                      },
+                    ),
+                    Gap(10.h),
+                    MyCustomTextFormField(
+                      controller: _shippingAddressController,
+                      textInputAction: TextInputAction.next,
+                      hintText: "Address",
+                      maxLines: 3,
+                      textInputType: TextInputType.name,
+                      onChanged: (value) {
+                        context.read<AddRentSupplierBloc>().add(
+                              AddRentSupplierEvent.addressChanged(
+                                  address: value ?? ''),
+                            );
+                      },
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const Spacer(),
-            BlocConsumer<AddRentSupplierBloc, AddRentSupplierState>(
-              listener: (context, state) {
-                if (state.state.isLoaded) {
-                  showTopSnackBar(
-                      context, "Equipment Supplier Added Successfully",
-                      messageType: MessageType.done);
-
-                  Navigator.of(context).pop();
-                }
-              },
-              builder: (context, state) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: CustomElevatedButton(
-                      label: "Add Equipment Supplier",
-                      isLoading: state.state.isLoading,
-                      onTap: () {
-                        if (_materialFormKey.currentState!.validate()) {
-                          context.read<AddRentSupplierBloc>().add(
-                                const AddRentSupplierEvent.addRentSupplier(),
-                              );
-                        }
-                      }),
-                );
-              },
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+      bottomNavigationBar:
+          BlocConsumer<AddRentSupplierBloc, AddRentSupplierState>(
+        listener: (context, state) {
+          if (state.state.isLoaded) {
+            showTopSnackBar(context, "Equipment Supplier Added Successfully",
+                messageType: MessageType.done);
+
+            Navigator.of(context).pop();
+          }
+        },
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.0.h, horizontal: 16.w),
+            child: CustomElevatedButton(
+                label: "Add Equipment Supplier",
+                isLoading: state.state.isLoading,
+                onTap: () {
+                  if (_materialFormKey.currentState!.validate()) {
+                    context.read<AddRentSupplierBloc>().add(
+                          const AddRentSupplierEvent.addRentSupplier(),
+                        );
+                  }
+                }),
+          );
+        },
       ),
     );
   }

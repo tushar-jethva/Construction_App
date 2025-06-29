@@ -19,14 +19,14 @@ class MyBuildingListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.all(16.0.r),
       child: Container(
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
         child: Row(
           children: [
             IconCircleWidget(
               radius: 10,
-              padding: const EdgeInsets.all(15),
+              padding: EdgeInsets.all(15.r),
               backgroundColor: theme.cardColor,
               imagewidget: GestureDetector(
                   onTap: () {},
@@ -42,7 +42,7 @@ class MyBuildingListWidget extends StatelessWidget {
               children: [
                 Text(
                   building.name ?? "",
-                  style: theme.textTheme.titleLarge?.copyWith(fontSize: 14),
+                  style: theme.textTheme.titleLarge?.copyWith(fontSize: 14.sp),
                 ),
                 Row(
                   children: [
@@ -60,8 +60,8 @@ class MyBuildingListWidget extends StatelessWidget {
                     Gap(10.w),
                     Text(
                       '${(building.progress ?? 0).toStringAsFixed(2)}%',
-                      style:
-                          theme.textTheme.titleMedium!.copyWith(fontSize: 12),
+                      style: theme.textTheme.titleMedium!
+                          .copyWith(fontSize: 12.sp),
                     ),
                   ],
                 ),
@@ -70,12 +70,12 @@ class MyBuildingListWidget extends StatelessWidget {
                     Text(
                       "Floors: ",
                       style: theme.textTheme.titleSmall
-                          ?.copyWith(color: grey, fontSize: 12),
+                          ?.copyWith(color: grey, fontSize: 12.sp),
                     ),
                     Text(
                       "${building.totalFloor ?? 0}",
-                      style:
-                          theme.textTheme.titleMedium?.copyWith(fontSize: 14),
+                      style: theme.textTheme.titleMedium
+                          ?.copyWith(fontSize: 14.sp),
                     ),
                   ],
                 ),

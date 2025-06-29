@@ -24,13 +24,13 @@ class TotalPaymentOutBloc
         await res.fold((l) {
           emit(state.copyWith(state: RequestState.error, message: l.message));
         }, (r) async {
-          emit(state.copyWith(paymentIn: r ?? "0"));
+          emit(state.copyWith(state: RequestState.loaded, paymentIn: r ?? "0"));
           final res = await transactionRepository.getTotalPaymentOut();
           res.fold((l) {
             emit(state.copyWith(state: RequestState.error, message: l.message));
           }, (r) {
             emit(state.copyWith(
-                state: RequestState.error, paymentOut: r ?? "0"));
+                state: RequestState.loaded, paymentOut: r ?? "0"));
           });
         });
       });

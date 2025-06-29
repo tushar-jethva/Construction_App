@@ -2,6 +2,7 @@
 import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -81,8 +82,7 @@ class ContactUsScreen extends StatelessWidget {
             topTextSection(theme),
             30.hx,
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 30.0.w, vertical: 10.h),
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -91,16 +91,16 @@ class ContactUsScreen extends StatelessWidget {
                 child: Stack(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(20.0.r),
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                          padding: EdgeInsets.symmetric(horizontal: 40.0.w),
                           child: Column(
                             children: [
                               Text(
                                 "Contact Information",
                                 style: theme.textTheme.titleLarge
-                                    ?.copyWith(fontSize: 20, color: blue),
+                                    ?.copyWith(fontSize: 20.sp, color: blue),
                               ),
                               20.hx,
                               GestureDetector(
@@ -116,7 +116,7 @@ class ContactUsScreen extends StatelessWidget {
                               Text(
                                 "+91 7698886285",
                                 style: theme.textTheme.titleSmall
-                                    ?.copyWith(fontSize: 12, color: blue),
+                                    ?.copyWith(fontSize: 12.sp, color: blue),
                               ),
                               20.hx,
                               GestureDetector(
@@ -132,7 +132,7 @@ class ContactUsScreen extends StatelessWidget {
                               Text(
                                 "ankurkapuriya2002@gmail.com",
                                 style: theme.textTheme.titleSmall
-                                    ?.copyWith(fontSize: 12, color: blue),
+                                    ?.copyWith(fontSize: 12.sp, color: blue),
                               ),
                               20.hx,
                               GestureDetector(
@@ -150,7 +150,7 @@ class ContactUsScreen extends StatelessWidget {
                                 "150, Santoshanagar, Lambe Hanuman Stree, Surat - 6, Gujarat",
                                 textAlign: TextAlign.center,
                                 style: theme.textTheme.titleSmall
-                                    ?.copyWith(fontSize: 12, color: blue),
+                                    ?.copyWith(fontSize: 12.sp, color: blue),
                               ),
                               80.hx,
                               Row(
@@ -231,20 +231,20 @@ class ContactUsScreen extends StatelessWidget {
         children: [
           Text(
             "Contact Us",
-            style: theme.textTheme.headlineMedium?.copyWith(fontSize: 24),
+            style: theme.textTheme.headlineMedium?.copyWith(fontSize: 24.sp),
           ),
           5.hx,
           Text(
             'Any question or remarks?',
             textAlign: TextAlign.center,
             style: theme.textTheme.titleMedium
-                ?.copyWith(fontSize: 12, color: const Color(0xff717171)),
+                ?.copyWith(fontSize: 12.sp, color: const Color(0xff717171)),
           ),
           Text(
             'Just write us a message!',
             textAlign: TextAlign.center,
             style: theme.textTheme.titleMedium
-                ?.copyWith(fontSize: 12, color: const Color(0xff717171)),
+                ?.copyWith(fontSize: 12.sp, color: const Color(0xff717171)),
           )
         ],
       ),
@@ -267,7 +267,7 @@ class IconCircleWidget extends StatelessWidget {
       return GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(12.0.r),
           decoration: BoxDecoration(shape: BoxShape.circle, color: blue),
           child: isSvg
               ? SvgPicture.asset(path)

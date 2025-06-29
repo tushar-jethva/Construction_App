@@ -1,5 +1,6 @@
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ErrorHandlingDialog extends StatelessWidget {
   const ErrorHandlingDialog({
@@ -17,8 +18,8 @@ class ErrorHandlingDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -26,7 +27,7 @@ class ErrorHandlingDialog extends StatelessWidget {
           children: [
             16.hx,
             Padding(
-              padding: const EdgeInsets.only(top: 24.0, bottom: 9),
+              padding: EdgeInsets.only(top: 24.0.h, bottom: 9.h),
               child: Text(responseCode == 200 ? 'Awesome' : errorTitle,
                   style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       color: responseCode == 200

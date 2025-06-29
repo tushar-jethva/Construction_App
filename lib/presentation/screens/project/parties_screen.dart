@@ -1,12 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/gen/assets.gen.dart';
 import 'package:construction_mate/logic/models/total_agency_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_icon_circle_widget.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:construction_mate/core/constants/colors.dart';
@@ -30,9 +32,9 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
   @override
   void initState() {
     super.initState();
-
-    // context.read<AgencyWorksProjectsBloc>().add(
-    //     AgencyWorksProjectsEvent.fetchAgencies(projectId: widget.project.sId!));
+    context.read<AgencyWorksProjectsBloc>().add(
+        AgencyWorksProjectsEvent.fetchAgencies(
+            projectId: widget.project.sId ?? ''));
   }
 
   Future<void> _refreshTotalAgencies() async {
@@ -121,8 +123,7 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
         });
       },
       child: Padding(
-        padding:
-            const EdgeInsets.only(left: 15.0, right: 15, bottom: 10, top: 15),
+        padding: EdgeInsets.only(left: 15.0.w, right: 15.w, bottom: 10.h, top: 15.h),
         child: Container(
           color: transparent,
           child: Column(
@@ -147,7 +148,7 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                             Text(
                               agency.name ?? "",
                               style: theme.textTheme.titleLarge
-                                  ?.copyWith(fontSize: 14),
+                                  ?.copyWith(fontSize: 14.sp),
                             ),
                             Row(
                               children: [
@@ -156,12 +157,12 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                                 Text(
                                   "Remaining: ",
                                   style: theme.textTheme.titleMedium
-                                      ?.copyWith(color: grey, fontSize: 12),
+                                      ?.copyWith(color: grey, fontSize: 12.sp),
                                 ),
                                 Text(
-                                  "₹ ${(agency.totalPayable ?? 0) - (agency.totalPaid ?? 0)}",
+                                  "₹ ${ReusableFunctions.formatNumber((agency.totalPayable ?? 0) - (agency.totalPaid ?? 0))}",
                                   style: theme.textTheme.titleLarge?.copyWith(
-                                      color: Colors.orange, fontSize: 13),
+                                      color: Colors.orange, fontSize: 13.sp),
                                 ),
                               ],
                             ),
@@ -176,12 +177,12 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                                 Text(
                                   "Total Paid:",
                                   style: theme.textTheme.titleMedium
-                                      ?.copyWith(color: grey, fontSize: 12),
+                                      ?.copyWith(color: grey, fontSize: 12.sp),
                                 ),
                                 Text(
-                                  " ₹ ${agency.totalPaid ?? 0}",
+                                  " ₹ ${ReusableFunctions.formatNumber(agency.totalPaid ?? 0)}",
                                   style: theme.textTheme.titleLarge
-                                      ?.copyWith(color: green, fontSize: 13),
+                                      ?.copyWith(color: green, fontSize: 13.sp),
                                 )
                               ],
                             ),
@@ -190,12 +191,12 @@ class _MyPartiesProjectScreenState extends State<MyPartiesProjectScreen> {
                                 Text(
                                   "Total Payable: ",
                                   style: theme.textTheme.titleMedium
-                                      ?.copyWith(color: grey, fontSize: 12),
+                                      ?.copyWith(color: grey, fontSize: 12.sp),
                                 ),
                                 Text(
-                                  "₹ ${agency.totalPayable ?? 0}",
+                                  "₹ ${ReusableFunctions.formatNumber(agency.totalPayable ?? 0)}",
                                   style: theme.textTheme.titleLarge
-                                      ?.copyWith(color: red, fontSize: 13),
+                                      ?.copyWith(color: red, fontSize: 13.sp),
                                 ),
                               ],
                             )

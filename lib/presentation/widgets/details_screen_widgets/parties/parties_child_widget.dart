@@ -23,7 +23,7 @@ class _PartiesChildWidgetState extends State<PartiesChildWidget> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Padding(
-      padding: EdgeInsets.only(top: 15.h, bottom: 10.h),
+      padding: EdgeInsets.only(top: 15.h, left: 10.w, bottom: 20.h),
       child: TextField(
         controller: _searchController,
         maxLines: 1,

@@ -5,6 +5,7 @@ import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -29,7 +30,7 @@ class ReusableFunctions {
   }) {
     var snack = SnackBar(
       behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.all(20),
+      margin:  EdgeInsets.all(20.r),
       duration: duration ??
           const Duration(
               milliseconds: 4000), // Default duration if not provided
@@ -147,5 +148,64 @@ class ReusableFunctions {
   static bool isValidInput(String input) {
     final regex = RegExp(r'^[A-Za-z0-9].*');
     return regex.hasMatch(input);
+  }
+
+  static String formatNumber(dynamic value) {
+    double number;
+
+    if (value is String) {
+      number = double.tryParse(value) ?? 0.0;
+    } else if (value is num) {
+      number = value.toDouble();
+    } else {
+      print(
+          'Warning: formatNumber received unsupported type: ${value.runtimeType}');
+      number = 0.0;
+    }
+
+    if (number == 0) {
+      return '0';
+    }
+
+    String formattedString;
+
+    if (number.abs() >= 10000000) {
+      // Crores (1 Cr = 10,000,000)
+      formattedString = (number / 10000000).toStringAsFixed(2);
+      // Remove trailing .00 if present
+      if (formattedString.endsWith('.00')) {
+        formattedString =
+            formattedString.substring(0, formattedString.length - 3);
+      }
+      return '$formattedString Cr';
+    } else if (number.abs() >= 100000) {
+      // Lakhs (1 L = 100,000)
+      formattedString = (number / 100000).toStringAsFixed(2);
+      // Remove trailing .00 if present
+      if (formattedString.endsWith('.00')) {
+        formattedString =
+            formattedString.substring(0, formattedString.length - 3);
+      }
+      return '$formattedString L';
+    } else if (number.abs() >= 1000) {
+      // Thousands (1 K = 1,000)
+      formattedString = (number / 1000).toStringAsFixed(2);
+      // Remove trailing .00 if present
+      if (formattedString.endsWith('.00')) {
+        formattedString =
+            formattedString.substring(0, formattedString.length - 3);
+      }
+      return '$formattedString K';
+    } else {
+      // For smaller non-zero numbers, format with commas and two decimal places
+      // We'll also apply the .00 removal here if desired, or keep it for small numbers
+      formattedString = NumberFormat('#,##0.00').format(number);
+      // If you want to remove .00 from small numbers too, apply this:
+      if (formattedString.endsWith('.00')) {
+        formattedString =
+            formattedString.substring(0, formattedString.length - 3);
+      }
+      return formattedString;
+    }
   }
 }

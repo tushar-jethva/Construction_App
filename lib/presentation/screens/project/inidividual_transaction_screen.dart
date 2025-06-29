@@ -278,7 +278,7 @@ class _MyTransactionIndividualScreenState
                   padding:
                       EdgeInsets.symmetric(horizontal: 10.0.w, vertical: 10.h),
                   child: Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: EdgeInsets.all(20.r),
                     height: ReusableFunctions.getHeight(
                         context: context, height: 0.09),
                     decoration: BoxDecoration(
@@ -347,7 +347,7 @@ class _MyTransactionIndividualScreenState
       radius: 20,
       isDraggerShow: false,
       widget: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
         child: Column(
           children: [
             RefreshIndicator(
@@ -383,12 +383,12 @@ class TransactionWidget extends StatelessWidget {
           subtitle: Text(
             formattedDate,
             style: theme.textTheme.titleMedium!
-                .copyWith(color: grey, fontSize: 14),
+                .copyWith(color: grey, fontSize: 14.sp),
           ),
           trailing: Text(
-            "₹ ${transaction.amount}",
+            "₹ ${ReusableFunctions.formatNumber(transaction.amount)}",
             style: theme.textTheme.titleLarge?.copyWith(
-                fontSize: 16,
+                fontSize: 16.sp,
                 color: transaction.entryType == 'Credit' ? green : red),
           ),
         ),

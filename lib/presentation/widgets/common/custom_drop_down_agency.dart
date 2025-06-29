@@ -22,7 +22,7 @@ class MyDropDownFormFieldAgency extends StatelessWidget {
     return DropdownButtonFormField(
       dropdownColor: theme.scaffoldBackgroundColor,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(7),
+        contentPadding: EdgeInsets.all(7.r),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(
             10.r,

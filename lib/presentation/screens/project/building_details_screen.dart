@@ -4,6 +4,7 @@ import 'package:construction_mate/logic/models/project_model.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/agency_widget.dart';
 import 'package:construction_mate/presentation/widgets/building_details_screen.dart/site_progress.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyBuildingDetailsScreen extends StatefulWidget {
   final BuildingModel buildingModel;
@@ -38,7 +39,7 @@ class _MyBuildingDetailsScreenState extends State<MyBuildingDetailsScreen> {
               indicatorPadding: EdgeInsets.zero,
               dividerColor: grey,
               dividerHeight: 3,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               unselectedLabelColor: greyELight,
               indicatorColor: purple,
               tabs: const [

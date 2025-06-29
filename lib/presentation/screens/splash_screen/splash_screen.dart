@@ -5,6 +5,7 @@ import 'package:construction_mate/logic/controllers/network/network_bloc.dart';
 import 'package:construction_mate/logic/controllers/network/network_event_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -50,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
       },
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 0),
+          padding: EdgeInsets.symmetric(vertical: 0.h),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [

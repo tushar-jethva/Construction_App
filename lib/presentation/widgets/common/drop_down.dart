@@ -1,9 +1,14 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDropDown extends StatelessWidget {
   const CustomDropDown(
-      {super.key, required this.items, this.onChanged, this.initialValue, this.validator});
+      {super.key,
+      required this.items,
+      this.onChanged,
+      this.initialValue,
+      this.validator});
 
   final List<String> items;
   final Function(String?)? onChanged;
@@ -16,7 +21,7 @@ class CustomDropDown extends StatelessWidget {
     return DropdownButtonFormField(
       dropdownColor: theme.scaffoldBackgroundColor,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(7),
+        contentPadding: EdgeInsets.all(7.r),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(color: grey),

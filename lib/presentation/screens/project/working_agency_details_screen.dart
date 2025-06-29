@@ -48,7 +48,7 @@ class _MyWorkingAgencyDetailsScreenState
   Widget pricePerFootWidget(
       ThemeData theme, PerBuildingAgencyModel perBuildingAgency) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 30),
+      padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 30.h),
       child: Column(
         children: [
           Row(
@@ -57,12 +57,12 @@ class _MyWorkingAgencyDetailsScreenState
               Text(
                 "Price per feet: ",
                 style: theme.textTheme.titleMedium!
-                    .copyWith(fontSize: 17, color: grey),
+                    .copyWith(fontSize: 17.sp, color: grey),
               ),
               Text(
                 "₹ ${perBuildingAgency.pricePerFeet!}",
                 style: theme.textTheme.titleLarge!.copyWith(
-                  fontSize: 18,
+                  fontSize: 18.sp,
                 ),
               ),
             ],
@@ -97,7 +97,7 @@ class _MyWorkingAgencyDetailsScreenState
           });
 
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15.w),
           decoration: BoxDecoration(
               color: theme.scaffoldBackgroundColor,
               borderRadius: const BorderRadius.only(
@@ -108,7 +108,7 @@ class _MyWorkingAgencyDetailsScreenState
             children: [
               Gap(30.h),
               Text("Assigned Floors:",
-                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 17)),
+                  style: theme.textTheme.titleLarge!.copyWith(fontSize: 17.sp)),
               Gap(10.h),
               Expanded(
                 child: SingleChildScrollView(
@@ -126,7 +126,7 @@ class _MyWorkingAgencyDetailsScreenState
                         return Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
                               height: MediaQuery.of(context).size.height * 0.15,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
@@ -147,15 +147,14 @@ class _MyWorkingAgencyDetailsScreenState
                                     style: TextStyle(
                                         color: theme.canvasColor,
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 16),
+                                        fontSize: 16.sp),
                                   ),
                                 ],
                               ),
                             ),
                             10.hx,
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              padding: EdgeInsets.symmetric(horizontal: 20.0.w),
                               child: SizedBox(
                                 height: 10,
                                 child: DashedLine(

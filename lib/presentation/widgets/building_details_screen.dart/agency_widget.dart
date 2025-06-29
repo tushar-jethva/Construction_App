@@ -167,13 +167,13 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
                                       Text(
                                         agency.nameOfAgency ?? "",
                                         style: theme.textTheme.titleLarge
-                                            ?.copyWith(fontSize: 16),
+                                            ?.copyWith(fontSize: 16.sp),
                                       ),
                                       Text(
                                         agency.workType ?? "",
                                         style: theme.textTheme.titleMedium
                                             ?.copyWith(
-                                                fontSize: 14, color: grey),
+                                                fontSize: 14.sp, color: grey),
                                       )
                                     ],
                                   ),
@@ -187,12 +187,12 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
                                             "Price: ",
                                             style: theme.textTheme.titleMedium
                                                 ?.copyWith(
-                                                    fontSize: 14, color: grey),
+                                                    fontSize: 14.sp, color: grey),
                                           ),
                                           Text(
                                             "₹ ${agency.pricePerFeet}",
                                             style: theme.textTheme.titleLarge
-                                                ?.copyWith(fontSize: 15),
+                                                ?.copyWith(fontSize: 15.sp),
                                           ),
                                         ],
                                       ),
@@ -202,12 +202,12 @@ class _MyPerBuildingAgencyState extends State<MyPerBuildingAgency> {
                                             "Given Floors: ",
                                             style: theme.textTheme.titleMedium
                                                 ?.copyWith(
-                                                    fontSize: 14, color: grey),
+                                                    fontSize: 14.sp, color: grey),
                                           ),
                                           Text(
                                             agency.floors!.length.toString(),
                                             style: theme.textTheme.titleLarge
-                                                ?.copyWith(fontSize: 15),
+                                                ?.copyWith(fontSize: 15.sp),
                                           ),
                                         ],
                                       )

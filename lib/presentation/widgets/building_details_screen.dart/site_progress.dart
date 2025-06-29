@@ -50,7 +50,7 @@ class _MySiteProgressScreenWidgetState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
         color: theme.scaffoldBackgroundColor,
         child: floorsWidget(theme));
   }
@@ -108,7 +108,7 @@ class _MySiteProgressScreenWidgetState
         } else if (state is SiteProgressFloorsSuccess) {
           return state.listOfFloorsSite.isNotEmpty
               ? Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: EdgeInsets.only(top: 10.0.h),
                   child: ListView.builder(
                       itemCount: state.listOfFloorsSite.length,
                       itemBuilder: (context, index) {
@@ -156,7 +156,7 @@ class _MySiteProgressScreenWidgetState
                                     Text(
                                       "${floorSiteModel.floorName}",
                                       style: theme.textTheme.titleLarge
-                                          ?.copyWith(fontSize: 16),
+                                          ?.copyWith(fontSize: 16.sp),
                                     ),
                                     Row(
                                       children: [
@@ -164,14 +164,14 @@ class _MySiteProgressScreenWidgetState
                                           "Total agencies: ",
                                           style: theme.textTheme.titleMedium
                                               ?.copyWith(
-                                                  fontSize: 12, color: grey),
+                                                  fontSize: 12.sp, color: grey),
                                         ),
                                         Text(
                                           floorSiteModel.workStatus?.length
                                                   .toString() ??
                                               "0",
                                           style: theme.textTheme.titleMedium
-                                              ?.copyWith(fontSize: 12),
+                                              ?.copyWith(fontSize: 12.sp),
                                         )
                                       ],
                                     )
@@ -182,13 +182,14 @@ class _MySiteProgressScreenWidgetState
                                     Text(
                                       "Completed agencies: ",
                                       style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontSize: 12, color: grey),
+                                          ?.copyWith(
+                                              fontSize: 12.sp, color: grey),
                                     ),
                                     Text(
                                       "${floorSiteModel.completedAgenciesCount ?? 0}",
                                       style: theme.textTheme.titleMedium
                                           ?.copyWith(
-                                              fontSize: 12, color: green),
+                                              fontSize: 12.sp, color: green),
                                     )
                                   ],
                                 ),
@@ -197,13 +198,14 @@ class _MySiteProgressScreenWidgetState
                                     Text(
                                       "Progress: ",
                                       style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontSize: 12, color: grey),
+                                          ?.copyWith(
+                                              fontSize: 12.sp, color: grey),
                                     ),
                                     Text(
                                       "${floorSiteModel.progress ?? 0}%",
                                       style: theme.textTheme.titleMedium
                                           ?.copyWith(
-                                              fontSize: 12, color: green),
+                                              fontSize: 12.sp, color: green),
                                     )
                                   ],
                                 ),
@@ -213,13 +215,14 @@ class _MySiteProgressScreenWidgetState
                                     Text(
                                       "Last updated: ",
                                       style: theme.textTheme.titleMedium
-                                          ?.copyWith(fontSize: 10, color: grey),
+                                          ?.copyWith(
+                                              fontSize: 10.sp, color: grey),
                                     ),
                                     Text(
                                       formattedDate,
                                       style:
                                           theme.textTheme.titleMedium?.copyWith(
-                                        fontSize: 11,
+                                        fontSize: 11.sp,
                                       ),
                                     ),
                                   ],
@@ -252,7 +255,7 @@ class _MySiteProgressScreenWidgetState
       minChildSize: 0.98,
       radius: 20,
       widget: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.0.w),
         child: Column(
           children: [floorsWidget(theme)],
         ),

@@ -1,4 +1,5 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/FinancialBloc/financial_bloc.dart';
 import 'package:construction_mate/presentation/widgets/BillScreenWidgets/custom_top_bill_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/transaction_status_widget.dart';
@@ -39,22 +40,22 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
               TransactionStatusWidget(
                 upperText: "Received",
                 belowText:
-                    "₹ ${double.parse(state.financialModel.totalReceivedAmount!).toStringAsFixed(2)}",
+                    "₹ ${ReusableFunctions.formatNumber(state.financialModel.totalReceivedAmount)}",
                 upperTextStyle:
-                    theme.textTheme.titleMedium!.copyWith(fontSize: 14),
+                    theme.textTheme.titleMedium!.copyWith(fontSize: 14.sp),
                 belowTextStyle: theme.textTheme.titleLarge!
-                    .copyWith(fontSize: 15, color: red),
+                    .copyWith(fontSize: 15.sp, color: red),
                 mainAxisSize: MainAxisSize.max,
               ),
               10.wx,
               TransactionStatusWidget(
                 upperText: "Receivable",
                 belowText:
-                    "₹ ${double.parse(state.financialModel.totalReceivableAmount!).toStringAsFixed(2)}",
+                    "₹ ${ReusableFunctions.formatNumber(state.financialModel.totalReceivableAmount)}",
                 upperTextStyle:
-                    theme.textTheme.titleMedium!.copyWith(fontSize: 14),
+                    theme.textTheme.titleMedium!.copyWith(fontSize: 14.sp),
                 belowTextStyle: theme.textTheme.titleLarge!
-                    .copyWith(fontSize: 15, color: green),
+                    .copyWith(fontSize: 15.sp, color: green),
                 mainAxisSize: MainAxisSize.max,
               ),
               10.wx,
@@ -63,16 +64,16 @@ class _MyBillScreenAppBarWidgetState extends State<MyBillScreenAppBarWidget> {
                   Expanded(
                     child: MyCustomTopBillWidget(
                       title: "TDS",
-                      amount: double.parse(state.financialModel.totalTds!)
-                          .toStringAsFixed(2),
+                      amount: ReusableFunctions.formatNumber(
+                          state.financialModel.totalTds),
                     ),
                   ),
                   10.hx,
                   Expanded(
                     child: MyCustomTopBillWidget(
                       title: "GST",
-                      amount: double.parse(state.financialModel.totalGst!)
-                          .toStringAsFixed(2),
+                      amount: ReusableFunctions.formatNumber(
+                          state.financialModel.totalGst),
                     ),
                   ),
                 ],

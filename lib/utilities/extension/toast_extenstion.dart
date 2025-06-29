@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 extension ToastExtension on String {
   void showToast(
@@ -130,7 +131,7 @@ class MyToastWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(5.0),
+      padding: EdgeInsets.all(5.0.r),
       decoration: BoxDecoration(
         color: backgroundColor.withOpacity(0.7),
         borderRadius: BorderRadius.circular(50),
@@ -139,7 +140,7 @@ class MyToastWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min, // Makes the row compact
         children: [
           Container(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(5.0.r),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: iconBackgroundColor,

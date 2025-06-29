@@ -224,9 +224,9 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                   builder: (context, state) {
                     return state.billItems.isNotEmpty
                         ? Container(
-                            margin: const EdgeInsets.only(bottom: 10),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 10),
+                            margin: EdgeInsets.only(bottom: 10.h),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 15.w, vertical: 10.h),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(color: greyELight),
@@ -237,8 +237,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               itemBuilder: (context, index) {
                                 BillItemModel bill = state.billItems[index];
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0),
+                                  padding: EdgeInsets.symmetric(vertical: 10.0.h),
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -252,25 +251,90 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            "HSN Code : ${bill.HSNCode}",
-                                            style: theme.textTheme.titleMedium,
+                                          Text.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: "Square Feet : ",
+                                                  style: theme.textTheme
+                                                      .titleMedium, // Style for the label
+                                                ),
+                                                TextSpan(
+                                                  text: "${bill.squareFeet}",
+                                                  style: theme
+                                                      .textTheme.titleMedium!
+                                                      .copyWith(
+                                                          fontStyle: FontStyle
+                                                              .italic, // Example: make value italic
+                                                          color: Colors
+                                                              .green), // Example: change color
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          Text(
-                                            "Sqare Feet : ${bill.squareFeet}",
-                                            style: theme.textTheme.titleMedium,
+                                          Text.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: "Rate : ",
+                                                  style: theme.textTheme
+                                                      .titleMedium, // Style for the label
+                                                ),
+                                                TextSpan(
+                                                  text: "${bill.rate}",
+                                                  style: theme
+                                                      .textTheme.titleMedium!
+                                                      .copyWith(
+                                                          fontSize: 16
+                                                              .sp, // Example: adjust font size
+                                                          color: Colors
+                                                              .orange), // Example: change color
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          Text(
-                                            "Rate : ${bill.rate}",
-                                            style: theme.textTheme.titleMedium,
+                                          Text.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: "Total Amount : ",
+                                                  style: theme.textTheme
+                                                      .titleMedium, // Style for the label
+                                                ),
+                                                TextSpan(
+                                                  text: "${bill.amount}",
+                                                  style: theme
+                                                      .textTheme.titleMedium!
+                                                      .copyWith(
+                                                          fontWeight: FontWeight
+                                                              .w900, // Example: make value extra bold
+                                                          color: Colors
+                                                              .red), // Example: change color
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          Text(
-                                            "Total Amount : ${bill.amount}",
-                                            style: theme.textTheme.titleMedium,
-                                          ),
-                                          Text(
-                                            "Description : ${bill.itemDescription}",
-                                            style: theme.textTheme.titleMedium,
+                                          Text.rich(
+                                            TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: "Description : ",
+                                                  style: theme.textTheme
+                                                      .titleMedium, // Style for the label
+                                                ),
+                                                TextSpan(
+                                                  text:
+                                                      "${bill.itemDescription}",
+                                                  style: theme
+                                                      .textTheme.titleMedium!
+                                                      .copyWith(
+                                                          decoration: TextDecoration
+                                                              .underline, // Example: underline value
+                                                          color: Colors
+                                                              .purple), // Example: change color
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -371,7 +435,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                   border: Border.all(color: grey, width: 1),
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 15.0),
+                                padding: EdgeInsets.only(left: 15.0.w),
                                 child: Text(totalAmount.toString()),
                               ),
                             ),
@@ -514,7 +578,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                                 border: Border.all(color: grey, width: 1),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
+                              padding: EdgeInsets.only(left: 15.0.w),
                               child: Text(netAmount.toStringAsFixed(2)),
                             ),
                           );
@@ -571,7 +635,7 @@ class _MyAddBillBottomSheetState extends State<MyAddBillBottomSheet> {
                               child: BlocBuilder<SwitchBloc, SwitchState>(
                                 builder: (context, state) {
                                   return Container(
-                                    padding: const EdgeInsets.all(7),
+                                    padding: EdgeInsets.all(7.r),
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Color.fromARGB(34, 97, 97, 97),

@@ -4,6 +4,7 @@ import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/sit
 import 'package:construction_mate/logic/models/floor_site_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CompletedAgencies extends StatelessWidget {
   final FloorSiteModel floor;
@@ -33,7 +34,7 @@ class CompletedAgencies extends StatelessWidget {
                           return state.selectedAgencies[index].isSelected ??
                                   false
                               ? Padding(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0.r),
                                   child: ListTile(
                                     contentPadding: EdgeInsets.zero,
                                     horizontalTitleGap: 0,
@@ -51,12 +52,12 @@ class CompletedAgencies extends StatelessWidget {
                                     title: Text(
                                       "${state.selectedAgencies[index].workTypeName}",
                                       style: theme.textTheme.titleLarge
-                                          ?.copyWith(fontSize: 18),
+                                          ?.copyWith(fontSize: 18.sp),
                                     ),
                                     trailing: Text(
                                       "${state.selectedAgencies[index].agencyName}",
                                       style: theme.textTheme.titleLarge
-                                          ?.copyWith(fontSize: 18),
+                                          ?.copyWith(fontSize: 18.sp),
                                     ),
                                   ),
                                 )
