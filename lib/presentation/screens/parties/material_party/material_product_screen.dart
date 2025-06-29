@@ -1,17 +1,8 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
-import 'package:construction_mate/logic/controllers/Material/material_by_partie/material_by_partie_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_project_partie/material_partie_project_bloc.dart';
-import 'package:construction_mate/logic/controllers/MenuBloc/menu_bloc.dart';
-import 'package:construction_mate/logic/controllers/Rent/add_rental_product/add_rental_product_bloc.dart';
-import 'package:construction_mate/logic/controllers/Rent/rental_by_id/rental_by_partie_id_bloc.dart';
-import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
-import 'package:construction_mate/logic/models/get_material_model.dart';
-import 'package:construction_mate/logic/models/get_rental_model.dart';
 import 'package:construction_mate/logic/models/material/all_material_model.dart';
-import 'package:construction_mate/presentation/router/go_router.dart';
-import 'package:construction_mate/presentation/screens/project/rent/rental_bottom_sheet.dart';
 import 'package:construction_mate/presentation/widgets/common/common_app_bar.dart';
 import 'package:construction_mate/presentation/widgets/common/pop_up_menu_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';

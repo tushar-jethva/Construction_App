@@ -518,4 +518,4 @@ class _MyRentalAddBottomSheetState extends State<MyRentalAddBottomSheet> {
   }
 }
 
-List<String> unitOfRental = ["-- Select Unit --", "Hours", "Days"];
+List<String> unitOfRental = ["Select Unit", "Hours", "Days"];

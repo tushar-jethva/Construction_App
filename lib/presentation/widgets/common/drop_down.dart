@@ -37,19 +37,21 @@ class CustomDropDown extends StatelessWidget {
       ),
       value: initialValue ?? items[0],
       items: items
-          .map((e) => DropdownMenuItem(
-                value: e,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width *
-                      0.4, // Set a specific width here
-                  child: Text(
-                    e,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleMedium,
-                  ),
+          .map(
+            (e) => DropdownMenuItem(
+              value: e,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width *
+                    0.4, // Set a specific width here
+                child: Text(
+                  e,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.titleMedium,
                 ),
-              ))
+              ),
+            ),
+          )
           .toList(),
       onChanged: onChanged,
       // ignore: body_might_complete_normally_nullable

@@ -18,25 +18,26 @@ class MaterialChildWidget extends StatelessWidget {
       bool? isUpdate,
       required String partieId}) {
     showModalBottomSheet(
-        isScrollControlled: true,
-        showDragHandle: true,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        context: context,
-        builder: (context) {
-          return BlocProvider(
-            create: (context) => DateBlocBloc(),
-            child: BlocBuilder<BuildingByIdBloc, BuildingByIdState>(
-              builder: (context, state) {
-                return MyMaterialAddBottomSheet(
-                  projectId: state.project?.sId ?? "",
-                  material: material,
-                  isUpdate: isUpdate,
-                  partieId: partieId,
-                );
-              },
-            ),
-          );
-        });
+      isScrollControlled: true,
+      showDragHandle: true,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      context: context,
+      builder: (context) {
+        return BlocProvider(
+          create: (context) => DateBlocBloc(),
+          child: BlocBuilder<BuildingByIdBloc, BuildingByIdState>(
+            builder: (context, state) {
+              return MyMaterialAddBottomSheet(
+                projectId: state.project?.sId ?? "",
+                material: material,
+                isUpdate: isUpdate,
+                partieId: partieId,
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -44,15 +45,16 @@ class MaterialChildWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: 20.h),
       child: CommonButton2(
-          buttonName: 'Material',
-          onTap: () {
-            context.read<DateBlocBloc>().add(const DateBlocEvent.initalize());
-            openBottomSheetOfMaterial(
-                context: context,
-                isUpdate: false,
-                material: Details(),
-                partieId: '');
-          }),
+        buttonName: 'Material',
+        onTap: () {
+          context.read<DateBlocBloc>().add(const DateBlocEvent.initalize());
+          openBottomSheetOfMaterial(
+              context: context,
+              isUpdate: false,
+              material: Details(),
+              partieId: '');
+        },
+      ),
     );
   }
 }

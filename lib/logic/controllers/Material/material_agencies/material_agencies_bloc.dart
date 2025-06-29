@@ -28,7 +28,7 @@ class MaterialAgenciesBloc
           emit(state.copyWith(state: RequestState.error, message: l.message));
         }, (r) {
           final agencies = [
-            AgencyModel(name: "--Select Agencies--", sId: '0'),
+            AgencyModel(name: "Select Agencies", sId: '0'),
             ...r // Add fetched agencies after
           ];
 
