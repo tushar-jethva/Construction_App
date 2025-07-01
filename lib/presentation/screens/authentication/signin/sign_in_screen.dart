@@ -139,8 +139,7 @@ class SignInScreen extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .titleLarge
-                              ?.copyWith(
-                                  color: Color(0xff242D35), fontSize: 14.sp),
+                              ?.copyWith(fontSize: 14.sp),
                         ),
                         20.hx,
                         Row(
@@ -152,7 +151,7 @@ class SignInScreen extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium
                                   ?.copyWith(
-                                      color: const Color(0xff242D35),
+                                      color: const Color(0xff6B7580),
                                       fontSize: 16.sp),
                             ),
                             5.wx,
@@ -183,7 +182,7 @@ class SignInScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Wrap(
           spacing: 0,
           runSpacing: 0,
@@ -191,7 +190,7 @@ class SignInScreen extends StatelessWidget {
           children: [
             Text(
               'By signing in, you agree to our ',
-              style: textTheme.bodyMedium?.copyWith(color: Colors.black),
+              style: textTheme.bodyMedium,
             ),
             GestureDetector(
               onTap: () async {
@@ -210,7 +209,7 @@ class SignInScreen extends StatelessWidget {
             ),
             Text(
               ' and ',
-              style: textTheme.bodyMedium?.copyWith(color: Colors.black),
+              style: textTheme.bodyMedium,
             ),
             GestureDetector(
               onTap: () async {

@@ -1,6 +1,7 @@
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class GradientShape extends StatelessWidget {
   bool isActive;
   GradientShape({

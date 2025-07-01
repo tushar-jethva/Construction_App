@@ -98,10 +98,16 @@ class Rentals {
   num? totalHours;
   num? totalDays;
 
-  Rentals({this.name, this.totalQuantity, this.totalPrice, this.details, this.totalDays, this.totalHours});
+  Rentals(
+      {this.name,
+      this.totalQuantity,
+      this.totalPrice,
+      this.details,
+      this.totalDays,
+      this.totalHours});
 
   Rentals.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
+    name = json['_id'];
     totalQuantity = json['totalQuantity'];
     totalPrice = json['totalPrice'];
     totalDays = json['totalDays'];

@@ -57,9 +57,9 @@ class Data {
       this.email});
 
   Data.fromJson(Map<String, dynamic> json) {
-    if (json['rentals'] != null) {
+    if (json['materials'] != null) {
       rentals = <Rentals>[];
-      json['rentals'].forEach((v) {
+      json['materials'].forEach((v) {
         rentals!.add(Rentals.fromJson(v));
       });
     }
@@ -97,12 +97,12 @@ class Rentals {
   Rentals({this.name, this.totalQuantity, this.totalPrice, this.details});
 
   Rentals.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
+    name = json['_id'];
     totalQuantity = json['totalQuantity'];
     totalPrice = json['totalPrice'];
-    if (json['details'] != null) {
+    if (json['materials'] != null) {
       details = <Details>[];
-      json['details'].forEach((v) {
+      json['materials'].forEach((v) {
         details!.add(Details.fromJson(v));
       });
     }
