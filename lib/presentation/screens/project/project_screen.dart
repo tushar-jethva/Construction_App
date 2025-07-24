@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:construction_mate/core/constants/colors.dart';
 import 'package:construction_mate/logic/controllers/Gst/gst_bloc.dart';
 import 'package:construction_mate/logic/controllers/Material/material_agencies/material_agencies_bloc.dart';
@@ -17,6 +19,7 @@ import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 import '../../../logic/controllers/Tds/tds_bloc.dart';
 
 /* Created By: Tushar Jethva
@@ -30,12 +33,15 @@ class MyProjectScreen extends StatefulWidget {
 }
 
 class _MyProjectScreenState extends State<MyProjectScreen> {
+  late TutorialCoachMark tutorialCoachMark;
   late ProjectBloc _projectBloc;
   late TotalPaymentOutBloc _totalPaymentOutBloc;
-
+  GlobalKey addProjectBtn = GlobalKey();
   @override
   void initState() {
     super.initState();
+    createTutorial();
+    Future.delayed(Duration.zero, showTutorial);
     _projectBloc = BlocProvider.of<ProjectBloc>(context);
     _totalPaymentOutBloc = BlocProvider.of<TotalPaymentOutBloc>(context);
     _totalPaymentOutBloc.add(const TotalPaymentOutEvent.fetchTotalPayments());
@@ -138,6 +144,7 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
   Widget addProjectTextWidget(BuildContext context, ThemeData theme) {
     return Align(
       alignment: Alignment.centerRight,
+      key: addProjectBtn,
       child: CommonButton2(
         buttonName: "Project",
         onTap: () {
@@ -145,6 +152,71 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
         },
       ),
     );
+  }
+
+  void showTutorial() {
+    tutorialCoachMark.show(context: context);
+  }
+
+  void createTutorial() {
+    tutorialCoachMark = TutorialCoachMark(
+      targets: _createTargets(),
+      colorShadow: purple.withOpacity(0.5),
+      textSkip: "SKIP",
+      paddingFocus: 10,
+      opacityShadow: 0.5,
+      imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+      onFinish: () {
+        print("finish");
+      },
+      onClickTarget: (target) {
+        print('onClickTarget: $target');
+      },
+      onClickTargetWithTapPosition: (target, tapDetails) {
+        print("target: $target");
+        print(
+            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+      },
+      onClickOverlay: (target) {
+        print('onClickOverlay: $target');
+      },
+      onSkip: () {
+        print("skip");
+        return true;
+      },
+      textStyleSkip: const TextStyle(
+          color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+    );
+  }
+
+  List<TargetFocus> _createTargets() {
+    List<TargetFocus> targets = [];
+
+    targets.add(
+      TargetFocus(
+        identify: "addProjectBtn",
+        keyTarget: addProjectBtn,
+        alignSkip: Alignment.topRight,
+        enableOverlayTab: true,
+        contents: [
+          TargetContent(
+            align: ContentAlign.top,
+            builder: (context, controller) {
+              return const Text(
+                "Create your project",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+
+    return targets;
   }
 }
 

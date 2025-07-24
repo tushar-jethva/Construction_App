@@ -177,6 +177,7 @@ class _MaterialProductsScreenState extends State<MaterialProductsScreen> {
                     alignment: Alignment.topRight,
                     child: PopUpMenuWidget(
                       theme: theme,
+                      
                       onUpdateButtonPressed: () {
                         openBottomSheetOfMaterial(
                             context: context,

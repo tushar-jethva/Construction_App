@@ -48,193 +48,193 @@ class _MyAddAgencyBottomSheetPartiesState
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      decoration: BoxDecoration(
-          color: theme.scaffoldBackgroundColor,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15.r), topRight: Radius.circular(15.r))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                10.hx,
-                MyCustomTextFormField(
-                  controller: _agencyNameController,
-                  hintText: 'Agency Name',
-                  maxLines: 1,
-                  textInputType: TextInputType.name,
-                  textInputAction: TextInputAction.next,
-                  // ignore: body_might_complete_normally_nullable
-                  validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        !ReusableFunctions.isValidInput(value)) {
-                      return 'Please enter agency name';
-                    }
-                  },
-                ),
-                Gap(15.h),
-                MyCustomTextFormField(
-                  controller: _descriptionController,
-                  hintText: 'Description',
-                  maxLines: 3,
-                  textInputType: TextInputType.name,
-                  textInputAction: TextInputAction.next,
-
-                  // ignore: body_might_complete_normally_nullable
-                  validator: (value) {
-                    if (value == null ||
-                        value.isEmpty ||
-                        !ReusableFunctions.isValidInput(value)) {
-                      return 'Please enter description';
-                    }
-                  },
-                ),
-                Gap(15.h),
-                BlocBuilder<AgencyWorkTypesSelectionBloc,
-                    AgencyWorkTypesSelectionState>(builder: ((context, state) {
-                  if (state.isLoading) {
-                    return ReusableFunctions.loader();
-                  }
-                  return state.agencyWorkTypeSelectedList.isEmpty
-                      ? const SizedBox.shrink()
-                      : Container(
-                          height: 200.h,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 1, color: grey),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: ListView.builder(
-                              itemCount:
-                                  state.agencyWorkTypeSelectedList.length,
-                              itemBuilder: ((context, index) {
-                                final AgencyWorkTypeSelectModel
-                                    agencyWorkTypeSelectModel =
-                                    state.agencyWorkTypeSelectedList[index];
-                                return Row(
-                                  children: [
-                                    Checkbox(
-                                        side: const BorderSide(color: grey),
-                                        value: agencyWorkTypeSelectModel
-                                            .isSelected,
-                                        onChanged: (val) {
-                                          context
-                                              .read<
-                                                  AgencyWorkTypesSelectionBloc>()
-                                              .add(ToggleWorkTypeSelection(
-                                                  index: index));
-                                        }),
-                                    Text(agencyWorkTypeSelectModel.name!)
-                                  ],
-                                );
-                              })),
-                        );
-                })),
-                Gap(15.h),
-                Row(
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Form(
+                key: _formKey,
+                child: Column(
                   children: [
-                    Expanded(
-                      flex: 3,
-                      child: MyCustomTextFormField(
-                        controller: _workTypeAddController,
-                        hintText: 'Add New Work',
-                        maxLines: 1,
-                        textInputType: TextInputType.name,
-
-                        // ignore: body_might_complete_normally_nullable
-                        // validator: (value) {
-                        //   if (!ReusableFunctions.isValidInput(
-                        //       value ?? '')) {
-                        //     return 'Please enter new work name!';
-                        //   }
-                        // },
-                      ),
+                    10.hx,
+                    MyCustomTextFormField(
+                      controller: _agencyNameController,
+                      hintText: 'Agency Name',
+                      maxLines: 1,
+                      textInputType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      // ignore: body_might_complete_normally_nullable
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
+                          return 'Please enter agency name';
+                        }
+                      },
                     ),
-                    Gap(10.w),
-                    Expanded(
-                      child: CustomElevatedButton(
-                          label: "Add",
-                          onTap: () {
-                            if (_workTypeAddController.text.isNotEmpty) {
-                              context.read<AgencyWorkTypesSelectionBloc>().add(
-                                  OnAddWorkTypeButtonPressed(
-                                      name: _workTypeAddController.text));
-                              _workTypeAddController.clear();
-                            } else {
-                              showTopSnackBar(context, "Enter new work",
-                                  messageType: MessageType.warning);
-                            }
-                          }),
-                    )
+                    Gap(15.h),
+                    MyCustomTextFormField(
+                      controller: _descriptionController,
+                      hintText: 'Description',
+                      maxLines: 3,
+                      textInputType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+
+                      // ignore: body_might_complete_normally_nullable
+                      validator: (value) {
+                        if (value == null ||
+                            value.isEmpty ||
+                            !ReusableFunctions.isValidInput(value)) {
+                          return 'Please enter description';
+                        }
+                      },
+                    ),
+                    Gap(15.h),
+                    BlocBuilder<AgencyWorkTypesSelectionBloc,
+                            AgencyWorkTypesSelectionState>(
+                        builder: ((context, state) {
+                      if (state.isLoading) {
+                        return ReusableFunctions.loader();
+                      }
+                      return state.agencyWorkTypeSelectedList.isEmpty
+                          ? const SizedBox.shrink()
+                          : Container(
+                              height: 200.h,
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 1, color: grey),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: ListView.builder(
+                                  itemCount:
+                                      state.agencyWorkTypeSelectedList.length,
+                                  itemBuilder: ((context, index) {
+                                    final AgencyWorkTypeSelectModel
+                                        agencyWorkTypeSelectModel =
+                                        state.agencyWorkTypeSelectedList[index];
+                                    return Row(
+                                      children: [
+                                        Checkbox(
+                                            side: const BorderSide(color: grey),
+                                            value: agencyWorkTypeSelectModel
+                                                .isSelected,
+                                            onChanged: (val) {
+                                              context
+                                                  .read<
+                                                      AgencyWorkTypesSelectionBloc>()
+                                                  .add(ToggleWorkTypeSelection(
+                                                      index: index));
+                                            }),
+                                        Text(agencyWorkTypeSelectModel.name!)
+                                      ],
+                                    );
+                                  })),
+                            );
+                    })),
+                    Gap(15.h),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: MyCustomTextFormField(
+                            controller: _workTypeAddController,
+                            hintText: 'Add New Work',
+                            maxLines: 1,
+                            textInputType: TextInputType.name,
+
+                            // ignore: body_might_complete_normally_nullable
+                            // validator: (value) {
+                            //   if (!ReusableFunctions.isValidInput(
+                            //       value ?? '')) {
+                            //     return 'Please enter new work name!';
+                            //   }
+                            // },
+                          ),
+                        ),
+                        Gap(10.w),
+                        Expanded(
+                          child: CustomElevatedButton(
+                              label: "Add",
+                              onTap: () {
+                                if (_workTypeAddController.text.isNotEmpty) {
+                                  context
+                                      .read<AgencyWorkTypesSelectionBloc>()
+                                      .add(OnAddWorkTypeButtonPressed(
+                                          name: _workTypeAddController.text));
+                                  _workTypeAddController.clear();
+                                } else {
+                                  showTopSnackBar(context, "Enter new work",
+                                      messageType: MessageType.warning);
+                                }
+                              }),
+                        )
+                      ],
+                    ),
+                    3.hx,
+                    BlocBuilder<AgencyWorkTypesSelectionBloc,
+                        AgencyWorkTypesSelectionState>(
+                      builder: (context, state) {
+                        return state.message.isNotEmpty
+                            ? Text(
+                                state.message,
+                                style: theme.textTheme.titleMedium
+                                    ?.copyWith(color: red),
+                              )
+                            : const SizedBox();
+                      },
+                    ),
+                    Gap(15.h),
                   ],
                 ),
-                3.hx,
-                BlocBuilder<AgencyWorkTypesSelectionBloc,
-                    AgencyWorkTypesSelectionState>(
-                  builder: (context, state) {
-                    return state.message.isNotEmpty
-                        ? Text(
-                            state.message,
-                            style: theme.textTheme.titleMedium
-                                ?.copyWith(color: red),
-                          )
-                        : const SizedBox();
-                  },
-                ),
-                Gap(15.h),
-              ],
-            ),
+              ),
+            ],
           ),
-          const Spacer(),
-          BlocListener<AgencyWorkTypesSelectionBloc,
-              AgencyWorkTypesSelectionState>(
-            listener: (context, state) {
-              if (state.isAddedAgency == 2) {
-                Navigator.pop(context);
-                context.read<TotalAgenciesBloc>().add(LoadTotalAgencies());
-                showTopSnackBar(context, "Agency added successfully!",
-                    messageType: MessageType.done);
-              }
-            },
-            child: BlocBuilder<AgencyWorkTypesSelectionBloc,
-                AgencyWorkTypesSelectionState>(
-              builder: (context, state) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.h),
-                  child: CustomElevatedButton(
-                      isLoading: state.isAddedAgency == 1,
-                      label: "Add Agency",
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
-                          if (state.agencyWorkTypeSelectedList
-                              .where((element) => element.isSelected == true)
-                              .map((e) => e.sId!)
-                              .toList()
-                              .isEmpty) {
-                            context.read<AgencyWorkTypesSelectionBloc>().add(
-                                OnMessageChanged(
-                                    message:
-                                        "Please add work type or select at least one."));
-                          } else {
-                            context.read<AgencyWorkTypesSelectionBloc>().add(
-                                OnAddAgencyPartiesButtonPressed(
-                                    name: _agencyNameController.text,
-                                    description: _descriptionController.text));
-                            context
-                                .read<TotalAgenciesBloc>()
-                                .add(LoadTotalAgencies());
-                          }
-                        }
-                      }),
-                );
-              },
-            ),
-          ),
-        ],
+        ),
+      ),
+      bottomNavigationBar: BlocListener<AgencyWorkTypesSelectionBloc,
+          AgencyWorkTypesSelectionState>(
+        listener: (context, state) {
+          if (state.isAddedAgency == 2) {
+            Navigator.pop(context);
+            context.read<TotalAgenciesBloc>().add(LoadTotalAgencies());
+            showTopSnackBar(context, "Agency added successfully!",
+                messageType: MessageType.done);
+          }
+        },
+        child: BlocBuilder<AgencyWorkTypesSelectionBloc,
+            AgencyWorkTypesSelectionState>(
+          builder: (context, state) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+              child: CustomElevatedButton(
+                  isLoading: state.isAddedAgency == 1,
+                  label: "Add Agency",
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      if (state.agencyWorkTypeSelectedList
+                          .where((element) => element.isSelected == true)
+                          .map((e) => e.sId!)
+                          .toList()
+                          .isEmpty) {
+                        context.read<AgencyWorkTypesSelectionBloc>().add(
+                            OnMessageChanged(
+                                message:
+                                    "Please add work type or select at least one."));
+                      } else {
+                        context.read<AgencyWorkTypesSelectionBloc>().add(
+                            OnAddAgencyPartiesButtonPressed(
+                                name: _agencyNameController.text,
+                                description: _descriptionController.text));
+                        context
+                            .read<TotalAgenciesBloc>()
+                            .add(LoadTotalAgencies());
+                      }
+                    }
+                  }),
+            );
+          },
+        ),
       ),
     );
   }

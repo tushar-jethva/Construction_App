@@ -120,6 +120,8 @@ import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctip
     as _i660;
 import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart'
     as _i379;
+import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart'
+    as _i246;
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart' as _i347;
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart'
     as _i201;
@@ -141,6 +143,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i688.MenuBloc>(() => _i688.MenuBloc());
     gh.singleton<_i681.NetworkBloc>(() => _i681.NetworkBloc());
     gh.singleton<_i593.OnboardBloc>(() => _i593.OnboardBloc());
+    gh.singleton<_i246.AddTaskBloc>(() => _i246.AddTaskBloc());
     gh.singleton<_i465.BottomsheetBloc>(() => _i465.BottomsheetBloc());
     gh.singleton<_i379.TabControlBloc>(() => _i379.TabControlBloc());
     gh.singleton<_i625.AddPartiesBloc>(() => _i625.AddPartiesBloc());

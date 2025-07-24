@@ -64,6 +64,7 @@ import 'package:construction_mate/logic/controllers/SiteProgressFloorBloc/site_p
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart';
 import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
@@ -275,6 +276,9 @@ class MyMultiBlocProviders extends StatelessWidget {
 
         //Delete Account
         BlocProvider(create: (_) => di.locator<DeleteAccountBloc>()),
+
+        //Add task
+        BlocProvider(create: (_) => di.locator<AddTaskBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(440, 956),

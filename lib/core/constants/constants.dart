@@ -1,4 +1,5 @@
 import 'package:construction_mate/gen/assets.gen.dart';
+import 'package:construction_mate/presentation/screens/project/task/task_child_screen.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/building/building_child_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/building/building_widget.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/material/material_child_widget.dart';
@@ -25,18 +26,20 @@ List<Menus> menus = [
       menuName: "Buildings",
       childWidget: childWidget[1],
       widget: mainWidget[1]),
+  Menus(menuName: "Tasks", childWidget: childWidget[2], widget: mainWidget[1]),
   Menus(
-      menuName: "Material", childWidget: childWidget[2], widget: mainWidget[2]),
-  Menus(menuName: "Rental", childWidget: childWidget[3], widget: mainWidget[3]),
+      menuName: "Material", childWidget: childWidget[3], widget: mainWidget[2]),
+  Menus(menuName: "Rental", childWidget: childWidget[4], widget: mainWidget[3]),
   Menus(
       menuName: "Transactions",
-      childWidget: childWidget[4],
+      childWidget: childWidget[5],
       widget: mainWidget[3]),
 ];
 
 List<Widget> childWidget = [
   const PartiesChildWidget(),
   const BuildingChildWidget(),
+  const TaskChildScreen(),
   const MaterialChildWidget(),
   const RentalChildWidget(),
   TransactionChildWidget(),

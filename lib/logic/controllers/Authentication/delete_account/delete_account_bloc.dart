@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:construction_mate/core/constants/enum.dart';
 import 'package:construction_mate/data/repository/authentication_repository.dart';
+import 'package:construction_mate/utilities/shared_preference_helper.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -28,6 +29,7 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
           response.fold((l) {
             emit(state.copyWith(state: RequestState.error, message: l.message));
           }, (r) {
+            SharedPreferenceHelper().remove("token");
             emit(state.copyWith(
                 state: RequestState.loaded,
                 message: "Account deleted successfully"));
@@ -35,12 +37,12 @@ class DeleteAccountBloc extends Bloc<DeleteAccountEvent, DeleteAccountState> {
         },
         deleteAccountMobile: (_DeleteAccountMobile value) async {
           emit(state.copyWith(state: RequestState.loading));
-          final response =
-              await authenticationRepository.deleteAccountMobile();
+          final response = await authenticationRepository.deleteAccountMobile();
 
           response.fold((l) {
             emit(state.copyWith(state: RequestState.error, message: l.message));
           }, (r) {
+            SharedPreferenceHelper().remove("token");
             emit(state.copyWith(
                 state: RequestState.loaded,
                 message: "Account deleted successfully"));

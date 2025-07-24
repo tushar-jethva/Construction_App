@@ -24,6 +24,7 @@ import 'package:construction_mate/presentation/screens/project/building_screen.d
 import 'package:construction_mate/presentation/screens/parties/material_party/material_screen.dart';
 import 'package:construction_mate/presentation/screens/project/parties_screen.dart';
 import 'package:construction_mate/presentation/screens/project/rent/rent_screen.dart';
+import 'package:construction_mate/presentation/screens/project/task/task_screen.dart';
 import 'package:construction_mate/presentation/screens/project/transaction_screen.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
 import 'package:construction_mate/presentation/widgets/details_screen_widgets/payment_in_project_dialog_widget.dart';
@@ -116,7 +117,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
     context.read<MenuBloc>().add(const MenuEvent.onIndexChanged(index: 1));
 
     _tabController = TabController(
-        length: 5,
+        length: 6,
         vsync: this,
         animationDuration: const Duration(milliseconds: 100),
         initialIndex: 1);
@@ -203,7 +204,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
       alignment: Alignment.bottomCenter,
       child: Container(
         margin:
-            EdgeInsets.only(left: 10.w, right: 10.w, bottom: 10.h, top: 10.h),
+            EdgeInsets.only(left: 10.w, right: 10.w, bottom: 50.h, top: 10.h),
         height: 50.h,
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -303,20 +304,26 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                           )),
                           Tab(
                               child: MenuWidget(
-                            name: "Materials",
+                            name: "Tasks",
                             index: 2,
                             tabController: _tabController,
                           )),
                           Tab(
                               child: MenuWidget(
-                            name: "Rental",
+                            name: "Materials",
                             index: 3,
                             tabController: _tabController,
                           )),
                           Tab(
                               child: MenuWidget(
-                            name: "Transactions",
+                            name: "Rental",
                             index: 4,
+                            tabController: _tabController,
+                          )),
+                          Tab(
+                              child: MenuWidget(
+                            name: "Transactions",
+                            index: 5,
                             tabController: _tabController,
                           )),
                         ],
@@ -333,6 +340,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                               project: widget.projectModel,
                               scrollController: scrollController,
                             ),
+                            TaskScreen(),
                             MaterialScreen(
                                 project: widget.projectModel,
                                 scrollController: scrollController),

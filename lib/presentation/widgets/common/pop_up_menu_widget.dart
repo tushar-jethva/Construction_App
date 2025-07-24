@@ -29,7 +29,10 @@ class PopUpMenuWidget extends StatelessWidget {
           ),
         ),
       ],
-      icon: const Icon(Icons.more_vert),
+      icon: Icon(
+        Icons.more_vert,
+        color: theme.canvasColor,
+      ),
       padding: EdgeInsets.zero,
     );
   }
