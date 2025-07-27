@@ -1,9 +1,11 @@
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/lists.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
@@ -12,6 +14,7 @@ import 'package:construction_mate/presentation/widgets/common/common_text_form_f
 import 'package:construction_mate/presentation/widgets/common/drop_down.dart';
 import 'package:construction_mate/presentation/widgets/common/shimmer_box.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
+import 'package:construction_mate/utilities/extension/toast_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,8 +22,15 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../widgets/common/common_icon_circle_widget.dart';
 
-class AddTaskWidget extends StatelessWidget {
+class AddTaskWidget extends StatefulWidget {
   const AddTaskWidget({super.key});
+
+  @override
+  State<AddTaskWidget> createState() => _AddTaskWidgetState();
+}
+
+class _AddTaskWidgetState extends State<AddTaskWidget> {
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +55,14 @@ class AddTaskWidget extends StatelessWidget {
             child: Column(
               children: [
                 Form(
+                  key: formKey,
                   child: Column(
                     children: [
                       CustomTextFormField(
                         labelText: 'Task Name',
                         hintText: 'Enter task name',
                         textInputAction: TextInputAction.next,
+                        textInputType: TextInputType.name,
                         onChanged: (value) {
                           // Handle task name change
                           context.read<AddTaskBloc>().add(
@@ -98,32 +110,32 @@ class AddTaskWidget extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              20.wx,
-                              Expanded(
-                                child: CustomTextFormField(
-                                  controller: TextEditingController(
-                                    text: state.endDate != null
-                                        ? ReusableFunctions.getFormattedDate2(
-                                            state.endDate!)
-                                        : '',
-                                  ),
-                                  labelText: 'End Date',
-                                  hintText: ' End Date',
-                                  textInputAction: TextInputAction.next,
-                                  isReadOnly: true,
-                                  prefixIcon: const Icon(Icons.calendar_today),
-                                  onTap: () {
-                                    ReusableFunctions.showDatePicker(
-                                        context: context,
-                                        onDateSelected: (val) {
-                                          // Handle end date selection
-                                          context.read<AddTaskBloc>().add(
-                                              AddTaskEvent.endDateChanged(
-                                                  endDate: val));
-                                        });
-                                  },
-                                ),
-                              ),
+                              // 20.wx,
+                              // Expanded(
+                              //   child: CustomTextFormField(
+                              //     controller: TextEditingController(
+                              //       text: state.endDate != null
+                              //           ? ReusableFunctions.getFormattedDate2(
+                              //               state.endDate!)
+                              //           : '',
+                              //     ),
+                              //     labelText: 'End Date',
+                              //     hintText: ' End Date',
+                              //     textInputAction: TextInputAction.next,
+                              //     isReadOnly: true,
+                              //     prefixIcon: const Icon(Icons.calendar_today),
+                              //     onTap: () {
+                              //       ReusableFunctions.showDatePicker(
+                              //           context: context,
+                              //           onDateSelected: (val) {
+                              //             // Handle end date selection
+                              //             context.read<AddTaskBloc>().add(
+                              //                 AddTaskEvent.endDateChanged(
+                              //                     endDate: val));
+                              //           });
+                              //     },
+                              //   ),
+                              // ),
                             ],
                           );
                         },
@@ -144,6 +156,11 @@ class AddTaskWidget extends StatelessWidget {
                             },
                             hintText: "Progress Unit*",
                             decoration: CustomDropdownDecoration(
+                              listItemStyle: theme.textTheme.titleMedium
+                                  ?.copyWith(
+                                      color: theme.scaffoldBackgroundColor),
+                              closedFillColor: transparent,
+                              expandedFillColor: theme.canvasColor,
                               closedBorder: Border.all(color: grey),
                               closedBorderRadius: BorderRadius.circular(12),
                               hintStyle: theme.textTheme.titleMedium!
@@ -152,17 +169,26 @@ class AddTaskWidget extends StatelessWidget {
                           )),
                           20.wx,
                           Expanded(
-                            child: CustomTextFormField(
-                              labelText: 'Est. Quantity *',
-                              hintText: 'Est. Quantity *',
-                              textInputAction: TextInputAction.next,
-                              textInputType: TextInputType.number,
-                              textFieldType: TextFieldType.number,
-                              onChanged: (value) {
-                                // Handle estimated quantity change
-                                context.read<AddTaskBloc>().add(
-                                    AddTaskEvent.estQuantityChanged(
-                                        estQuantity: value));
+                            child: BlocBuilder<AddTaskBloc, AddTaskState>(
+                              builder: (context, state) {
+                                return CustomTextFormField(
+                                  controller: state.progressUnit == "%"
+                                      ? TextEditingController(text: '100')
+                                      : null,
+                                  labelText: 'Est. Quantity *',
+                                  hintText: 'Est. Quantity *',
+                                  textInputAction: TextInputAction.next,
+                                  textInputType: TextInputType.number,
+                                  textFieldType: TextFieldType.number,
+                                  isReadOnly:
+                                      state.progressUnit == "%" ? true : false,
+                                  onChanged: (value) {
+                                    // Handle estimated quantity change
+                                    context.read<AddTaskBloc>().add(
+                                        AddTaskEvent.estQuantityChanged(
+                                            estQuantity: value));
+                                  },
+                                );
                               },
                             ),
                           ),
@@ -222,9 +248,34 @@ class AddTaskWidget extends StatelessWidget {
                         ),
                       ),
                       30.hx,
-                      CustomElevatedButton(
-                        onTap: () {},
-                        label: 'Save',
+                      BlocConsumer<AddTaskBloc, AddTaskState>(
+                        listener: (context, state) {
+                          if (state.state.isLoaded) {
+                            showTopSnackBar(context, state.message,
+                                messageType: MessageType.done);
+                            context
+                                .read<GetTasksBloc>()
+                                .add(const GetTasksEvent.getTasks());
+                            Navigator.pop(context);
+                          } else if (state.state.isError) {
+                            showTopSnackBar(context, state.message,
+                                messageType: MessageType.error);
+                            Navigator.pop(context);
+                          }
+                        },
+                        builder: (context, state) {
+                          return CustomElevatedButton(
+                            isLoading: state.state.isLoading,
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                context
+                                    .read<AddTaskBloc>()
+                                    .add(const AddTaskEvent.addTask());
+                              }
+                            },
+                            label: 'Save',
+                          );
+                        },
                       ),
                       20.hx,
                     ],

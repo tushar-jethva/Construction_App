@@ -1,3 +1,4 @@
+import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/data/datasource/site_progress_data_source.dart';
 import 'package:construction_mate/data/datasource/transaction_data_source.dart';
@@ -14,6 +15,8 @@ import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/get_todos/get_todos_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/task_by_id/task_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionIndividualAgency/transactions_individual_agency_bloc.dart';
 import 'package:construction_mate/logic/controllers/FloorNameAndFeet/floor_name_and_feet_bloc.dart';
@@ -56,6 +59,7 @@ import 'package:construction_mate/presentation/screens/project/project_details_n
 import 'package:construction_mate/presentation/screens/project/rent/rental_products_screen.dart';
 import 'package:construction_mate/presentation/screens/project/rent/rental_thing_screen.dart';
 import 'package:construction_mate/presentation/screens/project/select_floors_screen.dart';
+import 'package:construction_mate/presentation/screens/project/task/task_description_scren.dart';
 import 'package:construction_mate/presentation/screens/project/working_agency_details_screen.dart';
 import 'package:construction_mate/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:construction_mate/presentation/screens/subscription/contact_us_screen.dart';
@@ -491,6 +495,26 @@ class Routes {
                     project: data['project'],
                     partieId: data['partieId'],
                     material: data['material'],
+                  );
+                },
+              ),
+
+              ///-----------------------------------------------------------
+              ///--------------- Task description screen
+              ///-----------------------------------------------------------
+              GoRoute(
+                path: RoutesName.TASK_DESCRIPTION_SCREEN_PATH,
+                name: RoutesName.TASK_DESCRIPTION_SCREEN_NAME,
+                builder: (context, state) {
+                  final taskId = state.pathParameters[TASK_ID];
+                  context
+                      .read<TaskByIdBloc>()
+                      .add(TaskByIdEvent.getTaskById(taskId: taskId ?? ''));
+                  context
+                      .read<GetTodosBloc>()
+                      .add(GetTodosEvent.getTodos(taskId: taskId ?? ''));
+                  return TaskDescriptionScren(
+                    taskId: taskId ?? '',
                   );
                 },
               ),

@@ -259,6 +259,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
         isDraggerShow: false,
         newWidget: (context, scrollController) {
           return Container(
+            padding: EdgeInsets.only(bottom: 100.h),
             decoration: BoxDecoration(
                 color: theme.scaffoldBackgroundColor,
                 borderRadius: BorderRadius.only(
@@ -340,7 +341,7 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                               project: widget.projectModel,
                               scrollController: scrollController,
                             ),
-                            TaskScreen(),
+                            TaskScreen(scrollController: scrollController),
                             MaterialScreen(
                                 project: widget.projectModel,
                                 scrollController: scrollController),

@@ -88,16 +88,20 @@ class AppTheme {
 
   // THIS WILL ALSO LIKELY CAUSE ISSUES because _lightTextTheme will fail
   static ThemeData lightTheme = ThemeData(
-      scaffoldBackgroundColor: white,
-      cardColor: greyLight,
-      hoverColor: highlightColor,
-      primaryColor: white,
-      hintColor: white,
-      textTheme: _lightTextTheme, // Using the static const TextTheme
-      indicatorColor: purple,
-      canvasColor: black,
-      dividerColor: white,
-      radioTheme: RadioThemeData(fillColor: WidgetStatePropertyAll(purple)));
+    scaffoldBackgroundColor: white,
+    cardColor: greyLight,
+    hoverColor: highlightColor,
+    primaryColor: white,
+    hintColor: white,
+    textTheme: _lightTextTheme, // Using the static const TextTheme
+    indicatorColor: purple,
+    canvasColor: black,
+    dividerColor: white,
+    radioTheme: RadioThemeData(
+      fillColor: WidgetStatePropertyAll(purple),
+    ),
+    
+  );
 
   // THIS WILL LIKELY CAUSE ERRORS OR INCORRECT SCALING AT RUNTIME
   // because .sp requires a BuildContext, which is not available for a static const

@@ -95,3 +95,6 @@ const String IS_FIRST_TIME = 'is_first_time';
 //------------ image --------
 const alteranateUrl =
     "https://www.google.com/url?sa=i&url=https%3A%2F%2Fin.pinterest.com%2Fpin%2F634655772464432888%2F&psig=AOvVaw2DdCy8iLtwxA-Z7cEjEWLP&ust=1736861970026000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPDYzqDp8ooDFQAAAAAdAAAAABAJ";
+
+//-------------- path parmas ------
+const String TASK_ID = 'task_id';

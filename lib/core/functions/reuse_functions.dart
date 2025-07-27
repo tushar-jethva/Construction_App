@@ -30,7 +30,7 @@ class ReusableFunctions {
   }) {
     var snack = SnackBar(
       behavior: SnackBarBehavior.floating,
-      margin:  EdgeInsets.all(20.r),
+      margin: EdgeInsets.all(20.r),
       duration: duration ??
           const Duration(
               milliseconds: 4000), // Default duration if not provided
@@ -89,6 +89,12 @@ class ReusableFunctions {
     // Format the date
     String formattedDate = DateFormat.yMMMd().format(date);
     return formattedDate;
+  }
+
+  static String formatDateFromDBToDDMM({required String isoDate}) {
+    DateTime dateTime = DateTime.tryParse(isoDate) ?? DateTime.now();
+    DateFormat formatter = DateFormat('d MMM');
+    return formatter.format(dateTime); // e.g., "27 Jul"
   }
 
   static Future<String> uploadToCloudinary(XFile image) async {

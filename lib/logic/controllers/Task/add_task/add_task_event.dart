@@ -36,4 +36,7 @@ class AddTaskEvent with _$AddTaskEvent {
   //remove assignee
   const factory AddTaskEvent.removeAssignee({required String assigneeId}) =
       _RemoveAssignee;
+
+  //add task
+  const factory AddTaskEvent.addTask() = _AddTask;
 }

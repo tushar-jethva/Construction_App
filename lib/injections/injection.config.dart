@@ -22,6 +22,8 @@ import 'package:construction_mate/data/datasource/project_data_source.dart'
     as _i872;
 import 'package:construction_mate/data/datasource/rental_data_source.dart'
     as _i918;
+import 'package:construction_mate/data/datasource/task_data_source.dart'
+    as _i721;
 import 'package:construction_mate/data/datasource/transaction_data_source.dart'
     as _i740;
 import 'package:construction_mate/data/repository/agency_repository.dart'
@@ -42,11 +44,14 @@ import 'package:construction_mate/data/repository/project_repository.dart'
     as _i841;
 import 'package:construction_mate/data/repository/rental_repository.dart'
     as _i425;
+import 'package:construction_mate/data/repository/task_repository.dart'
+    as _i228;
 import 'package:construction_mate/data/repository/transaction_repository.dart'
     as _i1072;
 import 'package:construction_mate/data/usecases/material_usecase.dart' as _i154;
 import 'package:construction_mate/data/usecases/profile_usecase.dart' as _i429;
 import 'package:construction_mate/data/usecases/rental_usecase.dart' as _i577;
+import 'package:construction_mate/data/usecases/task_usecase.dart' as _i477;
 import 'package:construction_mate/data/usecases/transaction_usecase.dart'
     as _i740;
 import 'package:construction_mate/logic/controllers/AddBillBloc/add_bill_bloc.dart'
@@ -122,6 +127,18 @@ import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_b
     as _i379;
 import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart'
     as _i246;
+import 'package:construction_mate/logic/controllers/Task/add_todo/add_todo_bloc.dart'
+    as _i804;
+import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart'
+    as _i424;
+import 'package:construction_mate/logic/controllers/Task/get_todos/get_todos_bloc.dart'
+    as _i484;
+import 'package:construction_mate/logic/controllers/Task/task_by_id/task_by_id_bloc.dart'
+    as _i425;
+import 'package:construction_mate/logic/controllers/Task/update_task_progress/update_task_progress_bloc.dart'
+    as _i706;
+import 'package:construction_mate/logic/controllers/Task/update_todo/update_todo_bloc.dart'
+    as _i489;
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart' as _i347;
 import 'package:construction_mate/logic/controllers/TotalPaymentOutBloc/total_payment_out_bloc.dart'
     as _i201;
@@ -143,7 +160,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i688.MenuBloc>(() => _i688.MenuBloc());
     gh.singleton<_i681.NetworkBloc>(() => _i681.NetworkBloc());
     gh.singleton<_i593.OnboardBloc>(() => _i593.OnboardBloc());
-    gh.singleton<_i246.AddTaskBloc>(() => _i246.AddTaskBloc());
     gh.singleton<_i465.BottomsheetBloc>(() => _i465.BottomsheetBloc());
     gh.singleton<_i379.TabControlBloc>(() => _i379.TabControlBloc());
     gh.singleton<_i625.AddPartiesBloc>(() => _i625.AddPartiesBloc());
@@ -174,6 +190,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i953.AuthenticationRepository>(() =>
         _i953.AuthenticationRepositoryImpl(
             gh<_i339.AuthenticationDatasource>()));
+    gh.lazySingleton<_i721.TaskDataSource>(() => _i721.TaskDataSourceImpl());
     gh.lazySingleton<_i1072.TransactionRepository>(() =>
         _i1072.TransactionRepositoryImpl(
             transactionDataSource: gh<_i740.TransactionDataSource>()));
@@ -189,6 +206,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i282.ProfileRepositoryImpl(gh<_i1040.ProfileDataSource>()));
     gh.lazySingleton<_i993.AgencyRepository>(() => _i993.AgencyRepositoryImpl(
         agencyDataSource: gh<_i72.AgencyDataSource>()));
+    gh.lazySingleton<_i228.TaskRepository>(
+        () => _i228.TaskRepositoryImpl(dataSource: gh<_i721.TaskDataSource>()));
+    gh.factory<_i477.TaskUsecase>(
+        () => _i477.TaskUsecase(gh<_i228.TaskRepository>()));
     gh.singleton<_i452.GetRentalSuppliersBloc>(
         () => _i452.GetRentalSuppliersBloc(gh<_i993.AgencyRepository>()));
     gh.singleton<_i40.MaterialAgenciesBloc>(
@@ -209,6 +230,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i585.PaymentTotalProjectBloc>(() =>
         _i585.PaymentTotalProjectBloc(
             transactionRepository: gh<_i1072.TransactionRepository>()));
+    gh.singleton<_i246.AddTaskBloc>(() => _i246.AddTaskBloc(
+          gh<_i477.TaskUsecase>(),
+          gh<_i882.BuildingByIdBloc>(),
+        ));
     gh.singleton<_i549.AddRentalProductBloc>(() => _i549.AddRentalProductBloc(
           gh<_i577.RentalUsecase>(),
           gh<_i452.GetRentalSuppliersBloc>(),
@@ -242,9 +267,23 @@ extension GetItInjectableX on _i174.GetIt {
               projectRepository: gh<_i841.ProjectRepository>(),
               transactionRepository: gh<_i1072.TransactionRepository>(),
             ));
+    gh.singleton<_i706.UpdateTaskProgressBloc>(
+        () => _i706.UpdateTaskProgressBloc(gh<_i477.TaskUsecase>()));
+    gh.singleton<_i425.TaskByIdBloc>(
+        () => _i425.TaskByIdBloc(gh<_i477.TaskUsecase>()));
+    gh.singleton<_i804.AddTodoBloc>(
+        () => _i804.AddTodoBloc(gh<_i477.TaskUsecase>()));
+    gh.singleton<_i484.GetTodosBloc>(
+        () => _i484.GetTodosBloc(gh<_i477.TaskUsecase>()));
+    gh.singleton<_i489.UpdateTodoBloc>(
+        () => _i489.UpdateTodoBloc(gh<_i477.TaskUsecase>()));
     gh.singleton<_i865.AddBillBloc>(() => _i865.AddBillBloc(
           agencyRepository: gh<_i993.AgencyRepository>(),
           billsRepository: gh<_i17.BillsRepository>(),
+        ));
+    gh.singleton<_i424.GetTasksBloc>(() => _i424.GetTasksBloc(
+          gh<_i882.BuildingByIdBloc>(),
+          gh<_i477.TaskUsecase>(),
         ));
     gh.singleton<_i449.GetRentalProductsBloc>(
         () => _i449.GetRentalProductsBloc(gh<_i425.RentalRepository>()));

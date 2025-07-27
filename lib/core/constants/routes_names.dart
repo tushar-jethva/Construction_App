@@ -1,3 +1,5 @@
+import 'package:construction_mate/core/constants/constants.dart';
+
 class RoutesName {
   static String initialLocation = '/';
   static String bottomBar = '/bottomBar';
@@ -87,4 +89,8 @@ class RoutesName {
   //Delete account screen
   static String DELETE_ACCOUNT_SCREEN_PATH = "/deleteAccount";
   static String DELETE_ACCOUNT_SCREEN_NAME = "deleteAccount";
+
+  //Task description screen
+  static String TASK_DESCRIPTION_SCREEN_PATH = "/taskDescription/:$TASK_ID";
+  static String TASK_DESCRIPTION_SCREEN_NAME = "/taskDescription";
 }

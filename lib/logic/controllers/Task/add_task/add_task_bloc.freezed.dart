@@ -27,6 +27,7 @@ mixin _$AddTaskEvent {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,6 +41,7 @@ mixin _$AddTaskEvent {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -53,6 +55,7 @@ mixin _$AddTaskEvent {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -67,6 +70,7 @@ mixin _$AddTaskEvent {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -80,6 +84,7 @@ mixin _$AddTaskEvent {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -93,6 +98,7 @@ mixin _$AddTaskEvent {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -169,6 +175,7 @@ class _$InitializeImpl implements _Initialize {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return initialize();
   }
@@ -185,6 +192,7 @@ class _$InitializeImpl implements _Initialize {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return initialize?.call();
   }
@@ -201,6 +209,7 @@ class _$InitializeImpl implements _Initialize {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (initialize != null) {
@@ -221,6 +230,7 @@ class _$InitializeImpl implements _Initialize {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return initialize(this);
   }
@@ -237,6 +247,7 @@ class _$InitializeImpl implements _Initialize {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return initialize?.call(this);
   }
@@ -253,6 +264,7 @@ class _$InitializeImpl implements _Initialize {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (initialize != null) {
@@ -345,6 +357,7 @@ class _$TaskNameChangedImpl implements _TaskNameChanged {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return taskNameChanged(taskName);
   }
@@ -361,6 +374,7 @@ class _$TaskNameChangedImpl implements _TaskNameChanged {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return taskNameChanged?.call(taskName);
   }
@@ -377,6 +391,7 @@ class _$TaskNameChangedImpl implements _TaskNameChanged {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (taskNameChanged != null) {
@@ -397,6 +412,7 @@ class _$TaskNameChangedImpl implements _TaskNameChanged {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return taskNameChanged(this);
   }
@@ -413,6 +429,7 @@ class _$TaskNameChangedImpl implements _TaskNameChanged {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return taskNameChanged?.call(this);
   }
@@ -429,6 +446,7 @@ class _$TaskNameChangedImpl implements _TaskNameChanged {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (taskNameChanged != null) {
@@ -530,6 +548,7 @@ class _$DurationChangedImpl implements _DurationChanged {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return durationChanged(duration);
   }
@@ -546,6 +565,7 @@ class _$DurationChangedImpl implements _DurationChanged {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return durationChanged?.call(duration);
   }
@@ -562,6 +582,7 @@ class _$DurationChangedImpl implements _DurationChanged {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (durationChanged != null) {
@@ -582,6 +603,7 @@ class _$DurationChangedImpl implements _DurationChanged {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return durationChanged(this);
   }
@@ -598,6 +620,7 @@ class _$DurationChangedImpl implements _DurationChanged {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return durationChanged?.call(this);
   }
@@ -614,6 +637,7 @@ class _$DurationChangedImpl implements _DurationChanged {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (durationChanged != null) {
@@ -715,6 +739,7 @@ class _$ProgressUnitChangedImpl implements _ProgressUnitChanged {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return progressUnitChanged(progressUnit);
   }
@@ -731,6 +756,7 @@ class _$ProgressUnitChangedImpl implements _ProgressUnitChanged {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return progressUnitChanged?.call(progressUnit);
   }
@@ -747,6 +773,7 @@ class _$ProgressUnitChangedImpl implements _ProgressUnitChanged {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (progressUnitChanged != null) {
@@ -767,6 +794,7 @@ class _$ProgressUnitChangedImpl implements _ProgressUnitChanged {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return progressUnitChanged(this);
   }
@@ -783,6 +811,7 @@ class _$ProgressUnitChangedImpl implements _ProgressUnitChanged {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return progressUnitChanged?.call(this);
   }
@@ -799,6 +828,7 @@ class _$ProgressUnitChangedImpl implements _ProgressUnitChanged {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (progressUnitChanged != null) {
@@ -900,6 +930,7 @@ class _$EstQuantityChangedImpl implements _EstQuantityChanged {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return estQuantityChanged(estQuantity);
   }
@@ -916,6 +947,7 @@ class _$EstQuantityChangedImpl implements _EstQuantityChanged {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return estQuantityChanged?.call(estQuantity);
   }
@@ -932,6 +964,7 @@ class _$EstQuantityChangedImpl implements _EstQuantityChanged {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (estQuantityChanged != null) {
@@ -952,6 +985,7 @@ class _$EstQuantityChangedImpl implements _EstQuantityChanged {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return estQuantityChanged(this);
   }
@@ -968,6 +1002,7 @@ class _$EstQuantityChangedImpl implements _EstQuantityChanged {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return estQuantityChanged?.call(this);
   }
@@ -984,6 +1019,7 @@ class _$EstQuantityChangedImpl implements _EstQuantityChanged {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (estQuantityChanged != null) {
@@ -1085,6 +1121,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return startDateChanged(startDate);
   }
@@ -1101,6 +1138,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return startDateChanged?.call(startDate);
   }
@@ -1117,6 +1155,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (startDateChanged != null) {
@@ -1137,6 +1176,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return startDateChanged(this);
   }
@@ -1153,6 +1193,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return startDateChanged?.call(this);
   }
@@ -1169,6 +1210,7 @@ class _$StartDateChangedImpl implements _StartDateChanged {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (startDateChanged != null) {
@@ -1269,6 +1311,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return endDateChanged(endDate);
   }
@@ -1285,6 +1328,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return endDateChanged?.call(endDate);
   }
@@ -1301,6 +1345,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (endDateChanged != null) {
@@ -1321,6 +1366,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return endDateChanged(this);
   }
@@ -1337,6 +1383,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return endDateChanged?.call(this);
   }
@@ -1353,6 +1400,7 @@ class _$EndDateChangedImpl implements _EndDateChanged {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (endDateChanged != null) {
@@ -1461,6 +1509,7 @@ class _$AssigneesChangedImpl implements _AssigneesChanged {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return assigneesChanged(assignees);
   }
@@ -1477,6 +1526,7 @@ class _$AssigneesChangedImpl implements _AssigneesChanged {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return assigneesChanged?.call(assignees);
   }
@@ -1493,6 +1543,7 @@ class _$AssigneesChangedImpl implements _AssigneesChanged {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (assigneesChanged != null) {
@@ -1513,6 +1564,7 @@ class _$AssigneesChangedImpl implements _AssigneesChanged {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return assigneesChanged(this);
   }
@@ -1529,6 +1581,7 @@ class _$AssigneesChangedImpl implements _AssigneesChanged {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return assigneesChanged?.call(this);
   }
@@ -1545,6 +1598,7 @@ class _$AssigneesChangedImpl implements _AssigneesChanged {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (assigneesChanged != null) {
@@ -1646,6 +1700,7 @@ class _$RemoveAssigneeImpl implements _RemoveAssignee {
     required TResult Function(DateTime endDate) endDateChanged,
     required TResult Function(List<AgencyModel> assignees) assigneesChanged,
     required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
   }) {
     return removeAssignee(assigneeId);
   }
@@ -1662,6 +1717,7 @@ class _$RemoveAssigneeImpl implements _RemoveAssignee {
     TResult? Function(DateTime endDate)? endDateChanged,
     TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
   }) {
     return removeAssignee?.call(assigneeId);
   }
@@ -1678,6 +1734,7 @@ class _$RemoveAssigneeImpl implements _RemoveAssignee {
     TResult Function(DateTime endDate)? endDateChanged,
     TResult Function(List<AgencyModel> assignees)? assigneesChanged,
     TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
     required TResult orElse(),
   }) {
     if (removeAssignee != null) {
@@ -1698,6 +1755,7 @@ class _$RemoveAssigneeImpl implements _RemoveAssignee {
     required TResult Function(_EndDateChanged value) endDateChanged,
     required TResult Function(_AssigneesChanged value) assigneesChanged,
     required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
   }) {
     return removeAssignee(this);
   }
@@ -1714,6 +1772,7 @@ class _$RemoveAssigneeImpl implements _RemoveAssignee {
     TResult? Function(_EndDateChanged value)? endDateChanged,
     TResult? Function(_AssigneesChanged value)? assigneesChanged,
     TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
   }) {
     return removeAssignee?.call(this);
   }
@@ -1730,6 +1789,7 @@ class _$RemoveAssigneeImpl implements _RemoveAssignee {
     TResult Function(_EndDateChanged value)? endDateChanged,
     TResult Function(_AssigneesChanged value)? assigneesChanged,
     TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
     required TResult orElse(),
   }) {
     if (removeAssignee != null) {
@@ -1750,6 +1810,159 @@ abstract class _RemoveAssignee implements AddTaskEvent {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$RemoveAssigneeImplCopyWith<_$RemoveAssigneeImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddTaskImplCopyWith<$Res> {
+  factory _$$AddTaskImplCopyWith(
+          _$AddTaskImpl value, $Res Function(_$AddTaskImpl) then) =
+      __$$AddTaskImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AddTaskImplCopyWithImpl<$Res>
+    extends _$AddTaskEventCopyWithImpl<$Res, _$AddTaskImpl>
+    implements _$$AddTaskImplCopyWith<$Res> {
+  __$$AddTaskImplCopyWithImpl(
+      _$AddTaskImpl _value, $Res Function(_$AddTaskImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AddTaskEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$AddTaskImpl implements _AddTask {
+  const _$AddTaskImpl();
+
+  @override
+  String toString() {
+    return 'AddTaskEvent.addTask()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$AddTaskImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initialize,
+    required TResult Function(String taskName) taskNameChanged,
+    required TResult Function(String duration) durationChanged,
+    required TResult Function(String progressUnit) progressUnitChanged,
+    required TResult Function(String estQuantity) estQuantityChanged,
+    required TResult Function(DateTime startDate) startDateChanged,
+    required TResult Function(DateTime endDate) endDateChanged,
+    required TResult Function(List<AgencyModel> assignees) assigneesChanged,
+    required TResult Function(String assigneeId) removeAssignee,
+    required TResult Function() addTask,
+  }) {
+    return addTask();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initialize,
+    TResult? Function(String taskName)? taskNameChanged,
+    TResult? Function(String duration)? durationChanged,
+    TResult? Function(String progressUnit)? progressUnitChanged,
+    TResult? Function(String estQuantity)? estQuantityChanged,
+    TResult? Function(DateTime startDate)? startDateChanged,
+    TResult? Function(DateTime endDate)? endDateChanged,
+    TResult? Function(List<AgencyModel> assignees)? assigneesChanged,
+    TResult? Function(String assigneeId)? removeAssignee,
+    TResult? Function()? addTask,
+  }) {
+    return addTask?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initialize,
+    TResult Function(String taskName)? taskNameChanged,
+    TResult Function(String duration)? durationChanged,
+    TResult Function(String progressUnit)? progressUnitChanged,
+    TResult Function(String estQuantity)? estQuantityChanged,
+    TResult Function(DateTime startDate)? startDateChanged,
+    TResult Function(DateTime endDate)? endDateChanged,
+    TResult Function(List<AgencyModel> assignees)? assigneesChanged,
+    TResult Function(String assigneeId)? removeAssignee,
+    TResult Function()? addTask,
+    required TResult orElse(),
+  }) {
+    if (addTask != null) {
+      return addTask();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initialize value) initialize,
+    required TResult Function(_TaskNameChanged value) taskNameChanged,
+    required TResult Function(_DurationChanged value) durationChanged,
+    required TResult Function(_ProgressUnitChanged value) progressUnitChanged,
+    required TResult Function(_EstQuantityChanged value) estQuantityChanged,
+    required TResult Function(_StartDateChanged value) startDateChanged,
+    required TResult Function(_EndDateChanged value) endDateChanged,
+    required TResult Function(_AssigneesChanged value) assigneesChanged,
+    required TResult Function(_RemoveAssignee value) removeAssignee,
+    required TResult Function(_AddTask value) addTask,
+  }) {
+    return addTask(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initialize value)? initialize,
+    TResult? Function(_TaskNameChanged value)? taskNameChanged,
+    TResult? Function(_DurationChanged value)? durationChanged,
+    TResult? Function(_ProgressUnitChanged value)? progressUnitChanged,
+    TResult? Function(_EstQuantityChanged value)? estQuantityChanged,
+    TResult? Function(_StartDateChanged value)? startDateChanged,
+    TResult? Function(_EndDateChanged value)? endDateChanged,
+    TResult? Function(_AssigneesChanged value)? assigneesChanged,
+    TResult? Function(_RemoveAssignee value)? removeAssignee,
+    TResult? Function(_AddTask value)? addTask,
+  }) {
+    return addTask?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initialize value)? initialize,
+    TResult Function(_TaskNameChanged value)? taskNameChanged,
+    TResult Function(_DurationChanged value)? durationChanged,
+    TResult Function(_ProgressUnitChanged value)? progressUnitChanged,
+    TResult Function(_EstQuantityChanged value)? estQuantityChanged,
+    TResult Function(_StartDateChanged value)? startDateChanged,
+    TResult Function(_EndDateChanged value)? endDateChanged,
+    TResult Function(_AssigneesChanged value)? assigneesChanged,
+    TResult Function(_RemoveAssignee value)? removeAssignee,
+    TResult Function(_AddTask value)? addTask,
+    required TResult orElse(),
+  }) {
+    if (addTask != null) {
+      return addTask(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddTask implements AddTaskEvent {
+  const factory _AddTask() = _$AddTaskImpl;
 }
 
 /// @nodoc

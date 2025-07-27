@@ -98,6 +98,18 @@ class API {
   static const GET_RENTAL_PARTIE_BY_PROJECT =
       "$BASE_URL/Rental/GetRentalPartieByProject";
 
+  //--------------- tasks ----------------
+  static const ADD_TASK = "$BASE_URL/Task/CreateTask";
+  static const GET_TASK_BY_PROJECT = "$BASE_URL/Task/GetTasks";
+  static const GET_TASK_BY_ID = "$BASE_URL/Task/GetTask";
+  static const UPDATE_TASK = "$BASE_URL/Task/UpdateTask";
+
+  //-------------- todo -------------
+  static const ADD_TODO = "$BASE_URL/Task/AddToDoToTask";
+  static const GET_TODO = "$BASE_URL/Task/GetToDosByTask";
+  static const UPDATE_TODO = "$BASE_URL/Task/UpdateToDo";
+
+
   //------------- Forgot Password-----------
   static const FORGOT_PASSWORD_EMAIL =
       "$BASE_URL/Company/ForgotPasswordSendOtp";

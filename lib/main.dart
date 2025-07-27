@@ -65,6 +65,12 @@ import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_an
 import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctiption_box_bloc.dart';
 import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/add_todo/add_todo_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/get_todos/get_todos_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/task_by_id/task_by_id_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/update_task_progress/update_task_progress_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/update_todo/update_todo_bloc.dart';
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
@@ -279,6 +285,24 @@ class MyMultiBlocProviders extends StatelessWidget {
 
         //Add task
         BlocProvider(create: (_) => di.locator<AddTaskBloc>()),
+
+        //Get tasks
+        BlocProvider(create: (_) => di.locator<GetTasksBloc>()),
+
+        //Get task by id
+        BlocProvider(create: (_) => di.locator<TaskByIdBloc>()),
+
+        //update progress
+        BlocProvider(create: (_) => di.locator<UpdateTaskProgressBloc>()),
+
+        //Add todo
+        BlocProvider(create: (_) => di.locator<AddTodoBloc>()),
+
+        //get todos
+        BlocProvider(create: (_) => di.locator<GetTodosBloc>()),
+
+        //update todo
+        BlocProvider(create: (_) => di.locator<UpdateTodoBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(440, 956),

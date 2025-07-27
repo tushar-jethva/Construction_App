@@ -24,6 +24,9 @@ List<Map<String, dynamic>> otherExpenses = [
 
 List<String> units = [
   "Select Unit",
+  "%",
+  "hours",
+  "day",
   "kg",
   "litre",
   "bags",
