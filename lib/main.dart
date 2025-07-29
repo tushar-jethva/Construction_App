@@ -66,10 +66,14 @@ import 'package:construction_mate/logic/controllers/SubscriptionBoxBloc/subsctip
 import 'package:construction_mate/logic/controllers/TabControlBloc/tab_control_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/add_todo/add_todo_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/current_task/current_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/delete_task/delete_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/delete_todo/delete_todo_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/get_todos/get_todos_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/task_by_id/task_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/update_task_progress/update_task_progress_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/update_task_status/update_task_status_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/update_todo/update_todo_bloc.dart';
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart';
 import 'package:construction_mate/logic/controllers/ThemeBloc/theme_bloc.dart';
@@ -295,6 +299,12 @@ class MyMultiBlocProviders extends StatelessWidget {
         //update progress
         BlocProvider(create: (_) => di.locator<UpdateTaskProgressBloc>()),
 
+        //update task status
+        BlocProvider(create: (_) => di.locator<UpdateTaskStatusBloc>()),
+
+        //delete task
+        BlocProvider(create: (_) => di.locator<DeleteTaskBloc>()),
+
         //Add todo
         BlocProvider(create: (_) => di.locator<AddTodoBloc>()),
 
@@ -303,6 +313,12 @@ class MyMultiBlocProviders extends StatelessWidget {
 
         //update todo
         BlocProvider(create: (_) => di.locator<UpdateTodoBloc>()),
+
+        //delete todo
+        BlocProvider(create: (_) => di.locator<DeleteTodoBloc>()),
+
+        //current task
+        BlocProvider(create: (_) => di.locator<CurrentTaskBloc>()),
       ],
       child: ScreenUtilInit(
         designSize: const Size(440, 956),

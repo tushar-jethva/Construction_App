@@ -15,6 +15,7 @@ import 'package:construction_mate/logic/controllers/Profile/EditProfileBloc/edit
 import 'package:construction_mate/logic/controllers/SelectFloorsBloc/select_floors_bloc.dart';
 import 'package:construction_mate/logic/controllers/SiteProgressAgencyUpdate/site_progress_agency_update_bloc.dart';
 import 'package:construction_mate/logic/controllers/StartAndEndDateBloc/start_and_end_date_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/current_task/current_task_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/get_todos/get_todos_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/task_by_id/task_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/TransactionByAgency/transaction_by_agency_bloc.dart';
@@ -506,7 +507,8 @@ class Routes {
                 path: RoutesName.TASK_DESCRIPTION_SCREEN_PATH,
                 name: RoutesName.TASK_DESCRIPTION_SCREEN_NAME,
                 builder: (context, state) {
-                  final taskId = state.pathParameters[TASK_ID];
+                  final taskId =
+                      context.read<CurrentTaskBloc>().state.task?.sId;
                   context
                       .read<TaskByIdBloc>()
                       .add(TaskByIdEvent.getTaskById(taskId: taskId ?? ''));

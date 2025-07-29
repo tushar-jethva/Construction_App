@@ -8,15 +8,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function()? onTap;
   final Color? backgroundColor;
   final Widget? titleWidget;
-  const CustomAppBar({
-    super.key,
-    this.title,
-    this.isCenterTitle = true,
-    this.isBackButtonShow = true,
-    this.backgroundColor,
-    this.onTap,
-    this.titleWidget
-  });
+  final List<Widget>? actions;
+
+  const CustomAppBar(
+      {super.key,
+      this.title,
+      this.isCenterTitle = true,
+      this.isBackButtonShow = true,
+      this.backgroundColor,
+      this.onTap,
+      this.titleWidget,
+      this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +36,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             )
           : const SizedBox(),
+      actions: actions,
       centerTitle: isCenterTitle,
-      title: titleWidget ?? Text(
-        title ?? "",
-        style: theme.textTheme.titleLarge?.copyWith(fontSize: 18.sp),
-      ),
+      title: titleWidget ??
+          Text(
+            title ?? "",
+            style: theme.textTheme.titleLarge?.copyWith(fontSize: 18.sp),
+          ),
     );
   }
 

@@ -49,4 +49,18 @@ class TaskUsecase {
     return _repository.updateTodo(
         todoId: todoId, status: status, taskId: taskId);
   }
+
+  Future<Either<Failure, String>> updateTaskStatus(
+      {required String taskId, required String status}) {
+    return _repository.updateTaskStatus(taskId: taskId, status: status);
+  }
+
+  Future<Either<Failure, String>> deleteTask({required String taskId}) {
+    return _repository.deleteTask(taskId: taskId);
+  }
+
+  Future<Either<Failure, String>> deleteTodo(
+      {required String todoId, required String taskId}) {
+    return _repository.deleteTodo(todoId: todoId, taskId: taskId);
+  }
 }

@@ -3,10 +3,14 @@ import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/delete_task/delete_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/task_by_id/task_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/update_task_progress/update_task_progress_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/update_task_status/update_task_status_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
+import 'package:construction_mate/logic/models/tasks/get_task_model.dart';
 import 'package:construction_mate/presentation/screens/project/task/add_task_widget.dart';
 import 'package:construction_mate/presentation/screens/project/task/add_todo_widget.dart';
 import 'package:construction_mate/presentation/screens/project/task/completed_todo_widget.dart';
@@ -23,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -43,11 +48,16 @@ class TaskDescriptionScren extends StatelessWidget {
         onTap: () {
           context.pop();
         },
+        actions: [],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          TaskDescriptionedWidget(theme: theme, textTheme: textTheme),
+          TaskDescriptionedWidget(
+            theme: theme,
+            textTheme: textTheme,
+            taskId: taskId,
+          ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -102,7 +112,7 @@ class TaskDescriptionScren extends StatelessWidget {
               Icons.update,
             ),
             label: 'Update Progress',
-            labelStyle: textTheme.titleSmall?.copyWith(),
+            labelStyle: textTheme.titleSmall?.copyWith(color: black),
             onTap: () {
               showModalBottomSheet(
                   context: context,
@@ -119,7 +129,7 @@ class TaskDescriptionScren extends StatelessWidget {
             child: Icon(
               Icons.playlist_add,
             ),
-            labelStyle: textTheme.titleSmall?.copyWith(),
+            labelStyle: textTheme.titleSmall?.copyWith(color: black),
             label: 'Add To-do',
             onTap: () {
               showModalBottomSheet(
@@ -233,10 +243,12 @@ class TaskDescriptionedWidget extends StatelessWidget {
     super.key,
     required this.theme,
     required this.textTheme,
+    required this.taskId,
   });
 
   final ThemeData theme;
   final TextTheme textTheme;
+  final String taskId;
 
   @override
   Widget build(BuildContext context) {
@@ -272,11 +284,14 @@ class TaskDescriptionedWidget extends StatelessWidget {
                                   Text("Status:", style: textTheme.labelLarge),
                                 ],
                               ),
-                              30.wx,
+                              20.wx,
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  TaskRowWidget(desc: task?.name ?? ''),
+                                  TaskRowWidget(
+                                      desc: (task?.assignee?.length ?? 0) > 0
+                                          ? (task?.assignee?[0].name ?? '')
+                                          : 'No assignee'),
                                   15.hx,
                                   TaskRowWidget(
                                     desc:
@@ -298,25 +313,100 @@ class TaskDescriptionedWidget extends StatelessWidget {
                                     ),
                                   ),
                                   15.hx,
-                                  TaskRowWidget(
-                                    desc: task?.status ?? '',
-                                    widget: task?.status == 'pending'
-                                        ? const Icon(
-                                            Icons.hourglass_top,
-                                            color: Colors.amberAccent,
-                                            size: 18,
-                                          )
-                                        : task?.status == 'completed'
-                                            ? Icon(
-                                                Icons.check_circle,
-                                                color: green,
+                                  Row(
+                                    children: [
+                                      TaskRowWidget(
+                                        desc: task?.status ?? '',
+                                        widget: task?.status == 'pending'
+                                            ? const Icon(
+                                                Icons.hourglass_top,
+                                                color: Colors.amberAccent,
                                                 size: 18,
                                               )
-                                            : Icon(
-                                                Icons.close,
-                                                color: red,
-                                                size: 18,
+                                            : task?.status == 'completed'
+                                                ? Icon(
+                                                    Icons.check_circle,
+                                                    color: green,
+                                                    size: 18,
+                                                  )
+                                                : Icon(
+                                                    Icons.close,
+                                                    color: red,
+                                                    size: 18,
+                                                  ),
+                                      ),
+                                      12.wx,
+                                      BlocConsumer<UpdateTaskStatusBloc,
+                                          UpdateTaskStatusState>(
+                                        listener: (context, state) {
+                                          if (state.state.isLoaded) {
+                                            showTopSnackBar(
+                                                context, state.message,
+                                                messageType: MessageType.done);
+
+                                            context.read<TaskByIdBloc>().add(
+                                                TaskByIdEvent.getTaskById(
+                                                    taskId: taskId));
+
+                                            context.read<GetTasksBloc>().add(
+                                                const GetTasksEvent.getTasks());
+                                          }
+                                          if (state.state.isError) {
+                                            showTopSnackBar(
+                                                context, state.message,
+                                                messageType: MessageType.error);
+                                          }
+                                        },
+                                        builder: (context, state) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<UpdateTaskStatusBloc>()
+                                                  .add(UpdateTaskStatusEvent
+                                                      .updateStatus(
+                                                    taskId: taskId,
+                                                    status: task?.status ==
+                                                            'pending'
+                                                        ? "completed"
+                                                        : "pending",
+                                                  ));
+                                            },
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 5,
+                                                      vertical: 5),
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: borderColor),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.r),
                                               ),
+                                              child: state.state.isLoading
+                                                  ? SpinKitThreeBounce(
+                                                      size: 15,
+                                                      color: purple,
+                                                    )
+                                                  : Text(
+                                                      task?.status == 'pending'
+                                                          ? "Mark Completed"
+                                                          : "Mark Pending",
+                                                      style: theme
+                                                          .textTheme.labelLarge
+                                                          ?.copyWith(
+                                                        fontSize: 12,
+                                                        color: task?.status ==
+                                                                'pending'
+                                                            ? green
+                                                            : Colors
+                                                                .amberAccent,
+                                                      ),
+                                                    ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -344,7 +434,7 @@ class TaskRowWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         widget ?? const SizedBox.shrink(),
-        widget == null ? 0.wx : 15.wx,
+        widget == null ? 0.wx : 5.wx,
         Text(
           desc.capitalize,
           style: textTheme.bodyMedium?.copyWith(fontSize: 14),

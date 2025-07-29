@@ -23,6 +23,13 @@ abstract class TaskRepository {
   Future<Either<Failure, String>> updateTask(
       {required String taskId, UpdateTaskModel? task});
 
+  //update task status
+  Future<Either<Failure, String>> updateTaskStatus(
+      {required String taskId, required String status});
+
+  //delete task
+  Future<Either<Failure, String>> deleteTask({required String taskId});
+
   //add todo
   Future<Either<Failure, String>> addTodo(
       {required CreateToDoModel todo, required String taskId});
@@ -33,6 +40,10 @@ abstract class TaskRepository {
   //update todo
   Future<Either<Failure, String>> updateTodo(
       {required String todoId, required String status, required String taskId});
+
+  //delete todo
+  Future<Either<Failure, String>> deleteTodo(
+      {required String todoId, required String taskId});
 }
 
 @LazySingleton(as: TaskRepository)
@@ -82,5 +93,24 @@ class TaskRepositoryImpl implements TaskRepository {
       required String taskId}) {
     return handleErrors(() =>
         dataSource.updateTodo(todoId: todoId, status: status, taskId: taskId));
+  }
+
+  @override
+  Future<Either<Failure, String>> updateTaskStatus(
+      {required String taskId, required String status}) {
+    return handleErrors(
+        () => dataSource.updateTaskStatus(taskId: taskId, status: status));
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteTask({required String taskId}) {
+    return handleErrors(() => dataSource.deleteTask(taskId: taskId));
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteTodo(
+      {required String todoId, required String taskId}) {
+    return handleErrors(
+        () => dataSource.deleteTodo(todoId: todoId, taskId: taskId));
   }
 }

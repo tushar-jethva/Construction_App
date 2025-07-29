@@ -4,6 +4,8 @@ import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/delete_task/delete_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/delete_todo/delete_todo_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/get_todos/get_todos_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/update_todo/update_todo_bloc.dart';
@@ -107,69 +109,115 @@ class TodoOneWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            Row(
               children: [
-                Text(
-                  (task?.status?.capitalize ?? ''),
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                      color: task?.status == 'pending'
-                          ? Colors.amber
-                          : task?.status == 'completed'
-                              ? Colors.green
-                              : Colors.red),
-                ),
-                3.hx,
-                task?.status == 'pending'
-                    ? BlocConsumer<UpdateTodoBloc, UpdateTodoState>(
-                        listener: (context, state) {
-                          if (state.state.isLoaded) {
-                            context
-                                .read<GetTodosBloc>()
-                                .add(GetTodosEvent.getTodos(taskId: taskId));
-                            showTopSnackBar(context, state.message,
-                                messageType: MessageType.done);
-                          }
-                          if (state.state.isError) {
-                            showTopSnackBar(context, state.message,
-                                messageType: MessageType.error);
-                          }
-                        },
-                        builder: (context, state) {
-                          return GestureDetector(
-                            onTap: () {
-                              context.read<UpdateTodoBloc>().add(
-                                  UpdateTodoEvent.todoIdChanged(
-                                      todoId: task?.sId ?? ''));
-                              context.read<UpdateTodoBloc>().add(
-                                  UpdateTodoEvent.updateTodo(
-                                      taskId: taskId,
-                                      todoId: task?.sId ?? '',
-                                      status: "completed"));
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      (task?.status?.capitalize ?? ''),
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                          color: task?.status == 'pending'
+                              ? Colors.amber
+                              : task?.status == 'completed'
+                                  ? Colors.green
+                                  : Colors.red),
+                    ),
+                    3.hx,
+                    task?.status == 'pending'
+                        ? BlocConsumer<UpdateTodoBloc, UpdateTodoState>(
+                            listener: (context, state) {
+                              if (state.state.isLoaded) {
+                                context.read<GetTodosBloc>().add(
+                                    GetTodosEvent.getTodos(taskId: taskId));
+                                showTopSnackBar(context, state.message,
+                                    messageType: MessageType.done);
+                              }
+                              if (state.state.isError) {
+                                showTopSnackBar(context, state.message,
+                                    messageType: MessageType.error);
+                              }
                             },
-                            child: Container(
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                border: Border.all(color: borderColor),
-                                borderRadius: BorderRadius.circular(10.r),
+                            builder: (context, state) {
+                              return GestureDetector(
+                                onTap: () {
+                                  context.read<UpdateTodoBloc>().add(
+                                      UpdateTodoEvent.todoIdChanged(
+                                          todoId: task?.sId ?? ''));
+                                  context.read<UpdateTodoBloc>().add(
+                                      UpdateTodoEvent.updateTodo(
+                                          taskId: taskId,
+                                          todoId: task?.sId ?? '',
+                                          status: "completed"));
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: borderColor),
+                                    borderRadius: BorderRadius.circular(10.r),
+                                  ),
+                                  child: state.state.isLoading &&
+                                          state.todoId == task?.sId
+                                      ? SpinKitThreeBounce(
+                                          size: 15,
+                                          color: purple,
+                                        )
+                                      : Text(
+                                          "Mark Completed",
+                                          style: theme.textTheme.labelLarge
+                                              ?.copyWith(
+                                                  fontSize: 12, color: green),
+                                        ),
+                                ),
+                              );
+                            },
+                          )
+                        : const SizedBox.shrink(),
+                  ],
+                ),
+                BlocConsumer<DeleteTodoBloc, DeleteTodoState>(
+                  listener: (context, state) {
+                    if (state.state.isLoaded) {
+                      showTopSnackBar(context, state.message,
+                          messageType: MessageType.done);
+                      context
+                          .read<GetTodosBloc>()
+                          .add(GetTodosEvent.getTodos(taskId: taskId));
+                    }
+                  },
+                  builder: (context, state) {
+                    return PopupMenuButton<String>(
+                      menuPadding: EdgeInsets.zero,
+                      color: theme.cardColor,
+                      icon: Icon(
+                        Icons.more_vert,
+                        color: theme.canvasColor,
+                      ), // ︙ icon
+                      onSelected: (value) {
+                        if (value == 'delete') {
+                          context.read<DeleteTodoBloc>().add(
+                              DeleteTodoEvent.deleteTodo(
+                                  taskId: taskId, todoId: task?.sId ?? ''));
+                        }
+                      },
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          value: 'delete',
+                          child: Row(
+                            children: [
+                              const Icon(Icons.delete, color: Colors.red),
+                              Text(
+                                "Delete",
+                                style: theme.textTheme.titleMedium!
+                                    .copyWith(fontSize: 14.sp),
                               ),
-                              child: state.state.isLoading &&
-                                      state.todoId == task?.sId
-                                  ? SpinKitThreeBounce(
-                                      size: 15,
-                                      color: purple,
-                                    )
-                                  : Text(
-                                      "Mark Completed",
-                                      style: theme.textTheme.labelLarge
-                                          ?.copyWith(
-                                              fontSize: 12, color: green),
-                                    ),
-                            ),
-                          );
-                        },
-                      )
-                    : const SizedBox.shrink(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ],
             ),
           ],

@@ -1,11 +1,12 @@
 import 'package:construction_mate/core/constants/colors.dart';
+import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
-import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/current_task/current_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/delete_task/delete_task_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart';
 import 'package:construction_mate/logic/models/tasks/get_task_model.dart';
-import 'package:construction_mate/presentation/router/go_router.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,13 +41,19 @@ class _TaskScreenState extends State<TaskScreen> {
       child: BlocBuilder<GetTasksBloc, GetTasksState>(
         builder: (context, state) {
           return state.state.isLoading
-              ? const Skeletonizer(child: TaskOneWidget())
+              ? Center(
+                  child: CircularProgressIndicator(
+                  color: purple,
+                ))
               : state.state.isLoaded && state.tasks.isNotEmpty
                   ? ListView.separated(
                       controller: widget.scrollController,
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
+                            context.read<CurrentTaskBloc>().add(
+                                CurrentTaskEvent.setCurrentTask(
+                                    task: state.tasks[index]));
                             context.pushNamed(
                                 RoutesName.TASK_DESCRIPTION_SCREEN_NAME,
                                 pathParameters: {
@@ -105,38 +112,87 @@ class TaskOneWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            Row(
               children: [
-                // Text(
-                //   "Last Updated: ${task.}",
-                //   style: theme.textTheme.labelLarge?.copyWith(fontSize: 12),
-                // ),
-                // 3.hx,
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                          text: "${task?.progress ?? 0}",
-                          style: theme.textTheme.titleMedium
-                              ?.copyWith(fontSize: 14)),
-                      TextSpan(
-                          text: " / ${task?.estQty ?? 0} ${task?.unit ?? ''}",
-                          style: theme.textTheme.bodyMedium
-                              ?.copyWith(fontSize: 12))
-                    ],
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    // Text(
+                    //   "Last Updated: ${task.}",
+                    //   style: theme.textTheme.labelLarge?.copyWith(fontSize: 12),
+                    // ),
+                    // 3.hx,
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                              text: "${task?.progress ?? 0}",
+                              style: theme.textTheme.titleMedium
+                                  ?.copyWith(fontSize: 14)),
+                          TextSpan(
+                              text:
+                                  " / ${task?.estQty ?? 0} ${task?.unit ?? ''}",
+                              style: theme.textTheme.bodyMedium
+                                  ?.copyWith(fontSize: 12))
+                        ],
+                      ),
+                    ),
+                    3.hx,
+                    Text(
+                      task?.status ?? '',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                          color: task?.status == 'pending'
+                              ? Colors.amber
+                              : task?.status == 'completed'
+                                  ? Colors.green
+                                  : Colors.red),
+                    ),
+                  ],
                 ),
-                3.hx,
-                Text(
-                  task?.status ?? '',
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                      color: task?.status == 'pending'
-                          ? Colors.amber
-                          : task?.status == 'completed'
-                              ? Colors.green
-                              : Colors.red),
-                )
+                10.hx,
+                BlocConsumer<DeleteTaskBloc, DeleteTaskState>(
+                  listener: (context, state) {
+                    if (state.state.isLoaded) {
+                      showTopSnackBar(context, state.message,
+                          messageType: MessageType.done);
+                      context
+                          .read<GetTasksBloc>()
+                          .add(const GetTasksEvent.getTasks());
+                    }
+                  },
+                  builder: (context, state) {
+                    return PopupMenuButton<String>(
+                      menuPadding: EdgeInsets.zero,
+                      color: theme.cardColor,
+                      icon: Icon(
+                        Icons.more_vert,
+                        color: theme.canvasColor,
+                      ), // ︙ icon
+                      onSelected: (value) {
+                        if (value == 'delete') {
+                          context.read<DeleteTaskBloc>().add(
+                              DeleteTaskEvent.deleteTask(
+                                  taskId: task?.sId ?? ''));
+                        }
+                      },
+                      itemBuilder: (context) => [
+                        PopupMenuItem(
+                          value: 'delete',
+                          child: Row(
+                            children: [
+                              const Icon(Icons.delete, color: Colors.red),
+                              Text(
+                                "Delete",
+                                style: theme.textTheme.titleMedium!
+                                    .copyWith(fontSize: 14.sp),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ],
             ),
           ],

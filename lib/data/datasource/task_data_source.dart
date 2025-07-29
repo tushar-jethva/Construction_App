@@ -22,6 +22,13 @@ abstract class TaskDataSource {
   //update task
   Future<String> updateTask({required String taskId, UpdateTaskModel? task});
 
+  //update task status
+  Future<String> updateTaskStatus(
+      {required String taskId, required String status});
+
+  //delete task
+  Future<String> deleteTask({required String taskId});
+
   //add todo
   Future<String> addTodo(
       {required CreateToDoModel todo, required String taskId});
@@ -32,6 +39,9 @@ abstract class TaskDataSource {
   //update todo
   Future<String> updateTodo(
       {required String todoId, required String status, required String taskId});
+
+  //delete todo
+  Future<String> deleteTodo({required String todoId, required String taskId});
 }
 
 @LazySingleton(as: TaskDataSource)
@@ -106,6 +116,36 @@ class TaskDataSourceImpl implements TaskDataSource {
   }
 
   @override
+  Future<String> updateTaskStatus(
+      {required String taskId, required String status}) async {
+    try {
+      final res = await dio.put(
+        "${API.UPDATE_TASK}/$taskId",
+        data: {'status': status},
+      );
+
+      debugPrint("--- res update ${res.data}");
+
+      return res.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> deleteTask({required String taskId}) async {
+    try {
+      final res = await dio.delete("${API.DELETE_TASK}/$taskId");
+
+      debugPrint("--- res delete ${res.data}");
+
+      return res.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<String> addTodo(
       {required CreateToDoModel todo, required String taskId}) async {
     try {
@@ -147,6 +187,20 @@ class TaskDataSourceImpl implements TaskDataSource {
       final res = await dio.put(
         "${API.UPDATE_TODO}/$taskId/$todoId",
         data: {'status': status},
+      );
+
+      return res.data['message'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<String> deleteTodo(
+      {required String todoId, required String taskId}) async {
+    try {
+      final res = await dio.delete(
+        "${API.DELETE_TODO}/$taskId/$todoId",
       );
 
       return res.data['message'];

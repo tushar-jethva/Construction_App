@@ -3,6 +3,7 @@ import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/constants.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Task/add_todo/add_todo_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/get_todos/get_todos_bloc.dart';
 import 'package:construction_mate/logic/controllers/TotalAgencies/total_agencies_bloc.dart';
 import 'package:construction_mate/logic/models/agency_model.dart';
 import 'package:construction_mate/presentation/widgets/common/common_button.dart';
@@ -132,6 +133,10 @@ class AddTodoWidget extends StatelessWidget {
                       if (state.state.isLoaded) {
                         showTopSnackBar(context, state.message,
                             messageType: MessageType.done);
+
+                        context
+                            .read<GetTodosBloc>()
+                            .add(GetTodosEvent.getTodos(taskId: taskId));
 
                         context.pop();
                       } else if (state.state.isError) {

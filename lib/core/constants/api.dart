@@ -103,12 +103,13 @@ class API {
   static const GET_TASK_BY_PROJECT = "$BASE_URL/Task/GetTasks";
   static const GET_TASK_BY_ID = "$BASE_URL/Task/GetTask";
   static const UPDATE_TASK = "$BASE_URL/Task/UpdateTask";
+  static const DELETE_TASK = "$BASE_URL/Task/DeleteTask";
 
   //-------------- todo -------------
   static const ADD_TODO = "$BASE_URL/Task/AddToDoToTask";
   static const GET_TODO = "$BASE_URL/Task/GetToDosByTask";
   static const UPDATE_TODO = "$BASE_URL/Task/UpdateToDo";
-
+  static const DELETE_TODO = "$BASE_URL/Task/DeleteToDo";
 
   //------------- Forgot Password-----------
   static const FORGOT_PASSWORD_EMAIL =

@@ -129,6 +129,12 @@ import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.
     as _i246;
 import 'package:construction_mate/logic/controllers/Task/add_todo/add_todo_bloc.dart'
     as _i804;
+import 'package:construction_mate/logic/controllers/Task/current_task/current_task_bloc.dart'
+    as _i903;
+import 'package:construction_mate/logic/controllers/Task/delete_task/delete_task_bloc.dart'
+    as _i650;
+import 'package:construction_mate/logic/controllers/Task/delete_todo/delete_todo_bloc.dart'
+    as _i801;
 import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart'
     as _i424;
 import 'package:construction_mate/logic/controllers/Task/get_todos/get_todos_bloc.dart'
@@ -137,6 +143,8 @@ import 'package:construction_mate/logic/controllers/Task/task_by_id/task_by_id_b
     as _i425;
 import 'package:construction_mate/logic/controllers/Task/update_task_progress/update_task_progress_bloc.dart'
     as _i706;
+import 'package:construction_mate/logic/controllers/Task/update_task_status/update_task_status_bloc.dart'
+    as _i1038;
 import 'package:construction_mate/logic/controllers/Task/update_todo/update_todo_bloc.dart'
     as _i489;
 import 'package:construction_mate/logic/controllers/Tds/tds_bloc.dart' as _i347;
@@ -166,6 +174,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i660.SubsctiptionBoxBloc>(() => _i660.SubsctiptionBoxBloc());
     gh.singleton<_i79.AuthenticatorWatcherBloc>(
         () => _i79.AuthenticatorWatcherBloc());
+    gh.singleton<_i903.CurrentTaskBloc>(() => _i903.CurrentTaskBloc());
     gh.lazySingleton<_i548.MaterialDataSource>(
         () => _i548.MaterialDataSourceImpl());
     gh.lazySingleton<_i740.TransactionDataSource>(
@@ -277,6 +286,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i484.GetTodosBloc(gh<_i477.TaskUsecase>()));
     gh.singleton<_i489.UpdateTodoBloc>(
         () => _i489.UpdateTodoBloc(gh<_i477.TaskUsecase>()));
+    gh.singleton<_i1038.UpdateTaskStatusBloc>(
+        () => _i1038.UpdateTaskStatusBloc(gh<_i477.TaskUsecase>()));
+    gh.singleton<_i650.DeleteTaskBloc>(
+        () => _i650.DeleteTaskBloc(gh<_i477.TaskUsecase>()));
+    gh.singleton<_i801.DeleteTodoBloc>(
+        () => _i801.DeleteTodoBloc(gh<_i477.TaskUsecase>()));
     gh.singleton<_i865.AddBillBloc>(() => _i865.AddBillBloc(
           agencyRepository: gh<_i993.AgencyRepository>(),
           billsRepository: gh<_i17.BillsRepository>(),
