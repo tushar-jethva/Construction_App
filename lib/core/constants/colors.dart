@@ -23,3 +23,7 @@ final Color darkBlue = const Color.fromARGB(255, 17, 43, 173);
 final Color blue = const Color(0xff0E33F3);
 final Color borderColor = Color(0xffE1E1E1);
 
+//New Theme
+const Color constructionPrimary = Color(0xFFFFC107); // A strong yellow
+const Color constructionSecondary = Color(0xFF212121); // A dark grey
+const Color constructionAccent = Color(0xFFFF9800); // A vibrant orange
