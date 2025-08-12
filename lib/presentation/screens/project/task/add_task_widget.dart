@@ -31,6 +31,13 @@ class AddTaskWidget extends StatefulWidget {
 
 class _AddTaskWidgetState extends State<AddTaskWidget> {
   final formKey = GlobalKey<FormState>();
+  final TextEditingController _estQuantityController = TextEditingController();
+
+  @override
+  dispose() {
+    _estQuantityController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +181,7 @@ class _AddTaskWidgetState extends State<AddTaskWidget> {
                                 return CustomTextFormField(
                                   controller: state.progressUnit == "%"
                                       ? TextEditingController(text: '100')
-                                      : null,
+                                      : _estQuantityController,
                                   labelText: 'Est. Quantity *',
                                   hintText: 'Est. Quantity *',
                                   textInputAction: TextInputAction.next,

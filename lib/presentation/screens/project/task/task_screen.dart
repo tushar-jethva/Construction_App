@@ -7,6 +7,7 @@ import 'package:construction_mate/logic/controllers/Task/current_task/current_ta
 import 'package:construction_mate/logic/controllers/Task/delete_task/delete_task_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart';
 import 'package:construction_mate/logic/models/tasks/get_task_model.dart';
+import 'package:construction_mate/presentation/widgets/common/common_error_and_notfound_widget.dart';
 import 'package:construction_mate/utilities/extension/sized_box_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,7 +73,8 @@ class _TaskScreenState extends State<TaskScreen> {
                         );
                       },
                       itemCount: state.tasks.length)
-                  : const Text("No tasks found");
+                  : const SingleChildScrollView(
+                      child: ErrorAndNotFoundWidget(text: "No tasks found!"));
         },
       ),
     );

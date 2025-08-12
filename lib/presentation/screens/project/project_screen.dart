@@ -40,8 +40,8 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
   @override
   void initState() {
     super.initState();
-    createTutorial();
-    Future.delayed(Duration.zero, showTutorial);
+    // createTutorial();
+    // Future.delayed(Duration.zero, showTutorial);
     _projectBloc = BlocProvider.of<ProjectBloc>(context);
     _totalPaymentOutBloc = BlocProvider.of<TotalPaymentOutBloc>(context);
     _totalPaymentOutBloc.add(const TotalPaymentOutEvent.fetchTotalPayments());
@@ -154,70 +154,70 @@ class _MyProjectScreenState extends State<MyProjectScreen> {
     );
   }
 
-  void showTutorial() {
-    tutorialCoachMark.show(context: context);
-  }
+  // void showTutorial() {
+  //   tutorialCoachMark.show(context: context);
+  // }
 
-  void createTutorial() {
-    tutorialCoachMark = TutorialCoachMark(
-      targets: _createTargets(),
-      colorShadow: purple.withOpacity(0.5),
-      textSkip: "SKIP",
-      paddingFocus: 10,
-      opacityShadow: 0.5,
-      imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-      onFinish: () {
-        print("finish");
-      },
-      onClickTarget: (target) {
-        print('onClickTarget: $target');
-      },
-      onClickTargetWithTapPosition: (target, tapDetails) {
-        print("target: $target");
-        print(
-            "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
-      },
-      onClickOverlay: (target) {
-        print('onClickOverlay: $target');
-      },
-      onSkip: () {
-        print("skip");
-        return true;
-      },
-      textStyleSkip: const TextStyle(
-          color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-    );
-  }
+  // void createTutorial() {
+  //   tutorialCoachMark = TutorialCoachMark(
+  //     targets: _createTargets(),
+  //     colorShadow: purple.withOpacity(0.5),
+  //     textSkip: "SKIP",
+  //     paddingFocus: 10,
+  //     opacityShadow: 0.5,
+  //     imageFilter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+  //     onFinish: () {
+  //       print("finish");
+  //     },
+  //     onClickTarget: (target) {
+  //       print('onClickTarget: $target');
+  //     },
+  //     onClickTargetWithTapPosition: (target, tapDetails) {
+  //       print("target: $target");
+  //       print(
+  //           "clicked at position local: ${tapDetails.localPosition} - global: ${tapDetails.globalPosition}");
+  //     },
+  //     onClickOverlay: (target) {
+  //       print('onClickOverlay: $target');
+  //     },
+  //     onSkip: () {
+  //       print("skip");
+  //       return true;
+  //     },
+  //     textStyleSkip: const TextStyle(
+  //         color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+  //   );
+  // }
 
-  List<TargetFocus> _createTargets() {
-    List<TargetFocus> targets = [];
+  // List<TargetFocus> _createTargets() {   
+  //   List<TargetFocus> targets = [];
 
-    targets.add(
-      TargetFocus(
-        identify: "addProjectBtn",
-        keyTarget: addProjectBtn,
-        alignSkip: Alignment.topRight,
-        enableOverlayTab: true,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) {
-              return const Text(
-                "Create your project",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "addProjectBtn",
+  //       keyTarget: addProjectBtn,
+  //       alignSkip: Alignment.topRight,
+  //       enableOverlayTab: true,
+  //       contents: [
+  //         TargetContent(
+  //           align: ContentAlign.top,
+  //           builder: (context, controller) {
+  //             return const Text(
+  //               "Create your project",
+  //               style: TextStyle(
+  //                 color: Colors.white,
+  //                 fontSize: 16,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             );
+  //           },
+  //         ),
+  //       ],
+  //     ),
+  //   );
 
-    return targets;
-  }
+  //   return targets;
+  // }
 }
 
 class CommonButton2 extends StatelessWidget {

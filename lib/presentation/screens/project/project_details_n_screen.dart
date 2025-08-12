@@ -303,12 +303,21 @@ class _ProjectDetailsNScreenState extends State<ProjectDetailsNScreen>
                             index: 1,
                             tabController: _tabController,
                           )),
-                          Tab(
-                              child: MenuWidget(
-                            name: "Tasks",
-                            index: 2,
-                            tabController: _tabController,
-                          )),
+                          Builder(
+                            builder: (context) {
+                              try {
+                                return Tab(
+                                    child: MenuWidget(
+                                  name: "Tasks",
+                                  index: 2,
+                                  tabController: _tabController,
+                                ));
+                              } catch (e) {
+                                return Center(
+                                    child: Text('Failed to load Tasks tab'));
+                              }
+                            },
+                          ),
                           Tab(
                               child: MenuWidget(
                             name: "Materials",

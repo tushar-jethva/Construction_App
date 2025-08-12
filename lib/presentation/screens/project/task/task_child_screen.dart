@@ -1,5 +1,6 @@
 import 'package:construction_mate/logic/controllers/Building-by-id/building_by_id_bloc.dart';
 import 'package:construction_mate/logic/controllers/DateBloc/date_bloc_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
 import 'package:construction_mate/presentation/screens/project/project_screen.dart';
 import 'package:construction_mate/presentation/screens/project/task/add_task_widget.dart';
 import 'package:construction_mate/presentation/widgets/homescreen_widgets/add_material_bottom_sheet.dart';
@@ -36,6 +37,8 @@ class TaskChildScreen extends StatelessWidget {
         buttonName: 'Tasks',
         onTap: () {
           context.read<DateBlocBloc>().add(const DateBlocEvent.initalize());
+          context.read<AddTaskBloc>().add(const AddTaskEvent.initialize());
+
           openBottomSheetOfTask(
               context: context,
               isUpdate: false,

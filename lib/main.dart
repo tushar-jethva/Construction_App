@@ -322,8 +322,6 @@ class MyMultiBlocProviders extends StatelessWidget {
       ],
       child: ScreenUtilInit(
         designSize: const Size(440, 956),
-        splitScreenMode: true,
-        minTextAdapt: true,
         child: MultiBlocProvider(
           providers: [
             BlocProvider(create: (_) => DateBlocBloc()),

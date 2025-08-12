@@ -3,6 +3,7 @@ import 'package:construction_mate/core/constants/common_toast.dart';
 import 'package:construction_mate/core/constants/routes_names.dart';
 import 'package:construction_mate/core/functions/reuse_functions.dart';
 import 'package:construction_mate/logic/controllers/Task/add_task/add_task_bloc.dart';
+import 'package:construction_mate/logic/controllers/Task/add_todo/add_todo_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/delete_task/delete_task_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/get_tasks/get_tasks_bloc.dart';
 import 'package:construction_mate/logic/controllers/Task/task_by_id/task_by_id_bloc.dart';
@@ -132,6 +133,7 @@ class TaskDescriptionScren extends StatelessWidget {
             labelStyle: textTheme.titleSmall?.copyWith(color: black),
             label: 'Add To-do',
             onTap: () {
+              context.read<AddTodoBloc>().add(const AddTodoEvent.initialize());
               showModalBottomSheet(
                   context: context,
                   backgroundColor: theme.scaffoldBackgroundColor,
@@ -289,10 +291,13 @@ class TaskDescriptionedWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   TaskRowWidget(
-                                      desc: (task?.assignee?.length ?? 0) > 0
-                                          ? (task?.assignee?[0].name ?? '')
-                                          : 'No assignee'),
-                                  15.hx,
+                                    desc: (task?.assignee?.isNotEmpty ?? false)
+                                        ? task!.assignee!
+                                            .map((a) => a.name ?? '')
+                                            .join(', ')
+                                        : 'No assignee',
+                                  ),
+                                  10.hx,
                                   TaskRowWidget(
                                     desc:
                                         "${ReusableFunctions.formatDateFromDBToDDMM(isoDate: task?.startDate ?? '')} - ${ReusableFunctions.formatDateFromDBToDDMM(isoDate: task?.endDate ?? '')}",
@@ -312,7 +317,7 @@ class TaskDescriptionedWidget extends StatelessWidget {
                                       size: 18,
                                     ),
                                   ),
-                                  15.hx,
+                                  10.hx,
                                   Row(
                                     children: [
                                       TaskRowWidget(
@@ -335,7 +340,7 @@ class TaskDescriptionedWidget extends StatelessWidget {
                                                     size: 18,
                                                   ),
                                       ),
-                                      12.wx,
+                                      10.wx,
                                       BlocConsumer<UpdateTaskStatusBloc,
                                           UpdateTaskStatusState>(
                                         listener: (context, state) {
@@ -395,11 +400,12 @@ class TaskDescriptionedWidget extends StatelessWidget {
                                                           .textTheme.labelLarge
                                                           ?.copyWith(
                                                         fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w500,
                                                         color: task?.status ==
                                                                 'pending'
                                                             ? green
-                                                            : Colors
-                                                                .amberAccent,
+                                                            : Colors.orange,
                                                       ),
                                                     ),
                                             ),

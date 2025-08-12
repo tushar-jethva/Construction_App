@@ -1,4 +1,5 @@
 //---------------- top snackbar ---------------------
+import 'package:construction_mate/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,6 +19,9 @@ void showTopSnackBar(BuildContext context, String message,
         message: message,
         backgroundColor: backgroundColor,
         messageType: messageType,
+        onClose: () {
+          overlayEntry.remove();
+        },
       ),
     ),
   );
@@ -34,11 +38,13 @@ class TopSnackBar extends StatefulWidget {
   final String message;
   final Color? backgroundColor;
   final MessageType messageType;
+  final VoidCallback onClose;
 
   const TopSnackBar(
       {super.key,
       required this.message,
       this.backgroundColor = Colors.blue,
+      required this.onClose,
       required this.messageType});
 
   @override
@@ -100,35 +106,38 @@ class _TopSnackBarState extends State<TopSnackBar>
         color: Colors.transparent,
         child: Align(
           alignment: Alignment.topCenter,
-          child: Container(
-            margin:  EdgeInsets.all(10.r),
-            padding:  EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
-            decoration: BoxDecoration(
-              color: defaultBackgroundColor,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10,
-                  offset: Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _buildIcon(),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(
-                    widget.message,
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
-                    style: textTheme.titleSmall ,
-                    overflow: TextOverflow.ellipsis,
+          child: GestureDetector(
+            onTap: widget.onClose,
+            child: Container(
+              margin: EdgeInsets.all(10.r),
+              padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
+              decoration: BoxDecoration(
+                color: defaultBackgroundColor,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    offset: Offset(0, 2),
                   ),
-                ),
-              ],
+                ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildIcon(),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      widget.message,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      style: textTheme.titleSmall?.copyWith(color: white),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

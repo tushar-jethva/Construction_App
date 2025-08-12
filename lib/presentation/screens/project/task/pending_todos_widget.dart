@@ -95,20 +95,25 @@ class TodoOneWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  task?.workName ?? '',
-                  style: theme.textTheme.titleMedium?.copyWith(fontSize: 14),
-                ),
-                5.hx,
-                Text(
-                  "Assignees: ${task?.assignee?.length ?? 0}",
-                  style: theme.textTheme.labelLarge?.copyWith(fontSize: 12),
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    task?.workName ?? '',
+                    style: theme.textTheme.titleMedium?.copyWith(fontSize: 14),
+                  ),
+                  5.hx,
+                  Text(
+                    "Assignees: ${task?.assignee?.isNotEmpty == true ? [
+                        ...task!.assignee!.map((a) => a.name ?? ''),
+                      ].join(', ') : 'No assignee'}",
+                    style: theme.textTheme.labelLarge?.copyWith(fontSize: 12),
+                  ),
+                ],
+              ),
             ),
+            20.wx,
             Row(
               children: [
                 Column(

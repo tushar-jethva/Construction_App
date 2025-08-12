@@ -37,7 +37,7 @@ class AddTaskBloc extends Bloc<AddTaskEvent, AddTaskState> {
           emit(state.copyWith(
             state: RequestState.empty,
             progressUnit: value.progressUnit,
-            estQuantity: value.progressUnit == "%" ? '100' : '',
+            estQuantity: value.progressUnit == "%" ? '100' : state.progressUnit,
           ));
         },
         estQuantityChanged: (_EstQuantityChanged value) {

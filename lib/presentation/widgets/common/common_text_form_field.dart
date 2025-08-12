@@ -236,12 +236,12 @@ class CustomTextFormField extends StatelessWidget {
           fillColor: backgroundColor ?? Colors.transparent,
           alignLabelWithHint: alignLableWithHint,
           label: Text(
-            labelText.toString(),
+            hintText.toString(),
             style: theme.textTheme.titleMedium!.copyWith(color: grey),
           ),
           hintText: hintText,
           hintStyle: theme.textTheme.titleMedium!.copyWith(color: grey),
-          labelText: alignLableWithHint ? labelText : null,
+          labelText: alignLableWithHint ? hintText : null,
           labelStyle: theme?.textTheme.titleMedium?.copyWith(
               fontSize: 16.sp,
               fontWeight: FontWeight.w400,
